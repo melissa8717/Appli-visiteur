@@ -5,7 +5,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import model.User;
 
 public class uimain extends JFrame {
 	
