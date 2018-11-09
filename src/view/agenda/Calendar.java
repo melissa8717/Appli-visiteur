@@ -116,6 +116,8 @@ public class Calendar extends JPanel {
  
 		    JPanel bp = new JPanel();
 		    bp.setLayout(new GridLayout(7, 7));
+			bp.setSize(getMaximumSize());
+
 		    labs = new JButton[6][7]; // first row is days
  
 		    bp.add(new JButton("Lundi"));
@@ -164,6 +166,8 @@ public class Calendar extends JPanel {
 	  {
 	    JFrame f = new JFrame("GSB - Calendrier");
 	    Container c = f.getContentPane();
+		c.setBounds(500,50,500,500/16*9);
+
 	    c.setLayout(new FlowLayout());
 	    c.add(new Calendar());
  
