@@ -1,16 +1,11 @@
 package view;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JWindow;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.table.*;
+
+import view.agenda.SwingCalendar;
 
 public class menu extends JFrame{JMenu menu;  
 JMenuItem i1, i2, j1, j2,k1,k2,l1,l2,m1,m2;  
@@ -81,14 +76,22 @@ menu(){
 	menu = new JMenu("Déconnexion");
 	mb.add(menu);
 	
+	
+	
+	
 	//windows size
+	f.setBounds(500,50,500,500/16*9);
+
 	f.setJMenuBar(mb);  
 	f.setSize(1800,1000);  
 	f.setLayout(null);  
 	f.setVisible(true);  
 }  
-public static void main(String args[])  
-{  
-new menu();  
-}}  
+
+	public static void main(String args[])  
+	{  
+	new menu(); 
+
+		}
+	}  
 

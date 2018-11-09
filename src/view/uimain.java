@@ -16,7 +16,7 @@ public class uimain extends JFrame {
 			//private JLabel bienvenu, important, txtImportant, equipe, txtEquipe, activite, txtActivite;
 			
 			this.setBounds(500,50,500,500/16*9);
-			this.setTitle("acceuil");
+			this.setTitle("Accueil");
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setBackground(Color.pink);
 			
