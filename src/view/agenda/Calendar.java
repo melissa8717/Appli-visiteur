@@ -1,87 +1,175 @@
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.*;
+package view.agenda;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
  
-public class SwingCalendar extends JFrame {
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
  
-  DefaultTableModel model;
-  Calendar cal = new GregorianCalendar();
-  JLabel label;
+public class Calendar extends JPanel {
  
-  public SwingCalendar() {
+	/**
+         * 
+         */
+	private static final long serialVersionUID = 6411499808530678723L;
  
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setTitle("Swing Calandar");
-    this.setSize(300,200);
-    this.setLayout(new BorderLayout());
-    this.setVisible(true);
+	  /** The buttons to be displayed */
+	  protected JButton labs[][];
+ 
+	  private Date date=new Date();
+	  String[] months = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+		      "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre" };
+	  public int dom[] = { 31, 28, 31, 30, /* jan feb mar apr */
+			  31, 30, 31, 31, /* may jun jul aug */
+			  30, 31, 30, 31 /* sep oct nov dec */
+			  };
+	  /** The month choice */
+	  private JComboBox<String> monthChoice;
+ 
+	  /** The year choice */
+	  private JComboBox<String> yearChoice;
+ 
+	  Calendar(){
+		    super();
+		    buildGUI();
+		    recompute();
+		  }
+ 
+	protected void recompute() {
+		// TODO Auto-generated method stub
+		// Blank out all
+		for (int i = 0; i < 6; i++)
+		      for (int j = 0; j < 7; j++) 
+		         labs[i][j].setText("");
+ 
+		 int daysInMonth = dom[date.getMonth()];
+		 if (isLeap(date.getYear()) && date.getMonth() == 1)
+		      daysInMonth++;
+		// Blank out the labels before 1st day of month
+		    for (int i = 0; i < date.firstDayOfTheMonth(); i++) {
+		      labs[0][i].setText("");
+		    }
+ 
+		 // Fill in numbers for the day of month.
+		    for (int i = 1; i <= daysInMonth; i++) {
+		      JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
+		      b.setText(Integer.toString(i));
+		    }
  
  
-    label = new JLabel();
-    label.setHorizontalAlignment(SwingConstants.CENTER);
- 
-    JButton b1 = new JButton("<-");
-    b1.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent ae) {
-        cal.add(Calendar.MONTH, -1);
-        updateMonth();
-      }
-    });
- 
-    JButton b2 = new JButton("->");
-    b2.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent ae) {
-        cal.add(Calendar.MONTH, +1);
-        updateMonth();
-      }
-    });
- 
-    JPanel panel = new JPanel();
-    panel.setLayout(new BorderLayout());
-    panel.add(b1,BorderLayout.WEST);
-    panel.add(label,BorderLayout.CENTER);
-    panel.add(b2,BorderLayout.EAST);
+		    repaint();
+	}
  
  
-    String [] columns = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
-    model = new DefaultTableModel(null,columns);
-    JTable table = new JTable(model);
-    JScrollPane pane = new JScrollPane(table);
+	private boolean isLeap(int year) {
+		// TODO Auto-generated method stub
+		if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+		      return true;
+		return false;
+	}
  
-    this.add(panel,BorderLayout.NORTH);
-    this.add(pane,BorderLayout.CENTER);
+	private void buildGUI() {
+		getAccessibleContext().setAccessibleDescription(
+		        "Calendar not accessible yet. Sorry!");
+		    setBorder(BorderFactory.createEtchedBorder());
  
-    this.updateMonth();
+		    setLayout(new BorderLayout());
  
-  }
+		    JPanel tp = new JPanel();
+		    tp.add(monthChoice = new JComboBox<String>());
+		    for (int i = 0; i < months.length; i++)
+		      monthChoice.addItem(months[i]);
+		    monthChoice.setSelectedItem(months[date.getMonth()]);
+		    monthChoice.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent ae) {
+		        int i = monthChoice.getSelectedIndex();
+		        if (i >= 0) {
+		          date.setMonth(i);
+		          recompute();
+		        }
+		      }
+		    });
+		    monthChoice.getAccessibleContext().setAccessibleName("Months");
+		    monthChoice.getAccessibleContext().setAccessibleDescription(
+		        "Choose a month of the year");
+		    tp.add(yearChoice = new JComboBox<String>());
+		    yearChoice.setEditable(true);
+		    for (int i = date.getYear() - 5; i < date.getYear() + 5; i++)
+		      yearChoice.addItem(Integer.toString(i));
+		    yearChoice.setSelectedItem(Integer.toString(date.getYear()));
+		    yearChoice.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent ae) {
+		        int i = yearChoice.getSelectedIndex();
+		        if (i >= 0) {
+		          date.setYear(Integer.parseInt(yearChoice.getSelectedItem().toString()));
+		          recompute();
+		        }
+		      }
+		    });
+		    add(BorderLayout.CENTER, tp);
  
-  void updateMonth() {
-    cal.set(Calendar.DAY_OF_MONTH, 1);
+		    JPanel bp = new JPanel();
+		    bp.setLayout(new GridLayout(7, 7));
+		    labs = new JButton[6][7]; // first row is days
  
-    String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
-    int year = cal.get(Calendar.YEAR);
-    label.setText(month + " " + year);
+		    bp.add(new JButton("Lundi"));
+		    bp.add(new JButton("Mardi"));
+		    bp.add(new JButton("Mercredi"));
+		    bp.add(new JButton("Jeudi"));
+		    bp.add(new JButton("Vendredi"));
+		    bp.add(new JButton("Samedi"));
+		    bp.add(new JButton("Dimanche"));
+
  
-    int startDay = cal.get(Calendar.DAY_OF_WEEK);
-    int numberOfDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-    int weeks = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
+		    ActionListener dateSetter = new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+		        String num = e.getActionCommand();
+		        if (!num.equals("")) {
+		          // set the current day highlighted
+		          setDayActive(Integer.parseInt(num));
  
-    model.setRowCount(0);
-    model.setRowCount(weeks);
+		          // When this becomes a Bean, you can
+		          // fire some kind of DateChanged event here.
+		          // Also, build a similar daySetter for day-of-week btns.
+		        }
+		      }
  
-    int i = startDay-1;
-    for(int day=1;day<=numberOfDays;day++){
-      model.setValueAt(day, i/7 , i%7 );    
-      i = i + 1;
-    }
+		    };
  
-  }
  
-  public static void main(String[] arguments) {
-    JFrame.setDefaultLookAndFeelDecorated(true);
-    SwingCalendar sc = new SwingCalendar();
-  }
+ 
+		    // Construct all the buttons, and add them.
+		    for (int i = 0; i < 6; i++)
+		      for (int j = 0; j < 7; j++) {
+		        bp.add(labs[i][j] = new JButton(""));
+		        labs[i][j].addActionListener(dateSetter);
+		      }
+ 
+		    add(BorderLayout.SOUTH, bp);
+ 
+	}
+ 
+	protected void setDayActive(int parseInt) {
+		// TODO Auto-generated method stub
+ 
+	}
+ 
+	public static void main(String[] argv)
+	  {
+	    JFrame f = new JFrame("GSB - Calendrier");
+	    Container c = f.getContentPane();
+	    c.setLayout(new FlowLayout());
+	    c.add(new Calendar());
+ 
+	    f.pack();
+	    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    f.setVisible(true);
+	  }
  
 }

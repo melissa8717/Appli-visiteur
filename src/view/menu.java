@@ -5,7 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import view.agenda.SwingCalendar;
 
 public class menu extends JFrame{JMenu menu;  
 JMenuItem i1, i2, j1, j2,k1,k2,l1,l2,m1,m2;  
@@ -80,8 +79,6 @@ menu(){
 	
 	
 	//windows size
-	f.setBounds(500,50,500,500/16*9);
-
 	f.setJMenuBar(mb);  
 	f.setSize(1800,1000);  
 	f.setLayout(null);  

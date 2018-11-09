@@ -1,5 +1,6 @@
 package view;
 
+
 public class launchView {
 
 	public static void main(String[] args) {
