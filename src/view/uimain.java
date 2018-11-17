@@ -15,18 +15,18 @@ public class uimain extends JFrame {
 			
 			//private JLabel bienvenu, important, txtImportant, equipe, txtEquipe, activite, txtActivite;
 			
-			this.setBounds(500,50,500,500/16*9);
-			this.setTitle("acceuil");
+			this.setBounds(500,50,1000,1000/16*9);
+			this.setTitle("Accueil");
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setBackground(Color.pink);
 			
-			JLabel bienvenue = new JLabel("Bienvenu Copain Suisse");
-			JLabel important = new JLabel("Important");
-			JLabel txtImportant = new JLabel("vous puez trop vous ete vire, perche' stai cercando il sole nell'abisso");
+			titrePrincipale bienvenue = new titrePrincipale("Bienvenu Copain Suisse");
+			titreSecondaire important = new titreSecondaire("Important");
+			titreTertiare txtImportant = new titreTertiare("vous puez trop vous ete vire, perche' stai cercando il sole nell'abisso");
 			JLabel equipe = new JLabel("Equipe");
 			JLabel txtEquipe = new JLabel("Jaque Boulons, Richard Pastel, Liserac");
-			JLabel activite = new JLabel("Activit");
-			JLabel txtActivite = new JLabel ("manger des petit suisse, voir Martine, Vendre mes enfant, pendre un NAZI, vir un lama.");
+			JLabel activite = new JLabel("Activite");
+			Paragraphe txtActivite = new Paragraphe("manger des petit suisse, voir Martine, Vendre mes enfant, pendre un NAZI, vir un lama.");
 			
 			JPanel panel[]= {new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel()};
 			
@@ -39,15 +39,17 @@ public class uimain extends JFrame {
 			panel[7].add(txtActivite);
 			
 			for (int i = 1; i < 8; i++) {
-				panel[i].setOpaque(false);panel[0].add(panel[i]);
+				panel[i].setOpaque(false);
+				panel[0].add(panel[i]);
 			}
 			
 			BoxLayout b= new BoxLayout(panel[0], BoxLayout.Y_AXIS);
 			
 			this.setContentPane(panel[0]);
 			panel[0].setBackground(Color.green);
-			
+			panel[7].setSize(getMaximumSize());
 			this.setVisible(true);
+			panel[7].setOpaque(true);
 			
 			/*User u = new User(59);
 			

@@ -6,6 +6,7 @@ public class lunchView {
 		// TODO Auto-generated method stub
 		//menu m = new menu();
 		uimain f = new uimain();
+		acceuil a = new acceuil();
 		
 	}
 
