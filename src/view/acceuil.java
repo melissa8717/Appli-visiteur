@@ -1,0 +1,48 @@
+package view;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class acceuil {
+	public acceuil() {
+		Fenetre v = new Fenetre();
+		Conteneur c = new Conteneur();
+		
+		titrePrincipale bienvenue = new titrePrincipale("Bienvenue Copain Suisse");
+		//titreSecondaire important = new titreSecondaire("Important");
+		//Paragraphe txtImportant = new Paragraphe("vous puez trop vous ete vire, perche' stai cercando il sole nell'abisso");
+		//titreSecondaire equipe = new titreSecondaire("equipe");
+		///Paragraphe txtEquipe = new Paragraphe("manger des petit suisse, voir Martine, Vendre mes enfant, pendre un NAZI, vir un lama.");
+		//titreSecondaire activite = new titreSecondaire("activite");
+		//Paragraphe txtactivite = new Paragraphe("manger des petit suisse, voir Martine, Vendre mes enfant, pendre un NAZI, vir un lama.");
+		
+		JPanel panel[]= {new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel()};
+		
+		
+		panel[1].add(bienvenue);
+		//panel[2].add(important);
+		//panel[3].add(txtImportant);
+		//panel[4].add(equipe);
+		//panel[5].add(equipe);
+		//panel[6].add(activite);
+		//panel[7].add(txtactivite);
+		
+		panel[0].setOpaque(false);
+		for (int i = 1; i < 2; i++) {
+			panel[i].setOpaque(false);
+			panel[0].add(panel[i]);
+			BoxLayout box= new BoxLayout(panel[i], BoxLayout.Y_AXIS);
+		}
+		
+		c.add(panel[0]);
+		
+		
+		BoxLayout b= new BoxLayout(c, BoxLayout.Y_AXIS);
+		BoxLayout box= new BoxLayout(panel[0], BoxLayout.Y_AXIS);
+		
+		v.add(c);
+		v.setVisible(true);
+		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
