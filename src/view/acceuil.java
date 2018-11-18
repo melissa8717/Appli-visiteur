@@ -6,6 +6,10 @@ import javax.swing.JPanel;
 
 public class acceuil {
 	public acceuil() {
+		
+		/*
+		 * initialisation des conteneur 
+		*/
 		Fenetre v = new Fenetre();
 		Conteneur c = new Conteneur();
 		
@@ -17,9 +21,15 @@ public class acceuil {
 		//titreSecondaire activite = new titreSecondaire("activite");
 		//Paragraphe txtactivite = new Paragraphe("manger des petit suisse, voir Martine, Vendre mes enfant, pendre un NAZI, vir un lama.");
 		
+		/*
+		 * création du conteneur principal
+		*/
+		
 		JPanel panel[]= {new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel()};
 		
-		
+		/*
+		 * insertion des contenue dans les conteneur
+		*/
 		panel[1].add(bienvenue);
 		//panel[2].add(important);
 		//panel[3].add(txtImportant);
@@ -28,6 +38,10 @@ public class acceuil {
 		//panel[6].add(activite);
 		//panel[7].add(txtactivite);
 		
+		
+		/*
+		 * construction de la page 
+		 */
 		panel[0].setOpaque(false);
 		for (int i = 1; i < 2; i++) {
 			panel[i].setOpaque(false);

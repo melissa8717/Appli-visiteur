@@ -7,13 +7,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class titreSecondaire extends JPanel {
+	/*
+	 * class pour créé un titre secondaire 
+	 */
 	public titreSecondaire(String txt) {
 		Font font = new Font("Open Sans", Font.PLAIN, 36);
 		JLabel texte = new JLabel();
 		texte = new JLabel(txt , JLabel.CENTER);
 		texte.setFont(font);
 		texte.setForeground(new Color(18,62,108));
-		//this.setBounds(102,102,500,500);
 		this.setOpaque(false);
 		this.setVisible(true);
 		this.setSize(getMaximumSize());

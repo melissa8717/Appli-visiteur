@@ -10,6 +10,9 @@ import java.awt.GraphicsEnvironment;
 import javax.swing.*;
 
 public class Paragraphe extends JPanel {
+	/*
+	 * class pour créé un paragraphe
+	 */
 	public Paragraphe(String txt) {
 		Font font = new Font("Open Sans", Font.PLAIN, 18);
 		JLabel texte = new JLabel();

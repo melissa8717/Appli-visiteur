@@ -13,7 +13,7 @@ menu(){
       UIManager.put("Menu.font", p);
       UIManager.put("MenuItem.font", p);
   
-	//JFrame f= new JFrame("GSB-Intranet"); 
+	JFrame f= new JFrame("GSB-Intranet"); 
 	JMenuBar mb=new JMenuBar();
 	mb.setBackground(new Color (0,63,128));
 	mb.setForeground(Color.WHITE);
