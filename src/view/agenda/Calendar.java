@@ -1,16 +1,21 @@
 package view.agenda;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
- 
+import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.RootPaneContainer;
+
  
 public class Calendar extends JPanel {
  
@@ -115,8 +120,20 @@ public class Calendar extends JPanel {
 		    add(BorderLayout.CENTER, tp);
  
 		    JPanel bp = new JPanel();
-		    bp.setLayout(new GridLayout(7, 7));
+			/*bp.setBounds(500,50,500,500/16*9);
+			
+		
+			BoxLayout b= new BoxLayout(bp, BoxLayout.Y_AXIS);
+			
+			((RootPaneContainer) bp).setContentPane(bp);
+			bp.setBackground(Color.green);
 			bp.setSize(getMaximumSize());
+			bp.setVisible(true);
+			bp.setOpaque(true);
+
+		    bp.setLayout(new GridLayout(7, 7));
+			BoxLayout bx= new BoxLayout(bp, BoxLayout.Y_AXIS);
+			bp.setSize(getMaximumSize());*/
 
 		    labs = new JButton[6][7]; // first row is days
  
@@ -167,9 +184,11 @@ public class Calendar extends JPanel {
 	    JFrame f = new JFrame("GSB - Calendrier");
 	    Container c = f.getContentPane();
 		c.setBounds(500,50,500,500/16*9);
+		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 	    c.setLayout(new FlowLayout());
 	    c.add(new Calendar());
+	    
  
 	    f.pack();
 	    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

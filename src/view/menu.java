@@ -12,7 +12,7 @@ menu(){
 	  Font p = new Font("open-sans", Font.PLAIN, 24);
       UIManager.put("Menu.font", p);
       UIManager.put("MenuItem.font", p);
-  
+   
 	JFrame f= new JFrame("GSB-Intranet"); 
 	JMenuBar mb=new JMenuBar();
 	mb.setBackground(new Color (0,63,128));
