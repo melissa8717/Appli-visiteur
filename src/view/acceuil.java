@@ -4,14 +4,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 public class acceuil {
 	public acceuil() {
 		
 		/*
 		 * initialisation des conteneur 
 		*/
-		Fenetre v = new Fenetre();
-		Conteneur c = new Conteneur();
+		Fenetre fenetre = new Fenetre();
+		
+		Conteneur Conteneur = new Conteneur();
 		
 		titrePrincipale bienvenue = new titrePrincipale("Bienvenue Copain Suisse");
 		//titreSecondaire important = new titreSecondaire("Important");
@@ -49,14 +51,14 @@ public class acceuil {
 			BoxLayout box= new BoxLayout(panel[i], BoxLayout.Y_AXIS);
 		}
 		
-		c.add(panel[0]);
+		Conteneur.add(panel[0]);
 		
 		
-		BoxLayout b= new BoxLayout(c, BoxLayout.Y_AXIS);
+		BoxLayout b= new BoxLayout(Conteneur, BoxLayout.Y_AXIS);
 		BoxLayout box= new BoxLayout(panel[0], BoxLayout.Y_AXIS);
 		
-		v.add(c);
-		v.setVisible(true);
-		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.add(Conteneur);
+		fenetre.setVisible(true);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

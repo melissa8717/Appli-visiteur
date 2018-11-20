@@ -13,7 +13,9 @@ public class Fenetre extends JFrame {
 	
 	public Fenetre() {
 
+
 		this.setBounds(100,50,1000,1000/16*9);
+
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setTitle("Application Visiteur");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

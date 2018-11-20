@@ -7,17 +7,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class titreTertiare extends JPanel {
+
 	/*
 	 * class  pour créé un titre tertiere
 	 */
+
 	public titreTertiare(String txt) {
 		Font font = new Font("Open Sans", Font.PLAIN, 24);
 		JLabel texte = new JLabel();
 		texte = new JLabel(txt);
 		texte.setFont(font);
 		texte.setForeground(new Color(102,163,211));
-		this.setVisible(true);
 		this.setOpaque(false);
+		this.setVisible(true);
 		this.setSize(getMaximumSize());
 		this.add(texte);
 	}

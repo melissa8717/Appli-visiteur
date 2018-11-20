@@ -1,19 +1,38 @@
 package view.agenda;
 import java.awt.BorderLayout;
+<<<<<<< HEAD
+=======
+import java.awt.Color;
+>>>>>>> af554d59887cab90c2c3306accd38565f246c045
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
  
 import javax.swing.BorderFactory;
+=======
+import java.awt.Dimension;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+>>>>>>> af554d59887cab90c2c3306accd38565f246c045
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+<<<<<<< HEAD
  
 public class Calendar extends JPanel {
 
+=======
+import javax.swing.RootPaneContainer;
+
+ 
+public class Calendar extends JPanel {
+ 
+>>>>>>> af554d59887cab90c2c3306accd38565f246c045
 	/**
          * 
          */
@@ -115,8 +134,25 @@ public class Calendar extends JPanel {
 		    add(BorderLayout.CENTER, tp);
  
 		    JPanel bp = new JPanel();
+<<<<<<< HEAD
 		    bp.setLayout(new GridLayout(7, 7));
 			bp.setSize(getMaximumSize());
+=======
+			/*bp.setBounds(500,50,500,500/16*9);
+			
+		
+			BoxLayout b= new BoxLayout(bp, BoxLayout.Y_AXIS);
+			
+			((RootPaneContainer) bp).setContentPane(bp);
+			bp.setBackground(Color.green);
+			bp.setSize(getMaximumSize());
+			bp.setVisible(true);
+			bp.setOpaque(true);
+
+		    bp.setLayout(new GridLayout(7, 7));
+			BoxLayout bx= new BoxLayout(bp, BoxLayout.Y_AXIS);
+			bp.setSize(getMaximumSize());*/
+>>>>>>> af554d59887cab90c2c3306accd38565f246c045
 
 		    labs = new JButton[6][7]; // first row is days
  
@@ -167,13 +203,25 @@ public class Calendar extends JPanel {
 	    JFrame f = new JFrame("GSB - Calendrier");
 	    Container c = f.getContentPane();
 		c.setBounds(500,50,500,500/16*9);
+<<<<<<< HEAD
 
 	    c.setLayout(new FlowLayout());
 	    c.add(new Calendar());
+=======
+		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+	    c.setLayout(new FlowLayout());
+	    c.add(new Calendar());
+	    
+>>>>>>> af554d59887cab90c2c3306accd38565f246c045
  
 	    f.pack();
 	    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    f.setVisible(true);
 	  }
  
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> af554d59887cab90c2c3306accd38565f246c045
