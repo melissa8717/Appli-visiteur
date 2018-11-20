@@ -1,4 +1,4 @@
-package menuInterface;
+package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -28,14 +28,14 @@ import javax.swing.text.PlainDocument;
 public class ViewCompteRendu extends JFrame implements ActionListener,FocusListener {
 	private static final long serialVersionUID = 1L;
 	public ViewCompteRendu() {
-		ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
+		//ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
 		JScrollBar scroll = new JScrollBar();
 		this.setBounds(250,100,800,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //eteind l'appli si on ferme la page
 		setLayout(new FlowLayout());
 		this.setTitle("Compte rendu");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Fullscreen
-		this.setIconImage(img.getImage());
+		//this.setIconImage(img.getImage());
 		
 		// Initialisation des variables utiles.
 		JLabel Menu = new JLabel("Ceci sera le menu de navigation");
@@ -61,6 +61,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         JPanel espacement[]= {new JPanel(new FlowLayout(FlowLayout.LEFT))};
 
         JPanel[] panel = {new JPanel(new FlowLayout(FlowLayout.LEFT))};
+        
         //Ici nous crééons 10 JPanel et 10 espacement
         for(int i=1;i<10;i++) {
         	panel = ajoutemoi(panel, new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -76,7 +77,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         
         
         
-       String oui=" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
+       String oui =" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
        JTextArea inputArea = new JTextArea(oui,5,25);
         inputArea.setBorder(BorderFactory.createLineBorder(Color.black));
         inputArea.addFocusListener(new FocusListener() {
