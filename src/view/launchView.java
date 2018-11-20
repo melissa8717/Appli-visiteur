@@ -8,7 +8,7 @@ public class launchView {
 		// TODO Auto-generated method stub
 		//menu m = new menu();
 		uimain f = new uimain();
-		acceuil a = new acceuil();
+		Acceuil a = new Acceuil();
 		
 	}
 

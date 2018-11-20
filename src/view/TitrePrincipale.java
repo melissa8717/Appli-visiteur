@@ -6,16 +6,16 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class titreSecondaire extends JPanel {
+public class TitrePrincipale extends JPanel {
 
 	/*
-	 * class pour créé un titre secondaire 
+	 * class pour créé un titre pricipale
 	 */
 
-	public titreSecondaire(String txt) {
-		Font font = new Font("Open Sans", Font.PLAIN, 36);
+	public TitrePrincipale(String txt) {
+		Font font = new Font("Open Sans", Font.PLAIN, 60);
 		JLabel texte = new JLabel();
-		texte = new JLabel(txt , JLabel.CENTER);
+		texte = new JLabel(txt, JLabel.CENTER);
 		texte.setFont(font);
 		texte.setForeground(new Color(18,62,108));
 
@@ -25,5 +25,4 @@ public class titreSecondaire extends JPanel {
 		this.setSize(getMaximumSize());
 		this.add(texte);
 	}
-
 }

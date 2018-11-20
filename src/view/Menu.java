@@ -6,9 +6,9 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 
-public class menu extends JFrame{JMenu menu;  
+public class Menu extends JFrame{JMenu menu;  
 JMenuItem i1, i2, j1, j2,k1,k2,l1,l2,m1,m2;  
-menu(){  
+Menu(){  
 	  Font p = new Font("open-sans", Font.PLAIN, 24);
       UIManager.put("Menu.font", p);
       UIManager.put("MenuItem.font", p);
@@ -87,7 +87,7 @@ menu(){
 
 	public static void main(String args[])  
 	{  
-	new menu(); 
+	new Menu(); 
 
 		}
 	}  

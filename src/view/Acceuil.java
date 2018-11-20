@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class acceuil {
-	public acceuil() {
+public class Acceuil {
+	public Acceuil() {
 		
 		/*
 		 * initialisation des conteneur 
@@ -15,7 +15,7 @@ public class acceuil {
 		
 		Conteneur Conteneur = new Conteneur();
 		
-		titrePrincipale bienvenue = new titrePrincipale("Bienvenue Copain Suisse");
+		TitrePrincipale bienvenue = new TitrePrincipale("Bienvenue Copain Suisse");
 		//titreSecondaire important = new titreSecondaire("Important");
 		//Paragraphe txtImportant = new Paragraphe("vous puez trop vous ete vire, perche' stai cercando il sole nell'abisso");
 		//titreSecondaire equipe = new titreSecondaire("equipe");

@@ -22,9 +22,9 @@ public class uimain extends JFrame {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setBackground(Color.pink);
 			
-			titrePrincipale bienvenue = new titrePrincipale("Bienvenu Copain Suisse");
-			titreSecondaire important = new titreSecondaire("Important");
-			titreTertiare txtImportant = new titreTertiare("vous puez trop vous ete vire, perche' stai cercando il sole nell'abisso");
+			TitrePrincipale bienvenue = new TitrePrincipale("Bienvenu Copain Suisse");
+			TitreSecondaire important = new TitreSecondaire("Important");
+			TitreTertiare txtImportant = new TitreTertiare("vous puez trop vous ete vire, perche' stai cercando il sole nell'abisso");
 			JLabel equipe = new JLabel("Equipe");
 			JLabel txtEquipe = new JLabel("Jaque Boulons, Richard Pastel, Liserac");
 			JLabel activite = new JLabel("Activite");
