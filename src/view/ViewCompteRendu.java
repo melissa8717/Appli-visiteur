@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -144,25 +145,6 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         panel[5].add(nbrEchantillonsField);
         nbrEchantillonsField.setColumns(3);
         
-        
-        
-          // TODO fonction qui permet de récupérer que des int pour un input
-        nbrEchantillonsField.addKeyListener(new KeyAdapter() { //quand la personne écrit
-        	public void keyTyped(KeyEvent e) {
-        		char lettre=e.getKeyChar();		// récupère le caractère
-        		if((lettre <'0' || lettre > '9') && lettre!='\b') { // Si le caractère est autre chose qu'un nombre
-        			e.consume();	// le supprime
-        			System.out.println("lettre invalide");
-        		}
-        	}
-        });
-        nbrEchantillonsField.setDocument(new JTextFieldLimit(2));
-
-        
-        
-        
-
-        
         panel[2].add(BoxMedChoice);
         panel[4].add(BoxMotifChoice);
         
@@ -194,6 +176,20 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
     	panel[0].add(panel[9]);
         this.setContentPane(panel[0]);
         panel[0].setBackground(new java.awt.Color(102, 163, 211)); 
+        
+        
+        
+        // TODO fonction qui permet de récupérer que des int pour un input
+      nbrEchantillonsField.addKeyListener(new KeyAdapter() { //quand la personne écrit
+      	public void keyTyped(KeyEvent e) {
+      		char lettre=e.getKeyChar();		// récupère le caractère
+      		if((lettre <'0' || lettre > '9') && lettre!='\b') { // Si le caractère est autre chose qu'un nombre
+      			e.consume();	// le supprime
+      			System.out.println("lettre invalide");
+      		}
+      	}
+      });
+      nbrEchantillonsField.setDocument(new JTextFieldLimit(2));
         
         
 	}
