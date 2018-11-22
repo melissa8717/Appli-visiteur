@@ -56,7 +56,8 @@ public class Acceuil {
 		
 		BoxLayout b= new BoxLayout(Conteneur, BoxLayout.Y_AXIS);
 		BoxLayout box= new BoxLayout(panel[0], BoxLayout.Y_AXIS);
-		
+		BoxLayout boxes= new BoxLayout(fenetre, BoxLayout.Y_AXIS);
+		fenetre.add(new Menu());
 		fenetre.add(Conteneur);
 		fenetre.setVisible(true);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

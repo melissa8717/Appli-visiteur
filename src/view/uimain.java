@@ -30,7 +30,7 @@ public class uimain extends JFrame {
 			JLabel activite = new JLabel("Activite");
 			Paragraphe txtActivite = new Paragraphe("manger des petit suisse, voir Martine, Vendre mes enfant, pendre un NAZI, vir un lama.");
 			
-			JPanel panel[]= {new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel()};
+			JPanel panel[]= {new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel()};
 			
 			panel[1].add(bienvenue);
 			panel[2].add(important);
@@ -39,6 +39,7 @@ public class uimain extends JFrame {
 			panel[5].add(txtEquipe);
 			panel[6].add(activite);
 			panel[7].add(txtActivite);
+			panel[8].add(new Menu());
 			
 			for (int i = 1; i < 8; i++) {
 				panel[i].setOpaque(false);
