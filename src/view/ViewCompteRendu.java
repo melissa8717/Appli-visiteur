@@ -9,6 +9,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
+//import javafx.scene.control.DatePicker; 
 
 
 public class ViewCompteRendu extends JFrame implements ActionListener,FocusListener {
@@ -41,7 +44,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 		JLabel Menu = new JLabel("Ceci sera le menu de navigation");
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du médecin");
-        JLabel Date = new JLabel("Date de la visite");
+        JLabel Date = new JLabel("Date de la visite");        
         JLabel Motif = new JLabel("Motif de la visite");
         JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
         JLabel Echantillons = new JLabel("Nombre d'échantillons laissés au pratitien");
@@ -52,6 +55,10 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         JComboBox BoxMedChoice = new JComboBox(items);
         JComboBox BoxMotifChoice = new JComboBox(MotifItems);
         JButton Valider = new JButton("Valider");
+        
+        
+       // DatePicker datePicker = new DatePicker(); 
+       // datePicker.setValue(LocalDate.MIN); 
    
 
         Font font = new Font("Arial",Font.BOLD,20);
@@ -159,12 +166,10 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         panel[2].add(BoxMedChoice);
         panel[4].add(BoxMotifChoice);
         
-        
+        panel[3].add(input[1]);
 
         for (int i = 1; i < 9; i++) {
-        	if(i==3) {
-        		panel[i].add(input[i-2]);		
-        	}
+        	
         	panel[i].setPreferredSize(new Dimension(getWidth()/2,50));
         	if(i==5) {
         		panel[i].setPreferredSize(new Dimension(getWidth()/2,40));
