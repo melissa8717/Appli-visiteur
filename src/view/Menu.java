@@ -79,16 +79,14 @@ Menu(){
 	
 	
 	//windows size
-	f.setJMenuBar(mb);  
-	f.setSize(1800,1000);  
-	f.setLayout(null);  
-	f.setVisible(true);  
-}  
+		f.setJMenuBar(mb);  
+		f.setSize(1800,1000);  
+		f.setLayout(null);  
+		f.setVisible(true);
 
-	public static void main(String args[])  
-	{  
-	new Menu(); 
 
-		}
-	}  
+	}
+}
+	
+  
 
