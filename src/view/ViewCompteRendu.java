@@ -33,6 +33,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 	private static final long serialVersionUID = 1L;
 	public ViewCompteRendu() {
 		//ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
+		Menu menu = new Menu();
 		JScrollBar scroll = new JScrollBar();
 		this.setBounds(250,100,800,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //eteind l'appli si on ferme la page
@@ -122,12 +123,8 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         
         
         // TODO METTRE LE MENU DE NAVIGATION ICI
-        panel[0].add(espacement[0]);
-    	espacement[0].setBorder(BorderFactory.createLineBorder(Color.black));
-    	espacement[0].setBackground(Color.GRAY);
-    	espacement[0].setPreferredSize(new Dimension(getWidth(),120));
-    	espacement[0].add(Menu);
-    	
+        panel[0].add(menu);
+
 
     	
     	espacement[9].setPreferredSize(new Dimension(100,0));
