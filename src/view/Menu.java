@@ -8,6 +8,8 @@ import javax.swing.table.*;
 
 public class Menu extends JPanel{
 
+	private static final long serialVersionUID = 1L;
+
 	public Menu(){  
 		JMenu menu;  
 		JMenuItem i1, i2, j1, j2,k1,k2,l1,l2,m1,m2;

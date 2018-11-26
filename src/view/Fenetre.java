@@ -2,14 +2,14 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import java.awt.Dimension;
-import java.awt.Rectangle;
+//import java.awt.Dimension;
+//import java.awt.Rectangle;
 
 
 public class Fenetre extends JFrame {
 	
-	
+	private static final long serialVersionUID = 1L;
+
 	
 	public Fenetre() {
 

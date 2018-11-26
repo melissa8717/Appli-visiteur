@@ -12,6 +12,8 @@ public class TitrePrincipale extends JPanel {
 	 * class pour créé un titre pricipale
 	 */
 
+	private static final long serialVersionUID = 1L;
+
 	public TitrePrincipale(String txt) {
 		Font font = new Font("Open Sans", Font.PLAIN, 60);
 		JLabel texte = new JLabel();

@@ -1,10 +1,10 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
+//import java.sql.Date;
 
 public class User {
 	public String id_utilisateur;

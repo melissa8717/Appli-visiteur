@@ -12,6 +12,8 @@ public class TitreSecondaire extends JPanel {
 	 * class pour créé un titre secondaire 
 	 */
 
+	private static final long serialVersionUID = 1L;
+
 	public TitreSecondaire(String txt) {
 		Font font = new Font("Open Sans", Font.PLAIN, 36);
 		JLabel texte = new JLabel();

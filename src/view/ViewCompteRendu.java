@@ -10,31 +10,31 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.time.LocalDate;
+
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 //import javafx.scene.control.DatePicker; 
-
+//import java.time.LocalDate;
 
 public class ViewCompteRendu extends JFrame implements ActionListener,FocusListener {
 	private static final long serialVersionUID = 1L;
 	public ViewCompteRendu() {
 		//ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
 		Menu menu = new Menu();
-		JScrollBar scroll = new JScrollBar();
+		
 		this.setBounds(250,100,800,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //eteind l'appli si on ferme la page
 		setLayout(new FlowLayout());
@@ -43,7 +43,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 		//this.setIconImage(img.getImage());
 		
 		// Initialisation des variables utiles.
-		JLabel Menu = new JLabel("Ceci sera le menu de navigation");
+		
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du médecin");
         JLabel Date = new JLabel("Date de la visite");        
@@ -54,8 +54,8 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
         String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
-        JComboBox BoxMedChoice = new JComboBox(items);
-        JComboBox BoxMotifChoice = new JComboBox(MotifItems);
+        JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
+        JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
         JButton Valider = new JButton("Valider");
         
         

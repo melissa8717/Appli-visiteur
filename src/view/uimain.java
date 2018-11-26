@@ -5,12 +5,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import model.User;
+//import model.User;
 
 public class uimain extends JFrame {
 	
 
-		
+	private static final long serialVersionUID = 1L;
+
 		public uimain() {
 			
 			//private JLabel bienvenu, important, txtImportant, equipe, txtEquipe, activite, txtActivite;

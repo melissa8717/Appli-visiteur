@@ -4,12 +4,15 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import javax.swing.*;
+//import java.awt.GraphicsEnvironment;
+//import java.awt.Font;
+//import java.awt.GraphicsEnvironment;
 
 public class Paragraphe extends JPanel {
+
+	private static final long serialVersionUID = 1L;
+
 	/*
 	 * class pour créé un paragraphe
 	 */
