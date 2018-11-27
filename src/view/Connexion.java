@@ -19,10 +19,8 @@ public class Connexion {
 
 	public Connexion() {
 Fenetre fenetre = new Fenetre();
-
 		
 		int largeurConteneur = 600;
-	
 		
 		Conteneur conteneur = new Conteneur();
 		conteneur.setPreferredSize(new Dimension(largeurConteneur,375));
@@ -38,7 +36,7 @@ Fenetre fenetre = new Fenetre();
 		JTextFieldModif textFieldMdp = new JTextFieldModif(10, 12);
 		
 		JButton boutonValider = new JButton("Connexion");
-/*		boutonValider.addActionListener(new ActionListener() {
+		boutonValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String login = textFieldId.getText();
@@ -56,7 +54,7 @@ Fenetre fenetre = new Fenetre();
 				
 			}
 		});
-*/		
+		
 		JPanel ligneUne =  new JPanel();
 		ligneUne.setOpaque(false);
 		ligneUne.setPreferredSize(new Dimension(largeurConteneur, 150));
