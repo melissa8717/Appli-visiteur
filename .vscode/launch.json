@@ -1,0 +1,168 @@
+{
+    // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
+    // Pointez pour afficher la description des attributs existants.
+    // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DocsConnectionPropsHelper<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.mysql.jdbc.DocsConnectionPropsHelper",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ErrorMappingsDocGenerator<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.mysql.jdbc.util.ErrorMappingsDocGenerator",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertiesDocGenerator<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.mysql.jdbc.util.PropertiesDocGenerator",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TimezoneDump<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.mysql.jdbc.util.TimezoneDump",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VersionFSHierarchyMaker<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.mysql.jdbc.util.VersionFSHierarchyMaker",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DB_Connection<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "model.DB_Connection",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-OracleDriver<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "oracle.jdbc.OracleDriver",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-OracleSql<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "oracle.jdbc.driver.OracleSql",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SQLStateMapping<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "oracle.jdbc.driver.SQLStateMapping",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ProxyExport<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "oracle.jdbc.proxy.ProxyExport",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CharacterSetFactory<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "oracle.sql.CharacterSetFactory",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Calendrier<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "view.agenda.Calendrier",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-launchView<appliVisiteur-new>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "view.launchView",
+            "args": "",
+            "projectName": "appliVisiteur-new"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": "<debug port of remote debuggee>"
+        }
+    ]
+}
