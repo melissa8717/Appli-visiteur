@@ -8,7 +8,7 @@ public class launchView {
 		// TODO Auto-generated method stub
 		//new uimain();
 		//new Acceuil();
-		new ViewCompteRendu();
+		new PowerpointUI();
 		//new Menu();
 		
 	}

@@ -102,6 +102,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 				if (inputArea.getText().length()<10);{
 	            	  inputArea.setText(oui);
 	            	  // TODO LOl les if ne marche pas, je vais pas m'énervé 
+	            	  // Peut être parce que y a un ; de trop xD (juste après le if)
 	            	  
 	              }
 				

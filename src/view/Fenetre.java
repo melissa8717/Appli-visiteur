@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 //import java.awt.Dimension;
@@ -25,6 +26,7 @@ public class Fenetre extends JFrame {
 		fenetre.setBackground(new java.awt.Color(102, 163, 211));
 		
 		this.setVisible(true);
+		BoxLayout b= new BoxLayout(this, BoxLayout.Y_AXIS);
 	}
 	
 	public int[] ObtenirDimensionFenetre() {

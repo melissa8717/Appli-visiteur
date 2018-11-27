@@ -17,12 +17,12 @@ public class User {
 	public String password;
 	//public String codePostal;
 	
-	public User() {
-		
+	public User(String login1, String mdp) {
+		this.Read(login1, mdp);
 	}
 	
 	public User(int idUtilisateur) {
-		this.Read(idUtilisateur);
+		
 	}
 	
 	/*public User Create(String Name, String Email, String Password, String RememberToken, int UserProfile, int SupplierId) {
@@ -43,19 +43,20 @@ public class User {
 		return this;
 	}*/
 	
-	public User Read(Integer idUtilisateur){
+	public User Read(String inputLogin, String inputMdp){
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = obj_DB_Connection.get_connection();
 		PreparedStatement ps=null;
 		ResultSet rs=null;
+		
 		try {
-			String query = String.format("select * from utilisateur WHERE idUtilisateur = %d", idUtilisateur);
+			String query = String.format("select * from utilisateur WHERE login = %s AND password = %s", inputLogin, inputMdp);
 			ps = connection.prepareStatement(query);
 			//ps.setString(1, sl_no);
 			//System.out.println(ps);
 			rs=ps.executeQuery();
-			while(rs.next()){
-				id_utilisateur = idUtilisateur.toString();			
+			//while(rs.next()){
+				id_utilisateur = rs.getString("idUtilisateur");		
 				nom = rs.getString("nom");
 				prenom = rs.getString("prenom");
 				adresse = rs.getString("adresse");			
@@ -63,7 +64,7 @@ public class User {
 				role = rs.getString("role");			
 				login = rs.getString("login");
 				password = rs.getString("password");		
-			}
+			//}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
