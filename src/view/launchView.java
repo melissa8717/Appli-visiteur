@@ -8,8 +8,10 @@ public class launchView {
 		// TODO Auto-generated method stub
 		//new uimain();
 		//new Acceuil();
-		new Connexion();
+		new ViewCompteRendu();
+		//new Connexion();
 		//new Menu();
+		
 		
 	}
 

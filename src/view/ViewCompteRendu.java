@@ -26,15 +26,21 @@ import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-//import javafx.scene.control.DatePicker; 
-//import java.time.LocalDate;
+
+
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
+
+
+
 
 public class ViewCompteRendu extends JFrame implements ActionListener,FocusListener {
 	private static final long serialVersionUID = 1L;
 	public ViewCompteRendu() {
 		//ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
 		Menu menu = new Menu();
-		
 		this.setBounds(250,100,800,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //eteind l'appli si on ferme la page
 		setLayout(new FlowLayout());
@@ -44,6 +50,15 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 		
 		// Initialisation des variables utiles.
 		
+
+		
+		UtilDateModel model = new UtilDateModel();
+		JDatePanelImpl datePanel = new JDatePanelImpl(model);
+		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+		
+		
+		JLabel Menu = new JLabel("Ceci sera le menu de navigation");
+
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du médecin");
         JLabel Date = new JLabel("Date de la visite");        
@@ -58,9 +73,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
         JButton Valider = new JButton("Valider");
         
-        
-       // DatePicker datePicker = new DatePicker(); 
-       // datePicker.setValue(LocalDate.MIN); 
+ 
    
 
         Font font = new Font("Arial",Font.BOLD,20);
@@ -93,18 +106,21 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
             public void focusGained(FocusEvent e) {
               if (inputArea.getText()==oui);{
             	  inputArea.setText("");
-            	  //TODO ca setText tout quoi qu'il arrive 
-            	  //TODO Faire en sorte que si il ya moins de 10 caracteres ne pas accepter l'aréa
               }
             }
 
 			public void focusLost(FocusEvent e) {
-				if (inputArea.getText().length()<10);{
-	            	  inputArea.setText(oui);
-	            	  // TODO LOl les if ne marche pas, je vais pas m'énervé 
-	            	  // Peut être parce que y a un ; de trop xD (juste après le if)
-	            	  
-	              }
+				
+				
+	            if (inputArea.getText()!=oui && inputArea.getText().length() >= 10){
+	            	inputArea.setText("je marche <3");
+	            }
+	            else
+	            {
+	            	inputArea.setText(oui);
+	            }
+	              
+	            
 				
 			}
            });
@@ -115,7 +131,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         this.setVisible(true); //Ceci après l'initialisation des input pour éviter des bugs d'affichage à cause de setColumns
         						
         for (int i =1; i<9; i++) {
-        	//espacement[i].setBorder(BorderFactory.createLineBorder(Color.black));
+        	
         	espacement[i].setPreferredSize(new Dimension(50,50));
             espacement[i].setOpaque(false);
             panel[i].add(espacement[i-1]);
@@ -124,7 +140,17 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         
         
         // TODO METTRE LE MENU DE NAVIGATION ICI
+
+        panel[0].add(new Menu());
+       // panel[0].add(espacement[0]);
+    	//espacement[0].setBorder(BorderFactory.createLineBorder(Color.black));
+    	//espacement[0].setBackground(Color.GRAY);
+    	//espacement[0].setPreferredSize(new Dimension(getWidth(),120));
+    	//espacement[0].add(Menu);
+    	
+
         panel[0].add(menu);
+
 
 
     	
@@ -136,6 +162,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         panel[1].add(Titre);
         panel[2].add(Medecin);
         panel[3].add(Date);
+        panel[3].add(datePicker);
         panel[4].add(Motif);
         panel[6].add(Comment);
         // Le nombre d'échantillons est paticulier car on ne doit qu'accepter que les int
@@ -146,7 +173,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         panel[2].add(BoxMedChoice);
         panel[4].add(BoxMotifChoice);
         
-        panel[3].add(input[1]);
+       
 
         for (int i = 1; i < 9; i++) {
         	
