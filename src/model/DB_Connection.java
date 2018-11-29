@@ -5,18 +5,36 @@ import java.sql.DriverManager;
 
 public class DB_Connection {
 	public static final DB_Connection connectionActive = new DB_Connection();
-	public static Connection connection = null;
+	public static Connection connectionbduser = null;
+	public static Connection connectionbdmedoc = null;
 	public static void main(String[] args) {
-		connectionActive.get_connection();  
+		connectionActive.get_connection_bduser();  
 	}
-	public Connection get_connection(){
+	
+	
+	//connection a la base de donné bduser
+	public Connection get_connection_bduser(){
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");              
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/appli_visiteur?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root", "root");
+			connectionbduser = DriverManager.getConnection("jdbc:mysql:http://bdlab.gsb.lan/phpmyadmin/sql.php?db=bduserLab&table=specialitepraticien&server=1&target=&token=75fd07ac1d3b861c642e9f46e3fd15c5#PMAURL-1:sql.php?db=bduserLab&table=message&server=1&target=&token=75fd07ac1d3b861c642e9f46e3fd15c5","rootuser", "Aristee.2018..//");
 		} catch (Exception e) {
 			System.out.println("Erreur : " + e);
 		}
 		
-		return connection;
+		return connectionbduser;
 	}
+	
+	
+	//connection a la base de donnée bdmedoc 
+	public Connection get_connection_bdmedoc(){
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");              
+			connectionbdmedoc = DriverManager.getConnection("jdbc:mysql:http://bdlab.gsb.lan/phpmyadmin/index.php?db=bduserLab&table=message&target=sql.php&token=865360e8f5e9efd46199b406cd85b0ef#PMAURL-18:db_structure.php?db=bdmedocLab&table=&server=1&target=&token=865360e8f5e9efd46199b406cd85b0ef","rootmedoc", "Aristee.2018..//");
+		} catch (Exception e) {
+			System.out.println("Erreur : " + e);
+		}
+		
+		return connectionbdmedoc;
+	}
+	
 }
