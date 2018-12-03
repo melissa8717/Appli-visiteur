@@ -40,7 +40,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 	private static final long serialVersionUID = 1L;
 	public ViewCompteRendu() {
 		//ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
-		Menu menu = new Menu();
+
 		this.setBounds(250,100,800,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //eteind l'appli si on ferme la page
 		setLayout(new FlowLayout());
@@ -57,7 +57,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 		
 		
-		JLabel Menu = new JLabel("Ceci sera le menu de navigation");
+		
 
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du médecin");
@@ -147,9 +147,6 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
     	//espacement[0].setBackground(Color.GRAY);
     	//espacement[0].setPreferredSize(new Dimension(getWidth(),120));
     	//espacement[0].add(Menu);
-    	
-
-        panel[0].add(menu);
 
 
 
