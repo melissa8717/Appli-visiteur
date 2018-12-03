@@ -45,7 +45,7 @@ public class User {
 	
 	public User Read(String inputLogin, String inputMdp){
 		DB_Connection obj_DB_Connection = new DB_Connection();
-		Connection connection = obj_DB_Connection.get_connection();
+		Connection connection = obj_DB_Connection.get_connection_bduser();
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		
