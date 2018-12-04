@@ -60,14 +60,14 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 		JLabel Menu = new JLabel("Ceci sera le menu de navigation");
 
 		JLabel Titre = new JLabel("Compte Rendu");
-        JLabel Medecin = new JLabel("Choix du médecin");
+        JLabel Medecin = new JLabel("Choix du mï¿½decin");
         JLabel Date = new JLabel("Date de la visite");        
         JLabel Motif = new JLabel("Motif de la visite");
         JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
-        JLabel Echantillons = new JLabel("Nombre d'échantillons laissés au pratitien");
+        JLabel Echantillons = new JLabel("Nombre d'ï¿½chantillons laissï¿½s au pratitien");
         JTextField input[] = {new JTextField(),new JTextField(),new JTextField(),new JTextField(),new JTextField()};
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
-        String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
+        String[] items = {"Mï¿½decin1", "Mï¿½decin2", "Mï¿½decin3", "Mï¿½decin4"};
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
         JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
@@ -84,7 +84,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 
         JPanel[] panel = {new JPanel(new FlowLayout(FlowLayout.LEFT))};
         
-        //Ici nous crééons 10 JPanel et 10 espacement
+        //Ici nous crï¿½ï¿½ons 10 JPanel et 10 espacement
         for(int i=1;i<10;i++) {
         	panel = ajoutemoi(panel, new JPanel(new FlowLayout(FlowLayout.LEFT)));
         	espacement = ajoutemoi(espacement, new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -99,12 +99,12 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         
         
         
-       String oui =" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
+       String oui =" Insï¿½rez vos commentaires ici... \n\n (10 caractï¿½res minimum)";
        JTextArea inputArea = new JTextArea(oui,5,25);
         inputArea.setBorder(BorderFactory.createLineBorder(Color.black));
         inputArea.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
-              if (inputArea.getText()==oui);{
+              if (inputArea.getText()==oui){
             	  inputArea.setText("");
               }
             }
@@ -128,7 +128,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 
       
    
-        this.setVisible(true); //Ceci après l'initialisation des input pour éviter des bugs d'affichage à cause de setColumns
+        this.setVisible(true); //Ceci aprï¿½s l'initialisation des input pour ï¿½viter des bugs d'affichage ï¿½ cause de setColumns
         						
         for (int i =1; i<9; i++) {
         	
@@ -165,7 +165,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         panel[3].add(datePicker);
         panel[4].add(Motif);
         panel[6].add(Comment);
-        // Le nombre d'échantillons est paticulier car on ne doit qu'accepter que les int
+        // Le nombre d'ï¿½chantillons est paticulier car on ne doit qu'accepter que les int
         panel[5].add(Echantillons);
         panel[5].add(nbrEchantillonsField);
         nbrEchantillonsField.setColumns(3);
@@ -204,11 +204,11 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         
         
         
-        // TODO fonction qui permet de récupérer que des int pour un input
-      nbrEchantillonsField.addKeyListener(new KeyAdapter() { //quand la personne écrit
+        // TODO fonction qui permet de rï¿½cupï¿½rer que des int pour un input
+      nbrEchantillonsField.addKeyListener(new KeyAdapter() { //quand la personne ï¿½crit
       	public void keyTyped(KeyEvent e) {
-      		char lettre=e.getKeyChar();		// récupère le caractère
-      		if((lettre <'0' || lettre > '9') && lettre!='\b') { // Si le caractère est autre chose qu'un nombre
+      		char lettre=e.getKeyChar();		// rï¿½cupï¿½re le caractï¿½re
+      		if((lettre <'0' || lettre > '9') && lettre!='\b') { // Si le caractï¿½re est autre chose qu'un nombre
       			e.consume();	// le supprime
       			System.out.println("lettre invalide");
       		}
@@ -224,17 +224,17 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 	private JPanel[] ajoutemoi(JPanel[] MonArray, JPanel NouveauPanel) {
 		/*
 		 * 
-		 * Fonction qui sert à rajouter des éléments dans un tableau. (ici nous ajoutons des JPanels) 
+		 * Fonction qui sert ï¿½ rajouter des ï¿½lï¿½ments dans un tableau. (ici nous ajoutons des JPanels) 
 		 * 
 		 */
             int newSize = MonArray.length + 1;
             JPanel[] tempArray = new JPanel[ newSize ];
-            //Nous crééons un array temporaire avec la taille de l'array actuelle
+            //Nous crï¿½ï¿½ons un array temporaire avec la taille de l'array actuelle
             
             for (int i=0; i < MonArray.length; i++)
             {
                 tempArray[i] = MonArray[i];
-                //Pour chaque élément dans mon array, on ajoute l'élément dans la nouvelle array temporaire
+                //Pour chaque ï¿½lï¿½ment dans mon array, on ajoute l'ï¿½lï¿½ment dans la nouvelle array temporaire
             }
             tempArray[newSize- 1] = NouveauPanel; //Ici on ajoute le nouveau Jpanel dans l'array
             return tempArray;   // on retourne notre nouvelle array
@@ -247,7 +247,7 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 	
 	class JTextFieldLimit extends PlainDocument {
 		/*
-		*	Classe permettant de limiter le nombre de caractère dans un JtextField
+		*	Classe permettant de limiter le nombre de caractï¿½re dans un JtextField
 		*
 		*/
 		private static final long serialVersionUID = 1L;
