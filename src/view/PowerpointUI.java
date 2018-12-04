@@ -48,7 +48,7 @@ public class PowerpointUI extends JFrame {
 				System.out.println("Debut generation PowerPoint");
 
 			}
-		});
+		}); 
 		
 		/* Ajout menu */
 		Menu menu = new Menu();
