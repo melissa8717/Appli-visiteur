@@ -1,7 +1,5 @@
 package view;
 
-
-
 public class launchView {
 
 	public static void main(String[] args) {
@@ -10,8 +8,8 @@ public class launchView {
 		//new Acceuil();
 		//new ViewCompteRendu();
 		new Connexion();
+
 		//new Menu();
-		
 		
 	}
 
