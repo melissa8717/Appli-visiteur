@@ -11,7 +11,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 
 import javax.swing.JButton;
@@ -27,7 +27,8 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-
+import controller.connectionControleur;
+import model.User;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -294,8 +295,35 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
-	}
-
+	}/*
 	
+	//action du bouton
+	
+	Valider.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			try {
+			
+				
+				
+				if(controller.connectionControleur.testCredancial(id_rapport,date,commentaire,echantillon,id_utilisateur)) {
+					
+					System.out.println("on est connecté ");
+				}
+				else {
+					System.out.println("on est pas connecté");
+				}
+			}
+			catch(Exception exception) {
+				System.out.println(exception);
+			}
+			
+		}
+
+		
+		}
+	items.getText();
+	});
+
+	*/
 
 }

@@ -33,7 +33,7 @@ public class PowerpointUI extends JFrame {
 		JPanel dispositions = new JPanel();
 		dispositions.setPreferredSize(new Dimension(1000, 50));
 
-		// Liste des mÃ©dicaments
+		// Liste des médicaments
 		JPanel liste_medicaments = new JPanel();
 		liste_medicaments.setPreferredSize(new Dimension(250, 300));
 
@@ -126,7 +126,7 @@ public class PowerpointUI extends JFrame {
 		panel3.setOpaque(false);
 		panel3.add(liste);
 		
-		/* Ajout titre */
+		/* Ajout titre */  
 
 		conteneurTitre.add(title_panel);
 		liste_medicaments.add(liste);

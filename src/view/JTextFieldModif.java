@@ -1,4 +1,4 @@
-package view;
+ package view;
 
 import java.awt.Font;
 import javax.swing.JTextField;
