@@ -63,7 +63,8 @@ public class User {
 				ville = rs.getString("ville");			
 				role = rs.getString("role");			
 				login = rs.getString("login");
-				password = rs.getString("password");		
+				password = rs.getString("password");	
+				System.out.println("je marche");
 			//}
 		} catch (Exception e) {
 			System.out.println(e);
