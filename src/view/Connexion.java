@@ -14,7 +14,7 @@ import javax.swing.JButton;
 public class Connexion {
 
 	public Connexion() {
-Fenetre fenetre = new Fenetre();
+		Fenetre fenetre = new Fenetre();
 		
 		int largeurConteneur = 600;
 		

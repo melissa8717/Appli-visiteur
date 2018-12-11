@@ -1,19 +1,17 @@
 package controller;
 import model.User;
+import view.ViewCompteRendu;
 import model.CompteRendu;
 
 
 public class SaisieCompteRendu {
-	public String id_rapport;
-	public String date;
-	public String bilan;
-	public String motif;
-	public String id_utilisateur;
+
 	
 	public User curentUser;
+	
 
-		public SaisieCompteRendu() {
-			super();
+		public SaisieCompteRendu(String id_rapport, String date, String bilan, String motif, String id_utilisateur) {
+			super(id_rapport, date, bilan, motif,   id_utilisateur);
 	
 		
 	}

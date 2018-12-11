@@ -41,7 +41,8 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 	private static final long serialVersionUID = 1L;
 	public ViewCompteRendu() {
 		//ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
-
+		
+		
 		this.setBounds(250,100,800,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //eteind l'appli si on ferme la page
 		setLayout(new FlowLayout());
@@ -73,6 +74,27 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
         JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
         JButton Valider = new JButton("Valider");
+        
+		Valider.addActionListener(new ActionListener() {
+			public void actionPerformed1(ActionEvent e) {
+				try {
+					
+					
+				}
+				catch(Exception exception) {
+					System.out.println(exception);
+				}
+				
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+
         
  
    
@@ -295,7 +317,9 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
-	}/*
+	}
+
+	/*
 	
 	//action du bouton
 	
