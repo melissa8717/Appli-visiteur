@@ -40,7 +40,7 @@ public class CreationPowerPoint extends JPanel {
 
 		JPanel panel3 =  new JPanel(new GridLayout());
 
-		JButton buttonGenerate = new JButton("GÃ©nÃ©rer un PowerPoint");
+		JButton buttonGenerate = new JButton("Générer un PowerPoint");
 
 		buttonGenerate.addActionListener(new ActionListener() {
 			@Override
