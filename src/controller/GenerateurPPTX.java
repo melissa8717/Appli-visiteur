@@ -23,18 +23,18 @@ import org.apache.poi.xslf.usermodel.XSLFTextShape;
 
 public class GenerateurPPTX {
 	
-	public GenerateurPPTX(String Dispo) throws IOException {
-		//créer un nouveau Slide Show vide
+	public GenerateurPPTX(String Dispo,String NomMedoc) throws IOException {
+		
 		String path= "/Desktop/Unfichier.pptx";
 		File Background =new File("img/fond_transp.png");
-		String NomMedoc="doliprane 500mg";
+		
 		File ImgMedoc =new File("img/doliprane.png");
 		File file =new File(System.getProperty("user.home") + path);
 		
 			newFile(file);
 		
-		String TextMedoc="Le doliprane c'est pour le mal de tête tu savais ou pas ? plus précisément c'est un anti-douleur, il fait 500mg ca veut dire que c'est plus petit que 1000 par exemple ";
-		String TextMedoc2="Le saviez-vous ? le doliprane faut pas en prendre 3 dans la meme minute";
+		String TextMedoc="Le doliprane c'est pour le mal de tÃªte tu savais ou pas ? plus prÃ©cisÃ©ment c'est un anti-douleur, il fait 500mg ca veut dire que c'est plus petit que 1000 par exemple ";
+		String TextMedoc2="Le saviez-vous ? le doliprane faut pas en prendre 3 dans la mÃªme minute";
 		
 		if (Dispo=="1") {
 			Dispo1(file,NomMedoc,TextMedoc,TextMedoc2,ImgMedoc,Background);
@@ -59,7 +59,7 @@ public class GenerateurPPTX {
 		   }
 	
 	public static void newFile(File file) throws IOException {
-		 //créer un objet FileOutputStream pour enregistrer le document PPT
+		 //crÃ©er un objet FileOutputStream pour enregistrer le document PPT
 		 XMLSlideShow xml = new XMLSlideShow();
 	     FileOutputStream fis = new FileOutputStream(file);
 	     //sauvegarder le fichier
@@ -67,7 +67,7 @@ public class GenerateurPPTX {
 
 	     
 	     System.out.println(file);
-	     System.out.println("Fichier enregistré");
+	     System.out.println("Fichier enregistrÃ©");
 	     fis.close();
 	     xml.close();
 	      
@@ -128,10 +128,10 @@ public class GenerateurPPTX {
 	      
 	      
 	    
-	      //ajouter des slides à la présentation
+	      //ajouter des slides Ã  la prÃ©sentation
 	      FileOutputStream fis = new FileOutputStream(fichier);
 	      xml.write(fis);
-	      System.out.println("texte ajouté");
+	      System.out.println("texte ajoutÃ©");
 	      fis.close();
 	      xml.close();
 	   }
@@ -145,17 +145,17 @@ public class GenerateurPPTX {
 
 		 byte[] picture = IOUtils.toByteArray(new FileInputStream(img));
 	      
-	      //ajouter l'image à la présentation
+	      //ajouter l'image ï¿½ la prÃ©sentation
 	      PictureData picdata = xml.addPicture(picture, PictureData.PictureType.PNG);
 	      
 	      
-	      //créer un slide pour cette image ajoutée
+	      //crÃ©er un slide pour cette image ajoutÃ©e
 	     XSLFPictureShape pic = slide.createPicture(picdata);
 	     
-	     // on prend notre image pour récupérer ses dimentions, car getWidth n'existe pas, on transforme les dimentions en string
+	     // on prend notre image pour rÃ©cupÃ©rer ses dimentions, car getWidth n'existe pas, on transforme les dimentions en string
 	     String stringAnchor= pic.getAnchor().toString();
 	     
-	     //Permet de récupérer la largeur de l'image, via les dimentions transformer en string
+	     //Permet de rÃ©cupÃ©rer la largeur de l'image, via les dimentions transformer en string
 	     int widthImg =Integer.parseInt(stringAnchor.substring(stringAnchor.indexOf('w',7)+2,stringAnchor.indexOf('.',stringAnchor.indexOf('w',7))));
 	     int heightImg=Integer.parseInt(stringAnchor.substring(stringAnchor.indexOf('h')+2,stringAnchor.indexOf('.',stringAnchor.indexOf('h'))));
 
@@ -167,17 +167,17 @@ public class GenerateurPPTX {
 	     if(position=="centre") {
 	     // Pour le centre il faut diviser width et height de la slide par 2 moins la width et la height de l'image
 	     pic.setAnchor(new Rectangle((widthSlide-widthImg)/2,(heightSlide-heightImg)/2,widthImg,heightImg));
-	     System.out.println("Image ajoutée et centrée !");
+	     System.out.println("Image ajoutÃ©e et centrÃ©e !");
 	     
 	     }
 	     if(position=="gauche") {
 	    	 pic.setAnchor(new Rectangle(10,(heightSlide-heightImg)/2,widthImg,heightImg));
-		     System.out.println("Image ajoutée et positionée à gauche !");
+		     System.out.println("Image ajoutÃ©e et positionÃ©e Ã  gauche !");
 		  
 	     }
 	     if(position=="droite") {
 	    	 pic.setAnchor(new Rectangle(widthSlide-widthImg-10,(heightSlide-heightImg)/2,widthImg,heightImg));
-		     System.out.println("Image ajoutée et positionée à droite !");
+		     System.out.println("Image ajoutÃ©e et positionÃ©e Ã  droite !");
 
 	     }
 	     if(position=="Background") {
@@ -209,7 +209,7 @@ public class GenerateurPPTX {
 			modifSlide(file,NomMedoc,TextMedoc2,2,"gauche");
 			newSlideImg(file,imgMedoc,"droite",2);
 			//slide 4
-			modifSlide(file,"\n\n\nC'était la présentation de "+NomMedoc+" merci pour votre attention !","",3,"gauche");
+			modifSlide(file,"\n\n\nC'Ã©tait la prÃ©sentation de "+NomMedoc+" merci pour votre attention !","",3,"gauche");
 			
 		 
 	 }
@@ -230,7 +230,7 @@ public class GenerateurPPTX {
 		modifSlide(file,NomMedoc,TextMedoc2,2,"droite");
 		newSlideImg(file,imgMedoc,"gauche",2);
 		//slide 4
-		modifSlide(file,"\n\n\nC'était la présentation de "+NomMedoc+" merci pour votre attention !","",3,"droite");
+		modifSlide(file,"\n\n\nC'ï¿½tait la prï¿½sentation de "+NomMedoc+" merci pour votre attention !","",3,"droite");
 				
 			 
 		 }
@@ -244,7 +244,7 @@ public class GenerateurPPTX {
 		 modifSlide(file,NomMedoc,"",1,"droite");
 		 newSlideImg(file,imgMedoc,"centre",1);
 		 //slide 3
-		 modifSlide(file,"\n\n\nC'était la présentation de "+NomMedoc+" merci pour votre attention !","",2,"droite");
+		 modifSlide(file,"\n\n\nC'ï¿½tait la prï¿½sentation de "+NomMedoc+" merci pour votre attention !","",2,"droite");
 		 
 	 }
 	 public static void Dispo4(File file,String NomMedoc,String TextMedoc,String TextMedoc2,File imgBackground) throws IOException{
@@ -259,7 +259,7 @@ public class GenerateurPPTX {
 		//slide 3
 		modifSlide(file,NomMedoc,TextMedoc2,2,"centre");
 		//slide 4
-		modifSlide(file,"\n\n\nC'était la présentation de "+NomMedoc+" merci pour votre attention !","",3,"centre");
+		modifSlide(file,"\n\n\nC'ï¿½tait la prï¿½sentation de "+NomMedoc+" merci pour votre attention !","",3,"centre");
 		 
 	 }
 			

@@ -40,24 +40,9 @@ public class CreationPowerPoint extends JPanel {
 
 		JPanel panel3 =  new JPanel(new GridLayout());
 
-		JButton buttonGenerate = new JButton("G�n�rer un PowerPoint");
+		JButton buttonGenerate = new JButton("Générer un PowerPoint");
 
-		buttonGenerate.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Debut generation PowerPoint");
-				System.out.println("c'est sens� marcher");
-				try {
-					new GenerateurPPTX("1");
-					System.out.println("C'est bon chef !");
-				} catch (IOException e) {
-					System.out.println("Bobo");
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			} 
-		}); 
+
 		
 		TitrePrincipale titre = new TitrePrincipale("PowerPoint Generator");
 
@@ -65,18 +50,12 @@ public class CreationPowerPoint extends JPanel {
 		disposition_label.setOpaque(false);
 		dispositions.add(disposition_label);
 		
-		Checkbox disposition_1 = new Checkbox("1", null, true);
-		dispositions.add(disposition_1);
-
-		Checkbox disposition_2 = new Checkbox("2");
-		dispositions.add(disposition_2);
-
-		Checkbox disposition_3 = new Checkbox("3");
-		dispositions.add(disposition_3);
-
-		Checkbox disposition_4 = new Checkbox("4");
-		dispositions.add(disposition_4);
-
+		
+		String[] dispo= {"1","2","3","4"};
+		JComboBox<?> ListeDisposition = new JComboBox<String>(dispo);
+		dispositions.add(ListeDisposition);
+		
+		
 		Character[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 		
 		JComboBox<?> liste = new JComboBox<Character>(alphabet);
@@ -108,7 +87,23 @@ public class CreationPowerPoint extends JPanel {
 				popup.add(conteneur_popup);
 			}
 		});
-
+		buttonGenerate.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Debut generation PowerPoint");
+				System.out.println("c'est sensé marcher");
+				try {
+					System.out.println("La disposition "+ListeDisposition.getSelectedItem().toString()+" a été sélectionnée");
+					new GenerateurPPTX(ListeDisposition.getSelectedItem().toString(),label_medicament_selectionne.getText());
+					System.out.println("C'est bon chef !");
+				} catch (IOException e) {
+					System.out.println("Bobo");
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			} 
+		}); 
 		JLabel nom = new JLabel("Inspecteur Gadget");
 		panel2.setOpaque(false);
 		panel2.add(nom); panel2.add(buttonGenerate);

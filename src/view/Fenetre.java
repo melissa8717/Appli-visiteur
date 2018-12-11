@@ -105,7 +105,7 @@ public class Fenetre extends JFrame {
         JMenu menu3 = new JMenu("Power Point");
         JMenu menu4 = new JMenu("Messagerie"); 
         JMenu menu5 = new JMenu("Agenda");
-        JMenu menu6 = new JMenu("Informations M�decins");
+        JMenu menu6 = new JMenu("Informations Médecins");
         JMenu menu7 = new JMenu("Utilisateurs");
         JMenu menu8 = new JMenu("Deconnexion");
         menu1.addMenuListener(new MenuListener(){
@@ -154,7 +154,7 @@ public class Fenetre extends JFrame {
         // Creation des elements du sous-menu + declaration de l'event pour changer l'interface
         JMenuItem item_compte_rendu1 = new JMenuItem("Saisie");     
         JMenuItem item_compte_rendu2 = new JMenuItem("Consultation");
-        JMenuItem item_power_point1 = new JMenuItem("Cr�ation");
+        JMenuItem item_power_point1 = new JMenuItem("Création");
         JMenuItem item_power_point2 = new JMenuItem("Consultation");
         JMenuItem item_messagerie1 = new JMenuItem("Ecrire un message");
         JMenuItem item_messagerie2 = new JMenuItem("Consultation");
