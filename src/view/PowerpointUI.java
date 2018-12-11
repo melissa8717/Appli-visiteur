@@ -101,7 +101,7 @@ public class PowerpointUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String x = String.valueOf(liste.getSelectedItem());
-				Fenetre popup = new Fenetre("popup", 200, 300);
+				//Fenetre popup = new Fenetre("popup", 200, 300);
 				Conteneur conteneur_popup = new Conteneur();
 				List<String> medicaments_list = new ArrayList<String>();
 				for (int i = 0; i < 10; i++) {
@@ -118,7 +118,7 @@ public class PowerpointUI extends JFrame {
 					}
 				});
 				conteneur_popup.add(liste_medicaments);
-				popup.add(conteneur_popup);
+			//	popup.add(conteneur_popup);
 			}
 		});
 
