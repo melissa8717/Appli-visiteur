@@ -14,8 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
+
 public class Connexion extends JPanel {
-	public Connexion() {		
+	public Connexion() {
 		int largeurConteneur = 600;
 		
 		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
@@ -34,8 +35,13 @@ public class Connexion extends JPanel {
 				try {
 					String login = textFieldId.getText();
 					String mdp = textFieldMdp.getText();
-					if(isConnected(login, mdp)) {
-						System.out.println("La méthode isConnected retourne TRUE");
+
+					if(controller.connectionControleur.testCredancial(login, mdp)) {
+						User currentUser = connectionControleur.setConnection(login, mdp);
+						new Acceuil();
+						fenetre.setVisible(false);
+						System.out.println("on est connecté ");
+
 					}
 					else {
 						System.out.println("La méthode isConnected retourne FALSE");
