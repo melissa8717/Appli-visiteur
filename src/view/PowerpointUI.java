@@ -25,6 +25,8 @@ public class PowerpointUI extends JFrame {
 		Conteneur conteneurTitre = new Conteneur();
 		Conteneur conteneurPowerpointUI = new Conteneur();
 		conteneurPowerpointUI.setPreferredSize(new Dimension(1000, 500));
+
+		System.out.println(getWidth());
 		
 		JPanel title_panel =  new JPanel();
 		JPanel panel2 =  new JPanel();
@@ -52,6 +54,7 @@ public class PowerpointUI extends JFrame {
 
 			} 
 		}); 
+		
 		
 		/* Ajout menu */
 		Menu menu = new Menu();
