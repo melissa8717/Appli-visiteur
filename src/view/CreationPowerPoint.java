@@ -2,31 +2,24 @@ package view;
 
 import java.awt.Checkbox;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
-import javax.swing.DefaultComboBoxModel;
-
-public class PowerpointUI extends JFrame {
-	
-	public PowerpointUI() {
-		Fenetre fenetrePowerpointUI = new Fenetre();
+public class CreationPowerPoint extends JPanel {
+	public CreationPowerPoint() {
 		Conteneur conteneurTitre = new Conteneur();
 		Conteneur conteneurPowerpointUI = new Conteneur();
 		conteneurPowerpointUI.setPreferredSize(new Dimension(1000, 500));
-
-		System.out.println(getWidth());
 		
 		JPanel title_panel =  new JPanel();
 		JPanel panel2 =  new JPanel();
@@ -51,28 +44,12 @@ public class PowerpointUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Debut generation PowerPoint");
-
 			} 
 		}); 
-		
-		
-		/* Ajout menu */
-		Menu menu = new Menu();
-		JPanel panel_menu = new JPanel();
-		panel_menu.add(menu);
-		
-
-		
 		
 		TitrePrincipale title = new TitrePrincipale("PowerPoint Generator");
 		title_panel.setOpaque(false);
 		title_panel.add(title);
-
-
-		// setLayout(new GridLayout(1, 3));
-		// add(new Checkbox("one", null, true));
-		// add(new Checkbox("two"));
-		// add(new Checkbox("three"));
 
 		JLabel disposition_label = new JLabel("Disposition");
 		disposition_label.setOpaque(false);
@@ -101,7 +78,7 @@ public class PowerpointUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String x = String.valueOf(liste.getSelectedItem());
-				Fenetre popup = new Fenetre("popup", 200, 300);
+				JFrame popup = new JFrame("popup");
 				Conteneur conteneur_popup = new Conteneur();
 				List<String> medicaments_list = new ArrayList<String>();
 				for (int i = 0; i < 10; i++) {
@@ -130,7 +107,6 @@ public class PowerpointUI extends JFrame {
 		panel3.add(liste);
 		
 		/* Ajout titre */  
-
 		conteneurTitre.add(title_panel);
 		liste_medicaments.add(liste);
 		liste_medicaments.add(label_medicament_selectionne);
@@ -139,9 +115,7 @@ public class PowerpointUI extends JFrame {
 		conteneurPowerpointUI.add(powerpoint_builder);
 		conteneurPowerpointUI.add(panel2);
 		conteneurPowerpointUI.add(panel3);
-		fenetrePowerpointUI.add(panel_menu);
-		fenetrePowerpointUI.add(conteneurTitre);
-		fenetrePowerpointUI.add(conteneurPowerpointUI);
-		
+		this.add(conteneurTitre);
+		this.add(conteneurPowerpointUI);
 	}
 }
