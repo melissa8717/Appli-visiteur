@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 
 public class CreationPowerPoint extends JPanel {
 	public CreationPowerPoint() {
-		Conteneur conteneurTitre = new Conteneur();
 		Conteneur conteneurPowerpointUI = new Conteneur();
 		conteneurPowerpointUI.setPreferredSize(new Dimension(1000, 500));
 		
@@ -47,9 +46,7 @@ public class CreationPowerPoint extends JPanel {
 			} 
 		}); 
 		
-		TitrePrincipale title = new TitrePrincipale("PowerPoint Generator");
-		title_panel.setOpaque(false);
-		title_panel.add(title);
+		TitrePrincipale titre = new TitrePrincipale("PowerPoint Generator");
 
 		JLabel disposition_label = new JLabel("Disposition");
 		disposition_label.setOpaque(false);
@@ -78,7 +75,7 @@ public class CreationPowerPoint extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String x = String.valueOf(liste.getSelectedItem());
-				JFrame popup = new JFrame("popup");
+				Popup popup = new Popup("popup", 500, 200);
 				Conteneur conteneur_popup = new Conteneur();
 				List<String> medicaments_list = new ArrayList<String>();
 				for (int i = 0; i < 10; i++) {
@@ -107,7 +104,6 @@ public class CreationPowerPoint extends JPanel {
 		panel3.add(liste);
 		
 		/* Ajout titre */  
-		conteneurTitre.add(title_panel);
 		liste_medicaments.add(liste);
 		liste_medicaments.add(label_medicament_selectionne);
 		conteneurPowerpointUI.add(dispositions);
@@ -115,7 +111,7 @@ public class CreationPowerPoint extends JPanel {
 		conteneurPowerpointUI.add(powerpoint_builder);
 		conteneurPowerpointUI.add(panel2);
 		conteneurPowerpointUI.add(panel3);
-		this.add(conteneurTitre);
+		this.add(titre);
 		this.add(conteneurPowerpointUI);
 	}
 }

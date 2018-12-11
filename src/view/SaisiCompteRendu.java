@@ -17,7 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -35,20 +34,11 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 public class SaisiCompteRendu extends JPanel implements ActionListener,FocusListener {
 	private static final long serialVersionUID = 1L;
 	public SaisiCompteRendu() {
-		// //ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
-
-		// this.setBounds(250,100,800,500);
-		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //eteind l'appli si on ferme la page
-		// setLayout(new FlowLayout());
-		// this.setTitle("Compte rendu");
-		// this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Fullscreen
-		// //this.setIconImage(img.getImage());
-		
-		// // Initialisation des variables utiles.
-		
 		UtilDateModel model = new UtilDateModel();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+		
+		TitrePrincipale titre_page = new TitrePrincipale("Saisie Compte Rendu");
 		
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du m�decin");
@@ -71,7 +61,6 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
 
         JPanel[] panel = {new JPanel(new FlowLayout(FlowLayout.LEFT))};
         
-        //Ici nous cr��ons 10 JPanel et 10 espacement
         for(int i = 1;i<10;i++) {
         	panel = ajoutemoi(panel, new JPanel(new FlowLayout(FlowLayout.LEFT)));
         	espacement = ajoutemoi(espacement, new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -79,7 +68,6 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         
         for (int i=0;i<5;i++) {
         	input[i].setColumns(20);
-        	//re dimentionne la taille des inputs
         }
         
        	String oui =" Ins�rez vos commentaires ici... \n\n (10 caract�res minimum)";
@@ -105,21 +93,12 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         this.setVisible(true); //Ceci apr�s l'initialisation des input pour �viter des bugs d'affichage � cause de setColumns
         						
         for (int i =1; i<9; i++) {
-        	
         	espacement[i].setPreferredSize(new Dimension(50,50));
             espacement[i].setOpaque(false);
             panel[i].add(espacement[i-1]);
-            
         }
         
         // TODO METTRE LE MENU DE NAVIGATION ICI
-
-        // panel[0].add(new Menu());
-       	// panel[0].add(espacement[0]);
-    	//espacement[0].setBorder(BorderFactory.createLineBorder(Color.black));
-    	//espacement[0].setBackground(Color.GRAY);
-    	//espacement[0].setPreferredSize(new Dimension(getWidth(),120));
-    	//espacement[0].add(Menu);
 
     	espacement[9].setPreferredSize(new Dimension(100,0));
     	espacement[9].setOpaque(false);
@@ -161,6 +140,7 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
     	panel[9].setBackground(Color.white);
     	panel[0].add(panel[9]);
     	panel[0].setBackground(new java.awt.Color(102, 163, 211)); 
+    	this.add(titre_page);
         this.add(panel[9]);
         
         // TODO fonction qui permet de r�cup�rer que des int pour un input

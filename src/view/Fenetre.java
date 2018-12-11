@@ -26,15 +26,17 @@ public class Fenetre extends JFrame {
 
 	public Fenetre() {
         // Declaration du style pour les JMenu (elements menu) et les JMenuItem (elements sous-menu)
+        Color bleu_clair = new java.awt.Color(102, 163, 211);
     	Font p = new Font("open-sans", Font.PLAIN, 24);
 		UIManager.put("Menu.font", p);
 		UIManager.put("MenuItem.font", p);
-	    UIManager.put("Menu.foreground", Color.white);
-	    UIManager.put("MenuItem.background", new Color (0,63,128));
+        UIManager.put("Menu.foreground", Color.white);
+        UIManager.put("Menu.background", bleu_clair);
+	    UIManager.put("MenuItem.background", new Color (0, 63, 128));
 	    UIManager.put("MenuItem.foreground", Color.white);
-	    UIManager.put("Menu.selectionBackground", new Color (0,63,128));
+	    UIManager.put("Menu.selectionBackground", new Color (0, 63, 128));
 	    UIManager.put("Menu.selectionForeground", Color.white);
-	    UIManager.put("MenuItem.selectionBackground", new Color (0,63,128));
+	    UIManager.put("MenuItem.selectionBackground", new Color (0, 63, 128));
 	    UIManager.put("MenuItem.selectionForeground", Color.white);
     	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,40 +47,51 @@ public class Fenetre extends JFrame {
         // Creation des differentes interfaces (JPanel)
             // Menu Accueil
         final JPanel panel_accueil = new Accueil();
-        panel_accueil.setBackground(Color.red);
+        panel_accueil.setBackground(bleu_clair);
         	// Connexion
         final JPanel panel_connexion = new Connexion();
-        panel_connexion.setBackground(Color.red);
+        panel_connexion.setBackground(bleu_clair);
             // Menu Compte Rendu
         final JPanel panel_compte_rendu = new JPanel();
-        panel_compte_rendu.setBackground(Color.red);
+        panel_compte_rendu.setBackground(bleu_clair);
         final JPanel panel_compte_rendu1 = new SaisiCompteRendu();
-        panel_compte_rendu1.setBackground(Color.red);
+        panel_compte_rendu1.setBackground(bleu_clair);
         final JPanel panel_compte_rendu2 = new ConsultationCompteRendu();
-        panel_compte_rendu2.setBackground(Color.red);
+        panel_compte_rendu2.setBackground(bleu_clair);
 
         final JPanel panel_power_point = new JPanel();
-        panel_power_point.setBackground(Color.red);
+        panel_power_point.setBackground(bleu_clair);
         final JPanel panel_power_point1 = new CreationPowerPoint();
-        panel_power_point1.setBackground(Color.red);
+        panel_power_point1.setBackground(bleu_clair);
         final JPanel panel_power_point2 = new ConsultationPowerPoint();
-        panel_power_point2.setBackground(Color.red);
+        panel_power_point2.setBackground(bleu_clair);
         
         final JPanel panel_messagerie = new JPanel();
+        panel_messagerie.setBackground(bleu_clair);
         final JPanel panel_messagerie1 = new CreationMessagerie();
+        panel_messagerie1.setBackground(bleu_clair);
         final JPanel panel_messagerie2 = new ConsultationMessagerie();
+        panel_messagerie2.setBackground(bleu_clair);
         
         final JPanel panel_agenda = new Agenda();
+        panel_agenda.setBackground(bleu_clair);
 
         final JPanel panel_medecin = new JPanel();
+        panel_medecin.setBackground(bleu_clair);
         final JPanel panel_medecin1 = new CreationMedecin();
+        panel_medecin1.setBackground(bleu_clair);
         final JPanel panel_medecin2 = new ConsultationMedecin();
+        panel_medecin2.setBackground(bleu_clair);
 
         final JPanel panel_utilisateur = new JPanel();
+        panel_utilisateur.setBackground(bleu_clair);
         final JPanel panel_utilisateur1 = new CreationUtilisateur();
+        panel_utilisateur1.setBackground(bleu_clair);
         final JPanel panel_utilisateur2 = new ConsultationUtilisateur();
+        panel_utilisateur2.setBackground(bleu_clair);
 
         final JPanel panel_deconnexion = new Deconnexion();
+        panel_deconnexion.setBackground(bleu_clair);
 
         // Definition du panel par défaut
         panelActif = panel_accueil;
@@ -137,7 +150,6 @@ public class Fenetre extends JFrame {
         	@Override public void menuCanceled(MenuEvent e) {/* TODO Auto-generated method stub */}
         	@Override public void menuDeselected(MenuEvent e) {/* TODO Auto-generated method stub */}   
         });
-        
         
         // Creation des elements du sous-menu + declaration de l'event pour changer l'interface
         JMenuItem item_compte_rendu1 = new JMenuItem("Saisie");     
@@ -283,12 +295,10 @@ public class Fenetre extends JFrame {
 
         add(panel_accueil, BorderLayout.CENTER);
         setJMenuBar(menuBar);
-        setSize(1100, 500);
         setVisible(true);
     }
 	
 	public int[] ObtenirDimensionFenetre() {
-		
 		int[] dimension = new int[2];
 
 		dimension[0] = this.getSize().width;
