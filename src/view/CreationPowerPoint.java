@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import controller.GenerateurPPTX;
 
 public class CreationPowerPoint extends JPanel {
 	public CreationPowerPoint() {
@@ -43,6 +46,16 @@ public class CreationPowerPoint extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Debut generation PowerPoint");
+				System.out.println("c'est sensé marcher");
+				try {
+					new GenerateurPPTX("1");
+					System.out.println("C'est bon chef !");
+				} catch (IOException e) {
+					System.out.println("Bobo");
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			} 
 		}); 
 		

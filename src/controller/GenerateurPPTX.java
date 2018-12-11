@@ -23,21 +23,37 @@ import org.apache.poi.xslf.usermodel.XSLFTextShape;
 
 public class GenerateurPPTX {
 	
-	public static void main(String args[]) throws IOException{
+	public GenerateurPPTX(String Dispo) throws IOException {
 		//créer un nouveau Slide Show vide
 		String path= "/Desktop/Unfichier.pptx";
-		File Background =new File(System.getProperty("user.home")+"/Desktop/fond_transp.png");
+		File Background =new File("img/fond_transp.png");
 		String NomMedoc="doliprane 500mg";
-		File ImgMedoc =new File(System.getProperty("user.home")+"/Desktop/doliprane.png");
+		File ImgMedoc =new File("img/doliprane.png");
 		File file =new File(System.getProperty("user.home") + path);
-		newFile(file);
+		
+			newFile(file);
+		
 		String TextMedoc="Le doliprane c'est pour le mal de tête tu savais ou pas ? plus précisément c'est un anti-douleur, il fait 500mg ca veut dire que c'est plus petit que 1000 par exemple ";
 		String TextMedoc2="Le saviez-vous ? le doliprane faut pas en prendre 3 dans la meme minute";
 		
-		//Dispo1(file,NomMedoc,TextMedoc,TextMedoc2,ImgMedoc,Background);
+		if (Dispo=="1") {
+			Dispo1(file,NomMedoc,TextMedoc,TextMedoc2,ImgMedoc,Background);
+		}
+		if (Dispo=="2") {
+			Dispo2(file,NomMedoc,TextMedoc,TextMedoc2,ImgMedoc,Background);
+		}
+		if (Dispo=="3") {
+			Dispo3(file,NomMedoc,ImgMedoc,Background);
+		}
+		if (Dispo=="4") {
+			Dispo4(file,NomMedoc,TextMedoc,TextMedoc2,Background);
+		}
+		
+		
+		
 		//Dispo2(file,NomMedoc,TextMedoc,TextMedoc2,ImgMedoc,Background);
 		//Dispo3(file,NomMedoc,ImgMedoc,Background);
-		Dispo4(file,NomMedoc,TextMedoc,TextMedoc2,Background);
+		//Dispo4(file,NomMedoc,TextMedoc,TextMedoc2,Background);
 		
 		
 		   }
