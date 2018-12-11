@@ -1,9 +1,12 @@
 package view;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import controller.*;
+/*
+import appliVisiteur_interfaceGraphique.Conteneur;
+import appliVisiteur_interfaceGraphique.Fenetre;
+import appliVisiteur_interfaceGraphique.JTextFieldModif;
+import appliVisiteur_interfaceGraphique.Paragraphe;
+import appliVisiteur_interfaceGraphique.TitrePrincipale;*/
 import model.User;
 
 import java.awt.Dimension;
@@ -12,15 +15,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 
-public class Connexion {
-
+public class Connexion extends JPanel {
 	public Connexion() {
-Fenetre fenetre = new Fenetre();
-		
 		int largeurConteneur = 600;
-		
-		Conteneur conteneur = new Conteneur();
-		conteneur.setPreferredSize(new Dimension(largeurConteneur,375));
 		
 		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
 		
@@ -33,23 +30,21 @@ Fenetre fenetre = new Fenetre();
 		JTextFieldModif textFieldMdp = new JTextFieldModif(10, 12);
 		
 		JButton boutonValider = new JButton("Connexion");
-		
-		
-		//action du bouton
-		
 		boutonValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String login = textFieldId.getText();
 					String mdp = textFieldMdp.getText();
+
 					if(controller.connectionControleur.testCredancial(login, mdp)) {
 						User currentUser = connectionControleur.setConnection(login, mdp);
 						new Acceuil();
 						fenetre.setVisible(false);
 						System.out.println("on est connecté ");
+
 					}
 					else {
-						System.out.println("on est pas connecté");
+						System.out.println("La méthode isConnected retourne FALSE");
 					}
 				}
 				catch(Exception exception) {
@@ -58,8 +53,6 @@ Fenetre fenetre = new Fenetre();
 				
 			}
 		});
-		
-		
 		
 		JPanel ligneUne =  new JPanel();
 		ligneUne.setOpaque(false);
@@ -91,16 +84,32 @@ Fenetre fenetre = new Fenetre();
 		ligneQuatre.add(boutonValider);
 		
 		
-		conteneur.add(ligneUne);
-		conteneur.add(ligneDeux);
-		conteneur.add(ligneTrois);
-		conteneur.add(ligneQuatre);
-		fenetre.add(conteneur);
+		this.add(ligneUne);
+		this.add(ligneDeux);
+		this.add(ligneTrois);
+		this.add(ligneQuatre);
 		
 		
 		
 		 
 	}
-	
-	
+	public boolean isConnected(String login, String mdp) {
+		if((login instanceof String) && (mdp instanceof String)) {
+			System.out.println("Aïe aïe aïe t'es passé");
+			
+			try {
+				User u = new User(login, mdp);
+				return true;
+			}
+			catch(Exception excep) {
+				System.out.println(excep);
+				return false;
+			}
+			
+		}
+		else {
+			System.out.println("Aïe aïe aïe t'es pas passé");
+			return false;
+		}
+	}
 }

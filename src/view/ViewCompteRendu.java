@@ -11,7 +11,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
 import javax.swing.BorderFactory;
 
 import javax.swing.JButton;
@@ -27,7 +26,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -40,7 +38,8 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 	private static final long serialVersionUID = 1L;
 	public ViewCompteRendu() {
 		//ImageIcon img = new ImageIcon("C:/Users/andyp/Desktop/fat.png");
-
+		
+		
 		this.setBounds(250,100,800,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //eteind l'appli si on ferme la page
 		setLayout(new FlowLayout());
@@ -72,6 +71,27 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
         JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
         JButton Valider = new JButton("Valider");
+        
+		Valider.addActionListener(new ActionListener() {
+			public void actionPerformed1(ActionEvent e) {
+				try {
+					
+					
+				}
+				catch(Exception exception) {
+					System.out.println(exception);
+				}
+				
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+
         
  
    
@@ -296,6 +316,35 @@ public class ViewCompteRendu extends JFrame implements ActionListener,FocusListe
 		
 	}
 
+	/*
 	
+	//action du bouton
+	
+	Valider.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			try {
+			
+				
+				
+				if(controller.connectionControleur.testCredancial(id_rapport,date,commentaire,echantillon,id_utilisateur)) {
+					
+					System.out.println("on est connecté ");
+				}
+				else {
+					System.out.println("on est pas connecté");
+				}
+			}
+			catch(Exception exception) {
+				System.out.println(exception);
+			}
+			
+		}
+
+		
+		}
+	items.getText();
+	});
+
+	*/
 
 }

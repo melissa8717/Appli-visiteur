@@ -7,8 +7,10 @@ import java.sql.*;
 
 public class DB_Connection {
 	public static final DB_Connection connectionActive = new DB_Connection();
+
 	public static Connection connectionbduser = getConnectionBduser();
 	public static Connection connectionbdmedoc = getConnectionBdmedoc() ;
+
 	public static void main(String[] args) {
 		connectionActive.getConnectionBduser();  
 	}
@@ -37,6 +39,17 @@ public class DB_Connection {
 		}
 		
 		return connectionbdmedoc;
+	}
+	public Connection get_connection_bdAV() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");              
+			connectionbdAV = DriverManager.getConnection("jdbc:mysql:http://localhost/phpmyadmin/","root", "");
+		} catch (Exception e) {
+			System.out.println("Erreur : " + e);
+		}
+		
+		return connectionbdAV;
+		
 	}
 	
 }

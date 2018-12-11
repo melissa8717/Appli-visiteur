@@ -24,7 +24,7 @@ public class Acceuil {
 		//Paragraphe txtactivite = new Paragraphe("manger des petit suisse, voir Martine, Vendre mes enfant, pendre un NAZI, vir un lama.");
 		
 		/*
-		 * création du conteneur principal
+		 * crï¿½ation du conteneur principal
 		*/
 		
 		JPanel panel[]= {new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel()};
@@ -52,7 +52,6 @@ public class Acceuil {
 		}
 		
 		Conteneur.add(panel[0]);
-		
 		
 		BoxLayout b= new BoxLayout(Conteneur, BoxLayout.Y_AXIS);
 		BoxLayout box= new BoxLayout(panel[0], BoxLayout.Y_AXIS);

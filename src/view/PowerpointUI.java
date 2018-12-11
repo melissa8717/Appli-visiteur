@@ -6,14 +6,17 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;;
+import javax.swing.JRadioButton;
+
+import javax.swing.DefaultComboBoxModel;
 
 public class PowerpointUI extends JFrame {
 	
@@ -22,6 +25,8 @@ public class PowerpointUI extends JFrame {
 		Conteneur conteneurTitre = new Conteneur();
 		Conteneur conteneurPowerpointUI = new Conteneur();
 		conteneurPowerpointUI.setPreferredSize(new Dimension(1000, 500));
+
+		System.out.println(getWidth());
 		
 		JPanel title_panel =  new JPanel();
 		JPanel panel2 =  new JPanel();
@@ -30,7 +35,7 @@ public class PowerpointUI extends JFrame {
 		JPanel dispositions = new JPanel();
 		dispositions.setPreferredSize(new Dimension(1000, 50));
 
-		// Liste des médicaments
+		// Liste des mdicaments
 		JPanel liste_medicaments = new JPanel();
 		liste_medicaments.setPreferredSize(new Dimension(250, 300));
 
@@ -40,15 +45,16 @@ public class PowerpointUI extends JFrame {
 
 		JPanel panel3 =  new JPanel(new GridLayout());
 
-		JButton buttonGenerate = new JButton("Generer un PowerPoint");
+		JButton buttonGenerate = new JButton("Générer un PowerPoint");
 
 		buttonGenerate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Debut generation PowerPoint");
 
-			}
+			} 
 		}); 
+		
 		
 		/* Ajout menu */
 		Menu menu = new Menu();
@@ -63,55 +69,71 @@ public class PowerpointUI extends JFrame {
 		title_panel.add(title);
 
 
+		// setLayout(new GridLayout(1, 3));
+		// add(new Checkbox("one", null, true));
+		// add(new Checkbox("two"));
+		// add(new Checkbox("three"));
 
 		JLabel disposition_label = new JLabel("Disposition");
 		disposition_label.setOpaque(false);
 		dispositions.add(disposition_label);
 		
-		JRadioButton disposition1 = new JRadioButton("1");
-		disposition1.setOpaque(false);
-		dispositions.add(disposition1);
-		JRadioButton disposition2 = new JRadioButton("2");
-		disposition2.setOpaque(false);
-		dispositions.add(disposition2);
-		JRadioButton disposition3 = new JRadioButton("3");
-		disposition3.setOpaque(false);
-		dispositions.add(disposition3);
-		JRadioButton disposition4 = new JRadioButton("4");
-		disposition4.setOpaque(false);
-		dispositions.add(disposition4);
+		Checkbox disposition_1 = new Checkbox("1", null, true);
+		dispositions.add(disposition_1);
 
+		Checkbox disposition_2 = new Checkbox("2");
+		dispositions.add(disposition_2);
+
+		Checkbox disposition_3 = new Checkbox("3");
+		dispositions.add(disposition_3);
+
+		Checkbox disposition_4 = new Checkbox("4");
+		dispositions.add(disposition_4);
 
 		Character[] alphabet = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 		
 		JComboBox<?> liste = new JComboBox<Character>(alphabet);
 
+		JLabel label_medicament_selectionne = new JLabel();
+		
+		liste.addActionListener(new ActionListener(){
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String x = String.valueOf(liste.getSelectedItem());
+				//Fenetre popup = new Fenetre("popup", 200, 300);
+				Conteneur conteneur_popup = new Conteneur();
+				List<String> medicaments_list = new ArrayList<String>();
+				for (int i = 0; i < 10; i++) {
+					medicaments_list.add(x + "oliprane " + i);
+				}
+				JComboBox<?> liste_medicaments = new JComboBox<String>();
+				liste_medicaments.setModel(new DefaultComboBoxModel(medicaments_list.toArray()));
 
-
+				liste_medicaments.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent event) {
+						String medicament_selectionne = String.valueOf(liste_medicaments.getSelectedItem());
+						label_medicament_selectionne.setText(medicament_selectionne);
+					}
+				});
+				conteneur_popup.add(liste_medicaments);
+			//	popup.add(conteneur_popup);
+			}
+		});
 
 		JLabel nom = new JLabel("Inspecteur Gadget");
 		panel2.setOpaque(false);
 		panel2.add(nom); panel2.add(buttonGenerate);
 		
-		// Créer un fichier UIComponents dans lequel on mettre TitrePrincipal, Secondaire, Fenetre etc...
-		
-		
-		// Menu déroulant
-		
-
-		Checkbox test = new Checkbox("Generer page Intro / Outro", null, true);
-		panel2.add(test);
-		
 		panel3.setOpaque(false);
 		panel3.add(liste);
 		
-		
-		
-		
-		/* Ajout titre */
+		/* Ajout titre */  
 
 		conteneurTitre.add(title_panel);
 		liste_medicaments.add(liste);
+		liste_medicaments.add(label_medicament_selectionne);
 		conteneurPowerpointUI.add(dispositions);
 		conteneurPowerpointUI.add(liste_medicaments);
 		conteneurPowerpointUI.add(powerpoint_builder);
