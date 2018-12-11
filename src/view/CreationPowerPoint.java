@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.GenerateurPPTX;
+
 public class CreationPowerPoint extends JPanel {
 	public CreationPowerPoint() {
-		Conteneur conteneurTitre = new Conteneur();
 		Conteneur conteneurPowerpointUI = new Conteneur();
 		conteneurPowerpointUI.setPreferredSize(new Dimension(1000, 500));
 		
@@ -38,18 +40,26 @@ public class CreationPowerPoint extends JPanel {
 
 		JPanel panel3 =  new JPanel(new GridLayout());
 
-		JButton buttonGenerate = new JButton("GÃ©nÃ©rer un PowerPoint");
+		JButton buttonGenerate = new JButton("Générer un PowerPoint");
 
 		buttonGenerate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Debut generation PowerPoint");
+				System.out.println("c'est sensé marcher");
+				try {
+					new GenerateurPPTX("1");
+					System.out.println("C'est bon chef !");
+				} catch (IOException e) {
+					System.out.println("Bobo");
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			} 
 		}); 
 		
-		TitrePrincipale title = new TitrePrincipale("PowerPoint Generator");
-		title_panel.setOpaque(false);
-		title_panel.add(title);
+		TitrePrincipale titre = new TitrePrincipale("PowerPoint Generator");
 
 		JLabel disposition_label = new JLabel("Disposition");
 		disposition_label.setOpaque(false);
@@ -78,7 +88,7 @@ public class CreationPowerPoint extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String x = String.valueOf(liste.getSelectedItem());
-				JFrame popup = new JFrame("popup");
+				Popup popup = new Popup("popup", 500, 200);
 				Conteneur conteneur_popup = new Conteneur();
 				List<String> medicaments_list = new ArrayList<String>();
 				for (int i = 0; i < 10; i++) {
@@ -107,7 +117,6 @@ public class CreationPowerPoint extends JPanel {
 		panel3.add(liste);
 		
 		/* Ajout titre */  
-		conteneurTitre.add(title_panel);
 		liste_medicaments.add(liste);
 		liste_medicaments.add(label_medicament_selectionne);
 		conteneurPowerpointUI.add(dispositions);
@@ -115,7 +124,7 @@ public class CreationPowerPoint extends JPanel {
 		conteneurPowerpointUI.add(powerpoint_builder);
 		conteneurPowerpointUI.add(panel2);
 		conteneurPowerpointUI.add(panel3);
-		this.add(conteneurTitre);
+		this.add(titre);
 		this.add(conteneurPowerpointUI);
 	}
 }

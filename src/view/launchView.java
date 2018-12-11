@@ -9,7 +9,7 @@ public class launchView {
 		//new uimain();
 		//new Acceuil();
 
-		new ViewCompteRendu();
+		//new ViewCompteRendu();
 		//new Connexion();
 		//new PowerpointUI();
 

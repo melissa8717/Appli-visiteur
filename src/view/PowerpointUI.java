@@ -1,11 +1,13 @@
 package view;
 
+import controller.GenerateurPPTX;
 import java.awt.Checkbox;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class PowerpointUI extends JFrame {
 		Conteneur conteneurPowerpointUI = new Conteneur();
 		conteneurPowerpointUI.setPreferredSize(new Dimension(1000, 500));
 
-		System.out.println(getWidth());
+		
 		
 		JPanel title_panel =  new JPanel();
 		JPanel panel2 =  new JPanel();
@@ -47,10 +49,31 @@ public class PowerpointUI extends JFrame {
 
 		JButton buttonGenerate = new JButton("GÃ©nÃ©rer un PowerPoint");
 
-		buttonGenerate.addActionListener(new ActionListener() {
+		
+		/***
+		 * Le bouton qui génère le power point de ta vie
+		 * 
+		 * 
+		 * 
+		 */
+		buttonGenerate.addActionListener(new ActionListener()  {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Debut generation PowerPoint");
+			public void actionPerformed(ActionEvent arg0)  {	
+				System.out.println("c'est sensé marcher");
+				try {
+					new GenerateurPPTX("1");
+					System.out.println("C'est bon chef !");
+				} catch (IOException e) {
+					System.out.println("Bobo");
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+							
+						
+						
+					
+					
+				
 
 			} 
 		}); 
@@ -101,7 +124,7 @@ public class PowerpointUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String x = String.valueOf(liste.getSelectedItem());
-				Fenetre popup = new Fenetre("popup", 200, 300);
+				//Fenetre popup = new Fenetre("popup", 200, 300);
 				Conteneur conteneur_popup = new Conteneur();
 				List<String> medicaments_list = new ArrayList<String>();
 				for (int i = 0; i < 10; i++) {
@@ -118,7 +141,7 @@ public class PowerpointUI extends JFrame {
 					}
 				});
 				conteneur_popup.add(liste_medicaments);
-				popup.add(conteneur_popup);
+			//	popup.add(conteneur_popup);
 			}
 		});
 
