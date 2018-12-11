@@ -28,11 +28,11 @@ public class connectionControleur extends User {
 		User curentUser = null;	
 		if ((login instanceof String) && (motDePasse instanceof String)){
 				curentUser = setConnection(login, motDePasse);
-				
+				System.out.println(curentUser.id_utilisateur!=null);
 			} 
 		
 		
-		return curentUser!=null;
+		return (curentUser.id_utilisateur!=null);
 	}
 	
 	

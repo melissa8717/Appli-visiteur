@@ -44,8 +44,8 @@ public class User {
 	}*/
 	
 	public User Read(String inputLogin, String inputMdp){
-		DB_Connection obj_DB_Connection = new DB_Connection();
-		Connection connection = obj_DB_Connection.get_connection_bduser();
+		DB_Connection obj_DB_Connection = (DB_Connection) model.DB_Connection.connectionbduser;
+		Connection connection = DB_Connection.getConnectionBduser();
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		
@@ -53,7 +53,7 @@ public class User {
 			String query = String.format("select * from utilisateur WHERE login = %s AND password = %s", inputLogin, inputMdp);
 			ps = connection.prepareStatement(query);
 			//ps.setString(1, sl_no);
-			//System.out.println(ps);
+			//System.out.println(rs);
 			rs=ps.executeQuery();
 			//while(rs.next()){
 				id_utilisateur = rs.getString("idUtilisateur");		
@@ -65,6 +65,7 @@ public class User {
 				login = rs.getString("login");
 				password = rs.getString("password");	
 				System.out.println("je marche");
+				System.out.println(rs);
 			//}
 		} catch (Exception e) {
 			System.out.println(e);

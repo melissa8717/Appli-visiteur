@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
+
 public class Connexion {
 
 	public Connexion() {
@@ -43,7 +44,8 @@ Fenetre fenetre = new Fenetre();
 					String mdp = textFieldMdp.getText();
 					if(controller.connectionControleur.testCredancial(login, mdp)) {
 						User currentUser = connectionControleur.setConnection(login, mdp);
-						
+						new Acceuil();
+						fenetre.setVisible(false);
 						System.out.println("on est connecté ");
 					}
 					else {
