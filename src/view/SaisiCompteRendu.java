@@ -10,7 +10,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 
@@ -30,8 +31,9 @@ import javax.swing.text.PlainDocument;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import java.util.Date;
 
-public class SaisiCompteRendu extends JPanel implements ActionListener,FocusListener {
+public class SaisiCompteRendu extends JPanel{
 	private static final long serialVersionUID = 1L;
 	public SaisiCompteRendu() {
 		UtilDateModel model = new UtilDateModel();
@@ -41,14 +43,14 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
 		TitrePrincipale titre_page = new TitrePrincipale("Saisie Compte Rendu");
 		
 		JLabel Titre = new JLabel("Compte Rendu");
-        JLabel Medecin = new JLabel("Choix du m�decin");
+        JLabel Medecin = new JLabel("Choix du Médecin");
         JLabel Date = new JLabel("Date de la visite");        
         JLabel Motif = new JLabel("Motif de la visite");
         JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
         JLabel Echantillons = new JLabel("Nombre d'�chantillons laiss�s au pratitien");
-        JTextField input[] = {new JTextField(),new JTextField(),new JTextField(),new JTextField(),new JTextField()};
+        
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
-        String[] items = {"M�decin1", "M�decin2", "M�decin3", "M�decin4"};
+        String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
         JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
@@ -66,23 +68,26 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         	espacement = ajoutemoi(espacement, new JPanel(new FlowLayout(FlowLayout.LEFT)));
         }
         
-        for (int i=0;i<5;i++) {
-        	input[i].setColumns(20);
-        }
+       
         
-       	String oui =" Ins�rez vos commentaires ici... \n\n (10 caract�res minimum)";
+       	String oui =" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
        	JTextArea inputArea = new JTextArea(oui,5,25);
+       	inputArea.setText(oui);
         inputArea.setBorder(BorderFactory.createLineBorder(Color.black));
         inputArea.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
-				if (inputArea.getText()==oui){
+            	/*System.out.println(oui);
+            	System.out.println("____________________");
+            	System.out.println(inputArea.getText());*/
+            	
+				if (inputArea.getText().equals(oui)){
 					inputArea.setText("");
 				}
             }
 
 			public void focusLost(FocusEvent e) {
 	            if (inputArea.getText()!=oui && inputArea.getText().length() >= 10){
-	            	inputArea.setText("je marche <3");
+	            	inputArea.setText(inputArea.getText());
 	            }
 	            else {
 	            	inputArea.setText(oui);
@@ -93,8 +98,8 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         this.setVisible(true); //Ceci apr�s l'initialisation des input pour �viter des bugs d'affichage � cause de setColumns
         						
         for (int i =1; i<9; i++) {
-        	espacement[i].setPreferredSize(new Dimension(50,50));
-            espacement[i].setOpaque(false);
+        	espacement[i-1].setPreferredSize(new Dimension(50,50));
+            espacement[i-1].setOpaque(false);
             panel[i].add(espacement[i-1]);
         }
         
@@ -102,6 +107,9 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         int widhtPanel= 1000;
         int heightPanel= 500;
         panel[9].setPreferredSize(new Dimension(widhtPanel, heightPanel));
+        
+        titre_page.setPreferredSize(new Dimension(widhtPanel, 100));
+        
     	espacement[9].setOpaque(false);
     	panel[0].add(espacement[9]);
 
@@ -136,6 +144,69 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         panel[8].add(espacement[7]);
         panel[8].add(Valider);
         
+        Valider.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int nbrEchantillons;
+				String AreaText;
+				String DateChoisie;
+				String Medecin= (String) BoxMedChoice.getSelectedItem();
+				String Motif= (String) BoxMotifChoice.getSelectedItem();
+			
+				try {
+					Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
+					//TODO à voir le format qu'on mettra, pour la base
+					DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+					DateChoisie = formatDate.format(selectedDate);
+					
+				} catch (Exception e2) {
+					System.out.println("La date n'a pas été sélectionnée");
+					DateChoisie=null;
+				}
+					try {
+						nbrEchantillons= Integer.parseInt(nbrEchantillonsField.getText());
+						
+					}catch (Exception erreurNombre) {
+						System.out.println("Nombre echantillons manquant");
+						nbrEchantillons=0;
+					}
+					try {
+						AreaText= inputArea.getText();
+						if(inputArea.getText().equals(oui) || inputArea.getText().length()<10) {
+							AreaText=null;
+							System.out.println("Soit le text est égal au placeholder, soit les commentaires font moins de 10"
+									+ "caractères, entrez de vrais commentaires");
+						} else {
+							AreaText= inputArea.getText();
+							
+						}
+						
+					} catch (Exception Area) {
+						System.out.println("La zone de texte est vide");
+						AreaText=null;
+					}
+					
+				
+				
+				if(DateChoisie!=null && nbrEchantillons!=0 && AreaText!=null) {
+					System.out.println("C'est tout bon chef !");
+					System.out.println("Vous choisie le médecin: "+Medecin+", le motif: "+Motif+",\n la date de la visite été le: "+DateChoisie
+							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
+							+AreaText+"'.");
+					//TODO décommenter quand thomas aura push le controller de compte rendu
+					//ajoutCompteRendu(Medecin,Motif,AreaText,Date,nbrEchantillons);
+				}
+				else {
+					System.out.println("C'est la merde ! Courrez !");
+				}
+				
+				
+				
+			
+			 
+			}
+		});
+        
         
     	panel[9].setOpaque(true);
     	panel[9].setBackground(Color.white);
@@ -144,7 +215,7 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
     	this.add(titre_page);
         this.add(panel[9]);
         
-        // TODO fonction qui permet de r�cup�rer que des int pour un input
+        // TODO fonction qui permet de récupérer que des int pour un input
 		nbrEchantillonsField.addKeyListener(new KeyAdapter() { //quand la personne �crit
 			public void keyTyped(KeyEvent e) {
 				char lettre=e.getKeyChar();		// r�cup�re le caract�re
@@ -203,18 +274,6 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
 		}
 	}
 
-	@Override
-	public void focusGained(FocusEvent e) {
-		// TODO Auto-generated method stub
-	}
+	
 
-	@Override
-	public void focusLost(FocusEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-	}
 }

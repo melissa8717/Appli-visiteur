@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,6 +40,8 @@ public class Fenetre extends JFrame {
 	    UIManager.put("MenuItem.selectionBackground", new Color (0, 63, 128));
 	    UIManager.put("MenuItem.selectionForeground", Color.white);
     	
+	    setBounds(50,50,1000,500);
+	    setMinimumSize(new Dimension( 1000,500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         
