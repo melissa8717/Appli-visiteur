@@ -7,14 +7,15 @@ import java.sql.ResultSet;
 //import java.sql.Date;
 
 public class User {
-	public String id_utilisateur;
-	public String nom;
-	public String prenom;
-	public String adresse;
-	public String ville;
-	public String role;
-	public String login;
-	public String password;
+	
+	public static int id_utilisateur;
+	public static String nom;
+	public static String prenom;
+	public static String adresse;
+	public static String ville;
+	public static String role;
+	public static String login;
+	public static String password;
 	//public String codePostal;
 	
 	public User(String login1, String mdp) {
@@ -43,6 +44,8 @@ public class User {
 		return this;
 	}*/
 	
+
+
 	public User Read(String inputLogin, String inputMdp){
 		DB_Connection obj_DB_Connection = (DB_Connection) model.DB_Connection.connectionbduser;
 		Connection connection = DB_Connection.getConnectionBduser();
@@ -56,7 +59,7 @@ public class User {
 			//System.out.println(rs);
 			rs=ps.executeQuery();
 			//while(rs.next()){
-				id_utilisateur = rs.getString("idUtilisateur");		
+				id_utilisateur = rs.getInt("idUtilisateur");		
 				nom = rs.getString("nom");
 				prenom = rs.getString("prenom");
 				adresse = rs.getString("adresse");			

@@ -1,6 +1,9 @@
 package view;
 
 import javax.swing.JPanel;
+
+import controller.CnxBDDLocalhost;
+import controller.connectionControleur;
 /*
 import appliVisiteur_interfaceGraphique.Conteneur;
 import appliVisiteur_interfaceGraphique.Fenetre;
@@ -16,6 +19,17 @@ import javax.swing.JButton;
 
 
 public class Connexion extends JPanel {
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 * vous pouvez lancer Connexion.java via launchView, ceci n'est que temporaire, le temps qu'on code tout comme il faut
+	 * 
+	 * 
+	 * 
+	 */
+	
 	public Connexion() {
 		int largeurConteneur = 600;
 		
@@ -35,17 +49,18 @@ public class Connexion extends JPanel {
 				try {
 					String login = textFieldId.getText();
 					String mdp = textFieldMdp.getText();
-
-					if(controller.connectionControleur.testCredancial(login, mdp)) {
+					CnxBDDLocalhost.connect(login,mdp);
+					
+					/*if(controller.connectionControleur.testCredancial(login, mdp)) {
 						User currentUser = connectionControleur.setConnection(login, mdp);
-						new Acceuil();
-						fenetre.setVisible(false);
-						System.out.println("on est connecté ");
+						new Fenetre();
+						//fenetre.setVisible(false);
+						System.out.println("on est connectÃ© ");
 
 					}
 					else {
-						System.out.println("La méthode isConnected retourne FALSE");
-					}
+						System.out.println("La mÃ©thode isConnected retourne FALSE");
+					}*/
 				}
 				catch(Exception exception) {
 					System.out.println(exception);
@@ -95,7 +110,7 @@ public class Connexion extends JPanel {
 	}
 	public boolean isConnected(String login, String mdp) {
 		if((login instanceof String) && (mdp instanceof String)) {
-			System.out.println("Aïe aïe aïe t'es passé");
+			System.out.println("t'es passÃ©");
 			
 			try {
 				User u = new User(login, mdp);
@@ -108,7 +123,7 @@ public class Connexion extends JPanel {
 			
 		}
 		else {
-			System.out.println("Aïe aïe aïe t'es pas passé");
+			System.out.println("Aï¿½e aï¿½e aï¿½e t'es pas passï¿½");
 			return false;
 		}
 	}

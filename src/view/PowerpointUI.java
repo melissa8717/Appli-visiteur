@@ -51,7 +51,7 @@ public class PowerpointUI extends JFrame {
 
 		
 		/***
-		 * Le bouton qui génère le power point de ta vie
+		 * Le bouton qui gï¿½nï¿½re le power point de ta vie
 		 * 
 		 * 
 		 * 
@@ -59,7 +59,7 @@ public class PowerpointUI extends JFrame {
 		buttonGenerate.addActionListener(new ActionListener()  {
 			@Override
 			public void actionPerformed(ActionEvent arg0)  {	
-				System.out.println("c'est sensé marcher");
+				System.out.println("c'est sensÃ© marcher");/*
 				try {
 					new GenerateurPPTX("1");
 					System.out.println("C'est bon chef !");
@@ -68,7 +68,7 @@ public class PowerpointUI extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-							
+						*/	
 						
 						
 					
