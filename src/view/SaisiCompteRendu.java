@@ -99,8 +99,9 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         }
         
         // TODO METTRE LE MENU DE NAVIGATION ICI
-
-    	espacement[9].setPreferredSize(new Dimension(100,0));
+        int widhtPanel= 1000;
+        int heightPanel= 500;
+        panel[9].setPreferredSize(new Dimension(widhtPanel, heightPanel));
     	espacement[9].setOpaque(false);
     	panel[0].add(espacement[9]);
 
@@ -119,15 +120,15 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         panel[4].add(BoxMotifChoice);
         
         for (int i = 1; i < 9; i++) {
-        	//panel[i].setPreferredSize(new Dimension(getWidth() / 2,50));
+        	panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/10));
         	if(i == 5) {
-        		//panel[i].setPreferredSize(new Dimension(getWidth() / 2,40));
+        		panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/100*8));
         	}
         	panel[i].setOpaque(false);
             panel[9].add(panel[i]);
         }
         
-       // panel[7].setPreferredSize(new Dimension(getWidth(), 100));
+       panel[7].setPreferredSize(new Dimension(widhtPanel, heightPanel/5));
         panel[7].add(espacement[6]);
         panel[7].add(inputArea);
         
@@ -135,7 +136,7 @@ public class SaisiCompteRendu extends JPanel implements ActionListener,FocusList
         panel[8].add(espacement[7]);
         panel[8].add(Valider);
         
-        panel[9].setPreferredSize(new Dimension(1000, 500));
+        
     	panel[9].setOpaque(true);
     	panel[9].setBackground(Color.white);
     	panel[0].add(panel[9]);

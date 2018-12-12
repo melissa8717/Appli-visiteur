@@ -29,7 +29,7 @@ public class CnxBDDLocalhost {
 
 		    String url = "jdbc:mysql://localhost/applivisiteur?useSSL=false";
 		    String user = "root";
-		    String passwd = "root";
+		    String passwd = "";
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
 		    System.out.println("Connexion effective !");
