@@ -8,6 +8,27 @@ import view.Fenetre;
 import model.User;
 
 public class CnxBDDLocalhost {
+	
+	
+	public static Connection connecteur() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		    System.out.println("Driver O.K.");
+
+		    String url = "jdbc:mysql://localhost/applivisiteur?useSSL=false";
+		    String user = "root";
+		    String passwd = "";
+
+		    Connection conn = DriverManager.getConnection(url, user, passwd);
+		    System.out.println("Connexion effective !");
+		    return conn; 
+		}
+		    catch (Exception e) {
+			    e.printStackTrace();
+			    System.out.println("La connexion a eu un problème");
+			    return null;
+		    } 
+	}
 
 	public static boolean connect(String login,String mdp) {
 		/***
@@ -24,7 +45,7 @@ public class CnxBDDLocalhost {
 		
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			/*Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
 		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
@@ -32,7 +53,8 @@ public class CnxBDDLocalhost {
 		    String passwd = "";
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
-		    System.out.println("Connexion effective !");
+		    System.out.println("Connexion effective !");*/
+			Connection conn = connecteur();
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
