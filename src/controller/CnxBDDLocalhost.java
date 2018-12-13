@@ -30,20 +30,8 @@ public class CnxBDDLocalhost {
 
 	public static Boolean connect(String login, String mdp, User User) {
 		try {
-<<<<<<< HEAD
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		    System.out.println("Driver O.K.");
 
-		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
-		    String user = "root";
-		    String passwd = "";
-
-		    Connection conn = DriverManager.getConnection(url, user, passwd);
-		    System.out.println("Connexion effective !");
-=======
 			Connection conn = connecteur();
->>>>>>> b2011fdca833cbaae6bc777fcac669a6167745f7
-		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
 		    

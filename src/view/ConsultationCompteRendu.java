@@ -40,26 +40,24 @@ public class ConsultationCompteRendu extends JPanel{
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 		
-		TitrePrincipale titre_page = new TitrePrincipale("Consultation Compte Rendu");
+		TitrePrincipale titre_page = new TitrePrincipale("Consult Compte Rendu");
 		
-		
-        JLabel Mois = new JLabel("mois"); 
-		JTextFieldModif textFieldMois = new JTextFieldModif(10, 12);
-
-     
+		JLabel Titre = new JLabel("Compte Rendu");
+        JLabel Medecin = new JLabel("Choix du Médecin");
+        JLabel Date = new JLabel("Date de la visite");        
+        JLabel Motif = new JLabel("Motif de la visite");
+        JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
+        JLabel Echantillons = new JLabel("Nombre d'�chantillons laiss�s au pratitien");
         
-    
+        JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
+        String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
+        String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
+        JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
+        JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
         JButton Valider = new JButton("Valider");
-    	Valider.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String Mois = textFieldMois.getText();
-					
-					controller.compteRenduControleur.consultationCompteRendu(Mois);
-				}
-				catch(Exception exception) {
-					System.out.println(exception);
-				}
+
+        Font font = new Font("Arial",Font.BOLD,20);
+        Titre.setFont(font);
         
         JPanel espacement[]= {new JPanel(new FlowLayout(FlowLayout.LEFT))};
 
@@ -196,7 +194,7 @@ public class ConsultationCompteRendu extends JPanel{
 							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
 							+AreaText+"'.");
 					//TODO décommenter quand thomas aura push le controller de compte rendu
-					controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons);
+					controller.compteRenduControleur.consultationCompteRendu(Mois);
 				}
 				else {
 					System.out.println("C'est la merde ! Courrez !");
