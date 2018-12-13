@@ -41,12 +41,14 @@ public class SaisiCompteRendu extends JPanel{
 		
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du Médecin");
+        JLabel Medicament = new JLabel("Insérez le nom du médicament");
         JLabel Date = new JLabel("Date de la visite");        
         JLabel Motif = new JLabel("Motif de la visite");
         JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
         JLabel Echantillons = new JLabel("Nombre d'échantillons laissés au pratitien");
         
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
+        JFormattedTextField nomMedoc = new JFormattedTextField();
         String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
