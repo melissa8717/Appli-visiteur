@@ -19,18 +19,7 @@ import javax.swing.JButton;
 
 
 public class Connexion extends JPanel {
-	
-	/*
-	 * 
-	 * 
-	 * 
-	 * vous pouvez lancer Connexion.java via launchView, ceci n'est que temporaire, le temps qu'on code tout comme il faut
-	 * 
-	 * 
-	 * 
-	 */
-	
-	public Connexion() {
+	public Connexion(User User, Fenetre f) {
 		int largeurConteneur = 600;
 		
 		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
@@ -42,6 +31,7 @@ public class Connexion extends JPanel {
 		Paragraphe paragrapheMdp = new Paragraphe("Mot de passe : ");
 		
 		JTextFieldModif textFieldMdp = new JTextFieldModif(10, 12);
+		System.out.println("Connexion :" + User);
 		
 		JButton boutonValider = new JButton("Connexion");
 		boutonValider.addActionListener(new ActionListener() {
@@ -49,23 +39,12 @@ public class Connexion extends JPanel {
 				try {
 					String login = textFieldId.getText();
 					String mdp = textFieldMdp.getText();
-					CnxBDDLocalhost.connect(login,mdp);
-					
-					/*if(controller.connectionControleur.testCredancial(login, mdp)) {
-						User currentUser = connectionControleur.setConnection(login, mdp);
-						new Fenetre();
-						//fenetre.setVisible(false);
-						System.out.println("on est connecté ");
-
-					}
-					else {
-						System.out.println("La méthode isConnected retourne FALSE");
-					}*/
+					CnxBDDLocalhost.connect(login, mdp, User);
+					f.refreshConnexion(User.isConnected());
 				}
 				catch(Exception exception) {
 					System.out.println(exception);
 				}
-				
 			}
 		});
 		
@@ -75,14 +54,12 @@ public class Connexion extends JPanel {
 		
 		ligneUne.add(titrePrincipale);
 		
-		
 		JPanel ligneDeux = new JPanel();
 		ligneDeux.setOpaque(false);
 		ligneDeux.setPreferredSize(new Dimension(largeurConteneur, 75));
 		
 		ligneDeux.add(paragrapheId);
 		ligneDeux.add(textFieldId);
-		
 		
 		JPanel ligneTrois = new JPanel();
 		ligneTrois.setOpaque(false);
@@ -91,23 +68,18 @@ public class Connexion extends JPanel {
 		ligneTrois.add(paragrapheMdp);
 		ligneTrois.add(textFieldMdp);
 		
-		
 		JPanel ligneQuatre = new JPanel();
 		ligneQuatre.setOpaque(false);
 		ligneQuatre.setPreferredSize(new Dimension(largeurConteneur, 75));
 		
 		ligneQuatre.add(boutonValider);
 		
-		
 		this.add(ligneUne);
 		this.add(ligneDeux);
 		this.add(ligneTrois);
 		this.add(ligneQuatre);
-		
-		
-		
-		 
 	}
+
 	public boolean isConnected(String login, String mdp) {
 		if((login instanceof String) && (mdp instanceof String)) {
 			System.out.println("t'es passé");
@@ -120,7 +92,6 @@ public class Connexion extends JPanel {
 				System.out.println(excep);
 				return false;
 			}
-			
 		}
 		else {
 			System.out.println("A�e a�e a�e t'es pas pass�");

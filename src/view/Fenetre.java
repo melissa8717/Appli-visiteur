@@ -17,17 +17,25 @@ import javax.swing.UIManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import model.User;
 import view.Accueil;
 import view.ConsultationPowerPoint;
 import view.CreationMessagerie;
 
 
 public class Fenetre extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JPanel panelActif = new JPanel();
+	public User u = new User();
+	
+    private JPanel panel_accueil;
+    private JPanel panel_connexion;
+    private JMenuBar menuBar;
+	
 
 	public Fenetre() {
-        // Declaration du style pour les JMenu (elements menu) et les JMenuItem (elements sous-menu)
         Color bleu_clair = new java.awt.Color(102, 163, 211);
+        // Declaration du style pour les JMenu (elements menu) et les JMenuItem (elements sous-menu)
     	Font p = new Font("open-sans", Font.PLAIN, 24);
 		UIManager.put("Menu.font", p);
 		UIManager.put("MenuItem.font", p);
@@ -40,8 +48,8 @@ public class Fenetre extends JFrame {
 	    UIManager.put("MenuItem.selectionBackground", new Color (0, 63, 128));
 	    UIManager.put("MenuItem.selectionForeground", Color.white);
     	
-	    setBounds(50,50,1000,500);
-	    setMinimumSize(new Dimension( 1000,500));
+	    setBounds(50, 50, 1000, 500);
+	    setMinimumSize(new Dimension(1000, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         
@@ -49,11 +57,11 @@ public class Fenetre extends JFrame {
 
         // Creation des differentes interfaces (JPanel)
             // Menu Accueil
-        final JPanel panel_accueil = new Accueil();
-        panel_accueil.setBackground(bleu_clair);
+        this.panel_accueil = new Accueil();
+        this.panel_accueil.setBackground(bleu_clair);
         	// Connexion
-        final JPanel panel_connexion = new Connexion();
-        panel_connexion.setBackground(bleu_clair);
+        this.panel_connexion = new Connexion(this.u, this);
+        this.panel_connexion.setBackground(bleu_clair);
             // Menu Compte Rendu
         final JPanel panel_compte_rendu = new JPanel();
         panel_compte_rendu.setBackground(bleu_clair);
@@ -97,10 +105,10 @@ public class Fenetre extends JFrame {
         panel_deconnexion.setBackground(bleu_clair);
 
         // Definition du panel par défaut
-        panelActif = panel_accueil;
+            panelActif = panel_connexion;
         
         // Creation de la barre menu
-        JMenuBar menuBar = new JMenuBar();
+        this.menuBar = new JMenuBar();
 
         // Creation des differents elements du menu + declaration de l'event pour changer l'interface
         JMenu menu1 = new JMenu("Accueil");
@@ -120,7 +128,6 @@ public class Fenetre extends JFrame {
         		
         		revalidate();
         		repaint();
-        		
         	}
         	@Override public void menuCanceled(MenuEvent e) {/* TODO Auto-generated method stub */}
         	@Override public void menuDeselected(MenuEvent e) {/* TODO Auto-generated method stub */}        	
@@ -148,7 +155,6 @@ public class Fenetre extends JFrame {
         		
         		revalidate();
         		repaint();
-        		
         	}
         	@Override public void menuCanceled(MenuEvent e) {/* TODO Auto-generated method stub */}
         	@Override public void menuDeselected(MenuEvent e) {/* TODO Auto-generated method stub */}   
@@ -287,18 +293,18 @@ public class Fenetre extends JFrame {
         menu7.add(item_utilisateur1);
         menu7.add(item_utilisateur2);
 
-        menuBar.add(menu1);
-        menuBar.add(menu2);
-        menuBar.add(menu3);
-        menuBar.add(menu4);
-        menuBar.add(menu5);
-        menuBar.add(menu6);
-        menuBar.add(menu7);
-        menuBar.add(menu8);
+        this.menuBar.add(menu1);
+        this.menuBar.add(menu2);
+        this.menuBar.add(menu3);
+        this.menuBar.add(menu4);
+        this.menuBar.add(menu5);
+        this.menuBar.add(menu6);
+        this.menuBar.add(menu7);
+        this.menuBar.add(menu8);
 
-        add(panel_accueil, BorderLayout.CENTER);
-        setJMenuBar(menuBar);
-        setVisible(true);
+        add(panelActif, BorderLayout.CENTER);
+        System.out.println(u.isConnected());
+        setVisible(true);  
     }
 	
 	public int[] ObtenirDimensionFenetre() {
@@ -308,7 +314,27 @@ public class Fenetre extends JFrame {
 		dimension[1] = this.getSize().height;
 		
 		return dimension;
-	}
+    }
+    
+    public void refreshConnexion(boolean connected){
+        if(connected){
+            remove(panelActif);
+            panelActif = this.panel_accueil;
+            setJMenuBar(this.menuBar);
+            add(panelActif, BorderLayout.CENTER);
+            
+            revalidate();
+            repaint();
+        }
+        else {
+            remove(panelActif);
+            panelActif = this.panel_connexion;
+            add(panelActif, BorderLayout.CENTER);
+            
+            revalidate();
+            repaint();
+        }
+    }
 
 	public static void main(String... args){
         SwingUtilities.invokeLater(new Runnable()

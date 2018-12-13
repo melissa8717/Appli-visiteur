@@ -3,6 +3,7 @@ package view;
 import java.lang.reflect.Array;
 
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 

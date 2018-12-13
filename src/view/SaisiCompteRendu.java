@@ -22,12 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-
-
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -44,12 +41,15 @@ public class SaisiCompteRendu extends JPanel{
 		
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du Médecin");
+        JLabel Medicament = new JLabel("Insérez le nom du médicament");
         JLabel Date = new JLabel("Date de la visite");        
         JLabel Motif = new JLabel("Motif de la visite");
         JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
-        JLabel Echantillons = new JLabel("Nombre d'�chantillons laiss�s au pratitien");
+        JLabel Echantillons = new JLabel("Nombre d'échantillons laissés au pratitien");
         
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
+        JFormattedTextField nomMedoc = new JFormattedTextField();
+        
         String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
@@ -70,27 +70,25 @@ public class SaisiCompteRendu extends JPanel{
         
        
         
-       	String oui =" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
-       	JTextArea inputArea = new JTextArea(oui,5,25);
-       	inputArea.setText(oui);
+       	String PlaceHolder =" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
+       	JTextArea inputArea = new JTextArea(PlaceHolder,5,25);
+       	inputArea.setText(PlaceHolder);
         inputArea.setBorder(BorderFactory.createLineBorder(Color.black));
         inputArea.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
-            	/*System.out.println(oui);
-            	System.out.println("____________________");
-            	System.out.println(inputArea.getText());*/
+          
             	
-				if (inputArea.getText().equals(oui)){
+				if (inputArea.getText().equals(PlaceHolder)){
 					inputArea.setText("");
 				}
             }
 
 			public void focusLost(FocusEvent e) {
-	            if (inputArea.getText()!=oui && inputArea.getText().length() >= 10){
+	            if (inputArea.getText()!=PlaceHolder && inputArea.getText().length() >= 10){
 	            	inputArea.setText(inputArea.getText());
 	            }
 	            else {
-	            	inputArea.setText(oui);
+	            	inputArea.setText(PlaceHolder);
 	            }
 			}
 		});
@@ -98,7 +96,7 @@ public class SaisiCompteRendu extends JPanel{
         this.setVisible(true); //Ceci apr�s l'initialisation des input pour �viter des bugs d'affichage � cause de setColumns
         						
         for (int i =1; i<9; i++) {
-        	espacement[i-1].setPreferredSize(new Dimension(50,50));
+        	espacement[i-1].setPreferredSize(new Dimension(50,40));
             espacement[i-1].setOpaque(false);
             panel[i].add(espacement[i-1]);
         }
@@ -110,9 +108,13 @@ public class SaisiCompteRendu extends JPanel{
         
         titre_page.setPreferredSize(new Dimension(widhtPanel, 100));
         
+        espacement[9].setPreferredSize(new Dimension(50,40));
     	espacement[9].setOpaque(false);
+    	
     	panel[0].add(espacement[9]);
-
+    	panel[0].add(Medicament);
+    	panel[0].add(nomMedoc);
+    	nomMedoc.setColumns(15);
         panel[1].add(Titre);
         panel[2].add(Medecin);
         panel[3].add(Date);
@@ -127,13 +129,16 @@ public class SaisiCompteRendu extends JPanel{
         panel[2].add(BoxMedChoice);
         panel[4].add(BoxMotifChoice);
         
-        for (int i = 1; i < 9; i++) {
-        	panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/10));
+        for (int i = 0; i < 9; i++) {
+        	panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/11));
         	if(i == 5) {
         		panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/100*8));
+        		panel[9].add(panel[0]);
         	}
         	panel[i].setOpaque(false);
+        	if(i!=0) {
             panel[9].add(panel[i]);
+        	}
         }
         
        panel[7].setPreferredSize(new Dimension(widhtPanel, heightPanel/5));
@@ -172,7 +177,7 @@ public class SaisiCompteRendu extends JPanel{
 					}
 					try {
 						AreaText= inputArea.getText();
-						if(inputArea.getText().equals(oui) || inputArea.getText().length()<10) {
+						if(inputArea.getText().equals(PlaceHolder) || inputArea.getText().length()<10) {
 							AreaText=null;
 							System.out.println("Soit le text est égal au placeholder, soit les commentaires font moins de 10"
 									+ "caractères, entrez de vrais commentaires");
@@ -194,7 +199,7 @@ public class SaisiCompteRendu extends JPanel{
 							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
 							+AreaText+"'.");
 					//TODO décommenter quand thomas aura push le controller de compte rendu
-					//ajoutCompteRendu(Medecin,Motif,AreaText,Date,nbrEchantillons);
+					controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons);
 				}
 				else {
 					System.out.println("C'est la merde ! Courrez !");
@@ -210,8 +215,8 @@ public class SaisiCompteRendu extends JPanel{
         
     	panel[9].setOpaque(true);
     	panel[9].setBackground(Color.white);
-    	panel[0].add(panel[9]);
-    	panel[0].setBackground(new java.awt.Color(102, 163, 211)); 
+    	
+    	
     	this.add(titre_page);
         this.add(panel[9]);
         
