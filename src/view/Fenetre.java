@@ -24,6 +24,7 @@ import view.CreationMessagerie;
 
 
 public class Fenetre extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JPanel panelActif = new JPanel();
 	public User u = new User();
 	
@@ -32,8 +33,8 @@ public class Fenetre extends JFrame {
 	
 
 	public Fenetre() {
-        // Declaration du style pour les JMenu (elements menu) et les JMenuItem (elements sous-menu)
         Color bleu_clair = new java.awt.Color(102, 163, 211);
+        // Declaration du style pour les JMenu (elements menu) et les JMenuItem (elements sous-menu)
     	Font p = new Font("open-sans", Font.PLAIN, 24);
 		UIManager.put("Menu.font", p);
 		UIManager.put("MenuItem.font", p);
@@ -103,12 +104,7 @@ public class Fenetre extends JFrame {
         panel_deconnexion.setBackground(bleu_clair);
 
         // Definition du panel par défaut
-        if(u.isConnected()){
             panelActif = panel_connexion;
-        }
-        else {
-            panelActif = panel_connexion;
-        }
         
         // Creation de la barre menu
         JMenuBar menuBar = new JMenuBar();
@@ -131,7 +127,6 @@ public class Fenetre extends JFrame {
         		
         		revalidate();
         		repaint();
-        		
         	}
         	@Override public void menuCanceled(MenuEvent e) {/* TODO Auto-generated method stub */}
         	@Override public void menuDeselected(MenuEvent e) {/* TODO Auto-generated method stub */}        	
@@ -159,7 +154,6 @@ public class Fenetre extends JFrame {
         		
         		revalidate();
         		repaint();
-        		
         	}
         	@Override public void menuCanceled(MenuEvent e) {/* TODO Auto-generated method stub */}
         	@Override public void menuDeselected(MenuEvent e) {/* TODO Auto-generated method stub */}   
@@ -308,14 +302,11 @@ public class Fenetre extends JFrame {
         menuBar.add(menu8);
 
         add(panelActif, BorderLayout.CENTER);
-        if(u.isConnected()){
-        
+        System.out.println(u.isConnected());
+        if(u.isConnected() == false){
+        	setJMenuBar(menuBar);        
         }
-        else {
-            setJMenuBar(menuBar);
-        }
-        setVisible(true);
-        
+        setVisible(true);  
     }
 	
 	public int[] ObtenirDimensionFenetre() {
