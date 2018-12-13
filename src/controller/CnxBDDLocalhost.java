@@ -15,9 +15,9 @@ public class CnxBDDLocalhost {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
-		    String url = "jdbc:mysql://localhost/applivisiteur?useSSL=false";
+		    String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
 		    String user = "root";
-		    String passwd = "";
+		    String passwd = "root";
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
 		    System.out.println("Connexion effective !");
