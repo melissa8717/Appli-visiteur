@@ -27,7 +27,7 @@ public class CnxBDDLocalhost {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
-		    String url = "jdbc:mysql://localhost/applivisiteur?useSSL=false";
+		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 		    String user = "root";
 		    String passwd = "";
 
@@ -42,7 +42,9 @@ public class CnxBDDLocalhost {
 		    //N'oubliez pas de mettre des ' ' sur vos variables comme ici présent, j'ai mit 5min avant de comprendre xD
 		    ResultSet resultat = statement.executeQuery( "SELECT idUtilisateur, login, password, nom,prenom  FROM utilisateur where login='"+login+"' AND password='"+mdp+"';" );
 		    
-		
+		    // CR consultation
+		    ResultSet resultatCR = statement.executeQuery( "SELECT *  FROM rapport" );
+
 		    /* Récupération des données du résultat de la requête de lecture */
 		    if(resultat.next()) {
 	        
@@ -51,6 +53,9 @@ public class CnxBDDLocalhost {
 	            String prenomUtilisateur= resultat.getString("prenom");
 	            String motDePasseUtilisateur = resultat.getString( "password" );
 	            String nomUtilisateur = resultat.getString( "nom" );
+	            
+	           
+
 	            /* Formatage des données pour affichage dans la JSP finale. */
 	           
 	            	System.out.println( "Données retournées par la requête : login = " + loginUtilisateur
@@ -69,7 +74,22 @@ public class CnxBDDLocalhost {
 	        	System.out.println("login ou mot de passe incorrect");
 	        }
 		    
+		    if(resultatCR.next()) {
+		    	 //CR consultation
+	            int idRapport = resultatCR.getInt("idRapport");
+	            String date = resultatCR.getString("date");
+	            String bilan = resultatCR.getString("bilan");
+	            String motif = resultatCR.getString("motif");
+	            String echantillon = resultatCR.getString("echantillon");
+	            int idUtilisateur = resultatCR.getInt( "idUtilisateur" );
+	            
+	            
+	            
+		    }
 		    
+		    else {
+		    	System.out.println("Pas de compte rendu");
+		    }
 		    return true;
 		    
 		    
