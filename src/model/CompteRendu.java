@@ -15,7 +15,7 @@ public class CompteRendu {
 	public CompteRendu() { 
 	
 	DB_Connection obj_DB_Connection = new DB_Connection();
-	Connection connection = obj_DB_Connection.get_connection_bdAV();
+	//Connection connection = obj_DB_Connection.get_connection_bdAV();
 	PreparedStatement ps=null;
 	ResultSet rs=null;
 	
@@ -23,7 +23,7 @@ public class CompteRendu {
 		try {
 			// choix de la db
 			String query = String.format("INSERT INTO 'rapport' (`idRapport`, `date`, `bilan`, `motif`, `idUtilisateur`,`echantillon`) VALUES (id_rapport,date,commentaire,motif,id_utilisateur, echantillon");
-			ps = connection.prepareStatement(query);
+			//ps = connection.prepareStatement(query);
 			//ps.setString(1, sl_no);
 			//System.out.println(ps);
 			rs=ps.executeQuery();
