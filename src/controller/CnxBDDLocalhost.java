@@ -38,7 +38,7 @@ public class CnxBDDLocalhost {
 		    /* Exécution d'une requête de lecture */
 		    
 		    //N'oubliez pas de mettre des ' ' sur vos variables comme ici présent, j'ai mit 5min avant de comprendre xD
-			ResultSet resultat = statement.executeQuery("SELECT idUtilisateur, login, password, nom, prenom  FROM utilisateur WHERE login='" + login + "' AND password='" + mdp + "';");
+			ResultSet resultat = statement.executeQuery("SELECT idUtilisateur, login, password, nom, prenom, role  FROM utilisateur WHERE login='" + login + "' AND password='" + mdp + "';");
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    if(resultat.next()) {
@@ -46,7 +46,8 @@ public class CnxBDDLocalhost {
 	            String loginUtilisateur = resultat.getString( "login" );
 	            String prenomUtilisateur= resultat.getString("prenom");
 	            String motDePasseUtilisateur = resultat.getString( "password" );
-	            String nomUtilisateur = resultat.getString( "nom" );
+				String nomUtilisateur = resultat.getString( "nom" );
+				String role = resultat.getString("role");
 	            /* Formatage des données pour affichage dans la JSP finale. */
 				System.out.println( "Données retournées par la requête : login = " + loginUtilisateur + ", motdepasse = " + motDePasseUtilisateur + ", nom = " + nomUtilisateur + ", Id="+idUtilisateur+".");
 	            // new Fenetre();
@@ -54,6 +55,7 @@ public class CnxBDDLocalhost {
 	            User.id_utilisateur = idUtilisateur;
 	            User.nom = nomUtilisateur;
 				User.prenom = prenomUtilisateur;
+				User.role = role;
 				User.connected = true;
 				return true;
 	            // Pour faire ca, faut que les attributs de user soit en static, me demander par pourquoi
