@@ -1,6 +1,6 @@
 package controller;
 
-<<<<<<< HEAD
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,7 +35,7 @@ public class compteRenduControleur {
 	
 	
 	// CR consultation
-	public static Boolean consultationCompteRendu(String medecin) throws SQLException {
+	public static Boolean consultationCompteRendu(String Mois) throws SQLException {
 		
 		Connection conn = CnxBDDLocalhost.connecteur();
 	    

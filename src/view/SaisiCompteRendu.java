@@ -22,12 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-import controller.*;
-
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -44,12 +41,14 @@ public class SaisiCompteRendu extends JPanel{
 		
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du Médecin");
+        JLabel Medicament = new JLabel("Insérez le nom du médicament");
         JLabel Date = new JLabel("Date de la visite");        
         JLabel Motif = new JLabel("Motif de la visite");
         JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
-        JLabel Echantillons = new JLabel("Nombre d'�chantillons laiss�s au pratitien");
+        JLabel Echantillons = new JLabel("Nombre d'échantillons laissés au pratitien");
         
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
+        JFormattedTextField nomMedoc = new JFormattedTextField();
         String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
@@ -70,27 +69,25 @@ public class SaisiCompteRendu extends JPanel{
         
        
         
-       	String oui =" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
-       	JTextArea inputArea = new JTextArea(oui,5,25);
-       	inputArea.setText(oui);
+       	String PlaceHolder =" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
+       	JTextArea inputArea = new JTextArea(PlaceHolder,5,25);
+       	inputArea.setText(PlaceHolder);
         inputArea.setBorder(BorderFactory.createLineBorder(Color.black));
         inputArea.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
-            	/*System.out.println(oui);
-            	System.out.println("____________________");
-            	System.out.println(inputArea.getText());*/
+          
             	
-				if (inputArea.getText().equals(oui)){
+				if (inputArea.getText().equals(PlaceHolder)){
 					inputArea.setText("");
 				}
             }
 
 			public void focusLost(FocusEvent e) {
-	            if (inputArea.getText()!=oui && inputArea.getText().length() >= 10){
+	            if (inputArea.getText()!=PlaceHolder && inputArea.getText().length() >= 10){
 	            	inputArea.setText(inputArea.getText());
 	            }
 	            else {
-	            	inputArea.setText(oui);
+	            	inputArea.setText(PlaceHolder);
 	            }
 			}
 		});
@@ -172,7 +169,7 @@ public class SaisiCompteRendu extends JPanel{
 					}
 					try {
 						AreaText= inputArea.getText();
-						if(inputArea.getText().equals(oui) || inputArea.getText().length()<10) {
+						if(inputArea.getText().equals(PlaceHolder) || inputArea.getText().length()<10) {
 							AreaText=null;
 							System.out.println("Soit le text est égal au placeholder, soit les commentaires font moins de 10"
 									+ "caractères, entrez de vrais commentaires");
