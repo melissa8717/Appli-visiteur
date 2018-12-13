@@ -16,14 +16,15 @@ public class User {
 	public static String role;
 	public static String login;
 	public static String password;
+	public boolean connected;
 	//public String codePostal;
 	
 	public User(String login1, String mdp) {
 		this.Read(login1, mdp);
 	}
 	
-	public User(int idUtilisateur) {
-		
+	public User(){
+		this.connected = false;
 	}
 	
 	/*public User Create(String Name, String Email, String Password, String RememberToken, int UserProfile, int SupplierId) {
@@ -70,7 +71,8 @@ public class User {
 				System.out.println("je marche");
 				System.out.println(rs);
 			//}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			System.out.println(e);
 		}
 		return this;
@@ -100,5 +102,9 @@ public class User {
 		}
 		return this;
 	}*/
+
+	public Boolean isConnected(){
+		return this.connected;
+	}
 
 }

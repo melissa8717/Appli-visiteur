@@ -19,7 +19,7 @@ import javax.swing.JButton;
 
 
 public class Connexion extends JPanel {
-	public Connexion() {
+	public Connexion(User User, Fenetre f) {
 		int largeurConteneur = 600;
 		
 		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
@@ -31,6 +31,7 @@ public class Connexion extends JPanel {
 		Paragraphe paragrapheMdp = new Paragraphe("Mot de passe : ");
 		
 		JTextFieldModif textFieldMdp = new JTextFieldModif(10, 12);
+		System.out.println("Connexion :" + User);
 		
 		JButton boutonValider = new JButton("Connexion");
 		boutonValider.addActionListener(new ActionListener() {
@@ -38,18 +39,8 @@ public class Connexion extends JPanel {
 				try {
 					String login = textFieldId.getText();
 					String mdp = textFieldMdp.getText();
-					CnxBDDLocalhost.connect(login,mdp);
-					
-					/*if(controller.connectionControleur.testCredancial(login, mdp)) {
-						User currentUser = connectionControleur.setConnection(login, mdp);
-						new Fenetre();
-						//fenetre.setVisible(false);
-						System.out.println("on est connecté ");
-
-					}
-					else {
-						System.out.println("La méthode isConnected retourne FALSE");
-					}*/
+					CnxBDDLocalhost.connect(login, mdp, User);
+					f.refreshConnexion(User.isConnected());
 				}
 				catch(Exception exception) {
 					System.out.println(exception);
