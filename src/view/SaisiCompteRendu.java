@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-
+import controller.*;
 
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -194,7 +194,7 @@ public class SaisiCompteRendu extends JPanel{
 							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
 							+AreaText+"'.");
 					//TODO décommenter quand thomas aura push le controller de compte rendu
-					//ajoutCompteRendu(Medecin,Motif,AreaText,Date,nbrEchantillons);
+					controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons);
 				}
 				else {
 					System.out.println("C'est la merde ! Courrez !");
