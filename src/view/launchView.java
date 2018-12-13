@@ -12,11 +12,11 @@ public class launchView extends JFrame{
 	}
 
 	public static void fenetre() {
-		JFrame vue= new JFrame();
+	/*	JFrame vue= new JFrame();
 		vue.add(new Connexion());
 		vue.setBounds(50,50,500,500);
 		vue.setVisible(true);
-		vue.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		vue.setDefaultCloseOperation(EXIT_ON_CLOSE);*/
 	}
 }
 

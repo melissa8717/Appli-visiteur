@@ -16,7 +16,7 @@ public class DB_Connection {
 	}
 	
 	
-	//connection a la base de donné bduser
+	//connection a la base de donnï¿½ bduser
 	public static Connection getConnectionBduser(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");              
@@ -29,7 +29,7 @@ public class DB_Connection {
 	}
 	
 	
-	//connection a la base de donnée bdmedoc 
+	//connection a la base de donnï¿½e bdmedoc 
 	public static Connection getConnectionBdmedoc(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");              
@@ -41,6 +41,7 @@ public class DB_Connection {
 		return connectionbdmedoc;
 	}
 	public Connection get_connection_bdAV() {
+		Connection connectionbdAV = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");              
 			connectionbdAV = DriverManager.getConnection("jdbc:mysql:http://localhost/phpmyadmin/","root", "");
