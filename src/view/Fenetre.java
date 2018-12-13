@@ -26,6 +26,8 @@ public class Fenetre extends JFrame {
 	private JPanel panelActif = new JPanel();
 
 	public Fenetre() {
+        User u = new User();
+
         // Declaration du style pour les JMenu (elements menu) et les JMenuItem (elements sous-menu)
         Color bleu_clair = new java.awt.Color(102, 163, 211);
     	Font p = new Font("open-sans", Font.PLAIN, 24);
@@ -40,8 +42,8 @@ public class Fenetre extends JFrame {
 	    UIManager.put("MenuItem.selectionBackground", new Color (0, 63, 128));
 	    UIManager.put("MenuItem.selectionForeground", Color.white);
     	
-	    setBounds(50,50,1000,500);
-	    setMinimumSize(new Dimension( 1000,500));
+	    setBounds(50, 50, 1000, 500);
+	    setMinimumSize(new Dimension(1000, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         
@@ -97,7 +99,12 @@ public class Fenetre extends JFrame {
         panel_deconnexion.setBackground(bleu_clair);
 
         // Definition du panel par défaut
-        panelActif = panel_accueil;
+        if(((Object) panel_connexion).isConnected()){
+            panelActif = panel_connexion;
+        }
+        else {
+            panelActif = panel_accueil;
+        }
         
         // Creation de la barre menu
         JMenuBar menuBar = new JMenuBar();
@@ -297,7 +304,12 @@ public class Fenetre extends JFrame {
         menuBar.add(menu8);
 
         add(panel_accueil, BorderLayout.CENTER);
-        setJMenuBar(menuBar);
+        if(panel_connexion.isConnected()){
+        
+        }
+        else {
+            setJMenuBar(menuBar);
+        }
         setVisible(true);
         
     }
