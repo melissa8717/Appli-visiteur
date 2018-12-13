@@ -155,7 +155,8 @@ public class SaisiCompteRendu extends JPanel{
 				int nbrEchantillons;
 				String AreaText;
 				String DateChoisie;
-				String Medecin= (String) BoxMedChoice.getSelectedItem();
+				String Medicament;
+				int Medecin= (int) BoxMedChoice.getSelectedIndex();
 				String Motif= (String) BoxMotifChoice.getSelectedItem();
 			
 				try {
@@ -167,6 +168,15 @@ public class SaisiCompteRendu extends JPanel{
 				} catch (Exception e2) {
 					System.out.println("La date n'a pas été sélectionnée");
 					DateChoisie=null;
+				}
+				try {
+					
+					Medicament = nomMedoc.getText();
+					if(Medicament=="" || Medicament.length()<=2) {
+						Medicament=null;
+					}
+				}catch (Exception erreurMedoc) {
+					Medicament =null;
 				}
 					try {
 						nbrEchantillons= Integer.parseInt(nbrEchantillonsField.getText());
@@ -193,13 +203,14 @@ public class SaisiCompteRendu extends JPanel{
 					
 				
 				
-				if(DateChoisie!=null && nbrEchantillons!=0 && AreaText!=null) {
+				if(DateChoisie!=null && nbrEchantillons!=0 && AreaText!=null && Medicament!=null) {
 					System.out.println("C'est tout bon chef !");
-					System.out.println("Vous choisie le médecin: "+Medecin+", le motif: "+Motif+",\n la date de la visite été le: "+DateChoisie
+					System.out.println("Vous choisie le médecin: "+Medecin+", le motif: "+Motif+"\n"
+							+ "Le Médicament inscrit est: "+Medicament+" la date de la visite été le: "+DateChoisie
 							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
 							+AreaText+"'.");
 					//TODO décommenter quand thomas aura push le controller de compte rendu
-					controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons);
+					controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons,Medicament);
 				}
 				else {
 					System.out.println("C'est la merde ! Courrez !");

@@ -7,7 +7,7 @@ import java.sql.Statement;
 import view.Fenetre;
 import model.User;
 
-public class CnxBDDLocalhost {
+public class CnxBDD {
 	public static Connection connecteur() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
