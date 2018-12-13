@@ -30,6 +30,7 @@ public class Fenetre extends JFrame {
 	
     private JPanel panel_accueil;
     private JPanel panel_connexion;
+    private JMenuBar menuBar;
 	
 
 	public Fenetre() {
@@ -107,7 +108,7 @@ public class Fenetre extends JFrame {
             panelActif = panel_connexion;
         
         // Creation de la barre menu
-        JMenuBar menuBar = new JMenuBar();
+        this.menuBar = new JMenuBar();
 
         // Creation des differents elements du menu + declaration de l'event pour changer l'interface
         JMenu menu1 = new JMenu("Accueil");
@@ -292,20 +293,17 @@ public class Fenetre extends JFrame {
         menu7.add(item_utilisateur1);
         menu7.add(item_utilisateur2);
 
-        menuBar.add(menu1);
-        menuBar.add(menu2);
-        menuBar.add(menu3);
-        menuBar.add(menu4);
-        menuBar.add(menu5);
-        menuBar.add(menu6);
-        menuBar.add(menu7);
-        menuBar.add(menu8);
+        this.menuBar.add(menu1);
+        this.menuBar.add(menu2);
+        this.menuBar.add(menu3);
+        this.menuBar.add(menu4);
+        this.menuBar.add(menu5);
+        this.menuBar.add(menu6);
+        this.menuBar.add(menu7);
+        this.menuBar.add(menu8);
 
         add(panelActif, BorderLayout.CENTER);
         System.out.println(u.isConnected());
-        if(u.isConnected() == false){
-        	setJMenuBar(menuBar);        
-        }
         setVisible(true);  
     }
 	
@@ -322,6 +320,7 @@ public class Fenetre extends JFrame {
         if(connected){
             remove(panelActif);
             panelActif = this.panel_accueil;
+            setJMenuBar(this.menuBar);
             add(panelActif, BorderLayout.CENTER);
             
             revalidate();
