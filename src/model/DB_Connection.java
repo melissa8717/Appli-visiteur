@@ -40,8 +40,9 @@ public class DB_Connection {
 		
 		return connectionbdmedoc;
 	}
-	public Connection get_connection_bdAV() {
-		Connection connectionbdAV = null;
+
+	/*public Connection get_connection_bdAV() {
+
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");              
 			connectionbdAV = DriverManager.getConnection("jdbc:mysql:http://localhost/phpmyadmin/","root", "");
@@ -51,6 +52,6 @@ public class DB_Connection {
 		
 		return connectionbdAV;
 		
-	}
+	}*/
 	
 }

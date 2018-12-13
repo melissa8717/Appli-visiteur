@@ -35,13 +35,13 @@ public class compteRenduControleur {
 	
 	
 	// CR consultation
-	public static Boolean consultationCompteRendu(String Mois) throws SQLException {
+	public static Boolean consultationCompteRendu(int idUtilisateur) throws SQLException {
 		
 		Connection conn = CnxBDDLocalhost.connecteur();
 	    
 	    /* Création de l'objet gérant les requêtes */
 	    Statement statement = conn.createStatement();
-	    ResultSet resultatCR = statement.executeQuery( "SELECT *  FROM rapport" );	
+	    ResultSet resultatCR = statement.executeQuery( "SELECT *  FROM rapport where '"+idUtilisateur+"' ");	
 	    System.out.println(resultatCR);
 	    return false; 
 	}
