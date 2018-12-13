@@ -49,6 +49,7 @@ public class SaisiCompteRendu extends JPanel{
         
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
         JFormattedTextField nomMedoc = new JFormattedTextField();
+        
         String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
@@ -95,7 +96,7 @@ public class SaisiCompteRendu extends JPanel{
         this.setVisible(true); //Ceci apr�s l'initialisation des input pour �viter des bugs d'affichage � cause de setColumns
         						
         for (int i =1; i<9; i++) {
-        	espacement[i-1].setPreferredSize(new Dimension(50,50));
+        	espacement[i-1].setPreferredSize(new Dimension(50,40));
             espacement[i-1].setOpaque(false);
             panel[i].add(espacement[i-1]);
         }
@@ -107,9 +108,13 @@ public class SaisiCompteRendu extends JPanel{
         
         titre_page.setPreferredSize(new Dimension(widhtPanel, 100));
         
+        espacement[9].setPreferredSize(new Dimension(50,40));
     	espacement[9].setOpaque(false);
+    	
     	panel[0].add(espacement[9]);
-
+    	panel[0].add(Medicament);
+    	panel[0].add(nomMedoc);
+    	nomMedoc.setColumns(15);
         panel[1].add(Titre);
         panel[2].add(Medecin);
         panel[3].add(Date);
@@ -124,13 +129,16 @@ public class SaisiCompteRendu extends JPanel{
         panel[2].add(BoxMedChoice);
         panel[4].add(BoxMotifChoice);
         
-        for (int i = 1; i < 9; i++) {
-        	panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/10));
+        for (int i = 0; i < 9; i++) {
+        	panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/11));
         	if(i == 5) {
         		panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/100*8));
+        		panel[9].add(panel[0]);
         	}
         	panel[i].setOpaque(false);
+        	if(i!=0) {
             panel[9].add(panel[i]);
+        	}
         }
         
        panel[7].setPreferredSize(new Dimension(widhtPanel, heightPanel/5));
@@ -207,8 +215,8 @@ public class SaisiCompteRendu extends JPanel{
         
     	panel[9].setOpaque(true);
     	panel[9].setBackground(Color.white);
-    	panel[0].add(panel[9]);
-    	panel[0].setBackground(new java.awt.Color(102, 163, 211)); 
+    	
+    	
     	this.add(titre_page);
         this.add(panel[9]);
         
