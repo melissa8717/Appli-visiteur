@@ -299,6 +299,7 @@ public class Fenetre extends JFrame {
         add(panel_accueil, BorderLayout.CENTER);
         setJMenuBar(menuBar);
         setVisible(true);
+        
     }
 	
 	public int[] ObtenirDimensionFenetre() {
