@@ -3,7 +3,8 @@ package view;
 import javax.swing.JPanel;
 
 import controller.CnxBDDLocalhost;
-import controller.connectionControleur;
+
+
 /*
 import appliVisiteur_interfaceGraphique.Conteneur;
 import appliVisiteur_interfaceGraphique.Fenetre;
