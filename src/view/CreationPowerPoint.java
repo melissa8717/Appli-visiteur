@@ -141,6 +141,7 @@ public class CreationPowerPoint extends JPanel {
 						String contreIndication=CreationPowerPointController.contreIndication(nomMedicament);
 						
 						if(Path!=null){
+							System.out.println("Le fichier sera enregistrer dans le dossier suivant: "+Path);
 							new GenerateurPPTX(ListeDisposition.getSelectedItem().toString(),nomMedicament,effet,contreIndication,Path);
 							System.out.println("Fichier enregisté");
 						} else {
