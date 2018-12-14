@@ -23,7 +23,7 @@ import org.apache.poi.xslf.usermodel.XSLFTextShape;
 
 public class GenerateurPPTX {
 	
-	public GenerateurPPTX(String Dispo,String NomMedoc) throws IOException {
+	public GenerateurPPTX(String Dispo,String NomMedoc,String Effet,String contreIndication) throws IOException {
 		
 		String path= "/Desktop/Unfichier.pptx";
 		File Background =new File("img/fond_transp.png");
@@ -31,30 +31,33 @@ public class GenerateurPPTX {
 		File ImgMedoc =new File("img/doliprane.png");
 		File file =new File(System.getProperty("user.home") + path);
 		
-			newFile(file);
-		
-		String TextMedoc="Le doliprane c'est pour le mal de tête tu savais ou pas ? plus précisément c'est un anti-douleur, il fait 500mg ca veut dire que c'est plus petit que 1000 par exemple ";
-		String TextMedoc2="Le saviez-vous ? le doliprane faut pas en prendre 3 dans la même minute";
+		newFile(file);		
 		
 		if (Dispo=="1") {
-			Dispo1(file,NomMedoc,TextMedoc,TextMedoc2,ImgMedoc,Background);
+			
+			Effet=textOpti(Effet,240);
+			contreIndication= textOpti(contreIndication,240);
+			
+			Dispo1(file,NomMedoc,Effet,contreIndication,ImgMedoc,Background);
 		}
 		if (Dispo=="2") {
-			Dispo2(file,NomMedoc,TextMedoc,TextMedoc2,ImgMedoc,Background);
+			Effet=textOpti(Effet,260);
+			contreIndication=textOpti(contreIndication,260);
+			
+			Dispo2(file,NomMedoc,Effet,contreIndication,ImgMedoc,Background);
 		}
 		if (Dispo=="3") {
 			Dispo3(file,NomMedoc,ImgMedoc,Background);
 		}
 		if (Dispo=="4") {
-			Dispo4(file,NomMedoc,TextMedoc,TextMedoc2,Background);
+			Effet=textOpti(Effet,300);
+			contreIndication=textOpti(contreIndication,300);
+			
+			Dispo4(file,NomMedoc,Effet,contreIndication,Background);
 		}
 		
 		
-		
-		//Dispo2(file,NomMedoc,TextMedoc,TextMedoc2,ImgMedoc,Background);
-		//Dispo3(file,NomMedoc,ImgMedoc,Background);
-		//Dispo4(file,NomMedoc,TextMedoc,TextMedoc2,Background);
-		
+	
 		
 		   }
 	
@@ -67,7 +70,7 @@ public class GenerateurPPTX {
 
 	     
 	     System.out.println(file);
-	     System.out.println("Fichier enregistré");
+	     System.out.println("Fichier en cours de création");
 	     fis.close();
 	     xml.close();
 	      
@@ -115,7 +118,7 @@ public class GenerateurPPTX {
         	  zoneText.setAnchor(new Rectangle(0,150,350,150));
           }
           if(position=="droite") {
-        	  zoneText.setAnchor(new Rectangle(400,150,350,150));
+        	  zoneText.setAnchor(new Rectangle(380,150,350,150));
           }
           if(position=="centre") {
         	  zoneText.setAnchor(new Rectangle(150,150,500,200));
@@ -244,7 +247,7 @@ public class GenerateurPPTX {
 		 modifSlide(file,NomMedoc,"",1,"droite");
 		 newSlideImg(file,imgMedoc,"centre",1);
 		 //slide 3
-		 modifSlide(file,"\n\n\nC'�tait la pr�sentation de "+NomMedoc+" merci pour votre attention !","",2,"droite");
+		 modifSlide(file,"\n\n\nC'était la présentation de "+NomMedoc+" merci pour votre attention !","",2,"droite");
 		 
 	 }
 	 public static void Dispo4(File file,String NomMedoc,String TextMedoc,String TextMedoc2,File imgBackground) throws IOException{
@@ -259,10 +262,20 @@ public class GenerateurPPTX {
 		//slide 3
 		modifSlide(file,NomMedoc,TextMedoc2,2,"centre");
 		//slide 4
-		modifSlide(file,"\n\n\nC'�tait la pr�sentation de "+NomMedoc+" merci pour votre attention !","",3,"centre");
+		modifSlide(file,"\n\n\nC'�tait la présentation de "+NomMedoc+" merci pour votre attention !","",3,"centre");
+		 
+	 }
+	 
+	 public static String textOpti(String text,int nbrCaractere) {
+		 if(text.length()>nbrCaractere) {
+				char[] c_arr = text.toCharArray();
+				text=new String(c_arr,0,nbrCaractere-3);
+				text=text+"...";
+			}
+		 return text;
 		 
 	 }
 			
-	 }
+}
 
 

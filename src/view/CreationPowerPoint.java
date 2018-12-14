@@ -130,10 +130,16 @@ public class CreationPowerPoint extends JPanel {
 				System.out.println("c'est sensé marcher");
 				try {
 					System.out.println("La disposition "+ListeDisposition.getSelectedItem().toString()+" a été sélectionnée");
-					new GenerateurPPTX(ListeDisposition.getSelectedItem().toString(),label_medicament_selectionne.getText());
-					System.out.println("C'est bon chef !");
+					String nomMedicament=label_medicament_selectionne.getText();
+					
+					String effet=CreationPowerPointController.EffetMedoc(nomMedicament);
+					String contreIndication=CreationPowerPointController.contreIndication(nomMedicament);
+					
+					
+					new GenerateurPPTX(ListeDisposition.getSelectedItem().toString(),nomMedicament,effet,contreIndication);
+					System.out.println("Fichier enregisté");
 				} catch (IOException e) {
-					System.out.println("Bobo");
+					System.out.println("Erreur lors de la création de la présentation");
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
