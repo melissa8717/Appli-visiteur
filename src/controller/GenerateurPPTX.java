@@ -23,13 +23,13 @@ import org.apache.poi.xslf.usermodel.XSLFTextShape;
 
 public class GenerateurPPTX {
 	
-	public GenerateurPPTX(String Dispo,String NomMedoc,String Effet,String contreIndication) throws IOException {
+	public GenerateurPPTX(String Dispo,String NomMedoc,String Effet,String contreIndication, File Path) throws IOException {
 		
-		String path= "/Desktop/Unfichier.pptx";
+		String nomFichier= "/"+ NomMedoc+".pptx";
 		File Background =new File("img/fond_transp.png");
 		
 		File ImgMedoc =new File("img/doliprane.png");
-		File file =new File(System.getProperty("user.home") + path);
+		File file =new File(Path+nomFichier);
 		
 		newFile(file);		
 		

@@ -2,6 +2,7 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,24 +128,37 @@ public class CreationPowerPoint extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Debut generation PowerPoint");
-				System.out.println("c'est sensé marcher");
-				try {
-					System.out.println("La disposition "+ListeDisposition.getSelectedItem().toString()+" a été sélectionnée");
-					String nomMedicament=label_medicament_selectionne.getText();
-					
-					String effet=CreationPowerPointController.EffetMedoc(nomMedicament);
-					String contreIndication=CreationPowerPointController.contreIndication(nomMedicament);
-					
-					
-					new GenerateurPPTX(ListeDisposition.getSelectedItem().toString(),nomMedicament,effet,contreIndication);
-					System.out.println("Fichier enregisté");
-				} catch (IOException e) {
-					System.out.println("Erreur lors de la création de la présentation");
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				String nomMedicament=label_medicament_selectionne.getText();
+				if(nomMedicament!="") {
+					JFileChooser f = new JFileChooser();
+				    f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+				    f.showSaveDialog(null);
+				    File Path=f.getSelectedFile();
+				    System.out.println(f.getSelectedFile());
+					try {
+						System.out.println("La disposition "+ListeDisposition.getSelectedItem().toString()+" a été sélectionnée");
+						String effet=CreationPowerPointController.EffetMedoc(nomMedicament);
+						String contreIndication=CreationPowerPointController.contreIndication(nomMedicament);
+						
+						if(Path!=null){
+							new GenerateurPPTX(ListeDisposition.getSelectedItem().toString(),nomMedicament,effet,contreIndication,Path);
+							System.out.println("Fichier enregisté");
+						} else {
+							System.out.println("Création annulée");
+						}
+						
+					} catch (IOException e) {
+						System.out.println("Erreur lors de la création de la présentation");
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				
-			} 
+				} else {
+					System.out.println("Aucun médicament séléctionné");
+					
+				}
+			}
+			
 		}); 
 		JLabel nom = new JLabel("Inspecteur Gadget");
 		panel2.setOpaque(false);
