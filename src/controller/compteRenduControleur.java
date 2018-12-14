@@ -1,33 +1,36 @@
 package controller;
 
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-import javax.swing.JLabel;
+
+import java.sql.*;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import controller.CnxBDDLocalhost;
-import model.User;
+import controller.*;
+import model.*;
+
+import com.mysql.jdbc.Connection;
+
 
 public class compteRenduControleur {
 
 	
 
-	public static boolean ajoutCompteRendu (String medecin, String Motif, String commentaire,String date, int echantillon) {
+	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire,String date, int echantillon,String Medicament) {
 		try {
-			Connection conn = (Connection) CnxBDDLocalhost.connecteur();
-			String requete = "INSERT INTO rapport(idRapport, date, bilan, motif, idUtilisateur) VALUES (1,'"+date+"','"+commentaire+"','"+Motif+"',"+connectionControleur.id_utilisateur+")";
+			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			String requete = "INSERT INTO rapport(date, bilan, motif, idUtilisateur,idPraticien,nomMedicament) VALUES ('"+date+"','"+commentaire+"','"+Motif+"',"
+			+connectionControleur.id_utilisateur+",'"+medecin+"','"+Medicament+"');";
 			Statement statement =  conn.createStatement();
 			int rep = statement.executeUpdate(requete);
+			System.out.println("compte rendu inséré");
 			return (rep>0);
 		}
 		
 		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef");
 			return false;
 		}
 	}
@@ -38,7 +41,8 @@ public class compteRenduControleur {
 		System.out.println("je suis dans la requeteeeeeeeee");
 		try {
 
-			Connection conn =(Connection) CnxBDDLocalhost.connecteur();
+			//Connection conn =(Connection) CnxBDD.connecteur();
+			Connection conn =(Connection) CnxBDD.connecteurUserLab();
 			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();

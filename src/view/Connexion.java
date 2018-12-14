@@ -2,9 +2,12 @@ package view;
 
 import javax.swing.JPanel;
 
-import controller.CnxBDDLocalhost;
+
+//import controller.CnxBDDLocalhost;
 
 
+import controller.CnxBDD;
+import controller.connectionControleur;
 /*
 import appliVisiteur_interfaceGraphique.Conteneur;
 import appliVisiteur_interfaceGraphique.Fenetre;
@@ -40,7 +43,7 @@ public class Connexion extends JPanel {
 				try {
 					String login = textFieldId.getText();
 					String mdp = textFieldMdp.getText();
-					CnxBDDLocalhost.connect(login, mdp, User);
+					CnxBDD.connect(login, mdp, User);
 					f.refreshConnexion(User.isConnected());
 				}
 				catch(Exception exception) {

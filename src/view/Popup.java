@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class Popup extends JFrame {
     public Popup(String title, int width, int height){
 
-		this.setBounds(100,50,1000,1000/16*9);
+		this.setBounds(100,50,2000,1000/16*9);
 		
 		this.setSize(width, height);
 
