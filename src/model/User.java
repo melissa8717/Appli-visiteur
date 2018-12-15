@@ -8,14 +8,14 @@ import java.sql.ResultSet;
 
 public class User {
 	
-	public static int id_utilisateur;
-	public static String nom;
-	public static String prenom;
-	public static String adresse;
-	public static String ville;
-	public static String role;
-	public static String login;
-	public static String password;
+	public int id_utilisateur;
+	public String nom;
+	public String prenom;
+	public String adresse;
+	public String ville;
+	public int role;
+	public String login;
+	public String password;
 	public boolean connected;
 	//public String codePostal;
 	
@@ -27,7 +27,8 @@ public class User {
 		this.connected = false;
 	}
 	
-	/*public User Create(String Name, String Email, String Password, String RememberToken, int UserProfile, int SupplierId) {
+	/*
+	public User Create(String Name, String Email, String Password, String RememberToken, int UserProfile, int SupplierId) {
 		
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = obj_DB_Connection.get_connection();
@@ -45,8 +46,6 @@ public class User {
 		return this;
 	}*/
 	
-
-
 	public User Read(String inputLogin, String inputMdp){
 		DB_Connection obj_DB_Connection = (DB_Connection) model.DB_Connection.connectionbduser;
 		Connection connection = DB_Connection.getConnectionBduser();
@@ -65,7 +64,7 @@ public class User {
 				prenom = rs.getString("prenom");
 				adresse = rs.getString("adresse");			
 				ville = rs.getString("ville");			
-				role = rs.getString("role");			
+				role = rs.getInt("role");			
 				login = rs.getString("login");
 				password = rs.getString("password");	
 				System.out.println("je marche");
@@ -78,7 +77,8 @@ public class User {
 		return this;
 	}
 	
-	/*public User Update(int Id, String Name, String Email, String Password, String RememberToken, int UserProfile, int SupplierId) {
+	/*
+	public User Update(int Id, String Name, String Email, String Password, String RememberToken, int UserProfile, int SupplierId) {
 		
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = obj_DB_Connection.get_connection();
@@ -101,10 +101,10 @@ public class User {
 			System.out.println("Erreur insert : " + e);
 		}
 		return this;
-	}*/
+	}
+	*/
 
-	public Boolean isConnected(){
+	public Boolean isConnected() {
 		return this.connected;
 	}
-
 }

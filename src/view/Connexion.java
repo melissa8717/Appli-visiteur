@@ -16,6 +16,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -48,13 +51,42 @@ public class Connexion extends JPanel {
 		boutonValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String login = textFieldId.getText();
-					String mdp = textFieldMdp.getText();
-					CnxBDDLocalhost.connect(login, mdp, User);
+					CnxBDDLocalhost.connect(textFieldId.getText(), textFieldMdp.getText(), User);
 					f.refreshConnexion(User.isConnected());
 				}
 				catch(Exception exception) {
 					System.out.println(exception);
+				}
+			}
+		});
+		
+		textFieldId.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				System.out.println("Key: "+e.getKeyCode());
+			    if (e.getKeyCode() == KeyEvent.VK_ENTER){
+			        System.out.println("Hello");
+					try {
+						CnxBDDLocalhost.connect(textFieldId.getText(), textFieldMdp.getText(), User);
+						f.refreshConnexion(User.isConnected());
+					}
+					catch(Exception exception) {
+						System.out.println(exception);
+					}
+				}
+			}
+		});
+		textFieldMdp.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				System.out.println("Key: "+e.getKeyCode());
+			    if (e.getKeyCode() == KeyEvent.VK_ENTER){
+			        System.out.println("Hello");
+					try {
+						CnxBDDLocalhost.connect(textFieldId.getText(), textFieldMdp.getText(), User);
+						f.refreshConnexion(User.isConnected());
+					}
+					catch(Exception exception) {
+						System.out.println(exception);
+					}
 				}
 			}
 		});

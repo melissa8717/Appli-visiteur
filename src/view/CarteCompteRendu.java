@@ -7,7 +7,9 @@ import java.awt.Dimension;
 
 
 public class CarteCompteRendu extends JPanel {
-    public CarteCompteRendu(Date date, String medecin, String nomMedicament) {
+	private static final long serialVersionUID = 1L;
+
+	public CarteCompteRendu(Date date, String medecin, String nomMedicament) {
 
         
         
