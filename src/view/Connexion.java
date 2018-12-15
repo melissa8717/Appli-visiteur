@@ -2,7 +2,11 @@ package view;
 
 import javax.swing.JPanel;
 
-import controller.CnxBDDLocalhost;
+
+//import controller.CnxBDDLocalhost;
+
+
+import controller.CnxBDD;
 import controller.connectionControleur;
 /*
 import appliVisiteur_interfaceGraphique.Conteneur;

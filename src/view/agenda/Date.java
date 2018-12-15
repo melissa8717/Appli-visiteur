@@ -6,9 +6,9 @@ import java.util.GregorianCalendar;
 public class Date {
 	int year,month,day;
  
-	private Calendar calendar=new GregorianCalendar();
+	public Calendar calendar=new GregorianCalendar();
  
-	Date(){
+	public Date(){
 	    year=calendar.get(Calendar.YEAR);
 	    month=calendar.get(Calendar.MONTH);
 	    day=calendar.get(Calendar.DAY_OF_MONTH);
@@ -26,19 +26,19 @@ public class Date {
  
 	}
  
-	int getYear(){
+	public int getYear(){
 		return year;
 	}
-	int getMonth(){
+	public int getMonth(){
 		return month;
 	}
 	int getDay(){
 		return day;
 	}
-	void setYear(int year){
+	public void setYear(int year){
 		this.year=year;
 	}
-	void setMonth(int month){
+	public void setMonth(int month){
 		this.month=month;
 	}void setDay(int day){
 		this.day=day;

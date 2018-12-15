@@ -38,8 +38,8 @@ public class Calendrier extends JPanel {
  
 	  private Date date=new Date();
 
-	  String[] months = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
-		      "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre" };
+	  String[] months = { "Janvier", "Fï¿½vrier", "Mars", "Avril", "Mai", "Juin",
+		      "Juillet", "Aoï¿½t", "Septembre", "Octobre", "Novembre", "Decembre" };
 	  
 	  public int dom[] = { 31, 28, 31, 30, /* jan feb mar apr */
 			  31, 30, 31, 31, /* may jun jul aug */
@@ -123,7 +123,7 @@ public class Calendrier extends JPanel {
  
 		    JPanel tp = new JPanel();
 
-		  //barre ou il ya les deux listes déroulantes
+		  //barre ou il ya les deux listes dï¿½roulantes
 			BoxLayout b= new BoxLayout(tp, BoxLayout.Y_AXIS);
 			tp.setBounds(500,50,500,500/16*9);
 			
@@ -183,7 +183,7 @@ public class Calendrier extends JPanel {
 		
 		  
 			Font pt = new Font("open-sans", Font.PLAIN, 24);
-			bp.setFont(pt);
+			/*bp.setFont(pt);
 			bp.setSize(getMaximumSize());
 			bp.setVisible(true);
 		    bp.setLayout(new GridLayout(7, 7));
@@ -228,12 +228,12 @@ public class Calendrier extends JPanel {
 			jeudi.setFont(fontM);
 			vendredi.setFont(fontM);
 			samedi.setFont(fontM);
-			dimanche.setFont(fontM);
+			dimanche.setFont(fontM);*/
 
 		    
 		    
 		    //taille du calendrier
-		    bp.setPreferredSize(new Dimension(1700, 900));
+		  //  bp.setPreferredSize(new Dimension(1700, 900));
 
 
 		    ActionListener dateSetter = new ActionListener() {
@@ -254,8 +254,8 @@ public class Calendrier extends JPanel {
  
  
 		    // Construct all the buttons, and add them.
-		    //Case vide après le mois
-		    for (int i = 0; i < 6; i++)
+		    //Case vide aprï¿½s le mois
+		  /*  for (int i = 0; i < 6; i++)
 		      for (int j = 0; j < 7; j++) {
 
 		        bp.add(labs[i][j] = new JButton(""));
@@ -263,7 +263,7 @@ public class Calendrier extends JPanel {
 		        labs[i][j].setBackground(new Color(229,236,246));
 		      }
  
-		    add(BorderLayout.SOUTH, bp);
+		    add(BorderLayout.SOUTH, bp);*/
  
 	}
  
@@ -284,7 +284,8 @@ public class Calendrier extends JPanel {
 		c.setBounds(500,50,500,500/16*9);
 		c.setBackground(new Color (102,163,211));
 		BoxLayout b= new BoxLayout(c, BoxLayout.Y_AXIS);
-
+		
+		//Pour pas qu'il soit en full screen , si ful screen alors commenter la ligne en dessous
 	    c.setLayout(new FlowLayout());
 	    c.add(new Calendrier());
  

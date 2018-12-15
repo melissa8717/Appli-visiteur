@@ -25,10 +25,15 @@ import javax.swing.JTextArea;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
+
+import controller.compteRenduControleur;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SaisiCompteRendu extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -50,10 +55,25 @@ public class SaisiCompteRendu extends JPanel{
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
         JFormattedTextField nomMedoc = new JFormattedTextField();
         
-        String[] items = {"Médecin1", "Médecin2", "Médecin3", "Médecin4"};
+        
+        List<List> ListMed= compteRenduControleur.selectMedecin();
+        List<String> ListNomMed=new ArrayList<String>();
+        List<Integer> ListIdMed=new ArrayList<Integer>();
+        
+        for (int i = 0; i < ListMed.size(); i++) {
+        	
+        	int idTemp=Integer.valueOf((String) ListMed.get(i).get(0));
+        	ListIdMed.add(idTemp);
+			ListNomMed.add((String) ListMed.get(i).get(1));
+			
+		}
+        String nomMed[]=ListNomMed.toArray(new String[0]);
+        Integer[] idMed=ListIdMed.toArray(new Integer[0]);
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
-        JComboBox<?> BoxMedChoice = new JComboBox<Object>(items);
+        JComboBox<?> BoxMedChoice = new JComboBox<Object>(nomMed);
         JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
+        
+        
         JButton Valider = new JButton("Valider");
 
         Font font = new Font("Arial",Font.BOLD,20);
@@ -155,7 +175,8 @@ public class SaisiCompteRendu extends JPanel{
 				int nbrEchantillons;
 				String AreaText;
 				String DateChoisie;
-				String Medecin= (String) BoxMedChoice.getSelectedItem();
+				String Medicament;
+				int Medecin= idMed[(int) BoxMedChoice.getSelectedIndex()];
 				String Motif= (String) BoxMotifChoice.getSelectedItem();
 			
 				try {
@@ -167,6 +188,15 @@ public class SaisiCompteRendu extends JPanel{
 				} catch (Exception e2) {
 					System.out.println("La date n'a pas été sélectionnée");
 					DateChoisie=null;
+				}
+				try {
+					
+					Medicament = nomMedoc.getText();
+					if(Medicament=="" || Medicament.length()<=2) {
+						Medicament=null;
+					}
+				}catch (Exception erreurMedoc) {
+					Medicament =null;
 				}
 					try {
 						nbrEchantillons= Integer.parseInt(nbrEchantillonsField.getText());
@@ -193,13 +223,14 @@ public class SaisiCompteRendu extends JPanel{
 					
 				
 				
-				if(DateChoisie!=null && nbrEchantillons!=0 && AreaText!=null) {
+				if(DateChoisie!=null && nbrEchantillons!=0 && AreaText!=null && Medicament!=null) {
 					System.out.println("C'est tout bon chef !");
-					System.out.println("Vous choisie le médecin: "+Medecin+", le motif: "+Motif+",\n la date de la visite été le: "+DateChoisie
+					System.out.println("Vous choisie le médecin: "+Medecin+", le motif: "+Motif+"\n"
+							+ "Le Médicament inscrit est: "+Medicament+" la date de la visite été le: "+DateChoisie
 							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
 							+AreaText+"'.");
 					//TODO décommenter quand thomas aura push le controller de compte rendu
-					controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons);
+					controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons,Medicament);
 				}
 				else {
 					System.out.println("C'est la merde ! Courrez !");

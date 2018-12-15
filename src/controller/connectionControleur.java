@@ -25,14 +25,15 @@ public class connectionControleur extends User {
 
 
 	public static Boolean  testCredancial (String login, String motDePasse) {
-		User curentUser = null;	
+		User curentUser = null;
+		Boolean connexion= false;
 		if ((login instanceof String) && (motDePasse instanceof String)){
 				curentUser = setConnection(login, motDePasse);
-				System.out.println(curentUser.id_utilisateur!=null);
-			} 
+				connexion=true;
+		} 
 		
 		
-		return (curentUser.id_utilisateur!=null);
+		return (connexion);
 	}
 	
 	

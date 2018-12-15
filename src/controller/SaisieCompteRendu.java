@@ -1,6 +1,6 @@
 package controller;
 import model.User;
-import view.ViewCompteRendu;
+//import view.ViewCompteRendu;
 import model.CompteRendu;
 
 
