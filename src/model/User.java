@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 
 public class User {
 	
-	public int id_utilisateur;
+	public static int id_utilisateur;
 	public String nom;
 	public String prenom;
 	public String adresse;
