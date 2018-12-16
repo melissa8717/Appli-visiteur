@@ -7,7 +7,7 @@ import java.awt.Dimension;
 
 
 public class CarteCompteRendu extends JPanel {
-    public CarteCompteRendu(String medecin, String nomMedicament) {
+    public CarteCompteRendu(String medecin, String nomMedicament) {}
 
 	public CarteCompteRendu(Date date, String medecin, String nomMedicament) {
 

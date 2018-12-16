@@ -52,6 +52,9 @@ public class SaisiCompteRendu extends JPanel{
         JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
         JLabel Echantillons = new JLabel("Nombre d'échantillons laissés au pratitien");
         
+        AlertSuccess compteRenduBon = new AlertSuccess ("le compte rendu et bien enregistré");
+        AlertError compteRenduFalse = new AlertError ("le compte rendu a eux une erreur d'enregistrement");
+        
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
         JFormattedTextField nomMedoc = new JFormattedTextField();
         
@@ -167,7 +170,11 @@ public class SaisiCompteRendu extends JPanel{
         
         espacement[7].setPreferredSize(new Dimension(200, 0));
         panel[8].add(espacement[7]);
+        panel[8].add(compteRenduBon);
+        panel[8].add(compteRenduFalse);
         panel[8].add(Valider);
+        compteRenduBon.setVisible(false);
+        compteRenduFalse.setVisible(false);
         
         Valider.addActionListener(new ActionListener() {
 			@Override
@@ -231,7 +238,21 @@ public class SaisiCompteRendu extends JPanel{
 							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
 							+AreaText+"'.");
 					//TODO décommenter quand thomas aura push le controller de compte rendu
-					controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons,Medicament);
+					if (controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons,Medicament)){
+
+				        compteRenduBon.setVisible(true);
+				        compteRenduFalse.setVisible(false);
+				        inputArea.setText("");;
+				        nomMedoc.setValue("");
+				        nbrEchantillonsField.setValue("");
+				        
+				        
+					}
+					else {
+
+				        compteRenduFalse.setVisible(true);
+				        compteRenduBon.setVisible(false);
+					}
 				}
 				else {
 					System.out.println("C'est la merde ! Courrez !");
