@@ -53,14 +53,14 @@ public class Fenetre extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // Generation de la vue connexion
-        JPanel panel_connexion = new Connexion(this.u, this);
+        JPanel panel_connexion = new Connexion(this.u, this, false);
 
         // Definition du panel par défaut
         panelActif = panel_connexion;
 
         // Ajout + affichage de la fenetre
         add(panelActif, BorderLayout.CENTER);
-        System.out.println(u.role);
+        
         setVisible(true);  
     }
 	
@@ -74,11 +74,11 @@ public class Fenetre extends JFrame {
     }
     
     public void refreshConnexion(boolean connected){
-    	// Generation de la fentre final si utilisateur connecté
+    	// Generation de la fenetre final si utilisateur connecté
         if(connected){
 	    	// Generation des vues
 	            // Menu Accueil
-	        JPanel panel_accueil = new Accueil();
+	        JPanel panel_accueil = new Accueil(u.prenom.toString());
 	            // Menu Compte Rendu
 	        final JPanel panel_compte_rendu = new JPanel();
 	        final JPanel panel_compte_rendu1 = new SaisiCompteRendu();
@@ -152,14 +152,15 @@ public class Fenetre extends JFrame {
             menu6.add(item_medecin2);
             menu7.add(item_utilisateur1);
             menu7.add(item_utilisateur2);
-
+      
             menuBar.add(menu1);
-            //if(u.role == 1 || u.role == 2) {
+            System.out.println(u.role);
+            if(u.role == 1 || u.role == 2) {
+            	System.out.println("je suis un visiteur ou un délégué, j'ai donc des menu en plus");
             	menuBar.add(menu2);
-           // }
-           // if(u.role == 1 || u.role == 2) {
             	menuBar.add(menu3);
-            //}
+            }
+
             menuBar.add(menu4);
             menuBar.add(menu5);
             menuBar.add(menu6);
@@ -169,6 +170,16 @@ public class Fenetre extends JFrame {
             remove(panelActif);
             panelActif = panel_accueil;
             setJMenuBar(menuBar);
+            add(panelActif, BorderLayout.CENTER);
+            
+            revalidate();
+            repaint();
+        }
+        else {
+        	JPanel panel_connexion = new Connexion(this.u, this, true);
+        	
+            remove(panelActif);
+            panelActif = panel_connexion;
             add(panelActif, BorderLayout.CENTER);
             
             revalidate();

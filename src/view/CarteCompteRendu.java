@@ -11,6 +11,7 @@ import java.awt.Dimension;
 public class CarteCompteRendu extends JPanel {
     public CarteCompteRendu(String someFrame, String medicament) {
 
+
         
         
         Conteneur conteneur = new Conteneur(); 

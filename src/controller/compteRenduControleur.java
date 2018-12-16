@@ -21,14 +21,36 @@ public class compteRenduControleur {
 	//CR Saisie Compte Rendu
 	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire,String date, int echantillon,String Medicament) {
 		try {
+<<<<<<< HEAD
 			//Connection conn = (Connection) CnxBDD.connecteurUserLab();
 
 			Connection conn = (Connection) CnxBDD.connecteur();
 			String requete = "INSERT INTO rapport(date, bilan, motif, idUtilisateur,idPraticien,nomMedicament) VALUES ('"+date+"','"+commentaire+"','"+Motif+"',"
 			+connectionControleur.id_utilisateur+",'"+medecin+"','"+Medicament+"');";
+=======
+			/*
+			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			System.out.println("conn ok ");
+			String requete = "INSERT INTO `rapport`(`idRapport`, `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`)  VALUES (2,'"+date+"','"+commentaire+"','"+Motif+"',"+connectionControleur.id_utilisateur+",1,'doliprane' )";
+>>>>>>> b84dba7d1285e92a2f40bf834f9d5d217ab7298e
 			Statement statement =  conn.createStatement();
 			int rep = statement.executeUpdate(requete);
+			System.out.println("req effectuer");
+			*/
+			
+			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			System.out.println("connection ok ");
+			commentaire = commentaire.replaceAll("'", "\'");
+			Medicament = Medicament.replace("'", "\'");
+			String requete = 
+					"INSERT INTO" + 
+					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
+					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"',4,'"+Medicament+"','"+echantillon+"')";
+			System.out.println(requete);
+			Statement statement =  conn.createStatement();	
+			int rep = statement.executeUpdate(requete);
 			System.out.println("compte rendu inséré");
+			
 			return (rep>0);
 		}
 		

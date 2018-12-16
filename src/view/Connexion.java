@@ -17,6 +17,7 @@ import appliVisiteur_interfaceGraphique.TitrePrincipale;*/
 import model.User;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ import javax.swing.JFrame;
 
 
 public class Connexion extends JPanel {
-	public Connexion(User User, Fenetre f) {
+	public Connexion(User User, Fenetre f, Boolean error) {
 		int largeurConteneur = 600;
 		
 		JPanel[] espacement = {new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel()};
@@ -47,7 +48,7 @@ public class Connexion extends JPanel {
 		JTextFieldModif textFieldId = new JTextFieldModif(10, 12);
 		
 		Paragraphe paragrapheMdp = new Paragraphe("Mot de passe : ");
-		
+				
 		JTextFieldModif textFieldMdp = new JTextFieldModif(10, 12);
 		System.out.println("Connexion :" + User);
 		
@@ -63,11 +64,9 @@ public class Connexion extends JPanel {
 				}
 			}
 		});
-		
 		textFieldId.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 			    if (e.getKeyCode() == KeyEvent.VK_ENTER){
-			        
 					try {
 						CnxBDD.connect(textFieldId.getText(), textFieldMdp.getText(), User);
 						f.refreshConnexion(User.isConnected());
@@ -80,9 +79,7 @@ public class Connexion extends JPanel {
 		});
 		textFieldMdp.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				System.out.println("Key: "+e.getKeyCode());
 			    if (e.getKeyCode() == KeyEvent.VK_ENTER){
-			        System.out.println("Hello");
 					try {
 						CnxBDD.connect(textFieldId.getText(), textFieldMdp.getText(), User);
 						f.refreshConnexion(User.isConnected());
@@ -100,6 +97,8 @@ public class Connexion extends JPanel {
 		ligneUne.setPreferredSize(new Dimension(largeurConteneur, 150));
 		
 		ligneUne.add(titrePrincipale);
+		
+		JPanel messageError = new AlertError("Nom de compte ou mot de passe incorrect !");
 		
 		JPanel ligneDeux = new JPanel();
 		ligneDeux.setLayout(new BorderLayout());
@@ -126,6 +125,9 @@ public class Connexion extends JPanel {
 		
 		this.add(ligneUne);
 		this.add(espacement[0]);
+		if(error == true) {
+			this.add(messageError);
+		}
 		this.add(ligneDeux);
 		this.add(espacement[1]);
 		this.add(ligneTrois);
