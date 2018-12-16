@@ -1,6 +1,8 @@
 package view;
+import model.*;
 
 import java.awt.Color;
+import controller.*;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -15,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Month;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
@@ -38,6 +41,7 @@ import controller.*;
 
 public class ConsultationCompteRendu extends JPanel {
     public ConsultationCompteRendu() {
+    	super();
         //DateFormat dateFormat = new SimpleDateFormat("MM/yyy");
         //Date date = new Date();
     	final  String[] months = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
@@ -48,12 +52,23 @@ public class ConsultationCompteRendu extends JPanel {
 
 		    JComboBox<Month> jcombo = new JComboBox<>(Month.values());
 		    this.add(jcombo);
+
+
 		    jcombo.addActionListener(e -> {
-		   
+
 				try {
 				     Month selMonth = (Month) ((JComboBox<Month>) e.getSource()).getSelectedItem();
 				        System.out.println(selMonth);
-					controller.compteRenduControleur.consultationCompteRendu();
+				        final String medicament = controller.compteRenduControleur.resultat;
+
+				        //compteRenduControleur cr =new compteRenduControleur();  // Ta Classe1
+				        
+
+					controller.compteRenduControleur.consultationCompteRendu(  );
+					String medecin =null;
+					
+					 medecin=medecin.getString();; 
+					/
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -70,27 +85,26 @@ public class ConsultationCompteRendu extends JPanel {
       
 
        // Date[] dates = {formater};
-        String[] medecins = {"Jean", "Michel", "Daniel", "Melissa", "Arthur", "Bernard", "Jeannot", "Nicolas", "Raoul", "Adrien", "Florian", "Lucas"};
+       // String[] medecins = {"Jean", "Michel", "Daniel", "Melissa", "Arthur", "Bernard", "Jeannot", "Nicolas", "Raoul", "Adrien", "Florian", "Lucas"};
         String[] medicaments = {"Lexomil", "Texomil", "Oxomil", "Otexomil", "Rexomil", "Yexomil", "Jexomil", "Mexomil", "Xexomil", "Ixomil", "Uxomil"};
-
        // JComboBox<Date> select = new JComboBox<Date>((ComboBoxModel<Date>) formater);
         
 		
-	
+        String medecin = model.CompteRendu.getMedecin();
 
         JPanel cartes = new JPanel();
 
-       /* for (Integer i = 0; i < 4; i++) {
-            this.add(new CarteCompteRendu( medecins[i], medicaments[i]));
-        }*/
+       for (Integer i = 0; i < 4; i++) {
+            this.add(new CarteCompteRendu( medecin, medicaments[i]));
+        }
 
 
-      //  CarteCompteRendu carteCompteRendu = new CarteCompteRendu(datePicker, "Michel Boujenah", "Lexomil");
+       CarteCompteRendu carteCompteRendu = new CarteCompteRendu("Michel Boujenah", "Lexomil");
 
         this.add(mesSaisiesCompteRendu);
        // this.add(datePicker);
         //this.add(pickDate);
-        //this.add(carteCompteRendu);
+        this.add(carteCompteRendu);
         this.add(someFrame);
     }
 }

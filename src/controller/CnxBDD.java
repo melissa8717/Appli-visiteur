@@ -8,18 +8,18 @@ import view.Fenetre;
 import model.User;
 
 public class CnxBDD {
-	//public static Connection connecteur() { 
-	public static Connection connecteurUserLab() {
+	public static Connection connecteur() { 
+	//public static Connection connecteurUserLab() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
-		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
+		    /*String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
-		    String passwd = "Aristee.2018..//";
-		  /*  String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		    String passwd = "Aristee.2018..//";*/
+		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 		    String user = "root";
-		    String passwd = "";*/
+		    String passwd = "";
 
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
@@ -59,8 +59,8 @@ public class CnxBDD {
 	public static Boolean connect(String login, String mdp, User User) {
 		try {
 
-			//Connection conn = connecteur();
-		    Connection conn = connecteurUserLab();
+			Connection conn = connecteur();
+		    //Connection conn = connecteurUserLab();
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
