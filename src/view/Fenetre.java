@@ -60,7 +60,7 @@ public class Fenetre extends JFrame {
 
         // Ajout + affichage de la fenetre
         add(panelActif, BorderLayout.CENTER);
-        System.out.println(u.role);
+        
         setVisible(true);  
     }
 	
@@ -153,13 +153,20 @@ public class Fenetre extends JFrame {
             menu7.add(item_utilisateur1);
             menu7.add(item_utilisateur2);
 
+            
+            
+            
             menuBar.add(menu1);
-            //if(u.role == 1 || u.role == 2) {
+            System.out.println(u.role);
+            if(u.role == 1 || u.role==2) {
+            	System.out.println("je suis un visiteur ou un délégué, j'ai donc des menu en plus");
             	menuBar.add(menu2);
-           // }
-           // if(u.role == 1 || u.role == 2) {
             	menuBar.add(menu3);
-            //}
+            }
+          
+            
+            
+            
             menuBar.add(menu4);
             menuBar.add(menu5);
             menuBar.add(menu6);

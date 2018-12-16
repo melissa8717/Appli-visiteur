@@ -80,9 +80,9 @@ public class Connexion extends JPanel {
 		});
 		textFieldMdp.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				System.out.println("Key: "+e.getKeyCode());
+				
 			    if (e.getKeyCode() == KeyEvent.VK_ENTER){
-			        System.out.println("Hello");
+			        
 					try {
 						CnxBDD.connect(textFieldId.getText(), textFieldMdp.getText(), User);
 						f.refreshConnexion(User.isConnected());
