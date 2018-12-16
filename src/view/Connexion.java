@@ -55,7 +55,7 @@ public class Connexion extends JPanel {
 		boutonValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					CnxBDDLocalhost.connect(textFieldId.getText(), textFieldMdp.getText(), User);
+					CnxBDD.connect(textFieldId.getText(), textFieldMdp.getText(), User);
 					f.refreshConnexion(User.isConnected());
 				}
 				catch(Exception exception) {
@@ -66,11 +66,10 @@ public class Connexion extends JPanel {
 		
 		textFieldId.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				System.out.println("Key: "+e.getKeyCode());
 			    if (e.getKeyCode() == KeyEvent.VK_ENTER){
-			        System.out.println("Hello");
+			        
 					try {
-						CnxBDDLocalhost.connect(textFieldId.getText(), textFieldMdp.getText(), User);
+						CnxBDD.connect(textFieldId.getText(), textFieldMdp.getText(), User);
 						f.refreshConnexion(User.isConnected());
 					}
 					catch(Exception exception) {

@@ -154,12 +154,12 @@ public class Fenetre extends JFrame {
             menu7.add(item_utilisateur2);
 
             menuBar.add(menu1);
-            if(u.role == 1 || u.role == 2) {
+            //if(u.role == 1 || u.role == 2) {
             	menuBar.add(menu2);
-            }
-            if(u.role == 1 || u.role == 2) {
+           // }
+           // if(u.role == 1 || u.role == 2) {
             	menuBar.add(menu3);
-            }
+            //}
             menuBar.add(menu4);
             menuBar.add(menu5);
             menuBar.add(menu6);
