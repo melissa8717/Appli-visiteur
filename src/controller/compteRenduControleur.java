@@ -73,27 +73,20 @@ public class compteRenduControleur {
 		
 	}
 	
-	
 	// CR consultation
 	public static List<List> consultationCompteRendu()  {
 		System.out.println("je suis dans la requeteeeeeeeee");
 
 		try {
 			List<List> List_CR = new ArrayList<List>();
-
-
 			Connection conn =(Connection) CnxBDD.connecteur();
 			//Connection conn =(Connection) CnxBDD.connecteurUserLab();
 			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
 		    String requete = "SELECT idRapport, date, bilan, motif, idUtilisateur, echantillon, medecin, medicament from rapport";
-
 			ResultSet resultat = statement.executeQuery(requete);
-
-		    System.out.println("statement" + statement);
 		    /* Exécution d'une requête de lecture */
-		    
 			System.out.println("resultat"+resultat);
 		
 		    /* Récupération des données du résultat de la requête de lecture */
@@ -107,6 +100,7 @@ public class compteRenduControleur {
 	            int echantillon = resultat.getInt("echantillon");
 	            String medecin = resultat.getString("medecin");
 	            String medicament = resultat.getString("medicament");
+	            System.out.println("medoc requete"+medicament);
 	            int idUtilisateur = resultat.getInt("idUtilisateur");
 	            cr.add(Integer.toString(idRapport));
 	            cr.add(date);
@@ -120,27 +114,31 @@ public class compteRenduControleur {
 	            
 
 
-	            System.out.println("id mec"+idUtilisateur + "id rapport"+idRapport+"date"+date+"bilan :"+bilan+"motif : " +motif +" echantillon : " +echantillon);
+	           System.out.println("id mec"+idUtilisateur + "id rapport"+idRapport+"date"+date+"bilan :"+bilan+"motif : " +motif +" echantillon : " +echantillon);
 	          
 	            /* Formatage des données pour affichage dans la JSP finale. */
-				System.out.println( "Données retournées par la requête :  Id="+idUtilisateur+".");
+				//System.out.println( "Données retournées par la requête :  Id="+idUtilisateur+".");
 	            
 	            User.id_utilisateur = idUtilisateur;
 	           
 				
 	            // Pour faire ca, faut que les attributs de user soit en static, me demander par pourquoi
 			}
+		    System.out.println(List_CR);
 
-			
+			return List_CR;
+
+		   
 		}
 		
 		    
-		    catch (Exception e){
-		    	System.out.println("je ne suis plus dans la requete visiblement....");
-		  
-			}
+		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef");
+			return null;
+		}
 		
-		return List_CR;
+		
 		
 		
 	

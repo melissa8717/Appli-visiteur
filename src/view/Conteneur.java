@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.util.List;
 
 
 public class Conteneur extends JPanel {
@@ -12,4 +13,5 @@ public class Conteneur extends JPanel {
         this.setOpaque(true);
         this.setVisible(true);
     }
+
 }

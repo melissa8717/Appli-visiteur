@@ -25,7 +25,7 @@ public class User {
 	
 	public User(){
 		// true = connection sans mdp et login
-		this.connected = true;
+		this.connected = false;
 	}
 	
 	/*
