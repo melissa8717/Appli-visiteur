@@ -58,7 +58,6 @@ public class CnxBDD {
 
 	public static Boolean connect(String login, String mdp, User User) {
 		try {
-
 			Connection conn = connecteurUserLab();
 		    
 		    

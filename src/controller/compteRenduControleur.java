@@ -19,18 +19,14 @@ public class compteRenduControleur {
 
 
 	//CR Saisie Compte Rendu
-	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire,String date, int echantillon,String Medicament) {
-		try {
-
+	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire, String date, int echantillon, String Medicament) {
+		try { 
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
-
-			
-			
 			
 			//Connection conn = (Connection) CnxBDD.connecteur();
 			System.out.println("connection ok ");
-			commentaire = commentaire.replaceAll("'", "\'");
-			Medicament = Medicament.replace("'", "\'");
+			commentaire = commentaire.replaceAll("(\')", "\\\\'");
+			Medicament = Medicament.replaceAll("(\')", "\\\\'");
 			String requete = 
 					"INSERT INTO" + 
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
@@ -40,7 +36,7 @@ public class compteRenduControleur {
 			int rep = statement.executeUpdate(requete);
 			System.out.println("compte rendu inséré");
 			
-			return (rep>0);
+			return (rep > 0);
 		}
 		
 		catch (Exception e){
