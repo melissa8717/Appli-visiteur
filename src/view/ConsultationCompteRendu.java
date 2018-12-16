@@ -97,45 +97,68 @@ public class ConsultationCompteRendu extends JPanel {
        List<String> ListDate=new ArrayList<String>();
        List<String> ListMedecin=new ArrayList<String>();
        List<String> ListMedoc=new ArrayList<String>();
-
-        
-        
+       
+       int tailleTab = List_CR.size();
+       
         for (int i = 0; i < List_CR.size(); i++) {
             System.out.println("list cr"+ List_CR);
-			ListDate.add((String) List_CR.get(i).get(1));
+			 ListDate.add((String) List_CR.get(i).get(1));
 			System.out.println("list date"+ListDate);
 			ListMedoc.add((String) List_CR.get(i).get(6));
 			System.out.println("list medoc"+ListMedoc);
 			ListMedecin.add((String) List_CR.get(i).get(5));
 			System.out.println("list medecin"+ListMedecin);
-	
+			String medicament = ListMedoc.toString();
+			 JLabel labelMedicament = new JLabel(medicament);	
+			 this.add(labelMedicament);
+			 String date = ListDate.toString();
+			 String medecin = ListMedecin.toString();
+		     System.out.println("medecin "+medecin);
+			 JLabel labelMedecin = new JLabel(medecin);
+			 JLabel labelDate = new JLabel(date);
+			 this.add(labelDate );
+			 
+		
 		}
-      
-        String date = ListDate.toString();
-        System.out.println("date "+date);
-        String medicament = ListMedoc.toString();
-        System.out.println("medoc "+medicament);
-        String medecin = ListMedecin.toString();
-        System.out.println("medecin "+medecin);
-        
-	    JPanel panelMedicament = new JPanel();
+        JPanel espacement[]= {new JPanel(new FlowLayout(FlowLayout.LEFT))};
 
+        JPanel[] panel = {new JPanel(new FlowLayout(FlowLayout.LEFT))};
+        
+        for(int i = 1;i<10;i++) {
+        	panel = ajoutemoi(panel, new JPanel(new FlowLayout(FlowLayout.LEFT)));
+        	espacement = ajoutemoi(espacement, new JPanel(new FlowLayout(FlowLayout.LEFT)));
+        }
+
+        
+      
+        
+      /*  for (Integer j = 0; j < 4; j++) {
+            this.add(new CarteCompteRendu(medicament, medecin));
+        }*/
+        
+      
 
         // container du CR
-       // JPanel cartes = new JPanel();
-
-       
-     // CarteCompteRendu carteCompteRendu = new CarteCompteRendu(medicament);
+        JPanel cartes = new JPanel();
+   
+      
+      
+      //CarteCompteRendu carteCompteRendu = new CarteCompteRendu(medicament,medecin);
       
       //ajout des variables dans la fenetre
         this.add(mesSaisiesCompteRendu);
         this.add(someFrame);
        // this.add(datePicker);
         //this.add(pickDate);
-        this.add(panelMedicament);
-      //  this.add(carteCompteRendu);
+      // this.add(carteCompteRendu);
+
      
     }
+
+	private JPanel[] ajoutemoi(JPanel[] panel, JPanel jPanel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
     

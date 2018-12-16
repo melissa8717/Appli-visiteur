@@ -14,20 +14,19 @@ public class CarteCompteRendu extends JPanel {
         
         
         Conteneur conteneur = new Conteneur(); 
-
-      //  JLabel JLabelDate = new JLabel(String.valueOf(date));
-      //  JLabelDate.setPreferredSize(new Dimension(1000, 150));
+        JLabel JLabelDate = new JLabel(String.valueOf(someFrame));
+        JLabelDate.setPreferredSize(new Dimension(1000, 150));
        // JLabel JLabelMedecin = new JLabel(medecin);
-        JLabel JLabelNomMedicament = new JLabel(someFrame);
+       // JLabel JLabelDate = new JLabel(someFrame);
+	    JLabel labelMedicament = new JLabel(medicament);	
+
 
         
         
-       // conteneur.add(JLabelDate);
        // conteneur.add(JLabelMedecin);
-       // conteneur.add(JLabelNomMedicament);
-        conteneur.add(medicament);
+        conteneur.add(JLabelDate);
+        conteneur.add(labelMedicament);
 
-        this.add(conteneur,medicament);
     }
 
 	
