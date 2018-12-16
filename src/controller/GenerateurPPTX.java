@@ -24,6 +24,9 @@ import org.apache.poi.xslf.usermodel.XSLFTextShape;
 public class GenerateurPPTX {
 	
 	public GenerateurPPTX(String Dispo,String NomMedoc,String Effet,String contreIndication, File Path) throws IOException {
+		NomMedoc=NomMedoc.replaceAll("/", "");
+		NomMedoc=NomMedoc.replaceAll(",", "");		
+		NomMedoc=NomMedoc.replaceAll("\r\n", "");
 		
 		String nomFichier= "/"+ NomMedoc+".pptx";
 		File Background =new File("img/fond_transp.png");
