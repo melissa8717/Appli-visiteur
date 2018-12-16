@@ -21,7 +21,9 @@ public class compteRenduControleur {
 	//CR Saisie Compte Rendu
 	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire,String date, int echantillon,String Medicament) {
 		try {
-			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			//Connection conn = (Connection) CnxBDD.connecteurUserLab();
+
+			Connection conn = (Connection) CnxBDD.connecteur();
 			String requete = "INSERT INTO rapport(date, bilan, motif, idUtilisateur,idPraticien,nomMedicament) VALUES ('"+date+"','"+commentaire+"','"+Motif+"',"
 			+connectionControleur.id_utilisateur+",'"+medecin+"','"+Medicament+"');";
 			Statement statement =  conn.createStatement();
@@ -42,7 +44,9 @@ public class compteRenduControleur {
 			List<List> List_Medecins = new ArrayList<List>();
 			
 			
-			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			//Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			Connection conn = (Connection) CnxBDD.connecteur();
+
 			String requete = "SELECT idPraticien,nom FROM praticien;";
 			Statement statement =  conn.createStatement();
 			ResultSet resultat = statement.executeQuery(requete);
@@ -71,33 +75,49 @@ public class compteRenduControleur {
 	
 	
 	// CR consultation
-	public static void consultationCompteRendu() throws SQLException {
+	public static List<List> consultationCompteRendu()  {
 		System.out.println("je suis dans la requeteeeeeeeee");
+
 		try {
+			List<List> List_CR = new ArrayList<List>();
+
 
 			Connection conn =(Connection) CnxBDD.connecteur();
 			//Connection conn =(Connection) CnxBDD.connecteurUserLab();
 			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
+		    String requete = "SELECT idRapport, date, bilan, motif, idUtilisateur, echantillon, medecin, medicament from rapport";
+
+			ResultSet resultat = statement.executeQuery(requete);
+
 		    System.out.println("statement" + statement);
 		    /* Exécution d'une requête de lecture */
 		    
-		    //N'oubliez pas de mettre des ' ' sur vos variables comme ici présent, j'ai mit 5min avant de comprendre xD
-		    String requete = "SELECT idRapport, date, bilan, motif, idUtilisateur, echantillon, medecin, medicament from rapport";
-			ResultSet resultat = statement.executeQuery(requete);
 			System.out.println("resultat"+resultat);
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    while(resultat.next()) {
+				List<String> cr = new ArrayList<String>();
+
 	            int idRapport = resultat.getInt("idRapport");
-	            Date date = resultat.getDate("date");
+	            String date = resultat.getString("date");
 	            String bilan = resultat.getString("bilan");
 	            String motif = resultat.getString("motif");
 	            int echantillon = resultat.getInt("echantillon");
 	            String medecin = resultat.getString("medecin");
 	            String medicament = resultat.getString("medicament");
 	            int idUtilisateur = resultat.getInt("idUtilisateur");
+	            cr.add(Integer.toString(idRapport));
+	            cr.add(date);
+	            cr.add(bilan);
+	            cr.add(motif);
+	            cr.add(Integer.toString(echantillon));
+	            cr.add(medecin);
+	            cr.add(medicament);
+	            cr.add(Integer.toString(idUtilisateur));
+	            List_CR.add(cr);
+	            
 
 
 	            System.out.println("id mec"+idUtilisateur + "id rapport"+idRapport+"date"+date+"bilan :"+bilan+"motif : " +motif +" echantillon : " +echantillon);
@@ -119,6 +139,8 @@ public class compteRenduControleur {
 		    	System.out.println("je ne suis plus dans la requete visiblement....");
 		  
 			}
+		
+		return List_CR;
 		
 		
 	

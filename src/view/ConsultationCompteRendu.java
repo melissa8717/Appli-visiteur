@@ -26,6 +26,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,7 +43,6 @@ import controller.*;
 
 public class ConsultationCompteRendu extends JPanel {
     public ConsultationCompteRendu() {
-    	super();
         //DateFormat dateFormat = new SimpleDateFormat("MM/yyy");
         //Date date = new Date();
     	final  String[] months = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
@@ -54,25 +55,17 @@ public class ConsultationCompteRendu extends JPanel {
 		    this.add(jcombo);
 
 
-		    jcombo.addActionListener(e -> {
+		 jcombo.addActionListener(e -> {
 
-				try {
-				     Month selMonth = (Month) ((JComboBox<Month>) e.getSource()).getSelectedItem();
-				        System.out.println(selMonth);
-				        final String medicament = controller.compteRenduControleur.resultat;
+				Month selMonth = (Month) ((JComboBox<Month>) e.getSource()).getSelectedItem();
+				    System.out.println(selMonth);
+				    //final String medicament = controller.compteRenduControleur.resultat;
 
-				        //compteRenduControleur cr =new compteRenduControleur();  // Ta Classe1
-				        
+				    //compteRenduControleur cr =new compteRenduControleur();  // Ta Classe1
+				    
 
-					controller.compteRenduControleur.consultationCompteRendu(  );
-					String medecin =null;
-					
-					 medecin=medecin.getString();; 
-					/
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				controller.compteRenduControleur.consultationCompteRendu(  );
+				String medecin =null;
 
 		    });
 
@@ -85,7 +78,7 @@ public class ConsultationCompteRendu extends JPanel {
       
 
        // Date[] dates = {formater};
-       // String[] medecins = {"Jean", "Michel", "Daniel", "Melissa", "Arthur", "Bernard", "Jeannot", "Nicolas", "Raoul", "Adrien", "Florian", "Lucas"};
+        String[] medecins = {"Jean", "Michel", "Daniel", "Melissa", "Arthur", "Bernard", "Jeannot", "Nicolas", "Raoul", "Adrien", "Florian", "Lucas"};
         String[] medicaments = {"Lexomil", "Texomil", "Oxomil", "Otexomil", "Rexomil", "Yexomil", "Jexomil", "Mexomil", "Xexomil", "Ixomil", "Uxomil"};
        // JComboBox<Date> select = new JComboBox<Date>((ComboBoxModel<Date>) formater);
         
@@ -95,7 +88,7 @@ public class ConsultationCompteRendu extends JPanel {
         JPanel cartes = new JPanel();
 
        for (Integer i = 0; i < 4; i++) {
-            this.add(new CarteCompteRendu( medecin, medicaments[i]));
+            this.add(new CarteCompteRendu( medecins[i], medicaments[i]));
         }
 
 
@@ -107,4 +100,6 @@ public class ConsultationCompteRendu extends JPanel {
         this.add(carteCompteRendu);
         this.add(someFrame);
     }
+    
+
 }
