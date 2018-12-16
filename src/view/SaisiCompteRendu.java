@@ -187,6 +187,7 @@ public class SaisiCompteRendu extends JPanel{
 					
 				} catch (Exception e2) {
 					System.out.println("La date n'a pas été sélectionnée");
+					
 					DateChoisie=null;
 				}
 				try {
