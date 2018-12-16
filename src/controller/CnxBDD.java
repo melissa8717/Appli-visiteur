@@ -72,19 +72,10 @@ public class CnxBDD {
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    if(resultat.next()) {
-	            int idUtilisateur = resultat.getInt( "idUtilisateur" );
-	            String loginUtilisateur = resultat.getString( "login" );
-	            String prenomUtilisateur= resultat.getString("prenom");
-	            String motDePasseUtilisateur = resultat.getString( "password" );
-	            String nomUtilisateur = resultat.getString( "nom" );
-	            int role= resultat.getInt("role");
-	            
-	            
-	            
-	            User.id_utilisateur = idUtilisateur;
-	            User.nom = nomUtilisateur;
-				User.prenom = prenomUtilisateur;
-				User.role= role;
+	            User.id_utilisateur = resultat.getInt( "idUtilisateur" );
+	            User.nom = resultat.getString( "nom" );
+				User.prenom = resultat.getString("prenom");
+				User.role= resultat.getInt("role");
 				User.connected = true;
 				
 				return true;
