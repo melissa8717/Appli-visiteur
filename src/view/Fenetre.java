@@ -74,11 +74,11 @@ public class Fenetre extends JFrame {
     }
     
     public void refreshConnexion(boolean connected){
-    	// Generation de la fentre final si utilisateur connecté
+    	// Generation de la fenetre final si utilisateur connecté
         if(connected){
 	    	// Generation des vues
 	            // Menu Accueil
-	        JPanel panel_accueil = new Accueil();
+	        JPanel panel_accueil = new Accueil(u.prenom.toString());
 	            // Menu Compte Rendu
 	        final JPanel panel_compte_rendu = new JPanel();
 	        final JPanel panel_compte_rendu1 = new SaisiCompteRendu();
