@@ -27,7 +27,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-
 public class Connexion extends JPanel {
 	public Connexion(User User, Fenetre f, Boolean error) {
 		int largeurConteneur = 600;

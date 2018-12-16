@@ -21,24 +21,13 @@ public class compteRenduControleur {
 	//CR Saisie Compte Rendu
 	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire,String date, int echantillon,String Medicament) {
 		try {
-<<<<<<< HEAD
-			//Connection conn = (Connection) CnxBDD.connecteurUserLab();
 
-			Connection conn = (Connection) CnxBDD.connecteur();
-			String requete = "INSERT INTO rapport(date, bilan, motif, idUtilisateur,idPraticien,nomMedicament) VALUES ('"+date+"','"+commentaire+"','"+Motif+"',"
-			+connectionControleur.id_utilisateur+",'"+medecin+"','"+Medicament+"');";
-=======
-			/*
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
-			System.out.println("conn ok ");
-			String requete = "INSERT INTO `rapport`(`idRapport`, `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`)  VALUES (2,'"+date+"','"+commentaire+"','"+Motif+"',"+connectionControleur.id_utilisateur+",1,'doliprane' )";
->>>>>>> b84dba7d1285e92a2f40bf834f9d5d217ab7298e
-			Statement statement =  conn.createStatement();
-			int rep = statement.executeUpdate(requete);
-			System.out.println("req effectuer");
-			*/
+
 			
-			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			
+			
+			//Connection conn = (Connection) CnxBDD.connecteur();
 			System.out.println("connection ok ");
 			commentaire = commentaire.replaceAll("'", "\'");
 			Medicament = Medicament.replace("'", "\'");
@@ -67,7 +56,7 @@ public class compteRenduControleur {
 			
 			
 			//Connection conn = (Connection) CnxBDD.connecteurUserLab();
-			Connection conn = (Connection) CnxBDD.connecteur();
+			Connection conn = (Connection) CnxBDD.connecteurUserLab();
 
 			String requete = "SELECT idPraticien,nom FROM praticien;";
 			Statement statement =  conn.createStatement();
@@ -97,19 +86,19 @@ public class compteRenduControleur {
 	
 	// CR consultation
 	public static List<List> consultationCompteRendu()  {
-		System.out.println("je suis dans la requeteeeeeeeee");
+
 
 		try {
 			List<List> List_CR = new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteur();
-			//Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			
 			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
-		    String requete = "SELECT idRapport, date, bilan, motif, idUtilisateur, echantillon, medecin, medicament from rapport";
+		    String requete = "SELECT idRapport, date, bilan, motif, idUtilisateur, echantillon, idPraticien, nomMedicament from rapport";
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
-			System.out.println("resultat"+resultat);
+			
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    while(resultat.next()) {
@@ -120,9 +109,9 @@ public class compteRenduControleur {
 	            String bilan = resultat.getString("bilan");
 	            String motif = resultat.getString("motif");
 	            int echantillon = resultat.getInt("echantillon");
-	            String medecin = resultat.getString("medecin");
-	            String medicament = resultat.getString("medicament");
-	            System.out.println("medoc requete"+medicament);
+	            String medecin = resultat.getString("idPraticien");
+	            String medicament = resultat.getString("nomMedicament");
+	            
 	            int idUtilisateur = resultat.getInt("idUtilisateur");
 	            cr.add(Integer.toString(idRapport));
 	            cr.add(date);
@@ -136,8 +125,7 @@ public class compteRenduControleur {
 	            
 
 
-	           System.out.println("id mec"+idUtilisateur + "id rapport"+idRapport+"date"+date+"bilan :"+bilan+"motif : " +motif +" echantillon : " +echantillon);
-	          
+	           
 	            /* Formatage des données pour affichage dans la JSP finale. */
 				//System.out.println( "Données retournées par la requête :  Id="+idUtilisateur+".");
 	            
@@ -146,7 +134,7 @@ public class compteRenduControleur {
 				
 	            // Pour faire ca, faut que les attributs de user soit en static, me demander par pourquoi
 			}
-		    System.out.println(List_CR);
+		    
 
 			return List_CR;
 

@@ -51,8 +51,7 @@ import controller.*;
 
 public class ConsultationCompteRendu extends JPanel {
     public ConsultationCompteRendu() {
-        //DateFormat dateFormat = new SimpleDateFormat("MM/yyy");
-        //Date date = new Date();
+   
     	final  String[] months = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
   		      "Juillet", "Ao�t", "Septembre", "Octobre", "Novembre", "Decembre" };
   
@@ -79,47 +78,41 @@ public class ConsultationCompteRendu extends JPanel {
 		    });
 
    
-//titre
         
         TitrePrincipale mesSaisiesCompteRendu = new TitrePrincipale("Consultation des comptes rendus");
         mesSaisiesCompteRendu.setPreferredSize(new Dimension(1500, 100));
 
       
 
-       // Date[] dates = {formater};
-       // String[] medecins = {"Jean", "Michel", "Daniel", "Melissa", "Arthur", "Bernard", "Jeannot", "Nicolas", "Raoul", "Adrien", "Florian", "Lucas"};
-       // String[] medicaments = {"Lexomil", "Texomil", "Oxomil", "Otexomil", "Rexomil", "Yexomil", "Jexomil", "Mexomil", "Xexomil", "Ixomil", "Uxomil"};
-       // JComboBox<Date> select = new JComboBox<Date>((ComboBoxModel<Date>) formater);
-        
-        //list des medoc,medecin,date du controller
-		
        List<List> List_CR= compteRenduControleur.consultationCompteRendu();
+       
        List<String> ListDate=new ArrayList<String>();
        List<String> ListMedecin=new ArrayList<String>();
        List<String> ListMedoc=new ArrayList<String>();
        
-       int tailleTab = List_CR.size();
+       
        
         for (int i = 0; i < List_CR.size(); i++) {
-            System.out.println("list cr"+ List_CR);
+            
 			 ListDate.add((String) List_CR.get(i).get(1));
-			System.out.println("list date"+ListDate);
+			
 			ListMedoc.add((String) List_CR.get(i).get(6));
-			System.out.println("list medoc"+ListMedoc);
+			
 			ListMedecin.add((String) List_CR.get(i).get(5));
-			System.out.println("list medecin"+ListMedecin);
+			
 			String medicament = ListMedoc.toString();
 			 JLabel labelMedicament = new JLabel(medicament);	
 			 this.add(labelMedicament);
 			 String date = ListDate.toString();
 			 String medecin = ListMedecin.toString();
-		     System.out.println("medecin "+medecin);
+		     
 			 JLabel labelMedecin = new JLabel(medecin);
 			 JLabel labelDate = new JLabel(date);
 			 this.add(labelDate );
 			 
-		
+	
 		}
+       
         JPanel espacement[]= {new JPanel(new FlowLayout(FlowLayout.LEFT))};
 
         JPanel[] panel = {new JPanel(new FlowLayout(FlowLayout.LEFT))};
