@@ -85,9 +85,9 @@ public class compteRenduControleur {
 	}
 	
 	// CR consultation
-	public static List<List> consultationCompteRendu()  {
+	public static List<List> consultationCompteRendu(int unMois)  {
 
-
+	
 		try {
 			List<List> List_CR = new ArrayList<List>();
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
@@ -95,7 +95,9 @@ public class compteRenduControleur {
 			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
-		    String requete = "SELECT idRapport, date, bilan, motif, idUtilisateur, echantillon, idPraticien, nomMedicament from rapport";
+		    String requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
+		    		+ " rapport.echantillon, praticien.nom, rapport.nomMedicament from rapport,praticien"
+		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.date LIKE '%-"+unMois+"-%';";
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			
@@ -104,15 +106,15 @@ public class compteRenduControleur {
 		    while(resultat.next()) {
 				List<String> cr = new ArrayList<String>();
 
-	            int idRapport = resultat.getInt("idRapport");
-	            String date = resultat.getString("date");
-	            String bilan = resultat.getString("bilan");
-	            String motif = resultat.getString("motif");
-	            int echantillon = resultat.getInt("echantillon");
-	            String medecin = resultat.getString("idPraticien");
-	            String medicament = resultat.getString("nomMedicament");
+	            int idRapport = resultat.getInt("rapport.idRapport");
+	            String date = resultat.getString("rapport.date");
+	            String bilan = resultat.getString("rapport.bilan");
+	            String motif = resultat.getString("rapport.motif");
+	            int echantillon = resultat.getInt("rapport.echantillon");
+	            String medecin = resultat.getString("praticien.nom");
+	            String medicament = resultat.getString("rapport.nomMedicament");
 	            
-	            int idUtilisateur = resultat.getInt("idUtilisateur");
+	            int idUtilisateur = resultat.getInt("rapport.idUtilisateur");
 	            cr.add(Integer.toString(idRapport));
 	            cr.add(date);
 	            cr.add(bilan);
