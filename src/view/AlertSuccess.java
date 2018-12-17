@@ -17,7 +17,7 @@ public class AlertSuccess extends JPanel{
 		messageSuccess.setBackground(new Color(85, 239, 196));
 		
 		Paragraphe textSuccess = new Paragraphe(texte);
-		textSuccess.setForeground(new Color(235, 47, 6));
+		textSuccess.setForeground(new Color(96, 191, 96));
 		
 		messageSuccess.add(textSuccess);
 		

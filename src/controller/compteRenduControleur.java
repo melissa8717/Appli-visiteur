@@ -28,7 +28,7 @@ public class compteRenduControleur {
 			String requete = 
 					"INSERT INTO" + 
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
-					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"',4,'"+Medicament+"','"+echantillon+"')";
+					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"','"+Medicament+"','"+echantillon+"')";
 			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
 
@@ -98,7 +98,7 @@ public class compteRenduControleur {
 		    		+ " rapport.echantillon, praticien.nom, rapport.nomMedicament from rapport,praticien"
 		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
 		    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
-		    
+		    //LIMIT 6 OFFSET "+debut+"
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			
@@ -136,6 +136,9 @@ public class compteRenduControleur {
 	           
 				
 	            // Pour faire ca, faut que les attributs de user soit en static, me demander par pourquoi
+			}
+		    if(List_CR.isEmpty()) {
+				System.out.println("empty");
 			}
 		    
 

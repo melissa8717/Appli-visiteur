@@ -14,7 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
-
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -52,7 +52,7 @@ public class SaisiCompteRendu extends JPanel{
         JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
         JLabel Echantillons = new JLabel("Nombre d'échantillons laissés au pratitien");
         
-        AlertSuccess compteRenduBon = new AlertSuccess ("le compte rendu et bien enregistré");
+        AlertSuccess compteRenduBon = new AlertSuccess ("le compte rendu est bien enregistré");
         AlertError compteRenduFalse = new AlertError ("le compte rendu a eux une erreur d'enregistrement");
         
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
@@ -138,6 +138,8 @@ public class SaisiCompteRendu extends JPanel{
     	panel[0].add(nomMedoc);
     	nomMedoc.setColumns(15);
         panel[1].add(Titre);
+        
+ 
         panel[2].add(Medecin);
         panel[3].add(Date);
         panel[3].add(datePicker);
@@ -169,8 +171,6 @@ public class SaisiCompteRendu extends JPanel{
         
         espacement[7].setPreferredSize(new Dimension(200, 0));
         panel[8].add(espacement[7]);
-        panel[8].add(compteRenduBon);
-        panel[8].add(compteRenduFalse);
         panel[8].add(Valider);
         compteRenduBon.setVisible(false);
         compteRenduFalse.setVisible(false);
@@ -269,6 +269,11 @@ public class SaisiCompteRendu extends JPanel{
     	
     	//this.add(titre_page);
         this.add(panel[9]);
+
+        this.add(compteRenduBon);
+        this.add(compteRenduFalse);
+        BoxLayout b= new BoxLayout(this , BoxLayout.Y_AXIS);
+        this.setLayout(b);
         
 		nbrEchantillonsField.addKeyListener(new KeyAdapter() { //quand la personne �crit
 			public void keyTyped(KeyEvent e) {

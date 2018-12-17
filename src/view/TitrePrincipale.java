@@ -20,10 +20,11 @@ public class TitrePrincipale extends JPanel {
 		// Définition du style
 		texte.setFont(font);
 		texte.setForeground(new Color(2, 62, 108));
+		this.setSize(1920,30);
+		this.setOpaque(false);
 
-		setOpaque(false);
-		setVisible(true);
-		setSize(new Dimension(5000, 500));
-		add(texte);
+		this.setVisible(true);
+		this.setSize(new Dimension(5000, 500));
+		this.add(texte);
 	}
 }

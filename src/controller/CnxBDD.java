@@ -18,11 +18,12 @@ public class CnxBDD {
 
 		   /* String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
+
 		    String passwd = "Aristee.2018..//";*/
 		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
-
 		    String user = "root";
 		    String passwd = "";
+
 
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
@@ -48,8 +49,10 @@ public class CnxBDD {
 		    String passwd = "Aristee.2018..//";
 
 		    /*String url ="jdbc:mysql://localhost/bdmedoclab?useSSL=false";
+
 		    String user = "root";
-		    String passwd = "root";*/
+		    String passwd = "root";
+*/
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
 		    System.out.println("Connexion effective à la base BDUserLab!");
