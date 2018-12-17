@@ -174,8 +174,10 @@ public class Fenetre extends JFrame {
 
             menuBar.add(menu4);
             menuBar.add(menu5);
-            menuBar.add(menu6);
-            menuBar.add(menu7);
+            if(u.role != 1) {
+            	menuBar.add(menu6);
+            	menuBar.add(menu7);            	
+            }
             menuBar.add(menu8);
 
             menu8.addMenuListener(new MenuListener(){
