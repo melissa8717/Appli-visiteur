@@ -11,7 +11,7 @@ public class ConsultationMessagerie extends JPanel {
 
 	public ConsultationMessagerie() {
 		TitrePrincipale bienvenue = new TitrePrincipale("Consultation Messagerie");
-		TitreTertiare titre3 = new TitreTertiare("A faire");
+		TitreTertiaire titre3 = new TitreTertiaire("A faire");
 		
 		this.add(bienvenue);
 		this.add(titre3);	

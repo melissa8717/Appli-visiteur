@@ -6,13 +6,13 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class TitreTertiare extends JPanel {
+public class TitreTertiaire extends JPanel {
 	/*
 	 * 	Classe pour créé un titre tertiaire
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public TitreTertiare(String txt) {
+	public TitreTertiaire(String txt) {
 		// Création des éléments
 		Font font = new Font("Open Sans", Font.PLAIN, 24);
 		JLabel texte = new JLabel(txt);
