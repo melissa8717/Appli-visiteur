@@ -134,6 +134,9 @@ public class compteRenduControleur {
 				
 	            // Pour faire ca, faut que les attributs de user soit en static, me demander par pourquoi
 			}
+		    if(List_CR.isEmpty()) {
+				System.out.println("empty");
+			}
 		    
 
 			return List_CR;
