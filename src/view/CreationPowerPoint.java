@@ -6,22 +6,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.*;
-
 
 import controller.GenerateurPPTX;
 import controller.CreationPowerPointController;
 
-public class CreationPowerPoint extends JPanel {
 
+public class CreationPowerPoint extends JPanel {
+	/*
+	 * 	Explication de cette classe
+	 */
 	private static final long serialVersionUID = 1L;
 
 	public CreationPowerPoint() {
 		Conteneur conteneurPowerpointUI = new Conteneur();
 		conteneurPowerpointUI.setPreferredSize(new Dimension(1000, 500));
 		
-		JPanel title_panel =  new JPanel();
+		//JPanel title_panel =  new JPanel();
 		JPanel panel2 =  new JPanel();
 
 		// Liste des dispositions

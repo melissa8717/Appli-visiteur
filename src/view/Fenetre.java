@@ -24,6 +24,9 @@ import view.CreationMessagerie;
 
 
 public class Fenetre extends JFrame {
+	/*
+	 * 	Fenetre générale regroupant toutes les vues (pages) et qui affiche la bonne vue en fonction de la vue choisi dans le menu par l'utilisateur
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panelActif = new JPanel();
 	public User u = new User();
@@ -73,32 +76,35 @@ public class Fenetre extends JFrame {
 		return dimension;
     }
     
+	/*
+	 * Fonction permettant d'afficher les pages "réelle" et le menu si l'utilisateur à réussi à se connecter
+	 */
     public void refreshConnexion(boolean connected){
     	// Generation de la fenetre final si utilisateur connecté
         if(connected){
 	    	// Generation des vues
 	            // Menu Accueil
-	        JPanel panel_accueil = new Accueil(u.prenom.toString());
+	        JPanel panel_accueil = new Accueil(u.prenom.toString() + " " + u.nom.toString());
 	            // Menu Compte Rendu
-	        final JPanel panel_compte_rendu = new JPanel();
+	        //final JPanel panel_compte_rendu = new JPanel();
 	        final JPanel panel_compte_rendu1 = new SaisiCompteRendu();
 	        final JPanel panel_compte_rendu2 = new ConsultationCompteRendu();
 	        	// Menu Power Point
-	        final JPanel panel_power_point = new JPanel();
+	        //final JPanel panel_power_point = new JPanel();
 	        final JPanel panel_power_point1 = new CreationPowerPoint();
 	        final JPanel panel_power_point2 = new ConsultationPowerPoint();
 	        	// Menu Messagerie
-	        final JPanel panel_messagerie = new JPanel();
+	        //final JPanel panel_messagerie = new JPanel();
 	        final JPanel panel_messagerie1 = new CreationMessagerie();
 	        final JPanel panel_messagerie2 = new ConsultationMessagerie();
 	        	// Menu Agenda
 	        final JPanel panel_agenda = new Agenda();
 	        	// Menu Medecin
-	        final JPanel panel_medecin = new JPanel();
+	        //final JPanel panel_medecin = new JPanel();
 	        final JPanel panel_medecin1 = new CreationMedecin();
 	        final JPanel panel_medecin2 = new ConsultationMedecin();
 	        	// Menu Utilisateur
-	        final JPanel panel_utilisateur = new JPanel();
+	        //final JPanel panel_utilisateur = new JPanel();
 	        final JPanel panel_utilisateur1 = new CreationUtilisateur();
 	        final JPanel panel_utilisateur2 = new ConsultationUtilisateur();
 	        	// Menu Deconnexion
@@ -142,6 +148,7 @@ public class Fenetre extends JFrame {
             AddMenuItemAction(item_utilisateur1, panel_utilisateur1);
             AddMenuItemAction(item_utilisateur2, panel_utilisateur2);
             
+            // Ajout des sous-éléments en dessous des éléments des menus
 	        menu2.add(item_compte_rendu1);
 	        menu2.add(item_compte_rendu2);
             menu3.add(item_power_point1);
@@ -153,6 +160,7 @@ public class Fenetre extends JFrame {
             menu7.add(item_utilisateur1);
             menu7.add(item_utilisateur2);
       
+            // Ajout des menus dans la barre de menu en fonction du role de l'utilisateur
             menuBar.add(menu1);
             System.out.println(u.role);
             if(u.role == 1 || u.role == 2) {
@@ -175,6 +183,7 @@ public class Fenetre extends JFrame {
             revalidate();
             repaint();
         }
+        // Si erreur de connexion, regeneration de la vue avec un message d'erreur
         else {
         	JPanel panel_connexion = new Connexion(this.u, this, true);
         	
@@ -187,6 +196,9 @@ public class Fenetre extends JFrame {
         }
     }
 
+    /*
+     * 	Fonction permettant d'affecter une page à un élément du menu
+     */
     public void AddMenuAction(JMenu bouton, JPanel panel) {
         bouton.addMenuListener(new MenuListener(){
             @Override
@@ -203,6 +215,9 @@ public class Fenetre extends JFrame {
         }); 
     }
 	
+    /*
+     * 	Fonction permettant d'affecter une page à un sous-élément du menu
+     */
 	public void AddMenuItemAction(JMenuItem bouton, JPanel panel) {
 		bouton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
