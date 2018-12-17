@@ -1,8 +1,5 @@
 package controller;
 
-
-
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +15,25 @@ import com.mysql.jdbc.Connection;
 public class compteRenduControleur {
 
 
-	//CR Saisie Compte Rendu
+	/* Fonction d'ajout du compte rendu saisi */
 	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire, String date, int echantillon, String Medicament) {
 		try { 
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
 			
-			System.out.println("connection ok ");
+			System.out.println("connection ok");
 			commentaire = commentaire.replaceAll("(\')", "\\\\'");
 			Medicament = Medicament.replaceAll("(\')", "\\\\'");
+			
+			/* Requête d'insertion en base du compte rendu */
 			String requete = 
 					"INSERT INTO" + 
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
 					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"',4,'"+Medicament+"','"+echantillon+"')";
 			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
+
+			/* Exécution de la reqête */
 			int rep = statement.executeUpdate(requete);
-			System.out.println("compte rendu inséré");
 			
 			return (rep > 0);
 		}
@@ -45,16 +45,19 @@ public class compteRenduControleur {
 		}
 	}
 	
+	/* Fonction de sélection du médecin */
 	public static List<List> selectMedecin() {
 		try {
 			List<List> List_Medecins = new ArrayList<List>();
-			
-			
+
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
 
+			/* Requête de récupération des ids des médecins */
 			String requete = "SELECT idPraticien,nom FROM praticien;";
 			Statement statement =  conn.createStatement();
 			ResultSet resultat = statement.executeQuery(requete);
+
+			/* Récupère tous les id des médecins */
 			while(resultat.next()) {
 				List<String> unMedecin = new ArrayList<String>();
 				int idMed= resultat.getInt( "idPraticien" );
@@ -78,7 +81,7 @@ public class compteRenduControleur {
 		
 	}
 	
-	// CR consultation
+	/* Fonction de récupération des comptes rendus du user connecté */
 	public static List<List> consultationCompteRendu(int unMois,int debut,int IdUser)  {
 
 	
@@ -88,7 +91,9 @@ public class compteRenduControleur {
 
 			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
-		    Statement statement = conn.createStatement();
+			Statement statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
 		    		+ " rapport.echantillon, praticien.nom, rapport.nomMedicament from rapport,praticien"
 		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""

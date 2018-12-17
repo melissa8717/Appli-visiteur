@@ -9,7 +9,6 @@ public class connectionControleur extends User {
 	/*
 	public connectionControleur(String login1, String mdp) {
 		super(login1, mdp);
-		// TODO Auto-generated constructor stub
 	}
 */
 

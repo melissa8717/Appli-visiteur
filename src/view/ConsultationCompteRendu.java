@@ -72,7 +72,7 @@ public class ConsultationCompteRendu extends JPanel {
 
 // select des dates
 		 jcombo.addActionListener(e -> {	
-			 //TODO faire une fonction qui change le texte des labels qu'on aurait éventuellement définie plus tot
+			 // Faire une fonction qui change le texte des labels qu'on aurait éventuellement définie plus tot
 			 //Peut être changer le systeme de boucle actuelle du coup et passer sur des JPanel fixe et des labels définie
 			 
 		     // List_CR= compteRenduControleur.consultationCompteRendu((int) jcombo.getSelectedIndex()+1);

@@ -63,7 +63,7 @@ public class GenerateurPPTX {
 	
 		
 		   }
-	
+	/* Crée le fichier .pptx */
 	public static void newFile(File file) throws IOException {
 		 //créer un objet FileOutputStream pour enregistrer le document PPT
 		 XMLSlideShow xml = new XMLSlideShow();
@@ -77,7 +77,8 @@ public class GenerateurPPTX {
 	     fis.close();
 	     xml.close();
 	      
-	      }
+		  }
+	/* Créé un slide dans le powerpoint généré ci-dessus */
 	 public static void newSlide(File fichier,File ImgBackground,Integer numSlide) throws IOException {
 		 FileInputStream inputstream=new FileInputStream(fichier);
 		 XMLSlideShow xml = new XMLSlideShow(inputstream);
@@ -95,7 +96,7 @@ public class GenerateurPPTX {
 	      fos.close(); 
 	      xml.close();
 	 }
-	 
+	 /* Ajoute un nouveau titre et paragraphe à un slide */
 	 public static void modifSlide(File fichier,String title,String paragraphe,Integer numSlide,String position) throws IOException{
 	      FileInputStream inputstream=new FileInputStream(fichier);
 	      XMLSlideShow xml = new XMLSlideShow(inputstream);
@@ -142,7 +143,7 @@ public class GenerateurPPTX {
 	      xml.close();
 	   }
 	 
-	 
+	 /* Insère l'image du médicament (en base de donnée) dans le slide */
 	 public static void newSlideImg(File fichier,File img, String position,Integer numSlide) throws IOException{
 		 FileInputStream inputstream=new FileInputStream(fichier);
 		 XMLSlideShow xml = new XMLSlideShow(inputstream);
@@ -199,6 +200,7 @@ public class GenerateurPPTX {
 	      xml.close();
 	 }
 	 
+	 /* Disposition 1 du slide */
 	 public static void Dispo1(File file,String NomMedoc,String TextMedoc,String TextMedoc2,File imgMedoc,File imgBackground) throws IOException{
 		
 		 
@@ -219,7 +221,7 @@ public class GenerateurPPTX {
 			
 		 
 	 }
-	 
+	 /* Disposition 2 du slide */
 	 public static void Dispo2(File file,String NomMedoc,String TextMedoc,String TextMedoc2,File imgMedoc,File imgBackground) throws IOException{
 			
 		 
@@ -240,6 +242,9 @@ public class GenerateurPPTX {
 				
 			 
 		 }
+
+
+		 /* Disposition 3 du slide */
 	 public static void Dispo3(File file,String NomMedoc,File imgMedoc,File imgBackground) throws IOException{
 		 for (int i = 0; i < 3; i++) {
 			 newSlide(file,imgBackground,i);
@@ -253,6 +258,8 @@ public class GenerateurPPTX {
 		 modifSlide(file,"\n\n\nC'était la présentation de "+NomMedoc+" merci pour votre attention !","",2,"droite");
 		 
 	 }
+
+	 /* Disposition 4 du slide */
 	 public static void Dispo4(File file,String NomMedoc,String TextMedoc,String TextMedoc2,File imgBackground) throws IOException{
 		 for (int i = 0; i < 4; i++) {
 				newSlide(file,imgBackground,i);
@@ -268,6 +275,7 @@ public class GenerateurPPTX {
 		modifSlide(file,"\n\n\nC'�tait la présentation de "+NomMedoc+" merci pour votre attention !","",3,"centre");
 		 
 	 }
+	 
 	 
 	 public static String textOpti(String text,int nbrCaractere) {
 		 if(text.length()>nbrCaractere) {

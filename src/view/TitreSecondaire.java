@@ -7,25 +7,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class TitreSecondaire extends JPanel {
-
 	/*
-	 * class pour cr�� un titre secondaire 
+	 * 	Classe pour créé un titre secondaire 
 	 */
-
 	private static final long serialVersionUID = 1L;
 
 	public TitreSecondaire(String txt) {
+		// Création des éléments
 		Font font = new Font("Open Sans", Font.PLAIN, 36);
-		JLabel texte = new JLabel();
-		texte = new JLabel(txt , JLabel.CENTER);
+		JLabel texte = new JLabel(txt , JLabel.CENTER);
+		// Définition du style
 		texte.setFont(font);
 		texte.setForeground(new Color(18,62,108));
 
-		this.setOpaque(false);
-
-		this.setVisible(true);
-		this.setSize(getMaximumSize());
-		this.add(texte);
+		setOpaque(false);
+		setVisible(true);
+		setSize(getMaximumSize());
+		add(texte);
 	}
-
 }
