@@ -98,7 +98,7 @@ public class compteRenduControleur {
 		    		+ " rapport.echantillon, praticien.nom, rapport.nomMedicament from rapport,praticien"
 		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
 		    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
-		    
+		    //LIMIT 6 OFFSET "+debut+"
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			
