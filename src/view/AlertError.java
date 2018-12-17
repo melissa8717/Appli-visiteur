@@ -13,7 +13,7 @@ public class AlertError extends JPanel{
 		messageError.setBackground(new Color(235, 77, 75));
 		
 		Paragraphe textError = new Paragraphe(texte);
-		textError.setForeground(new Color(235, 47, 6));
+		textError.setForeground(new Color(191, 48, 48));
 		
 		messageError.add(textError);
 		

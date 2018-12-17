@@ -37,7 +37,7 @@ public class compteRenduControleur {
 			String requete = 
 					"INSERT INTO" + 
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
-					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"',4,'"+Medicament+"','"+echantillon+"')";
+					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"','"+Medicament+"','"+echantillon+"')";
 			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
 			int rep = statement.executeUpdate(requete);

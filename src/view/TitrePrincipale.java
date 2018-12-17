@@ -18,7 +18,7 @@ public class TitrePrincipale extends JPanel {
 		JLabel texte = new JLabel(txt, JLabel.CENTER);
 		texte.setFont(font);
 		texte.setForeground(new Color(2, 62, 108));
-
+		this.setSize(1920,30);
 		this.setOpaque(false);
 
 		this.setVisible(true);
