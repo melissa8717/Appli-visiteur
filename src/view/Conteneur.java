@@ -2,10 +2,12 @@ package view;
 
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.util.List;
 
 
 public class Conteneur extends JPanel {
+	/*
+	 * 	Classe permettant de créé le conteneur "du milieu" dans chaque vue
+	 */
 	private static final long serialVersionUID = 1L;
 	public Conteneur() {
         this.setSize(1500, 1000);
@@ -13,5 +15,4 @@ public class Conteneur extends JPanel {
         this.setOpaque(true);
         this.setVisible(true);
     }
-
 }
