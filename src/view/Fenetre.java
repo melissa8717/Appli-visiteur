@@ -84,7 +84,7 @@ public class Fenetre extends JFrame {
         if(connected){
 	    	// Generation des vues
 	            // Menu Accueil
-	        JPanel panel_accueil = new Accueil(u.prenom.toString());
+	        JPanel panel_accueil = new Accueil(u.prenom.toString() + " " + u.nom.toString());
 	            // Menu Compte Rendu
 	        //final JPanel panel_compte_rendu = new JPanel();
 	        final JPanel panel_compte_rendu1 = new SaisiCompteRendu();
