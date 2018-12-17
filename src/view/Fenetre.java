@@ -199,6 +199,7 @@ public class Fenetre extends JFrame {
                         public void actionPerformed(ActionEvent e) {
                             // Mel fonction de déconnexion
                             System.out.println("Déconnexion");
+                            System.exit(0);
                         }
                     });
 
