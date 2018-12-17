@@ -85,7 +85,7 @@ public class compteRenduControleur {
 	}
 	
 	// CR consultation
-	public static List<List> consultationCompteRendu(int unMois)  {
+	public static List<List> consultationCompteRendu(int unMois,int debut,int IdUser)  {
 
 	
 		try {
@@ -97,7 +97,9 @@ public class compteRenduControleur {
 		    Statement statement = conn.createStatement();
 		    String requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
 		    		+ " rapport.echantillon, praticien.nom, rapport.nomMedicament from rapport,praticien"
-		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.date LIKE '%-"+unMois+"-%';";
+		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
+		    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
+		    
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			
