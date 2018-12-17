@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -49,6 +51,10 @@ public class Fenetre extends JFrame {
 	    setMinimumSize(new Dimension(1000, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
+        
+        //definition de l'image de la toolbar
+        Image logo = Toolkit.getDefaultToolkit().getImage("img/logo_toolbar.png");
+        setIconImage(logo);
         
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
