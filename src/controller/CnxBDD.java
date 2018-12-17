@@ -8,28 +8,21 @@ import view.Fenetre;
 import model.User;
 
 public class CnxBDD {
-<<<<<<< HEAD
-	public static Connection connecteurUserLab() { 
-			try {
-=======
+
 
 	public static Connection connecteurUserLab() {
 		/* Connection à la base de donnée BDUserLab */
 		try {
->>>>>>> dd6e695c61d861a7efb3326359913890fe5bc106
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
-		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
+		   /* String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
-		    String passwd = "Aristee.2018..//";
-<<<<<<< HEAD
-		  /*  String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
-=======
-		    /*String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
->>>>>>> dd6e695c61d861a7efb3326359913890fe5bc106
+		    String passwd = "Aristee.2018..//";*/
+		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+
 		    String user = "root";
-		    String passwd = "root";*/
+		    String passwd = "";
 
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
@@ -51,18 +44,12 @@ public class CnxBDD {
 
 		    String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
 		    String user = "rootuser";
-<<<<<<< HEAD
-		    String passwd = "Aristee.2018..//";*/
 
-		    String url ="jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
-		    String user = "root";
-		    String passwd = "";
-=======
 		    String passwd = "Aristee.2018..//";
+
 		    /*String url ="jdbc:mysql://localhost/bdmedoclab?useSSL=false";
 		    String user = "root";
 		    String passwd = "root";*/
->>>>>>> dd6e695c61d861a7efb3326359913890fe5bc106
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
 		    System.out.println("Connexion effective à la base BDUserLab!");
