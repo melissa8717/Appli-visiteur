@@ -124,7 +124,6 @@ public class SaisiCompteRendu extends JPanel{
             panel[i].add(espacement[i-1]);
         }
         
-        // TODO METTRE LE MENU DE NAVIGATION ICI
         int widhtPanel= 1000;
         int heightPanel= 500;
         panel[9].setPreferredSize(new Dimension(widhtPanel, heightPanel));
@@ -188,7 +187,6 @@ public class SaisiCompteRendu extends JPanel{
 			
 				try {
 					Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
-					//TODO à voir le format qu'on mettra, pour la base
 					DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
 					DateChoisie = formatDate.format(selectedDate);
 					
@@ -237,7 +235,6 @@ public class SaisiCompteRendu extends JPanel{
 							+ "Le Médicament inscrit est: "+Medicament+" la date de la visite été le: "+DateChoisie
 							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
 							+AreaText+"'.");
-					//TODO décommenter quand thomas aura push le controller de compte rendu
 					if (controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons,Medicament)){
 
 				        compteRenduBon.setVisible(true);
@@ -278,7 +275,6 @@ public class SaisiCompteRendu extends JPanel{
         BoxLayout b= new BoxLayout(this , BoxLayout.Y_AXIS);
         this.setLayout(b);
         
-        // TODO fonction qui permet de récupérer que des int pour un input
 		nbrEchantillonsField.addKeyListener(new KeyAdapter() { //quand la personne �crit
 			public void keyTyped(KeyEvent e) {
 				char lettre=e.getKeyChar();		// r�cup�re le caract�re

@@ -1,12 +1,16 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-
 import javax.swing.JPanel;
 
+
 public class AlertError extends JPanel{
+	/**
+	 * 	Cette classe permet de générer un JPanel avec un fond rouge contenant un message
+	 * 	Inspiration : alert-danger de Bootstrap
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public AlertError(String texte) {
 		JPanel messageError = new JPanel();
 		messageError.setOpaque(true);
@@ -17,6 +21,6 @@ public class AlertError extends JPanel{
 		
 		messageError.add(textError);
 		
-		this.add(messageError);
+		add(messageError);
 	}
 }

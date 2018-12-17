@@ -1,12 +1,16 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-
 import javax.swing.JPanel;
 
+
 public class AlertSuccess extends JPanel{
+	/**
+	 * 	Cette classe permet de générer un JPanel avec un fond vert contenant un message
+	 * 	Inspiration : alert-success de Bootstrap
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public AlertSuccess(String texte) {
 		JPanel messageSuccess = new JPanel();
 		messageSuccess.setOpaque(true);
@@ -17,6 +21,6 @@ public class AlertSuccess extends JPanel{
 		
 		messageSuccess.add(textSuccess);
 		
-		this.add(messageSuccess);
+		add(messageSuccess);
 	}
 }

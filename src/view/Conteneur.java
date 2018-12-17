@@ -5,6 +5,9 @@ import java.awt.Color;
 
 
 public class Conteneur extends JPanel {
+	/*
+	 * 	Classe permettant de créé le conteneur "du milieu" dans chaque vue
+	 */
 	private static final long serialVersionUID = 1L;
 	public Conteneur() {
         this.setSize(1500, 1000);

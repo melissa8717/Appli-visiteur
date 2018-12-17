@@ -6,11 +6,15 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.awt.Toolkit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -24,6 +28,9 @@ import view.CreationMessagerie;
 
 
 public class Fenetre extends JFrame {
+	/*
+	 * 	Fenetre générale regroupant toutes les vues (pages) et qui affiche la bonne vue en fonction de la vue choisi dans le menu par l'utilisateur
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panelActif = new JPanel();
 	public User u = new User();
@@ -50,6 +57,10 @@ public class Fenetre extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         
+        //definition de l'image de la toolbar
+        Image logo = Toolkit.getDefaultToolkit().getImage("img/logo_toolbar.png");
+        setIconImage(logo);
+        
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // Generation de la vue connexion
@@ -73,32 +84,35 @@ public class Fenetre extends JFrame {
 		return dimension;
     }
     
+	/*
+	 * Fonction permettant d'afficher les pages "réelle" et le menu si l'utilisateur à réussi à se connecter
+	 */
     public void refreshConnexion(boolean connected){
     	// Generation de la fenetre final si utilisateur connecté
         if(connected){
 	    	// Generation des vues
 	            // Menu Accueil
-	        JPanel panel_accueil = new Accueil(u.prenom.toString());
+	        JPanel panel_accueil = new Accueil(u.prenom.toString() + " " + u.nom.toString());
 	            // Menu Compte Rendu
-	        final JPanel panel_compte_rendu = new JPanel();
+	        //final JPanel panel_compte_rendu = new JPanel();
 	        final JPanel panel_compte_rendu1 = new SaisiCompteRendu();
 	        final JPanel panel_compte_rendu2 = new ConsultationCompteRendu();
 	        	// Menu Power Point
-	        final JPanel panel_power_point = new JPanel();
+	        //final JPanel panel_power_point = new JPanel();
 	        final JPanel panel_power_point1 = new CreationPowerPoint();
 	        final JPanel panel_power_point2 = new ConsultationPowerPoint();
 	        	// Menu Messagerie
-	        final JPanel panel_messagerie = new JPanel();
+	        //final JPanel panel_messagerie = new JPanel();
 	        final JPanel panel_messagerie1 = new CreationMessagerie();
 	        final JPanel panel_messagerie2 = new ConsultationMessagerie();
 	        	// Menu Agenda
 	        final JPanel panel_agenda = new Agenda();
 	        	// Menu Medecin
-	        final JPanel panel_medecin = new JPanel();
+	        //final JPanel panel_medecin = new JPanel();
 	        final JPanel panel_medecin1 = new CreationMedecin();
 	        final JPanel panel_medecin2 = new ConsultationMedecin();
 	        	// Menu Utilisateur
-	        final JPanel panel_utilisateur = new JPanel();
+	        //final JPanel panel_utilisateur = new JPanel();
 	        final JPanel panel_utilisateur1 = new CreationUtilisateur();
 	        final JPanel panel_utilisateur2 = new ConsultationUtilisateur();
 	        	// Menu Deconnexion
@@ -118,7 +132,9 @@ public class Fenetre extends JFrame {
             JMenu menu8 = new JMenu("Deconnexion");
             AddMenuAction(menu1, panel_accueil);
             AddMenuAction(menu5, panel_agenda);
-            AddMenuAction(menu8, panel_deconnexion);
+            //AddMenuAction(menu8, panel_deconnexion);
+
+        
             
             // Creation des elements du sous-menu + declaration de l'event pour changer l'interface
             JMenuItem item_compte_rendu1 = new JMenuItem("Saisie");     
@@ -142,6 +158,7 @@ public class Fenetre extends JFrame {
             AddMenuItemAction(item_utilisateur1, panel_utilisateur1);
             AddMenuItemAction(item_utilisateur2, panel_utilisateur2);
             
+            // Ajout des sous-éléments en dessous des éléments des menus
 	        menu2.add(item_compte_rendu1);
 	        menu2.add(item_compte_rendu2);
             menu3.add(item_power_point1);
@@ -153,19 +170,60 @@ public class Fenetre extends JFrame {
             menu7.add(item_utilisateur1);
             menu7.add(item_utilisateur2);
       
+            // Ajout des menus dans la barre de menu en fonction du role de l'utilisateur
             menuBar.add(menu1);
-            System.out.println(u.role);
+            System.out.println("Mon role : " + u.role);
             if(u.role == 1 || u.role == 2) {
-            	System.out.println("je suis un visiteur ou un délégué, j'ai donc des menu en plus");
             	menuBar.add(menu2);
             	menuBar.add(menu3);
             }
 
             menuBar.add(menu4);
             menuBar.add(menu5);
-            menuBar.add(menu6);
-            menuBar.add(menu7);
+            if(u.role != 1) {
+            	menuBar.add(menu6);
+            	menuBar.add(menu7);            	
+            }
             menuBar.add(menu8);
+
+            menu8.addMenuListener(new MenuListener(){
+                public void menuSelected(MenuEvent e) {
+                    System.out.println("Guillaume est un putain de génie");
+                    Popup popup_deconnexion = new Popup("Déconnexion", 500, 250);
+                    JButton bouton_oui, bouton_non;
+                    bouton_oui = new JButton("Oui");
+                    bouton_non = new JButton("Non");
+
+                    bouton_oui.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Mel fonction de déconnexion
+                            System.out.println("Déconnexion");
+                            System.exit(0);
+                        }
+                    });
+
+                    bouton_non.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Mel fonction de déconnexion
+                            System.out.println("Non déconnexion");
+                        }
+                    });
+                    popup_deconnexion.add(bouton_oui);
+                    popup_deconnexion.add(bouton_non);
+                }
+
+				@Override
+				public void menuCanceled(MenuEvent arg0) {
+					// On ne fait rien pour l'instant
+				}
+
+				@Override
+				public void menuDeselected(MenuEvent arg0) {
+					// On ne fait rien pour l'instant
+				}
+            });
             
             remove(panelActif);
             panelActif = panel_accueil;
@@ -175,6 +233,7 @@ public class Fenetre extends JFrame {
             revalidate();
             repaint();
         }
+        // Si erreur de connexion, regeneration de la vue avec un message d'erreur
         else {
         	JPanel panel_connexion = new Connexion(this.u, this, true);
         	
@@ -186,7 +245,11 @@ public class Fenetre extends JFrame {
             repaint();
         }
     }
+    
 
+    /*
+     * 	Fonction permettant d'affecter une page à un élément du menu
+     */
     public void AddMenuAction(JMenu bouton, JPanel panel) {
         bouton.addMenuListener(new MenuListener(){
             @Override
@@ -198,11 +261,14 @@ public class Fenetre extends JFrame {
                 revalidate();
                 repaint();
             }
-            @Override public void menuCanceled(MenuEvent e) {/* TODO Auto-generated method stub */}
-            @Override public void menuDeselected(MenuEvent e) {/* TODO Auto-generated method stub */}   
+            @Override public void menuCanceled(MenuEvent e) {}
+            @Override public void menuDeselected(MenuEvent e) {}   
         }); 
     }
 	
+    /*
+     * 	Fonction permettant d'affecter une page à un sous-élément du menu
+     */
 	public void AddMenuItemAction(JMenuItem bouton, JPanel panel) {
 		bouton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae)
