@@ -8,8 +8,9 @@ import view.Fenetre;
 import model.User;
 
 public class CnxBDD {
-	//public static Connection connecteur() { 
+
 	public static Connection connecteurUserLab() {
+		/* Connection à la base de donnée BDUserLab */
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
@@ -33,6 +34,7 @@ public class CnxBDD {
 		} 
 	}
 	
+	/* Connection à la base de donnée BDMedocLab */
 	public static Connection connecteurMedocLab() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -56,6 +58,7 @@ public class CnxBDD {
 		} 
 	}
 
+	/* Connexion et récupération des informations du user connecté */
 	public static Boolean connect(String login, String mdp, User User) {
 		try {
 			Connection conn = connecteurUserLab();

@@ -151,7 +151,6 @@ public class CreationPowerPoint extends JPanel {
 						
 					} catch (IOException e) {
 						System.out.println("Erreur lors de la création de la présentation");
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				

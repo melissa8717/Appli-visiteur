@@ -210,8 +210,8 @@ public class Fenetre extends JFrame {
                 revalidate();
                 repaint();
             }
-            @Override public void menuCanceled(MenuEvent e) {/* TODO Auto-generated method stub */}
-            @Override public void menuDeselected(MenuEvent e) {/* TODO Auto-generated method stub */}   
+            @Override public void menuCanceled(MenuEvent e) {}
+            @Override public void menuDeselected(MenuEvent e) {}   
         }); 
     }
 	

@@ -10,6 +10,7 @@ import controller.CnxBDD;
 
 public class CreationPowerPointController {
 	
+	/* Création de la fonction qui va retourner une liste des médicaments */
 	public static List<String> ListeMedicament(String LettreSelected){
 	String nomMedoc;
 	String effetMedoc;
@@ -24,7 +25,7 @@ public class CreationPowerPointController {
 	    
 		ResultSet resultat = statement.executeQuery("SELECT nom FROM medicament WHERE nom LIKE '"+LettreSelected+"%';");
 	
-	    /* Récupération des données du résultat de la requête de lecture */
+	    /* Récupération de tous les médicaments */
 	    while(resultat.next()) {
             
             nomMedoc = resultat.getString( "nom" );
@@ -33,12 +34,13 @@ public class CreationPowerPointController {
 	    }
 	    return medicaments_list;
 	}catch (Exception ErreurCnxMedocLab) {
-			// TODO: handle exception
 			System.out.println("Problème de connexion à: 'bdmedocLab'");
 		}
 	return medicaments_list;
 
 	}
+
+	/* Récupère les effets d'un médicaments s'il en a */
 	public static String EffetMedoc(String nomMedicament){
 		String effet = null;
 		try {
@@ -46,11 +48,12 @@ public class CreationPowerPointController {
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
-		    
+			
+			/* Cette requête permet d'enlever les '\n' et les '\r' dans l'effet de la base de donnée */
 			ResultSet resultat = statement.executeQuery("SELECT REPLACE(REPLACE(effet, CHAR(13), ' '), CHAR(10), ' ') AS effetPropre FROM medicament WHERE nom ='"+nomMedicament+"';");
 			
 		
-		    /* Récupération des données du résultat de la requête de lecture */
+		    /* Récupération des données du résultat de la requête de lecture si le médicament a un effet */
 		    if(resultat.next()) {
 	            
 	            effet = resultat.getString( "effetPropre" );
@@ -62,12 +65,12 @@ public class CreationPowerPointController {
 		    }
 		    
 		}catch (Exception ErreurCnxMedocLab) {
-				// TODO: handle exception
 				System.out.println("Problème de connexion à: 'bdmedocLab'");
 			}
 		
 		return effet;
 	}
+	/* Fonction qui récupère les contres indications d'un médicament s'il en a */
 	public static String contreIndication(String nomMedicament){
 		String contreIndication = null;
 		try {
@@ -75,10 +78,11 @@ public class CreationPowerPointController {
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
-		    
+			
+			/* Cette requête permet d'enlever les '\n' et les '\r' dans la contre indication de la base de donnée */			
 			ResultSet resultat = statement.executeQuery("SELECT  REPLACE(REPLACE(contreIndication, CHAR(13), ' '), CHAR(10), ' ') AS contreIndicationPropre FROM medicament WHERE nom ='"+nomMedicament+"';");
 		
-		    /* Récupération des données du résultat de la requête de lecture */
+		    /* Récupération des données du résultat de la requête de lecture si le médicament a une contreIndication */
 		    if(resultat.next()) {
 	            
 		    	contreIndication = resultat.getString( "contreIndicationPropre" );
@@ -90,7 +94,6 @@ public class CreationPowerPointController {
 		    }
 		    
 		}catch (Exception ErreurCnxMedocLab) {
-				// TODO: handle exception
 				System.out.println("Problème de connexion à: 'bdmedocLab'");
 			}
 		
