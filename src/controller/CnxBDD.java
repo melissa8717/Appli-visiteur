@@ -8,16 +8,15 @@ import view.Fenetre;
 import model.User;
 
 public class CnxBDD {
-	//public static Connection connecteur() { 
-	public static Connection connecteurUserLab() {
-		try {
+	public static Connection connecteurUserLab() { 
+			try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
 		    /*String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
 		    String passwd = "Aristee.2018..//";*/
-		    String url = "jdbc:mysql://localhost/applivisiteur?useSSL=false";
+		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 		    String user = "root";
 		    String passwd = "";
 
@@ -38,12 +37,12 @@ public class CnxBDD {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
-		    /*String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
+		   String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
 		    String user = "rootuser";
-		    String passwd = "Aristee.2018..//";*/
-		    String url ="jdbc:mysql://localhost/medicament?useSSL=false";
+		    String passwd = "Aristee.2018..//";
+		    /*String url ="jdbc:mysql://localhost/medicament?useSSL=false";
 		    String user = "root";
-		    String passwd = "";
+		    String passwd = "";*/
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
 		    System.out.println("Connexion effective à la base BDUserLab!");
@@ -59,7 +58,6 @@ public class CnxBDD {
 	public static Boolean connect(String login, String mdp, User User) {
 		try {
 			Connection conn = connecteurUserLab();
-		    
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
