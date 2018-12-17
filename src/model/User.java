@@ -66,7 +66,7 @@ public class User {
 				prenom = rs.getString("prenom");
 				adresse = rs.getString("adresse");			
 				ville = rs.getString("ville");			
-				role = rs.getInt("role");			
+				role = rs.getInt("role");
 				login = rs.getString("login");
 				password = rs.getString("password");	
 				System.out.println("je marche");
