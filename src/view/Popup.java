@@ -3,19 +3,23 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 public class Popup extends JFrame {
-    public Popup(String title, int width, int height){
+    /**
+	 * 	Classe permettant d'ouvrir une nouvelle fenetre
+	 */
+	private static final long serialVersionUID = 1L;
 
-		this.setBounds(100,50,2000,1000/16*9);
-		
-		this.setSize(width, height);
+	public Popup(String title, int width, int height){
 
-		this.setTitle(title);
+		setBounds(100,50,2000,1000/16*9);
+		setSize(width, height);
+		setTitle(title);
 		
 		JPanel fenetre = new JPanel();
-		this.setContentPane(fenetre);
 		fenetre.setBackground(new java.awt.Color(102, 163, 211));
+		setContentPane(fenetre);
 		
-		this.setVisible(true);
+		setVisible(true);
     }
 }

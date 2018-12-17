@@ -1,56 +1,44 @@
 package view;
 
 import javax.swing.JPanel;
-
-
-//import controller.CnxBDDLocalhost;
-
+import javax.swing.JPasswordField;
 
 import controller.CnxBDD;
-import controller.connectionControleur;
-/*
-import appliVisiteur_interfaceGraphique.Conteneur;
-import appliVisiteur_interfaceGraphique.Fenetre;
-import appliVisiteur_interfaceGraphique.JTextFieldModif;
-import appliVisiteur_interfaceGraphique.Paragraphe;
-import appliVisiteur_interfaceGraphique.TitrePrincipale;*/
 import model.User;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
+
 
 public class Connexion extends JPanel {
+	/**
+	 * 	Explication de cette vue
+	 */
+	private static final long serialVersionUID = 1L;
 	public Connexion(User User, Fenetre f, Boolean error) {
 		int largeurConteneur = 600;
-		
+
+		// Création des espacements
 		JPanel[] espacement = {new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel()};
-		
 		for(int $i = 0; $i < 5; $i++) {
 			espacement[$i].setPreferredSize(new Dimension(largeurConteneur, 75));
 			espacement[$i].setOpaque(false);
 		}
-		
 		espacement[0].setPreferredSize(new Dimension(largeurConteneur, 150));
 		
+		// Création des differents éléments de la vue
 		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
-		
 		Paragraphe paragrapheId = new Paragraphe("Identifiant : ");
-		
 		JTextFieldModif textFieldId = new JTextFieldModif(10, 12);
-		
 		Paragraphe paragrapheMdp = new Paragraphe("Mot de passe : ");
-				
-		JTextFieldModif textFieldMdp = new JTextFieldModif(10, 12);
-		System.out.println("Connexion :" + User);
-		
+		JPasswordField textFieldMdp = new JPasswordField();
+
+		// Création du bouton "Valider" ainsi que des EventListener permettant de detecter la touche Entrer pour simuler le clique sur le bouton "Valider"
 		JButton boutonValider = new JButton("Connexion");
 		boutonValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,6 +110,7 @@ public class Connexion extends JPanel {
 		
 		ligneQuatre.add(boutonValider);
 		
+		// Ajout de tout les éléments à la vue
 		this.add(ligneUne);
 		this.add(espacement[0]);
 		if(error == true) {
@@ -134,22 +123,19 @@ public class Connexion extends JPanel {
 		this.add(ligneQuatre);
 	}
 
-	public boolean isConnected(String login, String mdp) {
-		if((login instanceof String) && (mdp instanceof String)) {
-			System.out.println("t'es passé");
-			
-			try {
-				User u = new User(login, mdp);
-				return true;
-			}
-			catch(Exception excep) {
-				System.out.println(excep);
-				return false;
-			}
-		}
-		else {
-			System.out.println("A�e a�e a�e t'es pas pass�");
-			return false;
-		}
-	}
+	// public boolean isConnected(String login, String mdp) {
+	// 	if((login instanceof String) && (mdp instanceof String)) {
+	// 		try {
+	// 			User u = new User(login, mdp);
+	// 			return true;
+	// 		}
+	// 		catch(Exception excep) {
+	// 			System.out.println(excep);
+	// 			return false;
+	// 		}
+	// 	}
+	// 	else {
+	// 		return false;
+	// 	}
+	// }
 }

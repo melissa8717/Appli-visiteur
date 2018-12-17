@@ -93,6 +93,11 @@ public class ConsultationCompteRendu extends JPanel {
        		
 		 jcombo.addActionListener(e -> {	
 
+			 // Faire une fonction qui change le texte des labels qu'on aurait éventuellement définie plus tot
+			 //Peut être changer le systeme de boucle actuelle du coup et passer sur des JPanel fixe et des labels définie
+			 
+		     // List_CR= compteRenduControleur.consultationCompteRendu((int) jcombo.getSelectedIndex()+1);
+
 			 CRChangeLabel((int) jcombo.getSelectedIndex()+1,0,date,medoc,Medecin,User.id_utilisateur);
 		    });
 		 JButton Suivant=new JButton("Suivant");

@@ -8,8 +8,9 @@ import view.Fenetre;
 import model.User;
 
 public class CnxBDD {
-	//public static Connection connecteur() { 
+
 	public static Connection connecteurUserLab() {
+		/* Connection à la base de donnée BDUserLab */
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
@@ -17,10 +18,14 @@ public class CnxBDD {
 		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
 		    String passwd = "Aristee.2018..//";
+<<<<<<< HEAD
 		    /*
 		    String url = "jdbc:mysql://localhost/applivisiteur?useSSL=false";
+=======
+		    /*String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
+>>>>>>> 072535177db6bf06f7467598f3cc52683e82d9f8
 		    String user = "root";
-		    String passwd = "root";
+		    String passwd = "root";*/
 
 */
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
@@ -34,6 +39,7 @@ public class CnxBDD {
 		} 
 	}
 	
+	/* Connection à la base de donnée BDMedocLab */
 	public static Connection connecteurMedocLab() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -42,11 +48,13 @@ public class CnxBDD {
 		    String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
 		    String user = "rootuser";
 		    String passwd = "Aristee.2018..//";
+
 		    /*
 		    String url ="jdbc:mysql://localhost/bdmedoclab?useSSL=false";
 		    String user = "root";
 		    String passwd = "root";
 */
+
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
 		    System.out.println("Connexion effective à la base BDUserLab!");
 		    return conn; 
@@ -58,6 +66,7 @@ public class CnxBDD {
 		} 
 	}
 
+	/* Connexion et récupération des informations du user connecté */
 	public static Boolean connect(String login, String mdp, User User) {
 		try {
 			Connection conn = connecteurUserLab();
@@ -76,7 +85,7 @@ public class CnxBDD {
 	            User.id_utilisateur = resultat.getInt( "idUtilisateur" );
 	            User.nom = resultat.getString( "nom" );
 				User.prenom = resultat.getString("prenom");
-				User.role= resultat.getInt("role");
+				User.role = resultat.getInt("role");
 				User.connected = true;
 				
 				return true;
