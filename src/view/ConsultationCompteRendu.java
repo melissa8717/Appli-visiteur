@@ -1,159 +1,96 @@
 package view;
 import model.*;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-
 import controller.*;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Month;
 
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.Dimension;
+
+
+import java.sql.SQLException;
+import java.text.*;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.table.TableModel;
 
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.awt.Dimension;
-import javax.swing.JComboBox;
-import  java.util.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
-import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
-import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import controller.*;
 
 
 public class ConsultationCompteRendu extends JPanel {
-    public ConsultationCompteRendu() {
+ 
+
+	private static final long serialVersionUID = 1L;
+
+	public ConsultationCompteRendu() {
    
     	final  String[] months = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
-  		      "Juillet", "Ao�t", "Septembre", "Octobre", "Novembre", "Decembre" };
+  		      "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" };
   
-		    JPanel someFrame = new JPanel();
-		    someFrame.setSize(250, 250);
-
-		    JComboBox<Month> jcombo = new JComboBox<>(Month.values());
-		    this.add(jcombo);
-
-// select des dates
-		 jcombo.addActionListener(e -> {
-
-				Month selMonth = (Month) ((JComboBox<Month>) e.getSource()).getSelectedItem();
-				    System.out.println(selMonth);
-				    //final String medicament = controller.compteRenduControleur.resultat;
-
-				    //compteRenduControleur cr =new compteRenduControleur();  // Ta Classe1
-				    
-
-				controller.compteRenduControleur.consultationCompteRendu(  );
-		        List<List> List_CR= compteRenduControleur.consultationCompteRendu();
-
-
-		    });
-
-   
-        
-        TitrePrincipale mesSaisiesCompteRendu = new TitrePrincipale("Consultation des comptes rendus");
+		  
+    	DateFormat dateFormat = new SimpleDateFormat("MM");
+    	List<List> List_CR= compteRenduControleur.consultationCompteRendu(Integer.parseInt(dateFormat.format(new Date())));
+		JComboBox<String> jcombo = new JComboBox<>(months);
+		TitrePrincipale mesSaisiesCompteRendu = new TitrePrincipale("Consultation des comptes rendus");
         mesSaisiesCompteRendu.setPreferredSize(new Dimension(1500, 100));
 
-      
+       JPanel espacement= new JPanel();
+       
+       espacement.setPreferredSize(new Dimension(1000,100));
+       
+       this.add(mesSaisiesCompteRendu);
+       this.add(jcombo);
+       this.add(espacement);
+		    
 
-       List<List> List_CR= compteRenduControleur.consultationCompteRendu();
-       
-       List<String> ListDate=new ArrayList<String>();
-       List<String> ListMedecin=new ArrayList<String>();
-       List<String> ListMedoc=new ArrayList<String>();
-       
-       
-       
-        for (int i = 0; i < List_CR.size(); i++) {
-            
-			 ListDate.add((String) List_CR.get(i).get(1));
-			
-			ListMedoc.add((String) List_CR.get(i).get(6));
-			
-			ListMedecin.add((String) List_CR.get(i).get(5));
-			
-			String medicament = ListMedoc.toString();
-			 JLabel labelMedicament = new JLabel(medicament);	
-			 this.add(labelMedicament);
-			 String date = ListDate.toString();
-			 String medecin = ListMedecin.toString();
-		     
-			 JLabel labelMedecin = new JLabel(medecin);
-			 JLabel labelDate = new JLabel(date);
-			 this.add(labelDate );
+// select des dates
+		 jcombo.addActionListener(e -> {	
+			 //TODO faire une fonction qui change le texte des labels qu'on aurait éventuellement définie plus tot
+			 //Peut être changer le systeme de boucle actuelle du coup et passer sur des JPanel fixe et des labels définie
 			 
-	
-		}
-       
-        JPanel espacement[]= {new JPanel(new FlowLayout(FlowLayout.LEFT))};
+		     // List_CR= compteRenduControleur.consultationCompteRendu((int) jcombo.getSelectedIndex()+1);
+		    });
 
-        JPanel[] panel = {new JPanel(new FlowLayout(FlowLayout.LEFT))};
-        
-        for(int i = 1;i<10;i++) {
-        	panel = ajoutemoi(panel, new JPanel(new FlowLayout(FlowLayout.LEFT)));
-        	espacement = ajoutemoi(espacement, new JPanel(new FlowLayout(FlowLayout.LEFT)));
-        }
-
-        
-      
-        
-      /*  for (Integer j = 0; j < 4; j++) {
-            this.add(new CarteCompteRendu(medicament, medecin));
-        }*/
-        
-      
-
-        // container du CR
-        JPanel cartes = new JPanel();
-   
-      
-      
-      //CarteCompteRendu carteCompteRendu = new CarteCompteRendu(medicament,medecin);
-      
-      //ajout des variables dans la fenetre
-        this.add(mesSaisiesCompteRendu);
-        this.add(someFrame);
-       // this.add(datePicker);
-        //this.add(pickDate);
-      // this.add(carteCompteRendu);
 
      
+        for (int i = 0; i < List_CR.size(); i++) {
+        	JPanel carte= new JPanel(); 	
+        	carte.setBackground(Color.white);
+        	carte.setPreferredSize(new Dimension(1000,50));
+        	
+        	
+        	
+        	/*Les espaces sont temporaires, ne pas faire attention, mettre en rouge si vous voulez savoir à quoi ca correspond*/
+        	JPanel espace= new JPanel();
+        	espace.setBackground(Color.white);
+        	espace.setPreferredSize(new Dimension(350,50));
+        	JPanel espace2= new JPanel();
+        	espace2.setBackground(Color.white);
+        	espace2.setPreferredSize(new Dimension(350,50));
+        	/*****************************************************************************************************************/
+        	
+        	
+        	
+        	String dateBrute= (String) List_CR.get(i).get(1);
+        	String DdMmAaaa=dateBrute.substring(8,10)+"/"+dateBrute.substring(5,7)+"/"+dateBrute.substring(0, 4);
+        	
+        	JLabel date= new JLabel("Date: "+DdMmAaaa);
+        	//JLabel bilan= new JLabel((String) List_CR.get(i).get(2));
+        	JLabel medoc= new JLabel((String) List_CR.get(i).get(6));
+        	JLabel Medecin=new JLabel((String) List_CR.get(i).get(5));
+        	carte.add(date);
+        	carte.add(espace);
+        	//carte.add(bilan);
+        	carte.add(medoc);
+        	carte.add(espace2);
+        	carte.add(Medecin);
+        	this.add(carte);
+        	
+        }
+     
     }
-
-	private JPanel[] ajoutemoi(JPanel[] panel, JPanel jPanel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
-    
-
-}
+    }
