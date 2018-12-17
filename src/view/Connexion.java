@@ -40,7 +40,7 @@ public class Connexion extends JPanel {
 		
 		espacement[0].setPreferredSize(new Dimension(largeurConteneur, 150));
 		
-		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
+		//TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
 		
 		Paragraphe paragrapheId = new Paragraphe("Identifiant : ");
 		
@@ -95,7 +95,7 @@ public class Connexion extends JPanel {
 		ligneUne.setOpaque(false);
 		ligneUne.setPreferredSize(new Dimension(largeurConteneur, 150));
 		
-		ligneUne.add(titrePrincipale);
+		//ligneUne.add(titrePrincipale);
 		
 		JPanel messageError = new AlertError("Nom de compte ou mot de passe incorrect !");
 		

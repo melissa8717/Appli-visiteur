@@ -18,6 +18,7 @@ public class User {
 	public String password;
 	public boolean connected;
 	//public String codePostal;
+	public User currentUser;
 	
 	public User(String login1, String mdp) {
 		this.Read(login1, mdp);
@@ -107,5 +108,13 @@ public class User {
 
 	public Boolean isConnected() {
 		return this.connected;
+	}
+	
+	public void deconnexion() {
+		
+	 User currentUser;
+		
+	 System.gc();
+
 	}
 }

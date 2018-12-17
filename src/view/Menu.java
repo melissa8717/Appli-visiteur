@@ -47,7 +47,7 @@ public class Menu extends JPanel{
 		mb.add(menu); 
 		
 		//third link
-		menu = new JMenu("Générateur de power point");
+		menu = new JMenu("Gï¿½nï¿½rateur de power point");
 		j1= new JMenuItem("Saisie");
 		j2 = new JMenuItem("Consultation");
 		menu.add(j1); menu.add(j2);
@@ -65,9 +65,9 @@ public class Menu extends JPanel{
 		mb.add(menu);
 		
 		//six link 
-		menu = new JMenu("Informations Médecins");
-		l1= new JMenuItem("Ajouter un médecin");
-		l2 = new JMenuItem("Consultation de la liste des médecins");
+		menu = new JMenu("Informations Mï¿½decins");
+		l1= new JMenuItem("Ajouter un mï¿½decin");
+		l2 = new JMenuItem("Consultation de la liste des mï¿½decins");
 		menu.add(l1);menu.add(l2);
 		mb.add(menu);
 		
@@ -79,7 +79,7 @@ public class Menu extends JPanel{
 		mb.add(menu);
 		
 		//last link 
-		menu = new JMenu("Déconnexion");
+		menu = new JMenu("DÃ©connexion");
 		mb.add(menu);
 		
 		this.add(mb);

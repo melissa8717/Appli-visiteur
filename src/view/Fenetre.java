@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -119,6 +120,7 @@ public class Fenetre extends JFrame {
             AddMenuAction(menu1, panel_accueil);
             AddMenuAction(menu5, panel_agenda);
             AddMenuAction(menu8, panel_deconnexion);
+          
             
             // Creation des elements du sous-menu + declaration de l'event pour changer l'interface
             JMenuItem item_compte_rendu1 = new JMenuItem("Saisie");     
@@ -197,7 +199,10 @@ public class Fenetre extends JFrame {
                 
                 revalidate();
                 repaint();
+              
             }
+            
+           
             @Override public void menuCanceled(MenuEvent e) {/* TODO Auto-generated method stub */}
             @Override public void menuDeselected(MenuEvent e) {/* TODO Auto-generated method stub */}   
         }); 
@@ -216,6 +221,7 @@ public class Fenetre extends JFrame {
             }
         });
     }
+	
 
 	public static void main(String... args){
         SwingUtilities.invokeLater(new Runnable()
