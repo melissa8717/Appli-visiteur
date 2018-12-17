@@ -7,10 +7,12 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -124,7 +126,9 @@ public class Fenetre extends JFrame {
             JMenu menu8 = new JMenu("Deconnexion");
             AddMenuAction(menu1, panel_accueil);
             AddMenuAction(menu5, panel_agenda);
-            AddMenuAction(menu8, panel_deconnexion);
+            //AddMenuAction(menu8, panel_deconnexion);
+
+        
             
             // Creation des elements du sous-menu + declaration de l'event pour changer l'interface
             JMenuItem item_compte_rendu1 = new JMenuItem("Saisie");     
@@ -162,9 +166,8 @@ public class Fenetre extends JFrame {
       
             // Ajout des menus dans la barre de menu en fonction du role de l'utilisateur
             menuBar.add(menu1);
-            System.out.println(u.role);
+            System.out.println("Mon role : " + u.role);
             if(u.role == 1 || u.role == 2) {
-            	System.out.println("je suis un visiteur ou un délégué, j'ai donc des menu en plus");
             	menuBar.add(menu2);
             	menuBar.add(menu3);
             }
@@ -174,6 +177,44 @@ public class Fenetre extends JFrame {
             menuBar.add(menu6);
             menuBar.add(menu7);
             menuBar.add(menu8);
+
+            menu8.addMenuListener(new MenuListener(){
+                public void menuSelected(MenuEvent e) {
+                    System.out.println("Guillaume est un putain de génie");
+                    Popup popup_deconnexion = new Popup("Déconnexion", 500, 250);
+                    JButton bouton_oui, bouton_non;
+                    bouton_oui = new JButton("Oui");
+                    bouton_non = new JButton("Non");
+
+                    bouton_oui.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Mel fonction de déconnexion
+                            System.out.println("Déconnexion");
+                        }
+                    });
+
+                    bouton_non.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Mel fonction de déconnexion
+                            System.out.println("Non déconnexion");
+                        }
+                    });
+                    popup_deconnexion.add(bouton_oui);
+                    popup_deconnexion.add(bouton_non);
+                }
+
+				@Override
+				public void menuCanceled(MenuEvent arg0) {
+					// On ne fait rien pour l'instant
+				}
+
+				@Override
+				public void menuDeselected(MenuEvent arg0) {
+					// On ne fait rien pour l'instant
+				}
+            });
             
             remove(panelActif);
             panelActif = panel_accueil;
@@ -195,6 +236,7 @@ public class Fenetre extends JFrame {
             repaint();
         }
     }
+    
 
     /*
      * 	Fonction permettant d'affecter une page à un élément du menu
