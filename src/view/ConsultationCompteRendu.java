@@ -43,9 +43,10 @@ public class ConsultationCompteRendu extends JPanel {
 
        JPanel panelOffset=new JPanel();
        JLabel JlabelOffset=new JLabel(debut+"-6");
-       panelOffset.setPreferredSize(new Dimension(450, 35));
-       panelOffset.add(JlabelOffset);
-       panelOffset.setBackground(Color.white);
+       panelOffset.setPreferredSize(new Dimension(500, 35));
+       //panelOffset.setLayout(new GridLayout(1,3,200,0));
+       panelOffset.add(JlabelOffset, "Center");
+       panelOffset.setBackground(Color.pink);
        this.add(mesSaisiesCompteRendu);
        this.add(espacement);
       
@@ -72,7 +73,7 @@ public class ConsultationCompteRendu extends JPanel {
        System.out.println(carte.length);
        for (int i = 0; i < carte.length; i++) {
     	   carte[i].setBackground(Color.white);
-    	   carte[i].setPreferredSize(new Dimension(1500,50));
+    	   carte[i].setPreferredSize(new Dimension(1820,50));
     	   
     	   final int iTmp = i;
     	   //Panel date
