@@ -14,7 +14,6 @@ import com.mysql.jdbc.Connection;
 
 public class compteRenduControleur {
 
-
 	/* Fonction d'ajout du compte rendu saisi */
 	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire, String date, int echantillon, String Medicament) {
 		try { 
@@ -80,9 +79,41 @@ public class compteRenduControleur {
 		
 		
 	}
+	public static String selectNomMedoc(int IdMedoc) {
+		String nomMedoc;
+		try {
+		Connection conn =(Connection) CnxBDD.connecteurMedocLab();
+		
+		System.out.println("connection"+conn);
+	    /* Création de l'objet gérant les requêtes */
+		Statement statement = conn.createStatement();
+		
+		/* Requête récupérat les comptes rendus du user connecté */
+	    String requete = "SELECT nom from medicament where idMedicament='"+IdMedoc+"';";
+		
+		ResultSet resultat = statement.executeQuery(requete);
+		if(resultat.next()) {
+			nomMedoc=resultat.getString("nom");
+			System.out.println(nomMedoc);
+			return nomMedoc;
+		}else {
+			nomMedoc=null;
+			return nomMedoc;
+		}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			nomMedoc=null;
+			return nomMedoc;
+		}
+		
+		
+	}
 	
 	/* Fonction de récupération des comptes rendus du user connecté */
 	public static List<List> consultationCompteRendu(int unMois,int debut,int IdUser)  {
+		
 
 	
 		try {

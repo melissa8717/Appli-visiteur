@@ -70,7 +70,7 @@ public class ConsultationCompteRendu extends JPanel {
        System.out.println(carte.length);
        for (int i = 0; i < carte.length; i++) {
     	   carte[i].setBackground(Color.white);
-    	   carte[i].setPreferredSize(new Dimension(1300,50));
+    	   carte[i].setPreferredSize(new Dimension(1500,50));
     	   
     	   final int iTmp = i;
     	   //Panel date
@@ -118,9 +118,11 @@ public class ConsultationCompteRendu extends JPanel {
 						JLabel labelBilan=new JLabel("Bilan: "+bilan[iTmp].getText());
 						JLabel labelDate=new JLabel(date[iTmp].getText());
 						JLabel labelPraticien=new JLabel("Praticien: "+Medecin[iTmp].getText());
-						JLabel labelMedicament=new JLabel("Medicament: "+medoc[iTmp].getText());
-						JLabel labelModif =new JLabel("Medicament: "+motif[iTmp].getText());
-						
+						int idMedoc=Integer.parseInt(medoc[iTmp].getText());
+						String nomMedoc=compteRenduControleur.selectNomMedoc(idMedoc);
+						JLabel labelMedicament=new JLabel("Medicament: "+nomMedoc);
+						JLabel labelMotif =new JLabel("Motif: "+motif[iTmp].getText());
+						System.out.println(labelMotif);
 						panelCompteRendu.setPreferredSize(new Dimension(700,400));
 						panelCompteRendu.setBackground(Color.white);
 	
@@ -201,11 +203,13 @@ public class ConsultationCompteRendu extends JPanel {
 				}else {
 					String dateBrute= (String) List_CR.get(i).get(1);
 		        	String DdMmAaaa=dateBrute.substring(8,10)+"/"+dateBrute.substring(5,7)+"/"+dateBrute.substring(0, 4);
-		        	String Medoc=(String) List_CR.get(i).get(6);
+		        	
+		        	int idMedoc=Integer.parseInt((String) List_CR.get(i).get(6));
+					String nomMedoc=compteRenduControleur.selectNomMedoc(idMedoc);
 		        	String Medecin=(String) List_CR.get(i).get(5);
 		        	String Bilan=(String) List_CR.get(i).get(2);
 					labelDate[i].setText("Date: "+DdMmAaaa);
-					labelMedoc[i].setText(Medoc);
+					labelMedoc[i].setText(nomMedoc);
 					labelMedecin[i].setText(Medecin);
 					labelBilan[i].setText(Bilan);
 					bouton[i].setVisible(true);
