@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -191,6 +192,7 @@ public class Fenetre extends JFrame {
                     System.out.println("Guillaume est un putain de génie");
                     Popup popup_deconnexion = new Popup("Déconnexion", 500, 250);
                     JButton bouton_oui, bouton_non;
+                    JLabel deco = new JLabel("Déconnexion");
                     bouton_oui = new JButton("Oui");
                     bouton_non = new JButton("Non");
 
@@ -209,8 +211,10 @@ public class Fenetre extends JFrame {
                         public void actionPerformed(ActionEvent e) {
                             // Mel fonction de déconnexion
                             System.out.println("Non déconnexion");
+                            popup_deconnexion.dispose();
                         }
                     });
+                    popup_deconnexion.add(deco);
                     popup_deconnexion.add(bouton_oui);
                     popup_deconnexion.add(bouton_non);
                 }

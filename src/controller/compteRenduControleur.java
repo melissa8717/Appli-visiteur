@@ -95,7 +95,7 @@ public class compteRenduControleur {
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
-		    		+ " rapport.echantillon, praticien.nom, rapport.nomMedicament from rapport,praticien"
+		    		+ " rapport.echantillon, praticien.nom, rapport.idMedicament from rapport,praticien"
 		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
 		    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
 		    //LIMIT 6 OFFSET "+debut+"
@@ -113,7 +113,7 @@ public class compteRenduControleur {
 	            String motif = resultat.getString("rapport.motif");
 	            int echantillon = resultat.getInt("rapport.echantillon");
 	            String medecin = resultat.getString("praticien.nom");
-	            String medicament = resultat.getString("rapport.nomMedicament");
+	            int medicament = resultat.getInt("rapport.idMedicament");
 	            
 	            int idUtilisateur = resultat.getInt("rapport.idUtilisateur");
 	            cr.add(Integer.toString(idRapport));
@@ -122,7 +122,7 @@ public class compteRenduControleur {
 	            cr.add(motif);
 	            cr.add(Integer.toString(echantillon));
 	            cr.add(medecin);
-	            cr.add(medicament);
+	            cr.add(Integer.toString(medicament));
 	            cr.add(Integer.toString(idUtilisateur));
 	            List_CR.add(cr);
 	            
