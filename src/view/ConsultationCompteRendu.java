@@ -61,6 +61,7 @@ public class ConsultationCompteRendu extends JPanel {
        JLabel medoc[]= {new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel()};
        JLabel Medecin[]= {new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel()};
        JLabel bilan[]= {new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel()};
+       JLabel motif[] = {new JLabel()};
        
        JButton boutonVoir[]= {new JButton("Voir"),new JButton("Voir"),new JButton("Voir"),
     		   new JButton("Voir"),new JButton("Voir"),new JButton("Voir")};
@@ -118,6 +119,7 @@ public class ConsultationCompteRendu extends JPanel {
 						JLabel labelDate=new JLabel(date[iTmp].getText());
 						JLabel labelPraticien=new JLabel("Praticien: "+Medecin[iTmp].getText());
 						JLabel labelMedicament=new JLabel("Medicament: "+medoc[iTmp].getText());
+						JLabel labelModif =new JLabel("Medicament: "+motif[iTmp].getText());
 						
 						panelCompteRendu.setPreferredSize(new Dimension(700,400));
 						panelCompteRendu.setBackground(Color.white);
