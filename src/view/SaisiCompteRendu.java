@@ -27,6 +27,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
 import controller.compteRenduControleur;
+import model.User;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -86,11 +87,12 @@ public class SaisiCompteRendu extends JPanel{
         
         Integer[] idMed=ListIdMed.toArray(new Integer[0]);
         Integer[] idMedoc=ListIdMedoc.toArray(new Integer[0]);
-        String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
+        JComboBox<?> BoxMedocChoice = new JComboBox<Object>(nomMedoc);
+        String[] MotifItems = {"Visite annuelle", "Visite pour nouveau produit", "Motif personnalisé"};
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(nomMed);
         JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
-        JComboBox<?> BoxMedocChoice = new JComboBox<Object>(nomMedoc);
-        
+       
+
         
         JButton Valider = new JButton("Valider");
 
@@ -99,14 +101,14 @@ public class SaisiCompteRendu extends JPanel{
         
         JPanel espacement[]= {new JPanel(new FlowLayout(FlowLayout.LEFT))};
 
-        JPanel[] panel = {new JPanel(new FlowLayout(FlowLayout.LEFT))};
+         JPanel[] panelTemp = {new JPanel(new FlowLayout(FlowLayout.LEFT))};
         
         for(int i = 1;i<10;i++) {
-        	panel = ajoutemoi(panel, new JPanel(new FlowLayout(FlowLayout.LEFT)));
+        	 panelTemp = ajoutemoi(panelTemp, new JPanel(new FlowLayout(FlowLayout.LEFT)));
         	espacement = ajoutemoi(espacement, new JPanel(new FlowLayout(FlowLayout.LEFT)));
         }
         
-       
+        final JPanel[] panel=panelTemp;
         
        	String PlaceHolder =" Insérez vos commentaires ici... \n\n (10 caractères minimum)";
        	JTextArea inputArea = new JTextArea(PlaceHolder,5,25);
@@ -143,7 +145,7 @@ public class SaisiCompteRendu extends JPanel{
         int heightPanel= 500;
         panel[9].setPreferredSize(new Dimension(widhtPanel, heightPanel));
         
-        titre_page.setPreferredSize(new Dimension(widhtPanel, 100));
+       // titre_page.setPreferredSize(new Dimension(widhtPanel, 100));
         
         espacement[9].setPreferredSize(new Dimension(50,40));
     	espacement[9].setOpaque(false);
@@ -166,7 +168,18 @@ public class SaisiCompteRendu extends JPanel{
         nbrEchantillonsField.setColumns(3);
         
         panel[2].add(BoxMedChoice);
+        
         panel[4].add(BoxMotifChoice);
+        panel[4].add(MotifPersonnalise);
+        MotifPersonnalise.setEditable(false);
+        //panel[4].add(MotifPersonnalise);
+        BoxMotifChoice.addActionListener(e -> {	
+			if(BoxMotifChoice.getSelectedIndex()==2) {
+				MotifPersonnalise.setEditable(true);
+			} else {
+				MotifPersonnalise.setEditable(false);
+			}
+		    });
         
         for (int i = 0; i < 9; i++) {
         	panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/11));
@@ -199,7 +212,13 @@ public class SaisiCompteRendu extends JPanel{
 				//String Medicament;
 				int Medoc= idMedoc[(int) BoxMedocChoice.getSelectedIndex()];
 				int Medecin= idMed[(int) BoxMedChoice.getSelectedIndex()];
-				String Motif= (String) BoxMotifChoice.getSelectedItem();
+				int MotifIndex= (int) BoxMotifChoice.getSelectedIndex();
+				String Motif;
+				if(MotifIndex==2) {
+				Motif=MotifPersonnalise.getText();
+				}else {
+					Motif=(String) BoxMotifChoice.getSelectedItem();
+				}
 			
 				try {
 					Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
@@ -208,7 +227,7 @@ public class SaisiCompteRendu extends JPanel{
 					
 				} catch (Exception e2) {
 					System.out.println("La date n'a pas été sélectionnée");
-					
+					compteRenduFalse.setVisible(true);
 					DateChoisie=null;
 				}
 				/*
@@ -217,8 +236,10 @@ public class SaisiCompteRendu extends JPanel{
 					Medicament = nomMedoc.getText();
 					if(Medicament=="" || Medicament.length()<=2) {
 						Medicament=null;
+						compteRenduFalse.setVisible(true);
 					}
 				}catch (Exception erreurMedoc) {
+					compteRenduFalse.setVisible(true);
 					Medicament =null;
 					
 				}
@@ -228,6 +249,7 @@ public class SaisiCompteRendu extends JPanel{
 						
 					}catch (Exception erreurNombre) {
 						System.out.println("Nombre echantillons manquant");
+						compteRenduFalse.setVisible(true);
 						nbrEchantillons=0;
 					}
 					try {
@@ -236,6 +258,7 @@ public class SaisiCompteRendu extends JPanel{
 							AreaText=null;
 							System.out.println("Soit le text est égal au placeholder, soit les commentaires font moins de 10"
 									+ "caractères, entrez de vrais commentaires");
+							compteRenduFalse.setVisible(true);
 						} else {
 							AreaText= inputArea.getText();
 							
@@ -243,6 +266,7 @@ public class SaisiCompteRendu extends JPanel{
 						
 					} catch (Exception Area) {
 						System.out.println("La zone de texte est vide");
+						compteRenduFalse.setVisible(true);
 						AreaText=null;
 					}
 					

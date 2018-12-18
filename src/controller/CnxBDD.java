@@ -9,6 +9,7 @@ import model.User;
 
 public class CnxBDD {
 
+
 	public static Connection connecteurUserLab() {
 		/* Connection à la base de donnée BDUserLab */
 		try {
@@ -18,11 +19,11 @@ public class CnxBDD {
 		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
 		    String passwd = "Aristee.2018..//";
-/*
-		    String url = "jdbc:mysql://localhost/applivisiteur?useSSL=false";
-
+		    /*
+		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 		    String user = "root";
-		    String passwd = "root";*/
+		    String passwd = "";
+*/
 
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
@@ -44,10 +45,11 @@ public class CnxBDD {
 
 		    String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
 		    String user = "rootuser";
+
 		    String passwd = "Aristee.2018..//";
 
-		    /*
-		    String url ="jdbc:mysql://localhost/bdmedoclab?useSSL=false";
+		    /*String url ="jdbc:mysql://localhost/bdmedoclab?useSSL=false";
+
 		    String user = "root";
 		    String passwd = "root";
 */
@@ -67,7 +69,6 @@ public class CnxBDD {
 	public static Boolean connect(String login, String mdp, User User) {
 		try {
 			Connection conn = connecteurUserLab();
-		    
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
@@ -99,4 +100,7 @@ public class CnxBDD {
 		    return false;
 		}
 	}
+
+
+
 }

@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -192,6 +193,7 @@ public class Fenetre extends JFrame {
                     Popup popup_deconnexion = new Popup("Déconnexion", 500, 250);
                     popup_deconnexion.setAlwaysOnTop(true);
                     JButton bouton_oui, bouton_non;
+                    JLabel deco = new JLabel("Déconnexion");
                     bouton_oui = new JButton("Oui");
                     bouton_non = new JButton("Non");
 
@@ -199,6 +201,7 @@ public class Fenetre extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             // Mel fonction de déconnexion
+                        	
                             System.out.println("Déconnexion");
                             System.exit(0);
                         }
@@ -209,8 +212,10 @@ public class Fenetre extends JFrame {
                         public void actionPerformed(ActionEvent e) {
                             // Mel fonction de déconnexion
                             System.out.println("Non déconnexion");
+                            popup_deconnexion.dispose();
                         }
                     });
+                    popup_deconnexion.add(deco);
                     popup_deconnexion.add(bouton_oui);
                     popup_deconnexion.add(bouton_non);
                 }
@@ -261,7 +266,9 @@ public class Fenetre extends JFrame {
                 
                 revalidate();
                 repaint();
+              
             }
+
             @Override public void menuCanceled(MenuEvent e) {}
             @Override public void menuDeselected(MenuEvent e) {}   
         }); 
@@ -283,6 +290,7 @@ public class Fenetre extends JFrame {
             }
         });
     }
+	
 
 	public static void main(String... args){
         SwingUtilities.invokeLater(new Runnable()
