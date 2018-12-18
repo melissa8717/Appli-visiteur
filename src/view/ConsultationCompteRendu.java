@@ -37,7 +37,6 @@ public class ConsultationCompteRendu extends JPanel {
 		jcombo.setSelectedIndex(Integer.parseInt(dateFormat.format(new Date()))-1);
 		
 		TitrePrincipale mesSaisiesCompteRendu = new TitrePrincipale("Consultation des comptes rendus");
-        mesSaisiesCompteRendu.setPreferredSize(new Dimension(1500, 100));
         System.out.println(User.id_utilisateur);
        int debut=0;
        JPanel espacement= new JPanel();

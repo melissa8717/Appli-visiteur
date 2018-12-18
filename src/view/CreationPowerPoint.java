@@ -59,7 +59,6 @@ public class CreationPowerPoint extends JPanel {
 
 		
 		TitrePrincipale titre = new TitrePrincipale("Générateur de Powerpoint");
-		titre.setPreferredSize(new Dimension(1500, 100));
 
 		JLabel disposition_label = new JLabel("Choisissez votre disposition");
 		disposition_label.setOpaque(false);

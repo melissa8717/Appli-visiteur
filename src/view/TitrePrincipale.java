@@ -24,7 +24,7 @@ public class TitrePrincipale extends JPanel {
 		this.setOpaque(false);
 
 		this.setVisible(true);
-		this.setSize(new Dimension(5000, 500));
+		this.setPreferredSize(new Dimension(1500, 100));
 		this.add(texte);
 	}
 }
