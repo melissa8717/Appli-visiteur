@@ -15,19 +15,19 @@ import com.mysql.jdbc.Connection;
 public class compteRenduControleur {
 
 	/* Fonction d'ajout du compte rendu saisi */
-	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire, String date, int echantillon, String Medicament) {
+	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire, String date, int echantillon, int Medicament) {
 		try { 
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
 			
 			System.out.println("connection ok");
 			commentaire = commentaire.replaceAll("(\')", "\\\\'");
-			Medicament = Medicament.replaceAll("(\')", "\\\\'");
+			//Medicament = Medicament.replaceAll("(\')", "\\\\'");
 			
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
 					"INSERT INTO" + 
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
-					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"','"+Medicament+"','"+echantillon+"')";
+					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"')";
 			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
 
@@ -186,10 +186,43 @@ public class compteRenduControleur {
 		}
 		
 		
-		
-		
 	
 	}	
+	
+	public static List<List> selectMedicament() {
+		try {
+			List<List> List_Medoc = new ArrayList<List>();
+			
+			Connection conn = (Connection) CnxBDD.connecteurMedocLab();
+
+			/* Requête de récupération des ids des medicament */
+			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
+			Statement statement =  conn.createStatement();
+			ResultSet resultat = statement.executeQuery(requete);
+
+			/* Récupère tous les id des medicament */
+			while(resultat.next()) {
+				List<String> unMedoc = new ArrayList<String>();
+				int idMed= resultat.getInt( "idMedicament" );
+				String nomMed= resultat.getString( "nom" );
+				unMedoc.add(Integer.toString(idMed));
+				unMedoc.add(nomMed);
+				List_Medoc.add(unMedoc);
+			}
+			
+			return List_Medoc;
+			
+			
+		}
+		
+		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef");
+			return null;
+		}
+		
+		
+	}
 	
 }
 	
