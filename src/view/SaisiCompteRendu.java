@@ -43,7 +43,7 @@ public class SaisiCompteRendu extends JPanel{
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 		
-		//TitrePrincipale titre_page = new TitrePrincipale("Saisie Compte Rendu");
+		TitrePrincipale titre_page = new TitrePrincipale("Saisie Compte Rendu");
 		
 		JLabel Titre = new JLabel("Compte Rendu");
         JLabel Medecin = new JLabel("Choix du Médecin");
@@ -292,7 +292,7 @@ public class SaisiCompteRendu extends JPanel{
     	panel[9].setBackground(Color.white);
     	
     	
-    	//this.add(titre_page);
+    	this.add(titre_page);
         this.add(panel[9]);
 
         this.add(compteRenduBon);
