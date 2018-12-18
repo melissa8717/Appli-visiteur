@@ -35,8 +35,10 @@ public class Connexion extends JPanel {
 		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
 		Paragraphe paragrapheId = new Paragraphe("Identifiant : ");
 		JTextFieldModif textFieldId = new JTextFieldModif(10, 12);
+		textFieldId.setText("jdebelle");
 		Paragraphe paragrapheMdp = new Paragraphe("Mot de passe : ");
 		JPasswordField textFieldMdp = new JPasswordField();
+		textFieldMdp.setText("nvwqq");
 
 		// Création du bouton "Valider" ainsi que des EventListener permettant de detecter la touche Entrer pour simuler le clique sur le bouton "Valider"
 		JButton boutonValider = new JButton("Connexion");
