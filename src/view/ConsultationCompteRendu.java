@@ -1,4 +1,6 @@
 package view;
+
+import view.TitrePrincipale;
 import model.*;
 import controller.*;
 
@@ -39,6 +41,7 @@ public class ConsultationCompteRendu extends JPanel {
         System.out.println(User.id_utilisateur);
        int debut=0;
        JPanel espacement= new JPanel();
+
        JPanel panelOffset=new JPanel();
        JLabel JlabelOffset=new JLabel(debut+"-6");
        panelOffset.setPreferredSize(new Dimension(450, 35));

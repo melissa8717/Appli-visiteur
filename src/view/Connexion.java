@@ -33,6 +33,7 @@ public class Connexion extends JPanel {
 		
 		// Création des differents éléments de la vue
 		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
+		titrePrincipale.setPreferredSize(new Dimension(1500, 100));
 		Paragraphe paragrapheId = new Paragraphe("Identifiant : ");
 		JTextFieldModif textFieldId = new JTextFieldModif(10, 12);
 		textFieldId.setText("jdebelle");
@@ -85,7 +86,7 @@ public class Connexion extends JPanel {
 		ligneUne.setOpaque(false);
 		ligneUne.setPreferredSize(new Dimension(largeurConteneur, 150));
 		
-		ligneUne.add(titrePrincipale);
+		//ligneUne.add(titrePrincipale);
 		
 		JPanel messageError = new AlertError("Nom de compte ou mot de passe incorrect !");
 		
@@ -118,11 +119,13 @@ public class Connexion extends JPanel {
 		if(error == true) {
 			this.add(messageError);
 		}
+		this.add(titrePrincipale);
 		this.add(ligneDeux);
 		this.add(espacement[1]);
 		this.add(ligneTrois);
 		this.add(espacement[2]);
 		this.add(ligneQuatre);
+		
 	}
 
 	// public boolean isConnected(String login, String mdp) {

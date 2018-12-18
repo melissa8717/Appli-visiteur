@@ -48,7 +48,7 @@ public class compteRenduControleur {
 	public static List<List> selectMedecin() {
 		try {
 			List<List> List_Medecins = new ArrayList<List>();
-			
+
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
 
 			/* Requête de récupération des ids des médecins */
@@ -119,7 +119,7 @@ public class compteRenduControleur {
 		try {
 			List<List> List_CR = new ArrayList<List>();
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
-			
+
 			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();

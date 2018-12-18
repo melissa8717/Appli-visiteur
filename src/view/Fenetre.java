@@ -200,6 +200,7 @@ public class Fenetre extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             // Mel fonction de déconnexion
+                        	
                             System.out.println("Déconnexion");
                             System.exit(0);
                         }
@@ -264,7 +265,9 @@ public class Fenetre extends JFrame {
                 
                 revalidate();
                 repaint();
+              
             }
+
             @Override public void menuCanceled(MenuEvent e) {}
             @Override public void menuDeselected(MenuEvent e) {}   
         }); 
@@ -286,6 +289,7 @@ public class Fenetre extends JFrame {
             }
         });
     }
+	
 
 	public static void main(String... args){
         SwingUtilities.invokeLater(new Runnable()

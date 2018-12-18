@@ -1,6 +1,8 @@
 package view;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 
 public class Deconnexion extends JPanel {
@@ -10,10 +12,13 @@ public class Deconnexion extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public Deconnexion() {
+
+
 		TitrePrincipale bienvenue = new TitrePrincipale("Deconnexion");
 		TitreTertiaire titre3 = new TitreTertiaire("A faire");
 		
-		this.add(bienvenue);
 		this.add(titre3);	
+		
+		
 	}
 }
