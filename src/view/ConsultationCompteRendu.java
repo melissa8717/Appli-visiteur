@@ -36,21 +36,18 @@ public class ConsultationCompteRendu extends JPanel {
 		JComboBox<String> jcombo = new JComboBox<>(months);
 		jcombo.setSelectedIndex(Integer.parseInt(dateFormat.format(new Date()))-1);
 		
-		//TitrePrincipale mesSaisiesCompteRendu = new TitrePrincipale("Consultation des comptes rendus");
-        //mesSaisiesCompteRendu.setPreferredSize(new Dimension(1500, 100));
+		TitrePrincipale mesSaisiesCompteRendu = new TitrePrincipale("Consultation des comptes rendus");
+        mesSaisiesCompteRendu.setPreferredSize(new Dimension(1500, 100));
         System.out.println(User.id_utilisateur);
        int debut=0;
        JPanel espacement= new JPanel();
-<<<<<<< HEAD
-       //this.add(mesSaisiesCompteRendu);
-=======
+
        JPanel panelOffset=new JPanel();
        JLabel JlabelOffset=new JLabel(debut+"-6");
        panelOffset.setPreferredSize(new Dimension(450, 35));
        panelOffset.add(JlabelOffset);
        panelOffset.setBackground(Color.white);
        this.add(mesSaisiesCompteRendu);
->>>>>>> 34ec6909a5b7c5e270a81e0c0a6ac5b60f3e09e6
        this.add(espacement);
       
        this.add(jcombo);
