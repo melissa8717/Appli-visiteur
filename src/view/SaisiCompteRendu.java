@@ -56,12 +56,15 @@ public class SaisiCompteRendu extends JPanel{
         AlertError compteRenduFalse = new AlertError ("le compte rendu a eux une erreur d'enregistrement");
         
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
-        JFormattedTextField nomMedoc = new JFormattedTextField();
         
         
+        //selectMedicament
         List<List> ListMed= compteRenduControleur.selectMedecin();
+        List<List> ListMedoc= compteRenduControleur.selectMedicament();
         List<String> ListNomMed=new ArrayList<String>();
         List<Integer> ListIdMed=new ArrayList<Integer>();
+        List<String> ListNomMedoc=new ArrayList<String>();
+        List<Integer> ListIdMedoc=new ArrayList<Integer>();
         
         for (int i = 0; i < ListMed.size(); i++) {
         	
@@ -70,11 +73,23 @@ public class SaisiCompteRendu extends JPanel{
 			ListNomMed.add((String) ListMed.get(i).get(1));
 			
 		}
+        
+        for (int i = 0; i < ListMedoc.size(); i++) {
+        	
+        	int idTemp=Integer.valueOf((String) ListMedoc.get(i).get(0));
+        	ListIdMedoc.add(idTemp);
+			ListNomMedoc.add((String) ListMedoc.get(i).get(1));
+			
+		}
         String nomMed[]=ListNomMed.toArray(new String[0]);
+        String nomMedoc[]=ListNomMed.toArray(new String[0]);
+        
         Integer[] idMed=ListIdMed.toArray(new Integer[0]);
+        Integer[] idMedoc=ListIdMedoc.toArray(new Integer[0]);
         String[] MotifItems = {"Motif1", "Motif2", "Motif3", "Motif4"};
         JComboBox<?> BoxMedChoice = new JComboBox<Object>(nomMed);
         JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
+        JComboBox<?> BoxMedocChoice = new JComboBox<Object>(nomMedoc);
         
         
         JButton Valider = new JButton("Valider");
@@ -135,8 +150,8 @@ public class SaisiCompteRendu extends JPanel{
     	
     	panel[0].add(espacement[9]);
     	panel[0].add(Medicament);
-    	panel[0].add(nomMedoc);
-    	nomMedoc.setColumns(15);
+    	panel[0].add(BoxMedocChoice);
+    	//nomMedoc.setColumns(15);
         panel[1].add(Titre);
         
  
@@ -181,7 +196,8 @@ public class SaisiCompteRendu extends JPanel{
 				int nbrEchantillons;
 				String AreaText;
 				String DateChoisie;
-				String Medicament;
+				//String Medicament;
+				int Medoc= idMedoc[(int) BoxMedocChoice.getSelectedIndex()];
 				int Medecin= idMed[(int) BoxMedChoice.getSelectedIndex()];
 				String Motif= (String) BoxMotifChoice.getSelectedItem();
 			
@@ -195,7 +211,8 @@ public class SaisiCompteRendu extends JPanel{
 					
 					DateChoisie=null;
 				}
-				try {
+				/*
+				 	try {
 					
 					Medicament = nomMedoc.getText();
 					if(Medicament=="" || Medicament.length()<=2) {
@@ -203,7 +220,9 @@ public class SaisiCompteRendu extends JPanel{
 					}
 				}catch (Exception erreurMedoc) {
 					Medicament =null;
+					
 				}
+				*/
 					try {
 						nbrEchantillons= Integer.parseInt(nbrEchantillonsField.getText());
 						
@@ -235,12 +254,12 @@ public class SaisiCompteRendu extends JPanel{
 							+ "Le Médicament inscrit est: "+Medicament+" la date de la visite été le: "+DateChoisie
 							+", vous avez laissé au pratitien: "+nbrEchantillons+" échantillon(s) et votre commentaire sur la visite est:\n'"
 							+AreaText+"'.");
-					if (controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons,Medicament)){
+					if (controller.compteRenduControleur.ajoutCompteRendu(Medecin,Motif,AreaText,DateChoisie,nbrEchantillons,Medoc)){
 
 				        compteRenduBon.setVisible(true);
 				        compteRenduFalse.setVisible(false);
 				        inputArea.setText("");;
-				        nomMedoc.setValue("");
+				        //nomMedoc.setValue("");
 				        nbrEchantillonsField.setValue("");
 				        
 				        

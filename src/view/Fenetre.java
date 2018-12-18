@@ -190,6 +190,7 @@ public class Fenetre extends JFrame {
                 public void menuSelected(MenuEvent e) {
                     System.out.println("Guillaume est un putain de génie");
                     Popup popup_deconnexion = new Popup("Déconnexion", 500, 250);
+                    popup_deconnexion.setAlwaysOnTop(true);
                     JButton bouton_oui, bouton_non;
                     bouton_oui = new JButton("Oui");
                     bouton_non = new JButton("Non");
