@@ -49,8 +49,8 @@ public class Agenda extends JPanel {
 
 	  private Date date=new Date();
 
-	  String[] months = { "Janvier", "F�vrier", "Mars", "Avril", "Mai", "Juin",
-		      "Juillet", "Ao�t", "Septembre", "Octobre", "Novembre", "Decembre" };
+	  String[] months = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+		      "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre" };
 	  
 	  public int dom[] = { 31, 28, 31, 30, /* jan feb mar apr */
 			  31, 30, 31, 31, /* may jun jul aug */
