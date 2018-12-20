@@ -239,7 +239,7 @@ public class Agenda extends JPanel {
 		    
 		    
 		    //taille du calendrier
-		  //  bp.setPreferredSize(new Dimension(1700, 900));
+		    bp.setPreferredSize(new Dimension(1700, 900));
 
 
 		    ActionListener dateSetter = new ActionListener() {
