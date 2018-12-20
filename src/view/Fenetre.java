@@ -26,6 +26,8 @@ import model.User;
 import view.Accueil;
 import view.ConsultationPowerPoint;
 import view.CreationMessagerie;
+import view.agenda.*;
+
 
 
 public class Fenetre extends JFrame {
@@ -43,7 +45,7 @@ public class Fenetre extends JFrame {
 		UIManager.put("Menu.font", p);
 		UIManager.put("MenuItem.font", p);
         UIManager.put("Menu.foreground", Color.white);
-        UIManager.put("Menu.background", bleu_clair);
+        UIManager.put("Menu.background", Color.black);
 	    UIManager.put("MenuItem.background", new Color (0, 63, 128));
 	    UIManager.put("MenuItem.foreground", Color.white);
 	    UIManager.put("Menu.selectionBackground", new Color (0, 63, 128));
@@ -121,6 +123,9 @@ public class Fenetre extends JFrame {
 	        	
             // Creation de la barre menu
             JMenuBar menuBar = new JMenuBar();
+
+    	    menuBar.setBackground(new Color(0, 63, 128));
+
 
             // Creation des differents elements du menu + declaration de l'event pour changer l'interface
             JMenu menu1 = new JMenu("Accueil");

@@ -57,7 +57,8 @@ public class SaisiCompteRendu extends JPanel{
         AlertError compteRenduFalse = new AlertError ("le compte rendu a eux une erreur d'enregistrement");
         
         JFormattedTextField nbrEchantillonsField = new JFormattedTextField();
-        
+        JFormattedTextField MotifPersonnalise = new JFormattedTextField();
+        MotifPersonnalise.setColumns(15);
         
         //selectMedicament
         List<List> ListMed= compteRenduControleur.selectMedecin();

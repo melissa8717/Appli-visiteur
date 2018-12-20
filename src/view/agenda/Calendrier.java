@@ -183,7 +183,7 @@ public class Calendrier extends JPanel {
 		
 		  
 			Font pt = new Font("open-sans", Font.PLAIN, 24);
-			/*bp.setFont(pt);
+			bp.setFont(pt);
 			bp.setSize(getMaximumSize());
 			bp.setVisible(true);
 		    bp.setLayout(new GridLayout(7, 7));
@@ -228,7 +228,7 @@ public class Calendrier extends JPanel {
 			jeudi.setFont(fontM);
 			vendredi.setFont(fontM);
 			samedi.setFont(fontM);
-			dimanche.setFont(fontM);*/
+			dimanche.setFont(fontM);
 
 		    
 		    
@@ -255,7 +255,7 @@ public class Calendrier extends JPanel {
  
 		    // Construct all the buttons, and add them.
 		    //Case vide apr�s le mois
-		  /*  for (int i = 0; i < 6; i++)
+		   for (int i = 0; i < 6; i++)
 		      for (int j = 0; j < 7; j++) {
 
 		        bp.add(labs[i][j] = new JButton(""));
@@ -263,7 +263,7 @@ public class Calendrier extends JPanel {
 		        labs[i][j].setBackground(new Color(229,236,246));
 		      }
  
-		    add(BorderLayout.SOUTH, bp);*/
+		    add(BorderLayout.SOUTH, bp);
  
 	}
  
@@ -278,6 +278,7 @@ public class Calendrier extends JPanel {
 	    Font pt = new Font("open-sans", Font.PLAIN, 24);
 		f.setFont(pt);
 		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 		
 
 	    Container c = f.getContentPane();

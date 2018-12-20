@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import java.text.*;
 
+import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -40,18 +41,28 @@ public class ConsultationCompteRendu extends JPanel {
         System.out.println(User.id_utilisateur);
        int debut=0;
        JPanel espacement= new JPanel();
+       JPanel cache = new JPanel(); 
+       JPanel droite = new JPanel();
+       droite.setPreferredSize(new Dimension(300, 100));
 
+       jcombo.setLocation(10,200);
+       espacement.add(jcombo, BorderLayout.CENTER);
        JPanel panelOffset=new JPanel();
+  
+
        JLabel JlabelOffset=new JLabel(debut+"-6");
+       cache.setPreferredSize(new Dimension(300, 100));
+       espacement.setPreferredSize(new Dimension(300, 30));
+       
        panelOffset.setPreferredSize(new Dimension(500, 35));
-       //panelOffset.setLayout(new GridLayout(1,3,200,0));
-       panelOffset.add(JlabelOffset, "Center");
-       panelOffset.setBackground(Color.pink);
+       panelOffset.add(JlabelOffset, BorderLayout.CENTER);
+       panelOffset.setBackground(Color.white);
        this.add(mesSaisiesCompteRendu);
+       this.add(cache);
        this.add(espacement);
-      
-       this.add(jcombo);
-       this.add(panelOffset);
+       this.add(droite);
+
+       this.add(panelOffset, BorderLayout.CENTER);
        
        JPanel carte[]= {new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel()};
        JPanel CardsPanel[]= {new JPanel()};
