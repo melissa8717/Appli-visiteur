@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import javax.swing.plaf.ColorUIResource;
@@ -14,7 +16,6 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import java.util.*;
-import view.agenda.*;
 import view.agenda.Date;
 
  
@@ -212,7 +213,37 @@ public class Agenda extends JPanel {
 
 					  valider.add(validerButton);
 					  
-					
+					  validerButton.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								String evenement;
+
+								String dateDebut;
+								String dateFin;
+
+								
+							
+								try {
+									DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+
+									java.util.Date selectedDateDeb = (java.util.Date) datePickerDeb.getModel().getValue();
+									dateDebut = formatDate.format(selectedDateDeb);
+									java.util.Date selectedDateFin = (java.util.Date) datePickerFin.getModel().getValue();
+									dateFin = formatDate.format(selectedDateFin);
+									evenement = inputArea.getText();
+
+
+
+									controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin );
+								 System.out.println("evenement ajouté date deb"+ dateDebut+ "date fin" +dateFin+ "evenement"+ evenement);
+								
+									
+								} catch (Exception e2) {
+									// TODO: handle exception
+								}
+							}
+			  			      
+					  });
 
 					  ajoutEvenement.add(titrePopup);
 					  ajoutEvenement.add(dateDebut);
