@@ -1,27 +1,18 @@
 package view;
-import java.awt.BorderLayout;
-
 import java.awt.*;
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
- 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import java.util.Vector;
-import javax.swing.UIManager;
+
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.metal.MetalComboBoxButton;
+
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
+
 import java.util.*;
 import view.agenda.*;
 import view.agenda.Date;
@@ -182,6 +173,64 @@ public class Agenda extends JPanel {
 		      }
 		    });
 		    add(BorderLayout.CENTER, tp);
+		    JButton ajouter = new JButton("Ajouter un évènement");
+		    ajouter.setFont(new Font("Arial", Font.PLAIN, 22));
+		    ajouter.addActionListener(new ActionListener() {
+			      public void actionPerformed(ActionEvent ae) {
+			    	  Popup ajoutEvenement = new Popup("Ajouter un évènement", 500, 500);
+					  ajoutEvenement.setAlwaysOnTop(true);
+					  
+					  TitreSecondaire titrePopup = new TitreSecondaire("Ajouter un évènement");
+					  
+					  UtilDateModel model = new UtilDateModel();
+					  JDatePanelImpl datePanel = new JDatePanelImpl(model);
+					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
+					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel);
+
+					  
+					  JPanel dateDebut = new JPanel();
+					  JPanel dateFin = new JPanel();
+					  JPanel evenement = new JPanel();
+					  evenement.setPreferredSize(new Dimension(600, 100));
+
+					  JPanel valider = new JPanel();
+					
+
+				      JLabel dateDebutLabel = new JLabel("Date début de l'évènement");   
+				      JLabel dateFinLabel = new JLabel("Date fin de l'évènement"); 
+				      JLabel evenementLabel = new JLabel("Evènement");     
+				      JTextArea inputArea = new JTextArea(5,25);
+				      
+				      JButton validerButton = new JButton("Valider");
+
+					  dateDebut.add(dateDebutLabel);
+					  dateDebut.add(datePickerDeb);
+					  dateFin.add(dateFinLabel);
+					  dateFin.add(datePickerFin);
+					  evenement.add(evenementLabel);
+					  evenement.add(inputArea);
+
+					  valider.add(validerButton);
+					  
+					
+
+					  ajoutEvenement.add(titrePopup);
+					  ajoutEvenement.add(dateDebut);
+					  ajoutEvenement.add(dateFin);
+					  ajoutEvenement.add(evenement);
+					  ajoutEvenement.add(valider);
+
+
+
+			      }
+			      
+		    });
+		   
+
+		    tp.add(ajouter);
+		    
+
+		   
 
 
 		    JPanel bp = new JPanel();
