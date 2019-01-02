@@ -6,7 +6,7 @@ import com.mysql.jdbc.Connection;
 
 public class AgendaC {
 	/* Fonction d'ajout du compte rendu saisi */
-	public static boolean ajoutEvenement (String rapport, String dateDebutEvent, String dateFinEvent) {
+	public static boolean ajoutEvenement (String rapport, String dateDebutEvent, String dateFinEvent, String heureDebut, String heureFinC) {
 		System.out.println("appel du controller");
 		try { 
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
@@ -18,8 +18,8 @@ public class AgendaC {
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
 					"INSERT INTO" + 
-					"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`)" + 
-					"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"','"+connectionControleur.id_utilisateur+"')";
+					"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`, `heureDebut`, `heureFin`)" + 
+					"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"','"+connectionControleur.id_utilisateur+"', '"+heureDebut+"' ,'"+heureFinC+"')";
 			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
 

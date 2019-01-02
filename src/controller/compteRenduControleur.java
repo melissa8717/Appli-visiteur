@@ -126,7 +126,7 @@ public class compteRenduControleur {
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
-		    		+ " rapport.echantillon, praticien.nom, rapport.idMedicament from rapport,praticien"
+		    		+ " rapport.echantillon, praticien.nom, rapport.nomMedicament from rapport,praticien"
 		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
 		    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
 		    //LIMIT 6 OFFSET "+debut+"
