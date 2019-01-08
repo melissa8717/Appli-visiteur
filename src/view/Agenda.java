@@ -183,9 +183,10 @@ public class Agenda extends JPanel {
 					  TitreSecondaire titrePopup = new TitreSecondaire("Ajouter un évènement");
 					  
 					  UtilDateModel model = new UtilDateModel();
-					  JDatePanelImpl datePanel = new JDatePanelImpl(model);
-					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
-					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel);
+					  JDatePanelImpl datePanelDeb = new JDatePanelImpl(model);
+					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanelDeb);
+					  JDatePanelImpl datePanelFin = new JDatePanelImpl(model);
+					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanelFin);
 
 					  
 					  JPanel dateDebut = new JPanel();
@@ -211,7 +212,18 @@ public class Agenda extends JPanel {
 					  evenement.add(inputArea);
 
 					  valider.add(validerButton);
-					  
+					/*  validerButton.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								String dateDebut;
+								String dateFin;
+								String evenement;
+								if(controller.Agenda.ajoutEvenement(evenement, dateDebut, dateFin)) {
+									ajoutEvenement.dispose();
+
+								}
+							}
+						});*/
 					
 
 					  ajoutEvenement.add(titrePopup);
