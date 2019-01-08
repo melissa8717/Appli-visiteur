@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 
@@ -21,25 +23,31 @@ public class Connexion extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	public Connexion(User User, Fenetre f, Boolean error) {
-		int largeurConteneur = 600;
+		int largeurConteneur = 500;
 
 		// Création des espacements
-		JPanel[] espacement = {new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel()};
+	/*	JPanel[] espacement = {new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel()};
 		for(int $i = 0; $i < 5; $i++) {
 			espacement[$i].setPreferredSize(new Dimension(largeurConteneur, 75));
 			espacement[$i].setOpaque(false);
 		}
-		espacement[0].setPreferredSize(new Dimension(largeurConteneur, 150));
+		espacement[0].setPreferredSize(new Dimension(largeurConteneur, 150));*/
 		
 		// Création des differents éléments de la vue
 		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
 		titrePrincipale.setPreferredSize(new Dimension(1500, 100));
 		Paragraphe paragrapheId = new Paragraphe("Identifiant : ");
-		JTextFieldModif textFieldId = new JTextFieldModif(10, 12);
-		textFieldId.setText("jdebelle");
+		JTextFieldModif textFieldId = new JTextFieldModif(12, 12);
 		Paragraphe paragrapheMdp = new Paragraphe("Mot de passe : ");
-		JPasswordField textFieldMdp = new JPasswordField();
-		textFieldMdp.setText("nvwqq");
+		JPasswordFieldModif textFieldMdp = new JPasswordFieldModif(12);
+		JPanel messageErreur = new AlertError("Nom de compte ou mot de passe incorrect !");
+
+//		JPanel videHaut = new JPanel();
+//		videHaut.setSize(largeurConteneur, 1000);
+		
+		Conteneur conteneur = new Conteneur();
+		conteneur.setSize(largeurConteneur, 1000);
+		conteneur.setLayout(new BoxLayout(conteneur, BoxLayout.PAGE_AXIS));
 
 		// Création du bouton "Valider" ainsi que des EventListener permettant de detecter la touche Entrer pour simuler le clique sur le bouton "Valider"
 		JButton boutonValider = new JButton("Connexion");
@@ -82,50 +90,67 @@ public class Connexion extends JPanel {
 		});
 		
 		JPanel ligneUne =  new JPanel();
-		ligneUne.setLayout(new BorderLayout());
+		ligneUne.setLayout(new BoxLayout(ligneUne, BoxLayout.LINE_AXIS));
 		ligneUne.setOpaque(false);
 		ligneUne.setPreferredSize(new Dimension(largeurConteneur, 150));
 		
-		//ligneUne.add(titrePrincipale);
+		ligneUne.add(titrePrincipale);
 		
-		JPanel messageError = new AlertError("Nom de compte ou mot de passe incorrect !");
 		
 		JPanel ligneDeux = new JPanel();
-		ligneDeux.setLayout(new BorderLayout());
+		ligneDeux.setLayout(new BoxLayout(ligneDeux, BoxLayout.LINE_AXIS));
 		ligneDeux.setOpaque(false);
-		ligneDeux.setPreferredSize(new Dimension(largeurConteneur, 75));
+		ligneDeux.setPreferredSize(new Dimension(largeurConteneur, 150));
 		
-		ligneDeux.add(paragrapheId);
-		ligneDeux.add(textFieldId);
+		ligneDeux.add(messageErreur);
 		
+			
 		JPanel ligneTrois = new JPanel();
-		ligneTrois.setLayout(new BorderLayout());
+	//	ligneTrois.setLayout(new BoxLayout(ligneTrois, BoxLayout.LINE_AXIS));
 		ligneTrois.setOpaque(false);
-		ligneTrois.setPreferredSize(new Dimension(largeurConteneur, 75));
+		ligneTrois.setPreferredSize(new Dimension(largeurConteneur, 40));
 		
-		ligneTrois.add(paragrapheMdp);
-		ligneTrois.add(textFieldMdp);
+		ligneTrois.add(paragrapheId);
+		ligneTrois.add(textFieldId);
+
 		
 		JPanel ligneQuatre = new JPanel();
-		ligneQuatre.setLayout(new BorderLayout());
+	//	ligneQuatre.setLayout(new BoxLayout(ligneQuatre, BoxLayout.LINE_AXIS));
 		ligneQuatre.setOpaque(false);
-		ligneQuatre.setPreferredSize(new Dimension(largeurConteneur, 75));
+		ligneQuatre.setPreferredSize(new Dimension(largeurConteneur, 40));
 		
-		ligneQuatre.add(boutonValider);
+		ligneQuatre.add(paragrapheMdp);
+		ligneQuatre.add(textFieldMdp);
+		
+		
+		JPanel ligneCinq = new JPanel();
+		ligneCinq.setLayout(new BoxLayout(ligneCinq, BoxLayout.LINE_AXIS));
+		ligneCinq.setOpaque(false);
+		ligneCinq.setPreferredSize(new Dimension(largeurConteneur, 75));
+		
+		ligneCinq.add(boutonValider);
+
+		
+//		conteneur.add(videHaut);
+		conteneur.add(ligneUne);
+		conteneur.add(ligneTrois);
+		conteneur.add(ligneQuatre);
+		conteneur.add(ligneCinq);
 		
 		// Ajout de tout les éléments à la vue
-		this.add(ligneUne);
+	/*	this.add(ligneUne);
 		this.add(espacement[0]);
 		if(error == true) {
 			this.add(messageError);
 		}
 		this.add(titrePrincipale);
 		this.add(ligneDeux);
-		this.add(espacement[1]);
+		//this.add(espacement[1]);
 		this.add(ligneTrois);
-		this.add(espacement[2]);
-		this.add(ligneQuatre);
+		//this.add(espacement[2]);
+		this.add(ligneQuatre);*/
 		
+		this.add(conteneur);
 	}
 
 	// public boolean isConnected(String login, String mdp) {
