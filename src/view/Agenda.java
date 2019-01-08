@@ -337,24 +337,13 @@ public class Agenda extends JPanel  {
 					  TitreSecondaire titrePopup = new TitreSecondaire("Ajouter un évènement");
 					  
 					  UtilDateModel model = new UtilDateModel();
-<<<<<<< HEAD
-<<<<<<< HEAD
-					  JDatePanelImpl datePanelDeb = new JDatePanelImpl(model);
-					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanelDeb);
-					  JDatePanelImpl datePanelFin = new JDatePanelImpl(model);
-					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanelFin);
-=======
+
+
 					  JDatePanelImpl datePanel = new JDatePanelImpl(model);
 					  UtilDateModel model2 = new UtilDateModel();
 					  JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
 					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
 					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel2);
->>>>>>> 29d6aa0cbeb5268ce6474d1e5215220ad5ac3eeb
-=======
-					  JDatePanelImpl datePanel = new JDatePanelImpl(model);
-					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
-					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel);
->>>>>>> parent of c6b8bfa... recupere les evenements du visiteur
 
 					  
 					  JPanel dateDebut = new JPanel();
@@ -380,21 +369,7 @@ public class Agenda extends JPanel  {
 					  evenement.add(inputArea);
 
 					  valider.add(validerButton);
-<<<<<<< HEAD
-<<<<<<< HEAD
-					/*  validerButton.addActionListener(new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								String dateDebut;
-								String dateFin;
-								String evenement;
-								if(controller.Agenda.ajoutEvenement(evenement, dateDebut, dateFin)) {
-									ajoutEvenement.dispose();
 
-								}
-							}
-						});*/
-=======
 					  
 					  validerButton.addActionListener(new ActionListener() {
 							@Override
@@ -434,10 +409,6 @@ public class Agenda extends JPanel  {
 							}
 			  			      
 					  });
->>>>>>> 29d6aa0cbeb5268ce6474d1e5215220ad5ac3eeb
-=======
-					  
->>>>>>> parent of c6b8bfa... recupere les evenements du visiteur
 					
 
 					  ajoutEvenement.add(titrePopup);
