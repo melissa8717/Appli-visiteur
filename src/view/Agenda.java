@@ -338,6 +338,7 @@ public class Agenda extends JPanel  {
 					  
 					  UtilDateModel model = new UtilDateModel();
 <<<<<<< HEAD
+<<<<<<< HEAD
 					  JDatePanelImpl datePanelDeb = new JDatePanelImpl(model);
 					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanelDeb);
 					  JDatePanelImpl datePanelFin = new JDatePanelImpl(model);
@@ -349,6 +350,11 @@ public class Agenda extends JPanel  {
 					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
 					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel2);
 >>>>>>> 29d6aa0cbeb5268ce6474d1e5215220ad5ac3eeb
+=======
+					  JDatePanelImpl datePanel = new JDatePanelImpl(model);
+					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
+					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel);
+>>>>>>> parent of c6b8bfa... recupere les evenements du visiteur
 
 					  
 					  JPanel dateDebut = new JPanel();
@@ -374,6 +380,7 @@ public class Agenda extends JPanel  {
 					  evenement.add(inputArea);
 
 					  valider.add(validerButton);
+<<<<<<< HEAD
 <<<<<<< HEAD
 					/*  validerButton.addActionListener(new ActionListener() {
 							@Override
@@ -428,6 +435,9 @@ public class Agenda extends JPanel  {
 			  			      
 					  });
 >>>>>>> 29d6aa0cbeb5268ce6474d1e5215220ad5ac3eeb
+=======
+					  
+>>>>>>> parent of c6b8bfa... recupere les evenements du visiteur
 					
 
 					  ajoutEvenement.add(titrePopup);
