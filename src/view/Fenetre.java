@@ -1,4 +1,4 @@
-
+package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -296,7 +296,7 @@ public class Fenetre extends JFrame {
     }
 	
 
-	public static void main(String... args){
+	public static void main(String[] args){
         SwingUtilities.invokeLater(new Runnable()
         {
             public void run()

@@ -11,9 +11,9 @@ public class DB_Connection {
 	public static Connection connectionbduser = getConnectionBduser();
 	public static Connection connectionbdmedoc = getConnectionBdmedoc() ;
 
-	public static void main(String[] args) {
+	//public static void main(String[] args) {
 		connectionActive.getConnectionBduser();
-	}
+	//}
 	
 	
 	//connection a la base de donn� bduser
