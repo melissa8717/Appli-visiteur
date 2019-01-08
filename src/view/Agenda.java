@@ -1,10 +1,13 @@
 package view;
 import java.awt.*;
+import java.awt.List;
+
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.metal.MetalComboBoxButton;
@@ -14,11 +17,10 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import java.util.*;
-import view.agenda.*;
 import view.agenda.Date;
 
  
-public class Agenda extends JPanel {
+public class Agenda extends JPanel  {
 
 	/**
          * 
@@ -48,17 +50,18 @@ public class Agenda extends JPanel {
 			  30, 31, 30, 31 /* sep oct nov dec */
 			  };
 	  /** The month choice */
-	  private JComboBox<String> monthChoice;
-	 
-	 
+	  public JComboBox<String> monthChoice;
+
+	  
+
 
 	  /** The year choice */
-	  private JComboBox<String> yearChoice;
+	  public JComboBox<String> yearChoice;
 	  
 
 
 
-	protected void recompute() {
+	protected int recompute() {
 		// TODO Auto-generated method stub
 		// Blank out all
 		for (int i = 0; i < 6; i++)
@@ -79,13 +82,18 @@ public class Agenda extends JPanel {
 				labs[0][i].setBackground(new Color(229,236,246));
 			  
 		    }
+			 
 
 		 // Case des dates jour du mois.
-		    for (int i = 1; i <= daysInMonth; i++) {
-		    	
-				
+		
+		   
+		    for ( int i = 1; i <= daysInMonth; i++) {
+		  
 		      JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
+
+
 		      b.setText(Integer.toString(i));
+		      b.getText();
 			  Font p = new Font("open-sans", Font.PLAIN, 18);
 			  b.setFont(p);
 			  b.setBackground(Color.white);
@@ -93,12 +101,141 @@ public class Agenda extends JPanel {
 
 			  b.setSize(getMaximumSize());
 
+			  //ajout evenement pour le jour selectionné
+
+			    b.addActionListener(new ActionListener() {
+
+				      public void actionPerformed(ActionEvent ae) {
+						  String moisSelect = (String) monthChoice.getSelectedItem();
+						  String anneeSelect = (String) yearChoice.getSelectedItem();
+
+				    	  
+				    	  String jour =  b.getText();
+
+				    	  Popup ajoutEvenement = new Popup("Ajouter un évènement", 800, 500);
+				    	 	
+						  ajoutEvenement.setAlwaysOnTop(true);
+						  
+						  TitreSecondaire titrePopup = new TitreSecondaire("Ajouter un évènement pour le "+ jour + " "+ moisSelect+" " + anneeSelect);
+						  
+						  UtilDateModel model = new UtilDateModel();
+						  JDatePanelImpl datePanel = new JDatePanelImpl(model);
+						  UtilDateModel model2 = new UtilDateModel();
+						  JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
+						  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
+						  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel2);
+						
+
+						  
+						  JPanel heureDebut = new JPanel();
+						  JPanel heureFin = new JPanel();
+						  JPanel evenement = new JPanel();
+						  evenement.setPreferredSize(new Dimension(600, 100));
+
+						  JPanel valider = new JPanel();
+						
+
+					      JLabel heureDebutLabel = new JLabel("Heure début de l'évènement"); 
+					      String[]  heureItems = {"07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
+					      JComboBox<?> heureDebutSelect = new JComboBox<Object>(heureItems);
+
+					      String[]  minItems = {"00", "15", "30", "45"};
+					      JComboBox<?> minDebutSelect = new JComboBox<Object>(minItems);
+
+					      JLabel heureFinLabel = new JLabel("Heure fin de l'évènement"); 
+					      JComboBox<?> heureFinSelect = new JComboBox<Object>(heureItems);
+
+					      JComboBox<?> minFinSelect = new JComboBox<Object>(minItems);
 
 
+					      JLabel evenementLabel = new JLabel("Evènement");     
+					      JTextArea inputArea = new JTextArea(5,25);
+					      
+					      JButton validerButton = new JButton("Valider");
+					      valider.setPreferredSize(new Dimension(800, 100));
+
+						  heureDebut.add(heureDebutLabel);
+						  heureDebut.add(heureDebutSelect);
+						  heureDebut.add(minDebutSelect);
+
+
+						  heureFin.add(heureFinLabel);
+						  heureFin.add(heureFinSelect);
+						  heureFin.add(minFinSelect);
+
+
+						  evenement.add(evenementLabel);
+						  evenement.add(inputArea);
+
+						  valider.add(validerButton);
+						  
+
+						  validerButton.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+								   
+								String evenement;
+								Calendar cal=Calendar.getInstance();
+								SimpleDateFormat moisSelect = new SimpleDateFormat("MM");
+								String month_number = moisSelect.format(cal.getTime());
+								String dateDebut = anneeSelect+"-"+month_number+"-"+jour;
+								String dateFin = dateDebut;
+							    String heureDeb = (String)heureDebutSelect.getSelectedItem();
+							    String minDeb = (String)minDebutSelect.getSelectedItem();
+
+							    String heureEnd = (String)heureFinSelect.getSelectedItem();
+							    String minFin = (String)minFinSelect.getSelectedItem();
+
+
+								
+
+
+									
+								
+									try {
+										
+									
+										evenement = inputArea.getText();
+										String heureDebut = heureDeb+":"+minDeb;
+										String heureFinC = heureEnd+":"+minFin;
+
+
+										controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFinC );
+										System.out.println("evenement ajouté date deb"+dateDebut+ dateFin+ heureDebut+ "date fin" +heureFinC+ "evenement"+ evenement);
+											
+		
+										 JPanel messageSucces = new AlertSuccess("Evenement ajouté correctement !");
+										 ajoutEvenement.add(messageSucces);
+
+
+										
+									} catch (Exception e2) {
+										
+
+									}
+									
+								}
+				  			      
+						  });
+						
+
+						  ajoutEvenement.add(titrePopup);
+						  ajoutEvenement.add(heureDebut);
+						  ajoutEvenement.add(heureFin);
+						  ajoutEvenement.add(evenement);
+						  ajoutEvenement.add(valider);
+
+						  
+
+
+				      }
+			    });
+		    
 		    }
 
 
 		    repaint();
+			return daysInMonth;
 	}
 
 
@@ -120,6 +257,7 @@ public class Agenda extends JPanel {
 
 		    JPanel tp = new JPanel();
 
+
 		  //barre ou il ya les deux listes d�roulantes
 			BoxLayout b= new BoxLayout(tp, BoxLayout.Y_AXIS);
 			tp.setBounds(500,50,500,500/16*9);
@@ -131,29 +269,41 @@ public class Agenda extends JPanel {
 			this.setVisible(true);
 			tp.setOpaque(true);
 		    tp.add(monthChoice = new JComboBox<String>());
+
 		      monthChoice.setBackground(Color.white);
 		      monthChoice.setForeground(new Color (0,63,128));
 		      Font ptx = new Font("open-sans", Font.PLAIN, 18);
 		      monthChoice.setFont(ptx);
-		    for (int i = 0; i < months.length; i++)
+		    for (int m = 0; m < months.length; m++)
 
-		      monthChoice.addItem(months[i]);
-		    monthChoice.setSelectedItem(months[date.getMonth()]);
-		    monthChoice.addActionListener(new ActionListener() {
+		     monthChoice.addItem(months[m]);
+
+		     monthChoice.setSelectedItem(months[date.getMonth()]);
+		     Object moisSelect = monthChoice.getSelectedItem();
+
+
+		     monthChoice.addActionListener(new ActionListener() {
+
 		      public void actionPerformed(ActionEvent ae) {
-			      
 
-		        int i = monthChoice.getSelectedIndex();
 
-		        if (i >= 0) {
-		          date.setMonth(i);
+		        int m = monthChoice.getSelectedIndex();
+
+
+		        if (m >= 0) {
+		          date.setMonth(m);
 		          recompute();
 		        }
 		      }
 		    });
+		     Object moisSelected = monthChoice.getSelectedItem();
+		     System.out.println(moisSelected);
+
 		    monthChoice.getAccessibleContext().setAccessibleName("Months");
+
 		    monthChoice.getAccessibleContext().setAccessibleDescription(
 		        "Choose a month of the year");
+		    
 		    tp.add(yearChoice = new JComboBox<String>());
 		    yearChoice.setBackground(Color.white);
 		      yearChoice.setForeground(new Color (0,63,128));
@@ -163,6 +313,8 @@ public class Agenda extends JPanel {
 		    for (int i = date.getYear() - 5; i < date.getYear() + 5; i++)
 		      yearChoice.addItem(Integer.toString(i));
 		    yearChoice.setSelectedItem(Integer.toString(date.getYear()));
+		    yearChoice.getSelectedItem();
+
 		    yearChoice.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent ae) {
 		        int i = yearChoice.getSelectedIndex();
@@ -173,6 +325,8 @@ public class Agenda extends JPanel {
 		      }
 		    });
 		    add(BorderLayout.CENTER, tp);
+		    
+		    //évenement sur plusieurs jours
 		    JButton ajouter = new JButton("Ajouter un évènement");
 		    ajouter.setFont(new Font("Arial", Font.PLAIN, 22));
 		    ajouter.addActionListener(new ActionListener() {
@@ -183,10 +337,18 @@ public class Agenda extends JPanel {
 					  TitreSecondaire titrePopup = new TitreSecondaire("Ajouter un évènement");
 					  
 					  UtilDateModel model = new UtilDateModel();
+<<<<<<< HEAD
 					  JDatePanelImpl datePanelDeb = new JDatePanelImpl(model);
 					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanelDeb);
 					  JDatePanelImpl datePanelFin = new JDatePanelImpl(model);
 					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanelFin);
+=======
+					  JDatePanelImpl datePanel = new JDatePanelImpl(model);
+					  UtilDateModel model2 = new UtilDateModel();
+					  JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
+					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
+					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel2);
+>>>>>>> 29d6aa0cbeb5268ce6474d1e5215220ad5ac3eeb
 
 					  
 					  JPanel dateDebut = new JPanel();
@@ -212,6 +374,7 @@ public class Agenda extends JPanel {
 					  evenement.add(inputArea);
 
 					  valider.add(validerButton);
+<<<<<<< HEAD
 					/*  validerButton.addActionListener(new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
@@ -224,6 +387,47 @@ public class Agenda extends JPanel {
 								}
 							}
 						});*/
+=======
+					  
+					  validerButton.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								String evenement;
+
+								String dateDebut;
+								String dateFin;
+								String heureDebut = null;
+								String heureFin = null;
+
+								
+							
+								try {
+									DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+
+									java.util.Date selectedDateDeb = (java.util.Date) datePickerDeb.getModel().getValue();
+									dateDebut = formatDate.format(selectedDateDeb);
+									java.util.Date selectedDateFin = (java.util.Date) datePickerFin.getModel().getValue();
+									dateFin = formatDate.format(selectedDateFin);
+									evenement = inputArea.getText();
+
+									controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFin );
+									 System.out.println("evenement ajouté date deb"+ dateDebut+ "date fin" +dateFin+ "evenement"+ evenement);
+										
+	
+									 JPanel messageSucces = new AlertSuccess("Evenement ajouté correctement !");
+									 ajoutEvenement.add(messageSucces);
+
+
+									
+								} catch (Exception e2) {
+									
+
+								}
+								
+							}
+			  			      
+					  });
+>>>>>>> 29d6aa0cbeb5268ce6474d1e5215220ad5ac3eeb
 					
 
 					  ajoutEvenement.add(titrePopup);
@@ -231,7 +435,7 @@ public class Agenda extends JPanel {
 					  ajoutEvenement.add(dateFin);
 					  ajoutEvenement.add(evenement);
 					  ajoutEvenement.add(valider);
-
+					  
 
 
 			      }
@@ -256,7 +460,7 @@ public class Agenda extends JPanel {
 		    bp.setLayout(new GridLayout(7, 7));
 			bp.setSize(1000,1000);
 
-		    labs = new JButton[6][7]; // first row is days
+		    labs = new JButton[6][7]; // ligne des jours
 		    JButton lundi = new JButton("Lundi");
 		    JButton mardi = new JButton("Mardi"); 
 		    JButton mercredi = new JButton("Mercredi");
@@ -310,6 +514,7 @@ public class Agenda extends JPanel {
 		          // set the current day highlighted
 		          setDayActive(Integer.parseInt(num));
 
+
 		          // When this becomes a Bean, you can
 		          // fire some kind of DateChanged event here.
 		          // Also, build a similar daySetter for day-of-week btns.
@@ -320,8 +525,7 @@ public class Agenda extends JPanel {
 
 
 
-		    // Construct all the buttons, and add them.
-		    //Case vide apr�s le mois
+		    //Case vide aprés le mois
 		   for (int i = 0; i < 6; i++)
 		      for (int j = 0; j < 7; j++) {
 
@@ -333,6 +537,8 @@ public class Agenda extends JPanel {
 		    add(BorderLayout.SOUTH, bp);
 
 	}
+	
+	
 
 	protected void setDayActive(int parseInt) {
 		// TODO Auto-generated method stub

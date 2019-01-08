@@ -12,7 +12,7 @@ public class DB_Connection {
 	public static Connection connectionbdmedoc = getConnectionBdmedoc() ;
 
 	public static void main(String[] args) {
-		connectionActive.getConnectionBduser();  
+		connectionActive.getConnectionBduser();
 	}
 	
 	
