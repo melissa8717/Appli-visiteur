@@ -176,18 +176,43 @@ public class Agenda<Spanned> extends JPanel  {
 									  Font font = new Font("open-sans", Font.BOLD, 22);
 							    	  eventOpenLabel.setFont(font);
 							    	  JPanel heureEvent = new JPanel();
+							    	  if(heureDebut != null || heureDebut.isEmpty() ) {
+							    		  JLabel heureVide = new JLabel("Pas d'heure pour cet évènement");
+							    		  heureEvent.add(heureVide);
+							    		  heureVide.setFont(p);
+							    	  }
+							    	  else {
+							    		  JLabel heureDebutEvent = new JLabel("De :" + heureDebut);
+								    	  JLabel heureFinEvent = new JLabel("A :" + heureFin);
+								    	  heureDebutEvent.setFont(p);
+								    	  heureFinEvent.setFont(p);
+								    	  heureEvent.add(heureDebutEvent);
+								    	  heureEvent.add(heureFinEvent);
+							    	  }
+							    	  JPanel fin = new JPanel();
+									  Font fontP = new Font("open-sans", Font.PLAIN, 22);
 
-							    	  JLabel heureDebutEvent = new JLabel("De :" + heureDebut);
-							    	  JLabel heureFinEvent = new JLabel("A :" + heureFin);
-							    	  heureDebutEvent.setFont(p);
-							    	  heureFinEvent.setFont(p);
+							    	  if(dateFin.equals(dateDebut)) {
+							    		  JLabel finVide = new JLabel("Evènement de ce jour");
+
+							    		  finVide.setFont(fontP);
+							    		  fin.add(finVide);
+							    		  finVide.setPreferredSize(new Dimension(500,70));
+							    	  }
+							    	  else {
+								    	  JLabel finLabel = new JLabel("Fin le : "+dateFin);
+								    	  fin.add(finLabel);
+							    		  finLabel.setFont(fontP);
+								    	  finLabel.setPreferredSize(new Dimension(500,70));
+
+							    	  }
 							    	  
 							    	  voirEvenement.add(titreOpened);
 							    	  voirEvenement.add(eventOpen);
 							    	  eventOpen.add(eventOpenLabel);
 							    	  voirEvenement.add(heureEvent);
-							    	  heureEvent.add(heureDebutEvent);
-							    	  heureEvent.add(heureFinEvent);
+							    	  voirEvenement.add(fin);
+							    	  
 							      	}
 							    	  
 							 });
