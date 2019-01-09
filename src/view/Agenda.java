@@ -1,6 +1,7 @@
 package view;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.*;
-import java.awt.List;
 
 import javax.swing.*;
 
@@ -11,16 +12,21 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.metal.MetalComboBoxButton;
+import javax.swing.text.html.HTML;
 
+import controller.AgendaC;
+import controller.compteRenduControleur;
+import model.User;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import view.agenda.Date;
-
  
-public class Agenda extends JPanel  {
+public class Agenda<Spanned> extends JPanel  {
 
 	/**
          * 
@@ -58,7 +64,7 @@ public class Agenda extends JPanel  {
 	  /** The year choice */
 	  public JComboBox<String> yearChoice;
 	  
-
+	
 
 
 	protected int recompute() {
@@ -91,6 +97,7 @@ public class Agenda extends JPanel  {
 		  
 		      JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
 
+				 System.out.println("int jour :" +labs);
 
 		      b.setText(Integer.toString(i));
 		      b.getText();
@@ -99,7 +106,105 @@ public class Agenda extends JPanel  {
 			  b.setBackground(Color.white);
 			  b.setForeground(new Color (0,63,128));
 
+
 			  b.setSize(getMaximumSize());
+			  
+			    String moisSelect = (String) monthChoice.getSelectedItem();
+				String anneeSelect = (String) yearChoice.getSelectedItem();
+			    java.util.Date cal=Calendar.getInstance().getTime();
+				SimpleDateFormat moisSelected = new SimpleDateFormat("MM");
+				String month_number = moisSelected.format(cal.getTime());
+				String jour =  b.getText();
+				SimpleDateFormat jourFormat = new SimpleDateFormat("dd");
+				String jourF = jourFormat.format(cal.getTime());
+				String debut = anneeSelect+"-"+month_number+"-"+jourF;
+				String moisAnSelect = anneeSelect+"-"+month_number;
+
+				List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
+				
+
+				for(int y=0; y<List_CE.size();y++) {
+					 String event= (String) List_CE.get(y).get(0);
+					 String dateDebut= (String) List_CE.get(y).get(1);
+					 String dateFin= (String) List_CE.get(y).get(2);
+					 String heureDebut = (String) List_CE.get(y).get(4);
+					 String heureFin = (String) List_CE.get(y).get(5);
+					 String moisAn = GetDateSansJour(dateDebut);
+					 String dateJour = GetDateJour(dateDebut);
+					 int dateJourInt = Integer.parseInt(dateJour);
+					 
+					 
+					 JPanel jourPanel = new JPanel();
+					 jourPanel.setPreferredSize(new Dimension(300,50));
+					 JPanel eventPanel = new JPanel();
+					 eventPanel.setBackground(Color.white);
+					 JLabel eventLabel = new JLabel(Integer.toString(i)+event); 
+					 eventPanel.setFont(p);
+					 eventPanel.add(jourPanel);
+					 JButton buttonEvent = new JButton();
+					 buttonEvent.setBackground(Color.blue);
+					 buttonEvent.setForeground(Color.white);
+					 buttonEvent.setPreferredSize(new Dimension(300,50));
+					 buttonEvent.setFont(p);
+					 
+
+					 if(moisAnSelect.equals(moisAn)) {
+						
+						 if(dateJourInt == i){
+							 System.out.println("good day");
+							 b.add(eventPanel);
+							 JLabel jourText = new JLabel(jour);
+							 eventPanel.add(jourText);
+							 eventPanel.add(jourPanel);
+							 jourPanel.add(buttonEvent);
+							 buttonEvent.setText(event);
+							 
+							 buttonEvent.addActionListener(new ActionListener() {
+
+							      public void actionPerformed(ActionEvent ae) {
+							    	  
+							    	  Popup voirEvenement = new Popup("Evènement", 600, 500);
+									  voirEvenement.setAlwaysOnTop(true);
+									  
+							    	  String moisSelect = (String) monthChoice.getSelectedItem();
+									  String anneeSelect = (String) yearChoice.getSelectedItem();
+							    	  String jour =  b.getText();
+							    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement du "+ jour + " "+ moisSelect+" " + anneeSelect);
+							    	  JPanel eventOpen= new JPanel();
+							    	  eventOpen.setPreferredSize(new Dimension(500,70));
+							    	  JLabel eventOpenLabel = new JLabel(event);
+									  Font font = new Font("open-sans", Font.BOLD, 22);
+							    	  eventOpenLabel.setFont(font);
+							    	  JPanel heureEvent = new JPanel();
+
+							    	  JLabel heureDebutEvent = new JLabel("De :" + heureDebut);
+							    	  JLabel heureFinEvent = new JLabel("A :" + heureFin);
+							    	  heureDebutEvent.setFont(p);
+							    	  heureFinEvent.setFont(p);
+							    	  
+							    	  voirEvenement.add(titreOpened);
+							    	  voirEvenement.add(eventOpen);
+							    	  eventOpen.add(eventOpenLabel);
+							    	  voirEvenement.add(heureEvent);
+							    	  heureEvent.add(heureDebutEvent);
+							    	  heureEvent.add(heureFinEvent);
+							      	}
+							    	  
+							 });
+							 
+						
+						 }
+						 else {
+							 System.out.println("bad day");
+						 }
+					 }
+					 else {
+						 System.out.println("not in");
+					 }
+					
+					
+				}
+			
 
 			  //ajout evenement pour le jour selectionné
 
@@ -230,14 +335,45 @@ public class Agenda extends JPanel  {
 
 				      }
 			    });
+			    
 		    
 		    }
+		    
 
 
 		    repaint();
 			return daysInMonth;
 	}
 
+	  public static String GetDateSansJour(String date){
+		    // String to be scanned to find the pattern.
+		    String line = date;
+		    String pattern = "((?:[0-9]){4}(?:-){1}(?:[0-9]){2})(?:(?:-){1}(?:[0-9]){2})";
+
+		    // Create a Pattern object
+		    Pattern r = Pattern.compile(pattern);
+
+		    // Now create matcher object.
+		    Matcher m = r.matcher(line);
+
+		    if (m.find( )) {
+		      return( m.group(1) );
+		    }
+		    else {
+		      return("NO MATCH");
+		    }
+		}
+	  
+	  public static String GetDateJour(String date){
+	        Matcher m = Pattern.compile("((?:[0-9]){4}(?:-){1}(?:[0-9]){2})(?:-){1}((?:[0-9]){2})").matcher(date);
+
+	        if(m.find()) {
+	            return( m.group(2) );
+	        }
+	        else {
+	            return("NO MATCH");
+	        }
+	    }
 
 	private boolean isLeap(int year) {
 		// TODO Auto-generated method stub
