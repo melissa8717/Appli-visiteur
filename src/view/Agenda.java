@@ -92,7 +92,6 @@ public class Agenda<Spanned> extends JPanel  {
 
 		 // Case des dates jour du mois.
 		
-		   
 		    for ( int i = 1; i <= daysInMonth; i++) {
 		  
 		      JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
@@ -109,6 +108,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 			  b.setSize(getMaximumSize());
 			  
+
 			    String moisSelect = (String) monthChoice.getSelectedItem();
 				String anneeSelect = (String) yearChoice.getSelectedItem();
 			    java.util.Date cal=Calendar.getInstance().getTime();
@@ -132,6 +132,9 @@ public class Agenda<Spanned> extends JPanel  {
 					 String moisAn = GetDateSansJour(dateDebut);
 					 String dateJour = GetDateJour(dateDebut);
 					 int dateJourInt = Integer.parseInt(dateJour);
+					 String idAgenda = (String) List_CE.get(y).get(6);
+					 int idAgendaInt = Integer.parseInt(idAgenda);
+
 					 
 					 
 					 JPanel jourPanel = new JPanel();
@@ -152,13 +155,14 @@ public class Agenda<Spanned> extends JPanel  {
 						
 						 if(dateJourInt == i){
 							 System.out.println("good day");
+
 							 b.add(eventPanel);
 							 JLabel jourText = new JLabel(jour);
 							 eventPanel.add(jourText);
 							 eventPanel.add(jourPanel);
 							 jourPanel.add(buttonEvent);
 							 buttonEvent.setText(event);
-							 
+							 //ouverture de l evenement choisi
 							 buttonEvent.addActionListener(new ActionListener() {
 
 							      public void actionPerformed(ActionEvent ae) {
@@ -190,7 +194,7 @@ public class Agenda<Spanned> extends JPanel  {
 								    	  heureEvent.add(heureFinEvent);
 							    	  }
 							    	  JPanel fin = new JPanel();
-									  Font fontP = new Font("open-sans", Font.PLAIN, 22);
+									  Font fontP = new Font("open-sans", Font.PLAIN, 18);
 
 							    	  if(dateFin.equals(dateDebut)) {
 							    		  JLabel finVide = new JLabel("Evènement de ce jour");
@@ -207,11 +211,33 @@ public class Agenda<Spanned> extends JPanel  {
 
 							    	  }
 							    	  
+							    	  JButton suppression = new JButton("Supprimer l'évenement");
+
+							    	  //suppresion de l'evenement
+							    	  suppression.addActionListener(new ActionListener() {
+
+									      public void actionPerformed(ActionEvent ae) {
+									    	  try {
+									    		  controller.AgendaC.suppressionEvent(idAgendaInt);
+									    		  System.out.println("suppression :" + idAgendaInt);
+									    		  
+									    	  }
+									    	  catch (Exception e2) {
+													
+
+												}
+									    	  
+									      }
+							    		  
+							    	  });
+							    	  
+							    	  
 							    	  voirEvenement.add(titreOpened);
 							    	  voirEvenement.add(eventOpen);
 							    	  eventOpen.add(eventOpenLabel);
 							    	  voirEvenement.add(heureEvent);
 							    	  voirEvenement.add(fin);
+							    	  voirEvenement.add(suppression);
 							    	  
 							      	}
 							    	  
@@ -220,11 +246,11 @@ public class Agenda<Spanned> extends JPanel  {
 						
 						 }
 						 else {
-							 System.out.println("bad day");
+
 						 }
 					 }
 					 else {
-						 System.out.println("not in");
+						
 					 }
 					
 					
@@ -368,6 +394,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 		    repaint();
 			return daysInMonth;
+		    
 	}
 
 	  public static String GetDateSansJour(String date){
@@ -454,6 +481,8 @@ public class Agenda<Spanned> extends JPanel  {
 		        if (m >= 0) {
 		          date.setMonth(m);
 		          recompute();
+		          
+		          
 		        }
 		      }
 		    });
@@ -679,6 +708,7 @@ public class Agenda<Spanned> extends JPanel  {
 		    add(BorderLayout.SOUTH, bp);
 
 	}
+	
 	
 	
 

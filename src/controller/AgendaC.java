@@ -52,8 +52,9 @@ public class AgendaC {
 			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin from agenda where idUtilisateur="+IdUser+";";
+		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+IdUser+";";
 			ResultSet resultat = statement.executeQuery(requete);
+
 		    /* Exécution d'une requête de lecture */
 			
 		
@@ -67,7 +68,8 @@ public class AgendaC {
 	            int idUtilisateur = resultat.getInt("idUtilisateur");
 	            String heureDebut = resultat.getString("heureDebut");
 	            String heureFin = resultat.getString("heureFin");
-	            
+	            int idAgenda = resultat.getInt("idAgenda");
+
 	            //convertir une date en string
 	            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	            
@@ -81,9 +83,9 @@ public class AgendaC {
 	            event.add(Integer.toString(idUtilisateur));
 	            event.add(heureDebut);
 	            event.add(heureFin);
+	            event.add(Integer.toString(idAgenda));
 				List_CE.add(event);
 	            
-
 	           
 				
 			}
@@ -106,12 +108,30 @@ public class AgendaC {
 	
 	}
 	
+	public static boolean suppressionEvent(int idAgendaInt) {
+		try {
+			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			String requete = "DELETE FROM agenda WHERE idAgenda = "+idAgendaInt+";";
+			System.out.println("requete :"+ requete);
+			boolean resultat = statement.execute(requete);
+			return true;
+		}
+		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef");
+			return false;
+
+		}
+	}
+	
 	public static  List selectVisiteur( ) {
 		try {
 			List List_SV = (List) new ArrayList<List>();
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
 
-			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
 			
