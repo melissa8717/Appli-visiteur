@@ -8,10 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
+
 import com.mysql.jdbc.Connection;
 
 public class AgendaC {
-	/* Fonction d'ajout du compte rendu saisi */
 	public static boolean ajoutEvenement (String rapport, String dateDebutEvent, String dateFinEvent, String heureDebut, String heureFinC) {
 		try { 
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
@@ -24,7 +25,6 @@ public class AgendaC {
 					"INSERT INTO" + 
 					"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`, `heureDebut`, `heureFin`)" + 
 					"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"','"+connectionControleur.id_utilisateur+"', '"+heureDebut+"' ,'"+heureFinC+"')";
-			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
@@ -91,7 +91,6 @@ public class AgendaC {
 			}
 		   
 
-
 			return List_CE;
 
 
@@ -108,15 +107,15 @@ public class AgendaC {
 	
 	}
 	
-	public static boolean suppressionEvent(int idAgendaInt) {
+	public static boolean updateEvent(int idAgendaInt, String event, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
 		try {
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
 
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
-			String requete = "DELETE FROM agenda WHERE idAgenda = "+idAgendaInt+";";
-			System.out.println("requete :"+ requete);
-			boolean resultat = statement.execute(requete);
+			String requete = "UPDATE agenda SET idAgenda="+idAgendaInt+",evenement='"+event+"',dateDebut='"+dateDebut+"',dateFin='"+dateFin+"',idUtilisateur="+idUtilisateur+",heureDebut='"+heureDebut+"',heureFin='"+heureFin+"' WHERE idAgenda="+idAgendaInt+";";
+			System.out.println(requete);
+			int resultat = statement.executeUpdate(requete);
 			return true;
 		}
 		catch (Exception e){
@@ -126,6 +125,27 @@ public class AgendaC {
 
 		}
 	}
+	
+	public static boolean suppressionEvent(int idAgendaInt) {
+		try {
+			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			String requete = "DELETE FROM agenda WHERE idAgenda = "+idAgendaInt+";";
+
+			int resultat = statement.executeUpdate(requete);
+			return true;
+		}
+		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef");
+			return false;
+
+		}
+	}
+	
+	
 	
 	public static  List selectVisiteur( ) {
 		try {
@@ -156,7 +176,6 @@ public class AgendaC {
 
 			}
 		    if(((ArrayList<List>) List_SV).isEmpty()) {
-				System.out.println("empty");
 			}
 		    
 
@@ -167,7 +186,6 @@ public class AgendaC {
 		
 		    
 		catch (Exception e){
-			System.out.println(e);
 			System.out.println("marche pas chef");
 			return null;
 		}
@@ -175,35 +193,5 @@ public class AgendaC {
 		
 	
 	}
-	public static  List selectDateDebut(int IdUser) {
-		try {
-			List List_SDD = (List) new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
-
-			System.out.println("connection"+conn);
-		    /* Création de l'objet gérant les requêtes */
-			String requete ="SELECT DATE_FORMAT(dateDebut, '%Y-%m') as dateDeb from agenda where idUtilisateur="+IdUser+";";
-			Statement statement =  conn.createStatement();
-			ResultSet resultat = statement.executeQuery(requete);
-			
-			while(resultat.next()) {
-				List<String>  dateDebutEvent =  new ArrayList<String>();
-				String dateDebut = resultat.getString("dateDeb");
-				dateDebutEvent.add(dateDebut);
-				
-	            List_SDD.add(dateDebutEvent);
-
-			}
-			return List_SDD;
-			
-		}
-		catch (Exception e){
-			System.out.println(e);
-			System.out.println("marche pas chef");
-			return null;
-		}
-		
-	}
-	
 }
 
