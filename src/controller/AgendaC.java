@@ -1,12 +1,19 @@
 package controller;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.Date;
+import view.Popup;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import org.apache.poi.util.SystemOutLogger;
 
@@ -116,11 +123,39 @@ public class AgendaC {
 			String requete = "UPDATE agenda SET idAgenda="+idAgendaInt+",evenement='"+textEvent+"',dateDebut='"+dateDebut+"',dateFin='"+dateFin+"',idUtilisateur="+idUtilisateur+",heureDebut='"+heureDebut+"',heureFin='"+heureFin+"' WHERE idAgenda="+idAgendaInt+";";
 			System.out.println(requete);
 			int resultat = statement.executeUpdate(requete);
+			
+			
+			Popup Succes = new Popup("Mis à jour", 800,200);
+			
+			JPanel panelSucces = new JPanel(); 
+			JLabel labelSucces = new JLabel("L'évenement a été correctement mise à jour !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
+
+			
 			return true;
 		}
 		catch (Exception e){
 			System.out.println(e);
 			System.out.println("marche pas chef");
+			Popup NotSucces = new Popup("L'évenement n'a pas été correctement mise à jour !", 800,100);
+			
+			JPanel panelNotSucces = new JPanel(); 
+			JLabel labelNotSucces = new JLabel("L'évenement n'a pas été correctement mise à jour !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
 			return false;
 
 		}

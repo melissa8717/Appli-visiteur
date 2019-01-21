@@ -271,7 +271,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 
 												    	  controller.AgendaC.updateEvent(idAgendaInt, TextEvent, TextDateDebut, TextDateFin, User.id_utilisateur, TextHeureDeb, TextHeureFin);
-												    	  System.out.println(TextEvent);
+												    	  modifPopup .dispose();
 												      }
 										          });
 
@@ -571,9 +571,11 @@ public class Agenda<Spanned> extends JPanel  {
 
 		        int m = monthChoice.getSelectedIndex();
 
-
 		        if (m >= 0) {
 		          date.setMonth(m);
+		          //ajout de reload par mois des evenement
+		          
+		          
 		          recompute();
 		          
 		          
