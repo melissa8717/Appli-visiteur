@@ -107,13 +107,13 @@ public class AgendaC {
 	
 	}
 	
-	public static boolean updateEvent(int idAgendaInt, String event, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
+	public static boolean updateEvent(int idAgendaInt, String textEvent, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
 		try {
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
 
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
-			String requete = "UPDATE agenda SET idAgenda="+idAgendaInt+",evenement='"+event+"',dateDebut='"+dateDebut+"',dateFin='"+dateFin+"',idUtilisateur="+idUtilisateur+",heureDebut='"+heureDebut+"',heureFin='"+heureFin+"' WHERE idAgenda="+idAgendaInt+";";
+			String requete = "UPDATE agenda SET idAgenda="+idAgendaInt+",evenement='"+textEvent+"',dateDebut='"+dateDebut+"',dateFin='"+dateFin+"',idUtilisateur="+idUtilisateur+",heureDebut='"+heureDebut+"',heureFin='"+heureFin+"' WHERE idAgenda="+idAgendaInt+";";
 			System.out.println(requete);
 			int resultat = statement.executeUpdate(requete);
 			return true;

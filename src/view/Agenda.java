@@ -33,6 +33,7 @@ public class Agenda<Spanned> extends JPanel  {
          */
 	private static final long serialVersionUID = 1L;
 
+
 	public Agenda() {
 		TitrePrincipale bienvenue = new TitrePrincipale("Agenda");
 		
@@ -41,6 +42,8 @@ public class Agenda<Spanned> extends JPanel  {
 		    buildGUI();
 		    recompute();
 	}
+	
+	
 	
 	 /** The buttons to be displayed */
 	  protected JButton labs[][];
@@ -169,6 +172,7 @@ public class Agenda<Spanned> extends JPanel  {
 							    	  Popup voirEvenement = new Popup("Evènement", 600, 500);
 									  voirEvenement.setAlwaysOnTop(true);
 									  
+
 							    	  String moisSelect = (String) monthChoice.getSelectedItem();
 									  String anneeSelect = (String) yearChoice.getSelectedItem();
 							    	  String jour =  b.getText();
@@ -234,6 +238,9 @@ public class Agenda<Spanned> extends JPanel  {
 										    	  eventOpenModif.setPreferredSize(new Dimension(500,100));
 										    	  JLabel eventOpenLabelModif = new JLabel("Evenement :");
 										          JTextArea inputEvent = new JTextArea(event,5,25);
+										          String TextEvent = inputEvent.getText();
+										          
+										      
 										         
 										          JPanel dateModif = new JPanel();
 										          dateModif.setPreferredSize(new Dimension(500,100));
@@ -256,7 +263,15 @@ public class Agenda<Spanned> extends JPanel  {
 										          buttonValiderModif.addActionListener(new ActionListener() {
 
 												      public void actionPerformed(ActionEvent ae) {
-												    	  controller.AgendaC.updateEvent(idAgendaInt, event, dateDebut, dateFin, User.id_utilisateur, heureDebut, heureFin);
+												    	  String TextEvent = inputEvent.getText();
+												    	  String TextDateDebut = inputDateDeb.getText();
+												    	  String TextDateFin = inputFinDeb.getText();
+												    	  String TextHeureDeb = inputHeureDeb.getText();
+												    	  String TextHeureFin = inputHeureFin.getText();
+
+
+												    	  controller.AgendaC.updateEvent(idAgendaInt, TextEvent, TextDateDebut, TextDateFin, User.id_utilisateur, TextHeureDeb, TextHeureFin);
+												    	  System.out.println(TextEvent);
 												      }
 										          });
 
@@ -433,8 +448,10 @@ public class Agenda<Spanned> extends JPanel  {
 
 
 										controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFinC );
-											
-		
+									
+							            
+							            
+							            
 										 JPanel messageSucces = new AlertSuccess("Evenement ajouté correctement !");
 										 ajoutEvenement.add(messageSucces);
 
@@ -519,6 +536,8 @@ public class Agenda<Spanned> extends JPanel  {
 		    setLayout(new BorderLayout());
 
 		    JPanel tp = new JPanel();
+		 
+
 
 
 		  //barre ou il ya les deux listes d�roulantes
@@ -657,7 +676,8 @@ public class Agenda<Spanned> extends JPanel  {
 									evenement = inputArea.getText();
 
 									controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFin );
-										
+															            
+						           
 	
 									 JPanel messageSucces = new AlertSuccess("Evenement ajouté correctement !");
 									 ajoutEvenement.add(messageSucces);
@@ -688,8 +708,7 @@ public class Agenda<Spanned> extends JPanel  {
 		   
 
 		    tp.add(ajouter);
-		    
-
+		 
 		   
 
 

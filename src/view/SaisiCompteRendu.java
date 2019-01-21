@@ -50,7 +50,7 @@ public class SaisiCompteRendu extends JPanel{
         JLabel Medicament = new JLabel("Insérez le nom du médicament");
         JLabel Date = new JLabel("Date de la visite");        
         JLabel Motif = new JLabel("Motif de la visite");
-        JLabel Comment = new JLabel("Met un pouce bleu et laisse un commentaire !");
+        JLabel Comment = new JLabel("Rapport :");
         JLabel Echantillons = new JLabel("Nombre d'échantillons laissés au pratitien");
         
         AlertSuccess compteRenduBon = new AlertSuccess ("le compte rendu est bien enregistré");
