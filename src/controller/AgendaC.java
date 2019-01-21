@@ -36,12 +36,36 @@ public class AgendaC {
 
 			/* Exécution de la reqête */
 			int rep = statement.executeUpdate(requete);
+			Popup Succes = new Popup("Ajout", 800,200);
 			
+			JPanel panelSucces = new JPanel(); 
+			JLabel labelSucces = new JLabel("L'évenement a été ajouté correctement !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
 			return (rep > 0);
+			
 		}
 		
 		catch (Exception e){
 			System.out.println(e);
+			Popup NotSucces = new Popup("Ajout : erreur", 800,100);
+			
+			JPanel panelNotSucces = new JPanel(); 
+			JLabel labelNotSucces = new JLabel("L'évenement n'a pas été ajouté correctement !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
 			System.out.println("marche pas chef");
 			return false;
 		}
@@ -108,6 +132,7 @@ public class AgendaC {
 		catch (Exception e){
 			System.out.println(e);
 			System.out.println("marche pas chef");
+			
 			return null;
 		}
 		
@@ -170,11 +195,37 @@ public class AgendaC {
 			String requete = "DELETE FROM agenda WHERE idAgenda = "+idAgendaInt+";";
 
 			int resultat = statement.executeUpdate(requete);
+			Popup Succes = new Popup("Suppression :", 800,200);
+			
+			JPanel panelSucces = new JPanel(); 
+			JLabel labelSucces = new JLabel("L'évenement a été correctement supprimé !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
 			return true;
 		}
 		catch (Exception e){
 			System.out.println(e);
 			System.out.println("marche pas chef");
+			Popup NotSucces = new Popup("Suppression : erreur ", 800,100);
+			
+			JPanel panelNotSucces = new JPanel(); 
+			JLabel labelNotSucces = new JLabel("L'évenement n'a pas été correctement supprimé !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
+			
+			
 			return false;
 
 		}
