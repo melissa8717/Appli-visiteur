@@ -86,6 +86,14 @@ public class CreationMessagerie extends JPanel {
 
 		JButton send_button = new JButton("Envoyer");
 
+		send_button.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+
 		JLabel message_example = new JLabel("Premier message test", JLabel.CENTER);
 		
 

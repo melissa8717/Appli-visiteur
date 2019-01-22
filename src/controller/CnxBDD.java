@@ -16,13 +16,13 @@ public class CnxBDD {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
-		    /*String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
+		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
-		    String passwd = "Aristee.2018..//";*/
+		    String passwd = "Aristee.2018..//";
 		    
-		    String url = "jdbc:mysql://localhost/applivisiteur2?useSSL=false";
+		    /*String url = "jdbc:mysql://localhost/applivisiteur2?useSSL=false";
 		    String user = "root";
-		    String passwd = "root";
+		    String passwd = "root";*/
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
 		    System.out.println("Connexion effective à la base BDUserLab!");
@@ -41,15 +41,15 @@ public class CnxBDD {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
 
-		    /*String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
+		    String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
 		    String user = "rootuser";
 
-		    String passwd = "Aristee.2018..//";*/
+		    String passwd = "Aristee.2018..//";
 
-		    String url ="jdbc:mysql://localhost/appli_visiteur?useSSL=false";
+		    /*String url ="jdbc:mysql://localhost/appli_visiteur?useSSL=false";
 
 		    String user = "root";
-		    String passwd = "root";
+		    String passwd = "root";*/
 
 
 		   Connection conn = DriverManager.getConnection(url, user, passwd);
