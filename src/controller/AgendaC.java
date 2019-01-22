@@ -59,7 +59,6 @@ public class AgendaC {
 			JPanel panelNotSucces = new JPanel(); 
 			JLabel labelNotSucces = new JLabel("L'évenement n'a pas été ajouté correctement !");
 			Font font = new Font("Open Sans", Font.PLAIN, 30);
-			// Définition du style
 			labelNotSucces.setFont(font);
 			NotSucces.add(panelNotSucces);
 			panelNotSucces.add(labelNotSucces);

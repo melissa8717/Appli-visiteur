@@ -1,4 +1,5 @@
 package view;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.*;
@@ -7,6 +8,8 @@ import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -14,7 +17,10 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.metal.MetalComboBoxButton;
 import javax.swing.text.html.HTML;
 
+import com.mysql.jdbc.Connection;
+
 import controller.AgendaC;
+import controller.CnxBDD;
 import controller.compteRenduControleur;
 import model.User;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -95,7 +101,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 		 // Case des dates jour du mois.
 		
-		    for ( int i = 1; i <= daysInMonth; i++) {
+		    for ( int  i = 1; i <= daysInMonth; i++) {
 		  
 		      JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
 
@@ -448,12 +454,66 @@ public class Agenda<Spanned> extends JPanel  {
 
 
 										controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFinC );
+										ajoutEvenement.dispose();
+										
+										controller.CnxBDD.connecteurUserLab();
+										//Connection conn =(Connection) CnxBDD.connecteurUserLab();
+//										String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+User.id_utilisateur+" ORDER BY idAgenda DESC LIMIT 1;";
+//
+//										ResultSet resultat = statement.executeQuery(requete);
+
+										List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
+										System.out.println(eventA);
+										
+
+										for(int j=0; j<eventA.size();j++) {
+											 String eventAfter= (String) eventA.get(j).get(0);
+											 String dateDebutA= (String) eventA.get(j).get(1);
+											 String dateFinA= (String) eventA.get(j).get(2);
+											 String heureDebutA = (String) eventA.get(j).get(4);
+											 System.out.println("evenement"+ (String) eventA.get(j).get(0));
+
+											 String heureFin = (String) eventA.get(j).get(5);
+											 String moisAn = GetDateSansJour(dateDebut);
+											 String dateJour = GetDateJour(dateDebut);
+											 int dateJourInt = Integer.parseInt(dateJour);
+											 String idAgenda = (String) eventA.get(j).get(6);
+											 int idAgendaInt = Integer.parseInt(idAgenda);
+
+											 
+											 
+											 JPanel jourPanel = new JPanel();
+											 jourPanel.setPreferredSize(new Dimension(300,50));
+											 JPanel eventPanel = new JPanel();
+											 eventPanel.setBackground(Color.white);
+											 String h = b.getText();
+											 final  String i = h;
+											 JLabel eventLabel = new JLabel(i+eventAfter); 
+											 int iNew = Integer.parseInt(i);
+											 eventPanel.setFont(p);
+											 eventPanel.add(jourPanel);
+											 JButton buttonEvent = new JButton();
+											 buttonEvent.setBackground(Color.blue);
+											 buttonEvent.setForeground(Color.white);
+											 buttonEvent.setPreferredSize(new Dimension(300,50));
+											 buttonEvent.setFont(p);
+											 
+										
+											 if(moisAnSelect.equals(moisAn)) {
+													
+												 if(dateJourInt == iNew){
+
+													 b.add(eventPanel);
+													 JLabel jourText = new JLabel(jour);
+													 eventPanel.add(jourText);
+													 eventPanel.add(jourPanel);
+													 jourPanel.add(buttonEvent);
+													 buttonEvent.setText(eventAfter);
+												 }
+											 }
+										}
 									
 							            
-							            
-							            
-										 JPanel messageSucces = new AlertSuccess("Evenement ajouté correctement !");
-										 ajoutEvenement.add(messageSucces);
 
 
 										
@@ -678,11 +738,24 @@ public class Agenda<Spanned> extends JPanel  {
 									evenement = inputArea.getText();
 
 									controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFin );
-															            
-						           
-	
-									 JPanel messageSucces = new AlertSuccess("Evenement ajouté correctement !");
-									 ajoutEvenement.add(messageSucces);
+									ajoutEvenement.dispose();
+									
+									controller.CnxBDD.connecteurUserLab();
+									Connection conn =(Connection) CnxBDD.connecteurUserLab();
+									Statement statement = conn.createStatement();
+									String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+User.id_utilisateur+";";
+
+									ResultSet resultat = statement.executeQuery(requete);
+
+
+									List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
+											
+
+									System.out.println("evenement"+eventA);
+									
+									
+									
+														            
 
 
 									
@@ -810,4 +883,6 @@ public class Agenda<Spanned> extends JPanel  {
 		// TODO Auto-generated method stub
 
 	}
+	
+	
 }
