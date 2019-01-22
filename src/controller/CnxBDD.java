@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.SQLException;
 import view.Fenetre;
 import model.User;
 
@@ -60,21 +61,24 @@ public class CnxBDD {
 			e.printStackTrace();
 			System.out.println("La connexion a eu un problème");
 			return null;
-		} 
+		}
 	}
 
 	/* Connexion et récupération des informations du user connecté */
 	public static Boolean connect(String login, String mdp, User User) {
+		Connection conn = null;
+		Statement statement = null;
+		ResultSet resultat = null;
 		try {
-			Connection conn = connecteurUserLab();
+			conn = connecteurUserLab();
 		    
 		    /* Création de l'objet gérant les requêtes */
-		    Statement statement = conn.createStatement();
+		    statement = conn.createStatement();
 		    
 		    /* Exécution d'une requête de lecture */
 		    
 		    //N'oubliez pas de mettre des ' ' sur vos variables comme ici présent, j'ai mit 5min avant de comprendre xD
-			ResultSet resultat = statement.executeQuery("SELECT idUtilisateur, login, password, nom, prenom,role  FROM utilisateur WHERE login='" + login + "' AND password='" + mdp + "';");
+			resultat = statement.executeQuery("SELECT idUtilisateur, login, password, nom, prenom,role  FROM utilisateur WHERE login='" + login + "' AND password='" + mdp + "';");
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    if(resultat.next()) {
@@ -96,6 +100,18 @@ public class CnxBDD {
 		    e.printStackTrace();
 		    System.out.println("La connexion a eu un problème");
 		    return false;
+		}
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
 		}
 	}
 
