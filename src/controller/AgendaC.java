@@ -1,6 +1,10 @@
 package controller;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.Date;
+import view.Popup;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
@@ -8,10 +12,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.apache.poi.util.SystemOutLogger;
+
 import com.mysql.jdbc.Connection;
 
 public class AgendaC {
-	/* Fonction d'ajout du compte rendu saisi */
 	public static boolean ajoutEvenement (String rapport, String dateDebutEvent, String dateFinEvent, String heureDebut, String heureFinC) {
 		try { 
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
@@ -24,17 +32,40 @@ public class AgendaC {
 					"INSERT INTO" + 
 					"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`, `heureDebut`, `heureFin`)" + 
 					"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"','"+connectionControleur.id_utilisateur+"', '"+heureDebut+"' ,'"+heureFinC+"')";
-			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
 			int rep = statement.executeUpdate(requete);
+			Popup Succes = new Popup("Ajout", 800,200);
 			
+			JPanel panelSucces = new JPanel(); 
+			JLabel labelSucces = new JLabel("L'évenement a été ajouté correctement !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
 			return (rep > 0);
+			
 		}
 		
 		catch (Exception e){
 			System.out.println(e);
+			Popup NotSucces = new Popup("Ajout : erreur", 800,100);
+			
+			JPanel panelNotSucces = new JPanel(); 
+			JLabel labelNotSucces = new JLabel("L'évenement n'a pas été ajouté correctement !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
 			System.out.println("marche pas chef");
 			return false;
 		}
@@ -91,7 +122,6 @@ public class AgendaC {
 			}
 		   
 
-
 			return List_CE;
 
 
@@ -102,10 +132,58 @@ public class AgendaC {
 		catch (Exception e){
 			System.out.println(e);
 			System.out.println("marche pas chef");
+			
 			return null;
 		}
 		
 	
+	}
+	
+	public static boolean updateEvent(int idAgendaInt, String textEvent, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
+		try {
+			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			String requete = "UPDATE agenda SET idAgenda="+idAgendaInt+",evenement='"+textEvent+"',dateDebut='"+dateDebut+"',dateFin='"+dateFin+"',idUtilisateur="+idUtilisateur+",heureDebut='"+heureDebut+"',heureFin='"+heureFin+"' WHERE idAgenda="+idAgendaInt+";";
+			System.out.println(requete);
+			int resultat = statement.executeUpdate(requete);
+			
+			
+			Popup Succes = new Popup("Mis à jour", 800,200);
+			
+			JPanel panelSucces = new JPanel(); 
+			JLabel labelSucces = new JLabel("L'évenement a été correctement mise à jour !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
+
+			
+			return true;
+		}
+		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef");
+			Popup NotSucces = new Popup("L'évenement n'a pas été correctement mise à jour !", 800,100);
+			
+			JPanel panelNotSucces = new JPanel(); 
+			JLabel labelNotSucces = new JLabel("L'évenement n'a pas été correctement mise à jour !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
+			return false;
+
+		}
 	}
 	
 	public static boolean suppressionEvent(int idAgendaInt) {
@@ -115,17 +193,45 @@ public class AgendaC {
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
 			String requete = "DELETE FROM agenda WHERE idAgenda = "+idAgendaInt+";";
-			System.out.println("requete :"+ requete);
-			boolean resultat = statement.execute(requete);
+
+			int resultat = statement.executeUpdate(requete);
+			Popup Succes = new Popup("Suppression :", 800,200);
+			
+			JPanel panelSucces = new JPanel(); 
+			JLabel labelSucces = new JLabel("L'évenement a été correctement supprimé !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
 			return true;
 		}
 		catch (Exception e){
 			System.out.println(e);
 			System.out.println("marche pas chef");
+			Popup NotSucces = new Popup("Suppression : erreur ", 800,100);
+			
+			JPanel panelNotSucces = new JPanel(); 
+			JLabel labelNotSucces = new JLabel("L'évenement n'a pas été correctement supprimé !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
+			
+			
 			return false;
 
 		}
 	}
+	
+	
 	
 	public static  List selectVisiteur( ) {
 		try {
@@ -156,7 +262,6 @@ public class AgendaC {
 
 			}
 		    if(((ArrayList<List>) List_SV).isEmpty()) {
-				System.out.println("empty");
 			}
 		    
 
@@ -167,7 +272,6 @@ public class AgendaC {
 		
 		    
 		catch (Exception e){
-			System.out.println(e);
 			System.out.println("marche pas chef");
 			return null;
 		}
@@ -175,35 +279,5 @@ public class AgendaC {
 		
 	
 	}
-	public static  List selectDateDebut(int IdUser) {
-		try {
-			List List_SDD = (List) new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
-
-			System.out.println("connection"+conn);
-		    /* Création de l'objet gérant les requêtes */
-			String requete ="SELECT DATE_FORMAT(dateDebut, '%Y-%m') as dateDeb from agenda where idUtilisateur="+IdUser+";";
-			Statement statement =  conn.createStatement();
-			ResultSet resultat = statement.executeQuery(requete);
-			
-			while(resultat.next()) {
-				List<String>  dateDebutEvent =  new ArrayList<String>();
-				String dateDebut = resultat.getString("dateDeb");
-				dateDebutEvent.add(dateDebut);
-				
-	            List_SDD.add(dateDebutEvent);
-
-			}
-			return List_SDD;
-			
-		}
-		catch (Exception e){
-			System.out.println(e);
-			System.out.println("marche pas chef");
-			return null;
-		}
-		
-	}
-	
 }
 
