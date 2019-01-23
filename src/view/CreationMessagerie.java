@@ -8,8 +8,10 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JScrollBar;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 
 import java.awt.BorderLayout;
 
@@ -40,7 +42,7 @@ public class CreationMessagerie extends JPanel {
 		for (int i = 0; i < conversations_list.size(); i++) {
 			JPanel conversation_card = new JPanel();
 			conversation_card.setPreferredSize(new Dimension(300, 150));
-			conversation_card.setBackground(Color.blue);
+			conversation_card.setBackground(new Color(0, 63, 128));
 
 			JLabel nom_card = new JLabel("Nom");
 			nom_card.setPreferredSize(new Dimension(250, 35));
@@ -74,17 +76,36 @@ public class CreationMessagerie extends JPanel {
 		conversation.setBorder(BorderFactory.createLineBorder(Color.white));
 		conversation.setBackground(Color.white);
 
-		JLabel message_example = new JLabel("Premier message test");
 
-		JScrollBar test = new JScrollBar();
-		test.setVisible(true);
+
+		JPanel panel_input_button = new JPanel();
 		
-		test.setPreferredSize(new Dimension(300,1000));
-		conversations.add(test);
+		
+		JTextField input_message = new JTextField();
+		input_message.setPreferredSize(new Dimension(600, 80));
+
+		JButton send_button = new JButton("Envoyer");
+		
+		//Retourne une erreur 
+
+		/*send_button.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});*/
+
+		JLabel message_example = new JLabel("Premier message test", JLabel.CENTER);
+		
+
+		panel_input_button.add(input_message);
+		panel_input_button.add(send_button);
 
 		//conversations.add(conversations_list);
 		conversation.add(message_example);
+		conversation.add(panel_input_button, BorderLayout.PAGE_END);
 		this.add(conversations, BorderLayout.WEST);	
-		this.add(conversation);	
+		this.add(conversation);
 	}
 }

@@ -314,12 +314,67 @@ public class Agenda<Spanned> extends JPanel  {
 									      public void actionPerformed(ActionEvent ae) {
 									    	  try {
 									    		  controller.AgendaC.suppressionEvent(idAgendaInt);
-									    		  
-									    	  }
-									    	  catch (Exception e2) {
+									    		  voirEvenement.dispose();
+													
+												  controller.CnxBDD.connecteurUserLab();
+												  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
+												  System.out.println(eventA);
+												    for ( int  k = 1; k <= eventA.size(); k++) {
+														  
+													      b.setText(Integer.toString(k));
+													      b.getText();
+
+														for(int j=0; j<eventA.size();j++) {
+															 String eventAfter= (String) eventA.get(j).get(0);
+															 String dateDebutA= (String) eventA.get(j).get(1);
+															 String dateFinA= (String) eventA.get(j).get(2);
+															 String heureDebutA = (String) eventA.get(j).get(4);
+	
+															 String heureFin = (String) eventA.get(j).get(5);
+															 String moisAn = GetDateSansJour(dateDebut);
+															 String dateJour = GetDateJour(dateDebut);
+															 int dateJourInt = Integer.parseInt(dateJour);
+															 String idAgenda = (String) eventA.get(j).get(6);
+															 int idAgendaInt = Integer.parseInt(idAgenda);
+	
+															 
+															 
+															 JPanel jourPanel = new JPanel();
+															 jourPanel.setPreferredSize(new Dimension(300,50));
+															 JPanel eventPanel = new JPanel();
+															 eventPanel.setBackground(Color.white);
+															 eventPanel.setFont(p);
+															 eventPanel.add(jourPanel);
+															 JButton buttonEvent = new JButton();
+															 buttonEvent.setBackground(Color.blue);
+															 buttonEvent.setForeground(Color.white);
+															 buttonEvent.setPreferredSize(new Dimension(300,50));
+															 buttonEvent.setFont(p);
+															 
+														
+															 if(moisAnSelect.equals(moisAn)) {
+																	
+																 if(dateJourInt == k){
+	
+																	 b.add(eventPanel);
+																	 JLabel jourText = new JLabel(jour);
+																	 eventPanel.add(jourText);
+																	 eventPanel.add(jourPanel);
+																	 jourPanel.add(buttonEvent);
+																	 buttonEvent.setText(eventAfter);
+																 }
+															 }
+														}
+												
+										            
+												  }
+
+													
+												} catch (Exception e2) {
 													
 
 												}
+											
 									    	  
 									      }
 							    		  
@@ -379,15 +434,16 @@ public class Agenda<Spanned> extends JPanel  {
 						  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel2);
 						
 
-						  
+						  JPanel dateFin = new JPanel();
+						  dateFin.setPreferredSize(new Dimension(600, 100));
+
 						  JPanel heureDebut = new JPanel();
 						  JPanel heureFin = new JPanel();
 						  JPanel evenement = new JPanel();
 						  evenement.setPreferredSize(new Dimension(600, 100));
-
 						  JPanel valider = new JPanel();
 						
-
+						  JLabel dateFinLabel = new JLabel("Date de fin :");
 					      JLabel heureDebutLabel = new JLabel("Heure début de l'évènement"); 
 					      String[]  heureItems = {"07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
 					      JComboBox<?> heureDebutSelect = new JComboBox<Object>(heureItems);
@@ -407,15 +463,18 @@ public class Agenda<Spanned> extends JPanel  {
 					      JButton validerButton = new JButton("Valider");
 					      valider.setPreferredSize(new Dimension(800, 100));
 
-						  heureDebut.add(heureDebutLabel);
+					     
+						  dateFin.add(dateFinLabel);
+						  dateFin.add(datePickerFin);
+
+					      
+					      heureDebut.add(heureDebutLabel);
 						  heureDebut.add(heureDebutSelect);
 						  heureDebut.add(minDebutSelect);
-
-
+						  
 						  heureFin.add(heureFinLabel);
 						  heureFin.add(heureFinSelect);
 						  heureFin.add(minFinSelect);
-
 
 						  evenement.add(evenementLabel);
 						  evenement.add(inputArea);
@@ -427,43 +486,40 @@ public class Agenda<Spanned> extends JPanel  {
 								@Override
 								public void actionPerformed(ActionEvent e) {
 								   
+								String dateDebut = anneeSelect+"-"+month_number+"-"+jour;
+
+								String dateFin;
 								String evenement;
 								Calendar cal=Calendar.getInstance();
 								SimpleDateFormat moisSelect = new SimpleDateFormat("MM");
 								String month_number = moisSelect.format(cal.getTime());
-								String dateDebut = anneeSelect+"-"+month_number+"-"+jour;
-								String dateFin = dateDebut;
 							    String heureDeb = (String)heureDebutSelect.getSelectedItem();
 							    String minDeb = (String)minDebutSelect.getSelectedItem();
-
 							    String heureEnd = (String)heureFinSelect.getSelectedItem();
 							    String minFin = (String)minFinSelect.getSelectedItem();
 
-
-								
-
-
-									
-								
 									try {
+										
 										
 									
 										evenement = inputArea.getText();
 										String heureDebut = heureDeb+":"+minDeb;
 										String heureFinC = heureEnd+":"+minFin;
+										DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+										
+										java.util.Date selectedDateFin = (java.util.Date) datePickerFin.getModel().getValue();
+										dateFin = formatDate.format(selectedDateFin);
+										evenement = inputArea.getText();
+										if(dateFin == null) {
+											dateFin = dateDebut;
+										}
 
 
 										controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFinC );
 										ajoutEvenement.dispose();
 										
 										controller.CnxBDD.connecteurUserLab();
-										//Connection conn =(Connection) CnxBDD.connecteurUserLab();
-//										String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+User.id_utilisateur+" ORDER BY idAgenda DESC LIMIT 1;";
-//
-//										ResultSet resultat = statement.executeQuery(requete);
-
-										List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-										System.out.println(eventA);
+										List<List> eventA= AgendaC.consultationLastEvenement(User.id_utilisateur);
 										
 
 										for(int j=0; j<eventA.size();j++) {
@@ -471,7 +527,6 @@ public class Agenda<Spanned> extends JPanel  {
 											 String dateDebutA= (String) eventA.get(j).get(1);
 											 String dateFinA= (String) eventA.get(j).get(2);
 											 String heureDebutA = (String) eventA.get(j).get(4);
-											 System.out.println("evenement"+ (String) eventA.get(j).get(0));
 
 											 String heureFin = (String) eventA.get(j).get(5);
 											 String moisAn = GetDateSansJour(dateDebut);
@@ -528,6 +583,7 @@ public class Agenda<Spanned> extends JPanel  {
 						
 
 						  ajoutEvenement.add(titrePopup);
+						  ajoutEvenement.add(dateFin);
 						  ajoutEvenement.add(heureDebut);
 						  ajoutEvenement.add(heureFin);
 						  ajoutEvenement.add(evenement);
@@ -670,121 +726,6 @@ public class Agenda<Spanned> extends JPanel  {
 		      }
 		    });
 		    add(BorderLayout.CENTER, tp);
-		    
-		    //évenement sur plusieurs jours
-		    JButton ajouter = new JButton("Ajouter un évènement");
-		    ajouter.setFont(new Font("Arial", Font.PLAIN, 22));
-		    ajouter.addActionListener(new ActionListener() {
-			      public void actionPerformed(ActionEvent ae) {
-			    	  Popup ajoutEvenement = new Popup("Ajouter un évènement", 500, 500);
-					  ajoutEvenement.setAlwaysOnTop(true);
-					  
-					  TitreSecondaire titrePopup = new TitreSecondaire("Ajouter un évènement");
-					  
-					  UtilDateModel model = new UtilDateModel();
-
-
-					  JDatePanelImpl datePanel = new JDatePanelImpl(model);
-					  UtilDateModel model2 = new UtilDateModel();
-					  JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
-					  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
-					  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel2);
-
-					  
-					  JPanel dateDebut = new JPanel();
-					  JPanel dateFin = new JPanel();
-					  JPanel evenement = new JPanel();
-					  evenement.setPreferredSize(new Dimension(600, 100));
-
-					  JPanel valider = new JPanel();
-					
-
-				      JLabel dateDebutLabel = new JLabel("Date début de l'évènement");   
-				      JLabel dateFinLabel = new JLabel("Date fin de l'évènement"); 
-				      JLabel evenementLabel = new JLabel("Evènement");     
-				      JTextArea inputArea = new JTextArea(5,25);
-				      
-				      JButton validerButton = new JButton("Valider");
-
-					  dateDebut.add(dateDebutLabel);
-					  dateDebut.add(datePickerDeb);
-					  dateFin.add(dateFinLabel);
-					  dateFin.add(datePickerFin);
-					  evenement.add(evenementLabel);
-					  evenement.add(inputArea);
-
-					  valider.add(validerButton);
-
-					  
-					  validerButton.addActionListener(new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								String evenement;
-
-								String dateDebut;
-								String dateFin;
-								String heureDebut = null;
-								String heureFin = null;
-
-								
-							
-								try {
-									DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
-
-									java.util.Date selectedDateDeb = (java.util.Date) datePickerDeb.getModel().getValue();
-									dateDebut = formatDate.format(selectedDateDeb);
-									java.util.Date selectedDateFin = (java.util.Date) datePickerFin.getModel().getValue();
-									dateFin = formatDate.format(selectedDateFin);
-									evenement = inputArea.getText();
-
-									controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFin );
-									ajoutEvenement.dispose();
-									
-									controller.CnxBDD.connecteurUserLab();
-									Connection conn =(Connection) CnxBDD.connecteurUserLab();
-									Statement statement = conn.createStatement();
-									String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+User.id_utilisateur+";";
-
-									ResultSet resultat = statement.executeQuery(requete);
-
-
-									List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-											
-
-									System.out.println("evenement"+eventA);
-									
-									
-									
-														            
-
-
-									
-								} catch (Exception e2) {
-									
-
-								}
-								
-							}
-			  			      
-					  });
-					
-
-					  ajoutEvenement.add(titrePopup);
-					  ajoutEvenement.add(dateDebut);
-					  ajoutEvenement.add(dateFin);
-					  ajoutEvenement.add(evenement);
-					  ajoutEvenement.add(valider);
-					  
-
-
-			      }
-			      
-		    });
-		   
-
-		    tp.add(ajouter);
-		 
-		   
 
 
 		    JPanel bp = new JPanel();

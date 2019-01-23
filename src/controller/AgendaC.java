@@ -138,6 +138,72 @@ public class AgendaC {
 	
 	}
 	
+	public static  List<List> consultationLastEvenement(int IdUser) {
+		try {
+			List<List> List_CLE = new ArrayList<List>();
+			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+
+			System.out.println("connection"+conn);
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
+		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+IdUser+" order by idAgenda DESC limit 1;";
+			ResultSet resultat = statement.executeQuery(requete);
+
+		    /* Exécution d'une requête de lecture */
+			
+		
+		    /* Récupération des données du résultat de la requête de lecture */
+		    while(resultat.next()) {
+				List<String> event = new ArrayList<String>();
+
+	            String evenement = resultat.getString("evenement");
+	            Date dateD = resultat.getDate("dateDebut");
+	            Date dateFin = resultat.getDate("dateFin");
+	            int idUtilisateur = resultat.getInt("idUtilisateur");
+	            String heureDebut = resultat.getString("heureDebut");
+	            String heureFin = resultat.getString("heureFin");
+	            int idAgenda = resultat.getInt("idAgenda");
+
+	            //convertir une date en string
+	            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            
+	            String strDateD = dateFormat.format(dateD);
+	            String strDateF = dateFormat.format(dateFin);
+	            
+	            
+	            event.add(evenement);
+	            event.add(strDateD);
+	            event.add(strDateF);
+	            event.add(Integer.toString(idUtilisateur));
+	            event.add(heureDebut);
+	            event.add(heureFin);
+	            event.add(Integer.toString(idAgenda));
+				List_CLE.add(event);
+	            
+	           
+				
+			}
+		   
+
+			return List_CLE;
+
+
+		   
+		}
+		
+		    
+		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef");
+			
+			return null;
+		}
+		
+	
+	}
+	
 	public static boolean updateEvent(int idAgendaInt, String textEvent, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
 		try {
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
