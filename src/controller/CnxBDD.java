@@ -48,7 +48,7 @@ public class CnxBDD {
 
 		    String passwd = "Aristee.2018..//";
 
-		    */String url ="jdbc:mysql://localhost/test-applivisiteur?useSSL=false";
+		    */String url ="jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 
 		    String user = "root";
 		    String passwd = "";
