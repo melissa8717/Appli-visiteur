@@ -20,7 +20,6 @@ import javax.swing.text.html.HTML;
 import com.mysql.jdbc.Connection;
 
 import controller.AgendaC;
-import controller.CnxBDD;
 import controller.compteRenduControleur;
 import model.User;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -31,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import view.agenda.Date;
+import model.Connecteur;
+
  
 public class Agenda<Spanned> extends JPanel  {
 
@@ -325,7 +326,7 @@ public class Agenda<Spanned> extends JPanel  {
 												    	  catch(Exception e) {
 												    		  
 												    	  }
-												    	  controller.CnxBDD.connecteurUserLab();
+												    	  Object connecteur = Connecteur.connecteurUL;
 														  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
 														  try {
 															for(int j=0; j<eventA.size();j++) {
@@ -480,7 +481,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 																									    	  controller.AgendaC.updateEvent(idAgendaInt, TextEvent, TextDateDebut, TextDateFin, User.id_utilisateur, TextHeureDeb, TextHeureFin);
 																									    	  modifPopup .dispose();
-																									    	  controller.CnxBDD.connecteurUserLab();
+																									    	  Object connecteur = Connecteur.connecteurUL;
 																											  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
 																											  try {
 																												for(int j=0; j<eventA.size();j++) {
@@ -584,7 +585,7 @@ public class Agenda<Spanned> extends JPanel  {
 																						    		  controller.AgendaC.suppressionEvent(idAgendaInt);
 																						    		  voirEvenement.dispose();
 
-																						    		  controller.CnxBDD.connecteurUserLab();
+																							    	  Object connecteur = Connecteur.connecteurUL;
 																									  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
 																									  try {
 																										for(int j=0; j<eventA.size();j++) {
@@ -720,7 +721,7 @@ public class Agenda<Spanned> extends JPanel  {
 												  ((Statement) List_CE).close();
 									    		  voirEvenement.dispose();
 
-									    		  controller.CnxBDD.connecteurUserLab();
+										    	  Object connecteur = Connecteur.connecteurUL;
 												  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
 												  ((java.sql.Connection) eventA).close();
 												  ((Statement) eventA).close();
@@ -940,7 +941,7 @@ public class Agenda<Spanned> extends JPanel  {
 										controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFinC );
 										ajoutEvenement.dispose();
 										
-										controller.CnxBDD.connecteurUserLab();
+								    	  Object connecteur = Connecteur.connecteurUL;
 										List<List> eventA= AgendaC.consultationLastEvenement(User.id_utilisateur);
 										
 									try {

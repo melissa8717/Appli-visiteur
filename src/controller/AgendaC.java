@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.sql.Date;
 import view.Popup;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,10 +20,14 @@ import org.apache.poi.util.SystemOutLogger;
 
 import com.mysql.jdbc.Connection;
 
+import model.Connecteur;
+
 public class AgendaC {
 	public static boolean ajoutEvenement (String rapport, String dateDebutEvent, String dateFinEvent, String heureDebut, String heureFinC) {
+		Statement statement = null;
+		ResultSet resultat = null;
 		try { 
-			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			Connection conn = (Connection) Connecteur.connecteurUL;
 			
 			
 			
@@ -31,7 +36,7 @@ public class AgendaC {
 					"INSERT INTO" + 
 					"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`, `heureDebut`, `heureFin`)" + 
 					"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"','"+connectionControleur.id_utilisateur+"', '"+heureDebut+"' ,'"+heureFinC+"')";
-			Statement statement =  conn.createStatement();	
+			statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
 			int rep = statement.executeUpdate(requete);
@@ -67,21 +72,35 @@ public class AgendaC {
 			panelNotSucces.setForeground(new Color(191, 48, 48));
 			return false;
 		}
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
 	}
 
 
 	
 	public static  List<List> consultationEvenement(int IdUser) {
+		Statement statement = null;
+		ResultSet resultat = null;
 		try {
 			List<List> List_CE = new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn = (Connection) Connecteur.connecteurUL;
 
 		    /* Création de l'objet gérant les requêtes */
-			Statement statement = conn.createStatement();
+			statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+IdUser+";";
-			ResultSet resultat = statement.executeQuery(requete);
+			resultat = statement.executeQuery(requete);
 
 		    /* Exécution d'une requête de lecture */
 			
@@ -130,22 +149,36 @@ public class AgendaC {
 			
 			return null;
 		}
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
 		
 	
 	}
 	
 	public static  List<List> consultationLastEvenement(int IdUser) {
+		Statement statement = null;
+		ResultSet resultat = null;
 		try {
 			List<List> List_CLE = new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn = (Connection) Connecteur.connecteurUL;
 
 			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
-			Statement statement = conn.createStatement();
+			statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+IdUser+" order by idAgenda DESC limit 1;";
-			ResultSet resultat = statement.executeQuery(requete);
+			resultat = statement.executeQuery(requete);
 
 		    /* Exécution d'une requête de lecture */
 			
@@ -200,16 +233,18 @@ public class AgendaC {
 	}
 	
 	public static  boolean countEvenement(int IdUser, String debut) {
+		Statement statement = null;
+		ResultSet resultat = null;
 		try {
 			List<List> List_Count = new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn =(Connection) Connecteur.connecteurUL;
 
 		    /* Création de l'objet gérant les requêtes */
-			Statement statement = conn.createStatement();
+			statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT COUNT(idAgenda) as event FROM agenda where dateDebut = "+debut+" and idUtilisateur ="+IdUser+";";
-			ResultSet resultat = statement.executeQuery(requete);
+			resultat = statement.executeQuery(requete);
 
 		    /* Exécution d'une requête de lecture */
 			
@@ -231,18 +266,32 @@ public class AgendaC {
 
 			
 		}
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
 		
 	
 	}
 	
 	public static boolean updateEvent(int idAgendaInt, String textEvent, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
+		Statement statement = null;
+		int resultat = 0;
 		try {
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn =(Connection) Connecteur.connecteurUL;
 
 		    /* Création de l'objet gérant les requêtes */
-			Statement statement = conn.createStatement();
+			statement = conn.createStatement();
 			String requete = "UPDATE agenda SET idAgenda="+idAgendaInt+",evenement='"+textEvent+"',dateDebut='"+dateDebut+"',dateFin='"+dateFin+"',idUtilisateur="+idUtilisateur+",heureDebut='"+heureDebut+"',heureFin='"+heureFin+"' WHERE idAgenda="+idAgendaInt+";";
-			int resultat = statement.executeUpdate(requete);
+			resultat = statement.executeUpdate(requete);
 			
 			
 			Popup Succes = new Popup("Mis à jour", 800,200);
@@ -278,14 +327,23 @@ public class AgendaC {
 			return false;
 
 		}
+		finally {
+			
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
 	}
 	
 	public static boolean suppressionEvent(int idAgendaInt) {
+		Statement statement = null;
 		try {
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn =(Connection) Connecteur.connecteurUL;
 
 		    /* Création de l'objet gérant les requêtes */
-			Statement statement = conn.createStatement();
+			statement = conn.createStatement();
 			String requete = "DELETE FROM agenda WHERE idAgenda = "+idAgendaInt+";";
 
 			int resultat = statement.executeUpdate(requete);
@@ -322,21 +380,31 @@ public class AgendaC {
 			return false;
 
 		}
+		finally {
+			
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
 	}
 	
 	
 	
 	public static  List selectVisiteur( ) {
+		Statement statement = null;
+		ResultSet resultat = null;
 		try {
 			List List_SV = (List) new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn =(Connection) Connecteur.connecteurUL;
 
 		    /* Création de l'objet gérant les requêtes */
-			Statement statement = conn.createStatement();
+			statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT CONCAT( nom,\" \", prenom) as nomVisiteur, idUtilisateur, role from utilisateur where role = 1";
-			ResultSet resultat = statement.executeQuery(requete);
+			resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			
 		
@@ -368,7 +436,18 @@ public class AgendaC {
 			return null;
 		}
 		
-		
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
 	
 	}
 }
