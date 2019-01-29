@@ -25,9 +25,9 @@ public class CnxBDD {
 		    String user = "rootuser";
 		    String passwd = "Aristee.2018..//";*/
 		    
-		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		    String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
 		    String user = "root";
-		    String passwd = "";
+		    String passwd = "root";
 
 		    Connecteur.connecteurUL = DriverManager.getConnection(url, user, passwd);
         	System.out.println("connecteur"+Connecteur.connecteurUL);
@@ -65,10 +65,10 @@ public class CnxBDD {
 
 		    String passwd = "Aristee.2018..//";*/
 
-		   String url ="jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		   String url ="jdbc:mysql://localhost/appli_visiteur?useSSL=false";
 
 		    String user = "root";
-		    String passwd = "";
+		    String passwd = "root";
 
 
 		   Connection conn = DriverManager.getConnection(url, user, passwd);
