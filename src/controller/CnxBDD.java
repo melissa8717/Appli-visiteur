@@ -12,7 +12,6 @@ public class CnxBDD {
 
 
 	public static Connection connecteurUserLab() {
-    	System.out.println("i am connected");
 
 		/* Connection à la base de donnée BDUserLab */
 	    final int INITIAL_POOL_SIZE = 10;

@@ -21,7 +21,7 @@ public class User {
 	public User currentUser;
 	
 	public User(String login1, String mdp) {
-		this.Read(login1, mdp);
+		//this.Read(login1, mdp);
 	}
 	
 	public User(){

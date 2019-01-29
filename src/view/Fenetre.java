@@ -138,8 +138,7 @@ public class Fenetre extends JFrame {
             JMenu menu7 = new JMenu("Utilisateurs");
             JMenu menu8 = new JMenu("Deconnexion");
             AddMenuAction(menu1, panel_accueil);
-            AddMenuAction(menu5, panel_agenda2 );
-            AddMenuAction(menu5, panel_agenda2 );
+            AddMenuAction(menu5, panel_agenda1 );
 
             //AddMenuAction(menu8, panel_deconnexion);
 

@@ -162,8 +162,8 @@ public class Agenda<Spanned> extends JPanel  {
 					 buttonEvent.setFont(p);
 					 JButton countevent = new JButton();
 
-					 int ListCountEvent = controller.AgendaC.countEvenement(User.id_utilisateur, debut);
-					 System.out.println("count :"+ListCountEvent);
+					// int ListCountEvent = controller.AgendaC.countEvenement(User.id_utilisateur, debut);
+					 System.out.println("count :"+User.id_utilisateur);
 					 
 
 					 if(moisAnSelect.equals(moisAn)) {
@@ -183,7 +183,7 @@ public class Agenda<Spanned> extends JPanel  {
 								 buttonEvent.setText(event);
 							 }
 							 else if (y > 0) {
-								 for(int m = 0; m < y; m++) {
+								/* for(int m = 0; m < y; m++) {
 										 countevent.setBackground(Color.orange);
 										 countevent.setForeground(Color.black);
 										 countevent.setPreferredSize(new Dimension(200,50));
@@ -199,7 +199,7 @@ public class Agenda<Spanned> extends JPanel  {
 										 countevent.setText(newY+" évenements");
 										 jourPanel.add(countevent);
 
-									 }
+									 }*/
 								 //bouton du few event
 								 countevent.addActionListener(new ActionListener() {
 

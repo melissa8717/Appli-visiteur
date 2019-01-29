@@ -204,7 +204,7 @@ public class AgendaC {
 	
 	}
 	
-	public static  int countEvenement(int IdUser, String debut) {
+	public static  boolean countEvenement(int IdUser, String debut) {
 		try {
 			List<List> List_Count = new ArrayList<List>();
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
@@ -222,23 +222,25 @@ public class AgendaC {
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    while(resultat.next()) {
-		    	 return resultat.getInt(1);
+		    	 //return resultat.getInt(1);
 
 		   
 		    }
+			return true;
+
 		}
 		
 		    
 		catch (Exception e){
 			System.out.println(e);
 			System.out.println("marche pas chef");
+			return false;
 			
 		}
-		return IdUser;
 		
 	
 	}
-	
+		
 	public static boolean updateEvent(int idAgendaInt, String textEvent, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
 		try {
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
