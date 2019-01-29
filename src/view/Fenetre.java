@@ -186,7 +186,6 @@ public class Fenetre extends JFrame {
       
             // Ajout des menus dans la barre de menu en fonction du role de l'utilisateur
             menuBar.add(menu1);
-            System.out.println("Mon role : " + u.role);
             if(u.role == 1 || u.role == 2) {
             	menuBar.add(menu2);
             	menuBar.add(menu3);

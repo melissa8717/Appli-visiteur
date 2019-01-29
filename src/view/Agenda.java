@@ -130,8 +130,9 @@ public class Agenda<Spanned> extends JPanel  {
 				String moisAnSelect = anneeSelect+"-"+month_number;
 
 				List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
-
 				
+
+				try {
 
 				for(int y=0; y<List_CE.size();y++) {
 					 String event= (String) List_CE.get(y).get(0);
@@ -145,6 +146,8 @@ public class Agenda<Spanned> extends JPanel  {
 					 int dateJourInt = Integer.parseInt(dateJour);
 					 String idAgenda = (String) List_CE.get(y).get(6);
 					 int idAgendaInt = Integer.parseInt(idAgenda);
+					 ((java.sql.Connection) List_CE).close();
+					  ((Statement) List_CE).close();
 
 					 
 					 
@@ -162,20 +165,17 @@ public class Agenda<Spanned> extends JPanel  {
 					 buttonEvent.setFont(p);
 					 JButton countevent = new JButton();
 
-					// int ListCountEvent = controller.AgendaC.countEvenement(User.id_utilisateur, debut);
-					 System.out.println("count :"+User.id_utilisateur);
+					// controller.AgendaC.countEvenement(User.id_utilisateur, debut);
 					 
 
 					 if(moisAnSelect.equals(moisAn)) {
 						
 						 if(dateJourInt == i){
-							 System.out.println();
-							 System.out.println("jour :" + dateJourInt + i);
+							 
 							 JLabel jourText = new JLabel(jour);
 							 eventPanel.add(jourPanel);
 							
 							 if(y==0)  {
-								 System.out.println("one event y"+ y);
 								 b.removeAll(); 
 								 b.updateUI();
 								 b.add(eventPanel);
@@ -183,15 +183,14 @@ public class Agenda<Spanned> extends JPanel  {
 								 buttonEvent.setText(event);
 							 }
 							 else if (y > 0) {
-								/* for(int m = 0; m < y; m++) {
+								 for(int m = 0; m < y; m++) {
 										 countevent.setBackground(Color.orange);
 										 countevent.setForeground(Color.black);
 										 countevent.setPreferredSize(new Dimension(200,50));
 										 countevent.setFont(p);
 										
 										 int newY = y+1;
-										 System.out.println("few event y" + y);
-										 System.out.println("few event m" + m);
+										
 
 										 b.removeAll(); 
 										 b.updateUI();
@@ -199,7 +198,7 @@ public class Agenda<Spanned> extends JPanel  {
 										 countevent.setText(newY+" évenements");
 										 jourPanel.add(countevent);
 
-									 }*/
+									 }
 								 //bouton du few event
 								 countevent.addActionListener(new ActionListener() {
 
@@ -237,7 +236,6 @@ public class Agenda<Spanned> extends JPanel  {
 							    		  JLabel heureVide = new JLabel("Pas d'heure pour cet évènement");
 							    		  heureEvent.add(heureVide);
 							    		  heureVide.setFont(p);
-								    	  System.out.println("out" );
 
 
 							    	  }
@@ -248,7 +246,6 @@ public class Agenda<Spanned> extends JPanel  {
 								    	  heureFinEvent.setFont(p);
 								    	  heureEvent.add(heureDebutEvent);
 								    	  heureEvent.add(heureFinEvent);
-								    	  System.out.println("in");
 
 							    	  }
 							    	  JPanel fin = new JPanel();
@@ -322,9 +319,15 @@ public class Agenda<Spanned> extends JPanel  {
 
 												    	  controller.AgendaC.updateEvent(idAgendaInt, TextEvent, TextDateDebut, TextDateFin, User.id_utilisateur, TextHeureDeb, TextHeureFin);
 												    	  modifPopup .dispose();
+												    	  try {
+												    	  ((java.sql.Connection) List_CE).close();
+														  ((Statement) List_CE).close();}
+												    	  catch(Exception e) {
+												    		  
+												    	  }
 												    	  controller.CnxBDD.connecteurUserLab();
 														  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-
+														  try {
 															for(int j=0; j<eventA.size();j++) {
 																 String eventAfterU= (String) eventA.get(j).get(0);
 																 String dateDebutU= (String) eventA.get(j).get(1);
@@ -336,6 +339,9 @@ public class Agenda<Spanned> extends JPanel  {
 																 int dateJourIntU = Integer.parseInt(dateJour);
 																 String idAgendaU = (String) eventA.get(j).get(6);
 																 int idAgendaIntU = Integer.parseInt(idAgendaU);
+																 
+																 ((java.sql.Connection) eventA).close();
+																  ((Statement) eventA).close();
 																 
 																 if(idAgendaIntU == idAgendaInt) {																		
 																		
@@ -476,7 +482,7 @@ public class Agenda<Spanned> extends JPanel  {
 																									    	  modifPopup .dispose();
 																									    	  controller.CnxBDD.connecteurUserLab();
 																											  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-
+																											  try {
 																												for(int j=0; j<eventA.size();j++) {
 																													 String eventAfterU= (String) eventA.get(j).get(0);
 																													 String dateDebutU= (String) eventA.get(j).get(1);
@@ -489,8 +495,10 @@ public class Agenda<Spanned> extends JPanel  {
 																													 String idAgendaU = (String) eventA.get(j).get(6);
 																													 int idAgendaIntU = Integer.parseInt(idAgendaU);
 																													 
+																													 ((java.sql.Connection) List_CE).close();
+																													  ((Statement) List_CE).close();
+																													 
 																													 if(idAgendaIntU == idAgendaInt) {
-																															System.out.println("in"+idAgendaIntU+idAgendaInt); 
 																															
 																															
 																															 String h = b.getText();
@@ -529,10 +537,12 @@ public class Agenda<Spanned> extends JPanel  {
 																															
 																														 
 																														 else {
-																																System.out.println("out"+idAgendaU+idAgendaInt); 
 
 																														 }
 																												}
+																											  }catch(Exception e) {
+																												  
+																											  }
 
 
 																									    	  
@@ -573,11 +583,10 @@ public class Agenda<Spanned> extends JPanel  {
 																						    	  try {
 																						    		  controller.AgendaC.suppressionEvent(idAgendaInt);
 																						    		  voirEvenement.dispose();
-																										 System.out.println("out"+dateJourInt+ iNew);
 
 																						    		  controller.CnxBDD.connecteurUserLab();
 																									  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-
+																									  try {
 																										for(int j=0; j<eventA.size();j++) {
 																											 String eventAfter= (String) eventA.get(j).get(0);
 																											 String dateDebutA= (String) eventA.get(j).get(1);
@@ -589,6 +598,8 @@ public class Agenda<Spanned> extends JPanel  {
 																											 int dateJourInt = Integer.parseInt(dateJour);
 																											 String idAgenda = (String) eventA.get(j).get(6);
 																											 int idAgendaInt = Integer.parseInt(idAgenda);
+																											 ((java.sql.Connection) List_CE).close();
+																											  ((Statement) List_CE).close();
 
 																											 JPanel jourPanel = new JPanel();
 																											 jourPanel.setPreferredSize(new Dimension(300,50));
@@ -617,6 +628,9 @@ public class Agenda<Spanned> extends JPanel  {
 																												 
 																											 }
 																										}
+																									  }catch(Exception e) {
+																										  
+																									  }
 																										
 																									} catch (Exception e2) {
 																										
@@ -656,10 +670,13 @@ public class Agenda<Spanned> extends JPanel  {
 																			 
 																	 
 																	 else {
-																			System.out.println("out"+idAgendaU+idAgendaInt); 
 
 																	 }
 															}
+														  }catch(Exception e) {
+															  
+														  }
+														 
 
 
 												    	  
@@ -699,10 +716,14 @@ public class Agenda<Spanned> extends JPanel  {
 									      public void actionPerformed(ActionEvent ae) {
 									    	  try {
 									    		  controller.AgendaC.suppressionEvent(idAgendaInt);
+									    		  ((java.sql.Connection) List_CE).close();
+												  ((Statement) List_CE).close();
 									    		  voirEvenement.dispose();
 
 									    		  controller.CnxBDD.connecteurUserLab();
 												  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
+												  ((java.sql.Connection) eventA).close();
+												  ((Statement) eventA).close();
 
 													for(int j=0; j<eventA.size();j++) {
 														 String eventAfter= (String) eventA.get(j).get(0);
@@ -798,6 +819,12 @@ public class Agenda<Spanned> extends JPanel  {
 					
 					
 					 }
+				}
+				
+				((ResultSet) List_CE).close();
+			}
+				catch(Exception e) {
+					
 				}
 
 			  //ajout evenement pour le jour selectionné
@@ -916,7 +943,7 @@ public class Agenda<Spanned> extends JPanel  {
 										controller.CnxBDD.connecteurUserLab();
 										List<List> eventA= AgendaC.consultationLastEvenement(User.id_utilisateur);
 										
-
+									try {
 										for(int j=0; j<eventA.size();j++) {
 											 String eventAfter= (String) eventA.get(j).get(0);
 											 String dateDebutA= (String) eventA.get(j).get(1);
@@ -928,6 +955,9 @@ public class Agenda<Spanned> extends JPanel  {
 											 int dateJourInt = Integer.parseInt(dateJour);
 											 String idAgenda = (String) eventA.get(j).get(6);
 											 int idAgendaInt = Integer.parseInt(idAgenda);
+											 
+											 ((java.sql.Connection) eventA).close();
+											  ((Statement) eventA).close();
 
 											 JPanel jourPanel = new JPanel();
 											 jourPanel.setPreferredSize(new Dimension(300,50));
@@ -960,6 +990,9 @@ public class Agenda<Spanned> extends JPanel  {
 												 }
 											 }
 										}
+									}catch(Exception e2) {
+										
+									}
 									
 							            
 

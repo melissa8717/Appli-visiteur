@@ -19,7 +19,6 @@ public class CnxBDD {
 		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		    System.out.println("Driver O.K.");
 		    
 
 		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
@@ -31,7 +30,6 @@ public class CnxBDD {
 		    String passwd = "";*/
 
 		    Connection conn = DriverManager.getConnection(url, user, passwd);
-		    System.out.println("Connexion effective à la base BDUserLab!");
 		    return conn; 
 		}
 		catch (Exception e) {
@@ -59,7 +57,6 @@ public class CnxBDD {
 		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		    System.out.println("Driver O.K.");
 
 		    String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
 		    String user = "rootuser";
@@ -73,7 +70,6 @@ public class CnxBDD {
 
 
 		   Connection conn = DriverManager.getConnection(url, user, passwd);
-		    System.out.println("Connexion effective à la base BDUserLab!");
 		    return conn; 
 		}
 		catch (Exception e) {

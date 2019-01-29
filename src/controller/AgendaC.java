@@ -24,7 +24,6 @@ public class AgendaC {
 		try { 
 			Connection conn = (Connection) CnxBDD.connecteurUserLab();
 			
-			System.out.println("connection ok");
 			
 			
 			/* Requête d'insertion en base du compte rendu */
@@ -50,10 +49,11 @@ public class AgendaC {
 			panelSucces.setForeground(new Color(96, 191, 96));
 			return (rep > 0);
 			
+			
+			
 		}
 		
 		catch (Exception e){
-			System.out.println(e);
 			Popup NotSucces = new Popup("Ajout : erreur", 800,100);
 			
 			JPanel panelNotSucces = new JPanel(); 
@@ -65,7 +65,6 @@ public class AgendaC {
 
 			panelNotSucces.setBackground(new Color(235, 77, 75));
 			panelNotSucces.setForeground(new Color(191, 48, 48));
-			System.out.println("marche pas chef");
 			return false;
 		}
 	}
@@ -77,7 +76,6 @@ public class AgendaC {
 			List<List> List_CE = new ArrayList<List>();
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
 
-			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
 			
@@ -123,14 +121,12 @@ public class AgendaC {
 
 			return List_CE;
 
-
 		   
 		}
 		
 		    
 		catch (Exception e){
-			System.out.println(e);
-			System.out.println("marche pas chef");
+			
 			
 			return null;
 		}
@@ -195,8 +191,7 @@ public class AgendaC {
 		
 		    
 		catch (Exception e){
-			System.out.println(e);
-			System.out.println("marche pas chef");
+			
 			
 			return null;
 		}
@@ -209,7 +204,6 @@ public class AgendaC {
 			List<List> List_Count = new ArrayList<List>();
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
 
-			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
 			
@@ -222,7 +216,7 @@ public class AgendaC {
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    while(resultat.next()) {
-		    	 //return resultat.getInt(1);
+		    	// return resultat.getInt(1);
 
 		   
 		    }
@@ -232,15 +226,15 @@ public class AgendaC {
 		
 		    
 		catch (Exception e){
-			System.out.println(e);
-			System.out.println("marche pas chef");
-			return false;
+			
+			return true;
+
 			
 		}
 		
 	
 	}
-		
+	
 	public static boolean updateEvent(int idAgendaInt, String textEvent, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
 		try {
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
@@ -248,7 +242,6 @@ public class AgendaC {
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
 			String requete = "UPDATE agenda SET idAgenda="+idAgendaInt+",evenement='"+textEvent+"',dateDebut='"+dateDebut+"',dateFin='"+dateFin+"',idUtilisateur="+idUtilisateur+",heureDebut='"+heureDebut+"',heureFin='"+heureFin+"' WHERE idAgenda="+idAgendaInt+";";
-			System.out.println(requete);
 			int resultat = statement.executeUpdate(requete);
 			
 			
@@ -269,8 +262,7 @@ public class AgendaC {
 			return true;
 		}
 		catch (Exception e){
-			System.out.println(e);
-			System.out.println("marche pas chef");
+			
 			Popup NotSucces = new Popup("L'évenement n'a pas été correctement mise à jour !", 800,100);
 			
 			JPanel panelNotSucces = new JPanel(); 
@@ -312,8 +304,7 @@ public class AgendaC {
 			return true;
 		}
 		catch (Exception e){
-			System.out.println(e);
-			System.out.println("marche pas chef");
+			
 			Popup NotSucces = new Popup("Suppression : erreur ", 800,100);
 			
 			JPanel panelNotSucces = new JPanel(); 
@@ -374,7 +365,6 @@ public class AgendaC {
 		
 		    
 		catch (Exception e){
-			System.out.println("marche pas chef");
 			return null;
 		}
 		
