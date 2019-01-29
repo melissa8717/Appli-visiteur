@@ -23,19 +23,11 @@ public class CnxBDD {
 		    System.out.println("Driver O.K.");
 		    
 
-<<<<<<< HEAD
-
-=======
->>>>>>> f79ced0ee77b053f1f47baa742daa77a496fac7a
 		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
 		    String passwd = "Aristee.2018..//";
 		    
-<<<<<<< HEAD
-		    /*String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
-=======
 		   /* String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
->>>>>>> f79ced0ee77b053f1f47baa742daa77a496fac7a
 		    String user = "root";
 		    String passwd = "";*/
 
