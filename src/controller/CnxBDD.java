@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Connection;
+import model.Connecteur;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,7 +11,6 @@ import model.User;
 
 public class CnxBDD {
 
-
 	public static Connection connecteurUserLab() {
 
 		/* Connection à la base de donnée BDUserLab */
@@ -19,20 +19,20 @@ public class CnxBDD {
 		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		    System.out.println("Driver O.K.");
 		    
 
-		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
+		   /* String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
-		    String passwd = "Aristee.2018..//";
+		    String passwd = "Aristee.2018..//";*/
 		    
-		   /* String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 		    String user = "root";
-		    String passwd = "";*/
+		    String passwd = "";
 
-		    Connection conn = DriverManager.getConnection(url, user, passwd);
-		    System.out.println("Connexion effective à la base BDUserLab!");
-		    return conn; 
+		    Connecteur.connecteurUL = DriverManager.getConnection(url, user, passwd);
+        	System.out.println("connecteur"+Connecteur.connecteurUL);
+
+		    return Connecteur.connecteurUL; 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -59,21 +59,19 @@ public class CnxBDD {
 		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		    System.out.println("Driver O.K.");
 
-		    String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
+		    /*String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
 		    String user = "rootuser";
 
-		    String passwd = "Aristee.2018..//";
+		    String passwd = "Aristee.2018..//";*/
 
-		    /*String url ="jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		   String url ="jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 
 		    String user = "root";
-		    String passwd = "";*/
+		    String passwd = "";
 
 
 		   Connection conn = DriverManager.getConnection(url, user, passwd);
-		    System.out.println("Connexion effective à la base BDUserLab!");
 		    return conn; 
 		}
 		catch (Exception e) {
