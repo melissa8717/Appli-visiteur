@@ -48,7 +48,7 @@ public class User {
 		return this;
 	}*/
 	
-	public User Read(String inputLogin, String inputMdp){
+	/*public User Read(String inputLogin, String inputMdp){
 		DB_Connection obj_DB_Connection = (DB_Connection) model.DB_Connection.connectionbduser;
 		Connection connection = DB_Connection.getConnectionBduser();
 		PreparedStatement ps=null;

@@ -6,7 +6,7 @@ import java.sql.*;
 
 
 public class DB_Connection {
-	public static final DB_Connection connectionActive = new DB_Connection();
+	/*public static final DB_Connection connectionActive = new DB_Connection();
 
 	public static Connection connectionbduser = getConnectionBduser();
 	public static Connection connectionbdmedoc = getConnectionBdmedoc() ;
