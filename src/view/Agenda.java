@@ -149,7 +149,7 @@ public class Agenda<Spanned> extends JPanel  {
 					 
 					 
 					 JPanel jourPanel = new JPanel();
-					 jourPanel.setPreferredSize(new Dimension(300,50));
+					 jourPanel.setPreferredSize(new Dimension(250,50));
 					 JPanel eventPanel = new JPanel();
 					 eventPanel.setBackground(Color.white);
 					 JLabel eventLabel = new JLabel(Integer.toString(i)+event); 
@@ -158,20 +158,62 @@ public class Agenda<Spanned> extends JPanel  {
 					 JButton buttonEvent = new JButton();
 					 buttonEvent.setBackground(Color.blue);
 					 buttonEvent.setForeground(Color.white);
-					 buttonEvent.setPreferredSize(new Dimension(300,50));
+					 buttonEvent.setPreferredSize(new Dimension(200,50));
 					 buttonEvent.setFont(p);
+					 JButton countevent = new JButton();
+
+					 int ListCountEvent = controller.AgendaC.countEvenement(User.id_utilisateur, debut);
+					 System.out.println("count :"+ListCountEvent);
 					 
 
 					 if(moisAnSelect.equals(moisAn)) {
 						
 						 if(dateJourInt == i){
-
-							 b.add(eventPanel);
+							 System.out.println();
+							 System.out.println("jour :" + dateJourInt + i);
 							 JLabel jourText = new JLabel(jour);
-							 eventPanel.add(jourText);
 							 eventPanel.add(jourPanel);
-							 jourPanel.add(buttonEvent);
-							 buttonEvent.setText(event);
+							
+							 if(y==0)  {
+								 System.out.println("one event y"+ y);
+								 b.removeAll(); 
+								 b.updateUI();
+								 b.add(eventPanel);
+								 jourPanel.add(buttonEvent);
+								 buttonEvent.setText(event);
+							 }
+							 else if (y > 0) {
+								 for(int m = 0; m < y; m++) {
+										 countevent.setBackground(Color.orange);
+										 countevent.setForeground(Color.black);
+										 countevent.setPreferredSize(new Dimension(200,50));
+										 countevent.setFont(p);
+										
+										 int newY = y+1;
+										 System.out.println("few event y" + y);
+										 System.out.println("few event m" + m);
+
+										 b.removeAll(); 
+										 b.updateUI();
+										 b.add(eventPanel);
+										 countevent.setText(newY+" évenements");
+										 jourPanel.add(countevent);
+
+									 }
+								 //bouton du few event
+								 countevent.addActionListener(new ActionListener() {
+
+								      public void actionPerformed(ActionEvent ae) {
+								    	  Popup fewEvent = new Popup("Evenements multiples", 700,500);		
+								    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènements multiples "+ jour + " "+ moisSelect+" " + anneeSelect);
+								    	  fewEvent.add(titreOpened );
+								    	  JPanel event = new JPanel();
+								    	  JLabel eventLAbel = new JLabel("Evenements :");
+								    	  
+								      }
+								 
+								 });
+
 							 //ouverture de l evenement choisi
 							 buttonEvent.addActionListener(new ActionListener() {
 
@@ -696,10 +738,8 @@ public class Agenda<Spanned> extends JPanel  {
 														 
 
 														 if(moisAnSelect.equals(moisAn)) {
-															 System.out.println("in month"+moisAnSelect+ moisAn);
 
 															 if(dateJourInt == iNew){
-																 System.out.println("in"+dateJourInt+ iNew);
 
 																 b.add(eventPanel);
 																 JLabel jourText = new JLabel(jour);
@@ -711,7 +751,6 @@ public class Agenda<Spanned> extends JPanel  {
 																 buttonEvent.setVisible(false);
 															 }
 															 else {
-																 System.out.println("notjdebelle"+dateJourInt+ iNew);
 
 																
 															 }
@@ -758,8 +797,8 @@ public class Agenda<Spanned> extends JPanel  {
 					 }
 					
 					
+					 }
 				}
-			
 
 			  //ajout evenement pour le jour selectionné
 

@@ -204,6 +204,41 @@ public class AgendaC {
 	
 	}
 	
+	public static  int countEvenement(int IdUser, String debut) {
+		try {
+			List<List> List_Count = new ArrayList<List>();
+			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+
+			System.out.println("connection"+conn);
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
+		    String requete = "SELECT COUNT(idAgenda) as event FROM agenda where dateDebut = "+debut+" and idUtilisateur ="+IdUser+";";
+			ResultSet resultat = statement.executeQuery(requete);
+
+		    /* Exécution d'une requête de lecture */
+			
+		
+		    /* Récupération des données du résultat de la requête de lecture */
+		    while(resultat.next()) {
+		    	 return resultat.getInt(1);
+
+		   
+		    }
+		}
+		
+		    
+		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef");
+			
+		}
+		return IdUser;
+		
+	
+	}
+	
 	public static boolean updateEvent(int idAgendaInt, String textEvent, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
 		try {
 			Connection conn =(Connection) CnxBDD.connecteurUserLab();
@@ -307,7 +342,7 @@ public class AgendaC {
 			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-		    String requete = "SELECT CONCAT( nom,\" \", prenom) as nomVisiteur , role from utilisateur where role = 1";
+		    String requete = "SELECT CONCAT( nom,\" \", prenom) as nomVisiteur, idUtilisateur, role from utilisateur where role = 1";
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			
