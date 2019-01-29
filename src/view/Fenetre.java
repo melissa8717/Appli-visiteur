@@ -108,7 +108,9 @@ public class Fenetre extends JFrame {
 	        final JPanel panel_messagerie1 = new CreationMessagerie();
 	        final JPanel panel_messagerie2 = new ConsultationMessagerie();
 	        	// Menu Agenda
-	        final JPanel panel_agenda = new Agenda();
+	        final JPanel panel_agenda1 = new Agenda();
+	        final JPanel panel_agenda2 = new AgendaVisiteur();
+
 	        	// Menu Medecin
 	        //final JPanel panel_medecin = new JPanel();
 	        final JPanel panel_medecin1 = new CreationMedecin();
@@ -136,7 +138,9 @@ public class Fenetre extends JFrame {
             JMenu menu7 = new JMenu("Utilisateurs");
             JMenu menu8 = new JMenu("Deconnexion");
             AddMenuAction(menu1, panel_accueil);
-            AddMenuAction(menu5, panel_agenda);
+            AddMenuAction(menu5, panel_agenda2 );
+            AddMenuAction(menu5, panel_agenda2 );
+
             //AddMenuAction(menu8, panel_deconnexion);
 
         
@@ -146,6 +150,8 @@ public class Fenetre extends JFrame {
             JMenuItem item_compte_rendu2 = new JMenuItem("Consultation");
             JMenuItem item_power_point1 = new JMenuItem("Création");
             JMenuItem item_power_point2 = new JMenuItem("Consultation");
+            JMenuItem item_agenda1 = new JMenuItem("Voir mon agenda");
+            JMenuItem item_agenda2 = new JMenuItem("Voir l'agenda des visiteurs");
             JMenuItem item_messagerie1 = new JMenuItem("Ecrire un message");
             JMenuItem item_messagerie2 = new JMenuItem("Consultation");
             JMenuItem item_medecin1 = new JMenuItem("Ajouter un medecin");
@@ -158,6 +164,8 @@ public class Fenetre extends JFrame {
             AddMenuItemAction(item_power_point2, panel_power_point2);
             AddMenuItemAction(item_messagerie1, panel_messagerie1);
             AddMenuItemAction(item_messagerie2, panel_messagerie2);
+            AddMenuItemAction(item_agenda1, panel_agenda1);
+            AddMenuItemAction(item_agenda2, panel_agenda2);
             AddMenuItemAction(item_medecin1, panel_medecin1);
             AddMenuItemAction(item_medecin2, panel_medecin2);
             AddMenuItemAction(item_utilisateur1, panel_utilisateur1);
@@ -168,6 +176,8 @@ public class Fenetre extends JFrame {
 	        menu2.add(item_compte_rendu2);
             menu3.add(item_power_point1);
             menu3.add(item_power_point2);
+            menu5.add(item_agenda1);
+            menu5.add(item_agenda2);
             menu4.add(item_messagerie1);
             menu4.add(item_messagerie2);
             menu6.add(item_medecin1);
@@ -193,7 +203,6 @@ public class Fenetre extends JFrame {
 
             menu8.addMenuListener(new MenuListener(){
                 public void menuSelected(MenuEvent e) {
-                    System.out.println("Guillaume est un putain de génie");
                     Popup popup_deconnexion = new Popup("Déconnexion", 500, 250);
                     popup_deconnexion.setAlwaysOnTop(true);
                     JButton bouton_oui, bouton_non;
@@ -294,19 +303,6 @@ public class Fenetre extends JFrame {
             }
         });
     }
-	
-
-	public static void main(String[] args){
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                new Fenetre();
-            }
-        });
-    }
-	
-	
        
 	
 }

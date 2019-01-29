@@ -12,17 +12,30 @@ public class CnxBDD {
 
 
 	public static Connection connecteurUserLab() {
+    	System.out.println("i am connected");
+
 		/* Connection à la base de donnée BDUserLab */
+	    final int INITIAL_POOL_SIZE = 10;
+		Statement statement = null;
+		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
+		    
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f79ced0ee77b053f1f47baa742daa77a496fac7a
 		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
 		    String passwd = "Aristee.2018..//";
 		    
+<<<<<<< HEAD
 		    /*String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+=======
+		   /* String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+>>>>>>> f79ced0ee77b053f1f47baa742daa77a496fac7a
 		    String user = "root";
 		    String passwd = "";*/
 
@@ -35,10 +48,24 @@ public class CnxBDD {
 			System.out.println("La connexion a eu un problème");
 			return null;
 		} 
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
 	}
 	
 	/* Connection à la base de donnée BDMedocLab */
 	public static Connection connecteurMedocLab() {
+		Statement statement = null;
+		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    System.out.println("Driver O.K.");
@@ -63,6 +90,18 @@ public class CnxBDD {
 			System.out.println("La connexion a eu un problème");
 			return null;
 		}
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
 	}
 
 	/* Connexion et récupération des informations du user connecté */
@@ -80,6 +119,7 @@ public class CnxBDD {
 		    
 		    //N'oubliez pas de mettre des ' ' sur vos variables comme ici présent, j'ai mit 5min avant de comprendre xD
 			resultat = statement.executeQuery("SELECT idUtilisateur, login, password, nom, prenom,role  FROM utilisateur WHERE login='" + login + "' AND password='" + mdp + "';");
+			statement.setFetchSize(100);
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    if(resultat.next()) {
@@ -106,11 +146,14 @@ public class CnxBDD {
 			if (resultat != null) {
 				try {
 					resultat.close();
+					conn.close();
 				} catch (SQLException e) { /* ignored */}
 			}
 			if (statement != null) {
 				try {
 					statement.close();
+					conn.close();
+
 				} catch (SQLException e) { /* ignored */}
 			}
 		}
