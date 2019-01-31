@@ -28,9 +28,10 @@ public class CnxBDD {
 		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 		    String user = "root";
 		    String passwd = "";
+		    
+		    //utiliser ce connecteur partout ! sinon je vous frappe !!!!
 
 		    Connecteur.connecteurUL = DriverManager.getConnection(url, user, passwd);
-        	System.out.println("connecteur"+Connecteur.connecteurUL);
 
 		    return Connecteur.connecteurUL; 
 		}
@@ -65,14 +66,14 @@ public class CnxBDD {
 
 		    String passwd = "Aristee.2018..//";*/
 
-		   String url ="jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		    String url ="jdbc:mysql://localhost/medoc?useSSL=false";
 
 		    String user = "root";
 		    String passwd = "";
 
 
-		   Connection conn = DriverManager.getConnection(url, user, passwd);
-		    return conn; 
+		    Connecteur.connecteurML = DriverManager.getConnection(url, user, passwd);
+		    return Connecteur.connecteurML; 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -95,11 +96,10 @@ public class CnxBDD {
 
 	/* Connexion et récupération des informations du user connecté */
 	public static Boolean connect(String login, String mdp, User User) {
-		Connection conn = null;
 		Statement statement = null;
 		ResultSet resultat = null;
 		try {
-			conn = connecteurUserLab();
+			Connection conn = connecteurUserLab();
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    statement = conn.createStatement();
@@ -135,13 +135,11 @@ public class CnxBDD {
 			if (resultat != null) {
 				try {
 					resultat.close();
-					conn.close();
 				} catch (SQLException e) { /* ignored */}
 			}
 			if (statement != null) {
 				try {
 					statement.close();
-					conn.close();
 
 				} catch (SQLException e) { /* ignored */}
 			}

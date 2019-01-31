@@ -231,56 +231,40 @@ public class AgendaC {
 		
 	
 	}
-	
-	public static  boolean countEvenement(int IdUser, String debut) {
-		Statement statement = null;
-		ResultSet resultat = null;
+	public static  int countEvenement(int IdUser, String debut) {
 		try {
 			List<List> List_Count = new ArrayList<List>();
-			Connection conn =(Connection) Connecteur.connecteurUL;
+			Connection conn =(Connection) CnxBDD.connecteurUserLab();
 
 		    /* Création de l'objet gérant les requêtes */
-			statement = conn.createStatement();
+			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT COUNT(idAgenda) as event FROM agenda where dateDebut = "+debut+" and idUtilisateur ="+IdUser+";";
-			resultat = statement.executeQuery(requete);
+			ResultSet resultat = statement.executeQuery(requete);
 
 		    /* Exécution d'une requête de lecture */
 			
 		
 		    /* Récupération des données du résultat de la requête de lecture */
 		    while(resultat.next()) {
-		    	// return resultat.getInt(1);
+		    	 return resultat.getInt(1);
 
 		   
 		    }
-			return true;
-
 		}
 		
 		    
 		catch (Exception e){
-			
-			return true;
-
+			System.out.println(e);
+			System.out.println("marche pas chef");
 			
 		}
-		finally {
-			if (resultat != null) {
-				try {
-					resultat.close();
-				} catch (SQLException e) { /* ignored */}
-			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) { /* ignored */}
-			}
-		}
+		return IdUser;
 		
 	
 	}
+
 	
 	public static boolean updateEvent(int idAgendaInt, String textEvent, String dateDebut, String dateFin, int idUtilisateur, String heureDebut, String heureFin) {
 		Statement statement = null;

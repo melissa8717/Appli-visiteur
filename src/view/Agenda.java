@@ -28,6 +28,8 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import view.agenda.Date;
 import model.Connecteur;
@@ -147,9 +149,7 @@ public class Agenda<Spanned> extends JPanel  {
 					 int dateJourInt = Integer.parseInt(dateJour);
 					 String idAgenda = (String) List_CE.get(y).get(6);
 					 int idAgendaInt = Integer.parseInt(idAgenda);
-					 ((java.sql.Connection) List_CE).close();
-					  ((Statement) List_CE).close();
-
+					
 					 
 					 
 					 JPanel jourPanel = new JPanel();
@@ -166,25 +166,30 @@ public class Agenda<Spanned> extends JPanel  {
 					 buttonEvent.setFont(p);
 					 JButton countevent = new JButton();
 
-					// controller.AgendaC.countEvenement(User.id_utilisateur, debut);
+					//int countEvent = controller.AgendaC.countEvenement(User.id_utilisateur, debut);
+					
 					 
+						
 
 					 if(moisAnSelect.equals(moisAn)) {
 						
 						 if(dateJourInt == i){
+							 ArrayList<Integer> tabJour = new ArrayList<Integer>();
+							 tabJour.add(dateJourInt);
 							 
+							
 							 JLabel jourText = new JLabel(jour);
 							 eventPanel.add(jourPanel);
 							
-							 if(y==0)  {
+							 if(tabJour.size() == 1)  {
 								 b.removeAll(); 
 								 b.updateUI();
 								 b.add(eventPanel);
 								 jourPanel.add(buttonEvent);
 								 buttonEvent.setText(event);
 							 }
-							 else if (y > 0) {
-								 for(int m = 0; m < y; m++) {
+							 else if (tabJour.size() > 1) {
+								 for(int m = 0; m < tabJour.size(); m++) {
 										 countevent.setBackground(Color.orange);
 										 countevent.setForeground(Color.black);
 										 countevent.setPreferredSize(new Dimension(200,50));
@@ -320,12 +325,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 												    	  controller.AgendaC.updateEvent(idAgendaInt, TextEvent, TextDateDebut, TextDateFin, User.id_utilisateur, TextHeureDeb, TextHeureFin);
 												    	  modifPopup .dispose();
-												    	  try {
-												    	  ((java.sql.Connection) List_CE).close();
-														  ((Statement) List_CE).close();}
-												    	  catch(Exception e) {
-												    		  
-												    	  }
+												    	
 												    	  Object connecteur = Connecteur.connecteurUL;
 														  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
 														  try {
@@ -341,8 +341,6 @@ public class Agenda<Spanned> extends JPanel  {
 																 String idAgendaU = (String) eventA.get(j).get(6);
 																 int idAgendaIntU = Integer.parseInt(idAgendaU);
 																 
-																 ((java.sql.Connection) eventA).close();
-																  ((Statement) eventA).close();
 																 
 																 if(idAgendaIntU == idAgendaInt) {																		
 																		
@@ -496,8 +494,7 @@ public class Agenda<Spanned> extends JPanel  {
 																													 String idAgendaU = (String) eventA.get(j).get(6);
 																													 int idAgendaIntU = Integer.parseInt(idAgendaU);
 																													 
-																													 ((java.sql.Connection) List_CE).close();
-																													  ((Statement) List_CE).close();
+																													
 																													 
 																													 if(idAgendaIntU == idAgendaInt) {
 																															
@@ -599,9 +596,7 @@ public class Agenda<Spanned> extends JPanel  {
 																											 int dateJourInt = Integer.parseInt(dateJour);
 																											 String idAgenda = (String) eventA.get(j).get(6);
 																											 int idAgendaInt = Integer.parseInt(idAgenda);
-																											 ((java.sql.Connection) List_CE).close();
-																											  ((Statement) List_CE).close();
-
+																											
 																											 JPanel jourPanel = new JPanel();
 																											 jourPanel.setPreferredSize(new Dimension(300,50));
 																											 JPanel eventPanel = new JPanel();
@@ -717,14 +712,12 @@ public class Agenda<Spanned> extends JPanel  {
 									      public void actionPerformed(ActionEvent ae) {
 									    	  try {
 									    		  controller.AgendaC.suppressionEvent(idAgendaInt);
-									    		  ((java.sql.Connection) List_CE).close();
-												  ((Statement) List_CE).close();
+									    		
 									    		  voirEvenement.dispose();
 
 										    	  Object connecteur = Connecteur.connecteurUL;
 												  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-												  ((java.sql.Connection) eventA).close();
-												  ((Statement) eventA).close();
+												  
 
 													for(int j=0; j<eventA.size();j++) {
 														 String eventAfter= (String) eventA.get(j).get(0);
@@ -822,7 +815,6 @@ public class Agenda<Spanned> extends JPanel  {
 					 }
 				}
 				
-				((ResultSet) List_CE).close();
 			}
 				catch(Exception e) {
 					
@@ -957,8 +949,7 @@ public class Agenda<Spanned> extends JPanel  {
 											 String idAgenda = (String) eventA.get(j).get(6);
 											 int idAgendaInt = Integer.parseInt(idAgenda);
 											 
-											 ((java.sql.Connection) eventA).close();
-											  ((Statement) eventA).close();
+											
 
 											 JPanel jourPanel = new JPanel();
 											 jourPanel.setPreferredSize(new Dimension(300,50));
