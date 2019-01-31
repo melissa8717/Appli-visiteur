@@ -7,37 +7,38 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 import view.Fenetre;
+import model.Config;
 import model.User;
 
 public class CnxBDD {
-
 	public static Connection connecteurUserLab() {
-
-		/* Connection à la base de donnée BDUserLab */
+		/* Connection � la base de donn�e BDUserLab */
 	    final int INITIAL_POOL_SIZE = 10;
 		Statement statement = null;
 		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		    
+		    Config c = new Config();
 
-		   /* String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
-		    String user = "rootuser";
-		    String passwd = "Aristee.2018..//";*/
+		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+"?useSSL=false";
+		    String user = c.getProp("DB_USER");
+		    String passwd = c.getProp("DB_PASSWORD");
 		    
-		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		  /*  String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 		    String user = "root";
-		    String passwd = "";
+		    String passwd = "";*/
 		    
-		    //utiliser ce connecteur partout ! sinon je vous frappe !!!!
+		    //utilisez ce connecteur partout ! sinon je vous frappe !!!!
 
 		    Connecteur.connecteurUL = DriverManager.getConnection(url, user, passwd);
 
 		    return Connecteur.connecteurUL; 
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("La connexion a eu un problème");
+			System.out.println("La connexion a eu un probl�me");
 			return null;
 		} 
 		finally {
@@ -54,30 +55,31 @@ public class CnxBDD {
 		}
 	}
 	
-	/* Connection à la base de donnée BDMedocLab */
+	/* Connection � la base de donn�e BDMedocLab */
 	public static Connection connecteurMedocLab() {
 		Statement statement = null;
 		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-		    /*String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
+		    String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
 		    String user = "rootuser";
 
-		    String passwd = "Aristee.2018..//";*/
+		    String passwd = "Aristee.2018..//";
 
-		    String url ="jdbc:mysql://localhost/medoc?useSSL=false";
+		    /*String url ="jdbc:mysql://localhost/medoc?useSSL=false";
 
 		    String user = "root";
-		    String passwd = "";
+		    String passwd = "";*/
 
 
 		    Connecteur.connecteurML = DriverManager.getConnection(url, user, passwd);
 		    return Connecteur.connecteurML; 
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("La connexion a eu un problème");
+			System.out.println("La connexion a eu un probl�me");
 			return null;
 		}
 		finally {
@@ -94,23 +96,23 @@ public class CnxBDD {
 		}
 	}
 
-	/* Connexion et récupération des informations du user connecté */
+	/* Connexion et r�cup�ration des informations du user connect� */
 	public static Boolean connect(String login, String mdp, User User) {
 		Statement statement = null;
 		ResultSet resultat = null;
 		try {
 			Connection conn = connecteurUserLab();
 		    
-		    /* Création de l'objet gérant les requêtes */
+		    /* Cr�ation de l'objet g�rant les requ�tes */
 		    statement = conn.createStatement();
 		    
-		    /* Exécution d'une requête de lecture */
+		    /* Ex�cution d'une requ�te de lecture */
 		    
-		    //N'oubliez pas de mettre des ' ' sur vos variables comme ici présent, j'ai mit 5min avant de comprendre xD
+		    //N'oubliez pas de mettre des ' ' sur vos variables comme ici pr�sent, j'ai mit 5min avant de comprendre xD
 			resultat = statement.executeQuery("SELECT idUtilisateur, login, password, nom, prenom,role  FROM utilisateur WHERE login='" + login + "' AND password='" + mdp + "';");
 			statement.setFetchSize(100);
 		
-		    /* Récupération des données du résultat de la requête de lecture */
+		    /* R�cup�ration des donn�es du r�sultat de la requ�te de lecture */
 		    if(resultat.next()) {
 	            User.id_utilisateur = resultat.getInt( "idUtilisateur" );
 	            User.nom = resultat.getString( "nom" );
@@ -128,7 +130,7 @@ public class CnxBDD {
 		} 
 		catch (Exception e) {
 		    e.printStackTrace();
-		    System.out.println("La connexion a eu un problème");
+		    System.out.println("La connexion a eu un probl�me");
 		    return false;
 		}
 		finally {
