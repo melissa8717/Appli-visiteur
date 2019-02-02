@@ -4,7 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Date;
+
+import view.Configuration;
+import view.Personnes;
 import view.Popup;
+import view.Session;
+import view.SessionFactory;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -232,26 +238,32 @@ public class AgendaC {
 	
 	}
 	public static  int countEvenement(int IdUser, String debut) {
+		
+	
+	
 		try {
 			List<List> List_Count = new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn = (Connection) Connecteur.connecteurUL;
 
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-		    String requete = "SELECT COUNT(idAgenda) as event FROM agenda where dateDebut = "+debut+" and idUtilisateur ="+IdUser+";";
+		    String requete = "SELECT COUNT(dateDebut) FROM agenda where dateDebut = "+debut+" and idUtilisateur ="+IdUser+";";
 			ResultSet resultat = statement.executeQuery(requete);
 
 		    /* Exécution d'une requête de lecture */
 			
 		
 		    /* Récupération des données du résultat de la requête de lecture */
-		    while(resultat.next()) {
-		    	 return resultat.getInt(1);
+			
+			 while (resultat.next()) {
+				 int count = resultat.getInt(1);
 
-		   
-		    }
+				 return count;
+
+				 }
+		    
 		}
 		
 		    

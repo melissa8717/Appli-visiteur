@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Arrays;
 
 public class AgendaVisiteur extends JPanel{
+	public Agenda  agenda = new Agenda();
+
 	public AgendaVisiteur() {
 		TitrePrincipale titre = new TitrePrincipale("Agenda des visiteurs");
 		
@@ -43,7 +45,6 @@ public class AgendaVisiteur extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
 			}
         });   
 
