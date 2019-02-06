@@ -4,7 +4,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
  
 public class Date {
-	int year,month,day;
+	public int year;
+
+	int month;
+
+	int day;
  
 	public Calendar calendar=new GregorianCalendar();
  

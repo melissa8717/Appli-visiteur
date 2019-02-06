@@ -190,6 +190,11 @@ public class Fenetre extends JFrame {
             	menuBar.add(menu2);
             	menuBar.add(menu3);
             }
+            
+            if(u.role == 2) {
+            	menu5.add(item_agenda2);
+            	
+            }
 
             menuBar.add(menu4);
             menuBar.add(menu5);

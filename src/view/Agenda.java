@@ -209,24 +209,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 
 								      public void actionPerformed(ActionEvent ae) {
-								    	  Object connecteur = Connecteur.connecteurUL;
-										  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-										 
-										  
-
-										  try {
-											for(int j=0; j<eventA.size();j++) {
-												 String eventAfterU= (String) eventA.get(j).get(0);
-												 String dateDebutU= (String) eventA.get(j).get(1);
-												 String dateFinU= (String) eventA.get(j).get(2);
-												 String heureDebutU = (String) eventA.get(j).get(4);
-												 String heureFinU = (String) eventA.get(j).get(5);
-												 String moisAnU = GetDateSansJour(dateDebut);
-												 String dateJourU = GetDateJour(dateDebut);
-												 int dateJourIntU = Integer.parseInt(dateJour);
-												 String idAgendaU = (String) eventA.get(j).get(6);
-												 int idAgendaIntU = Integer.parseInt(idAgendaU);
-												 
+								
 												  if(moisAnSelect.equals(moisAn)) {
 
 														 if(dateJourInt == iNew){
@@ -238,7 +221,7 @@ public class Agenda<Spanned> extends JPanel  {
 								    	  fewEvent.add(titreOpened );
 								          JPanel eventPanel[]= {new JPanel()};
 								          
-								          String heureLanel[]= {"","","07:30","07:45","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00"};
+								          String heureListe[]= {"07:00","07:15","07:30","07:45","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00"};
 								          JLabel heureLanelNext[] = {new JLabel("12:00") ,new JLabel("12:15"),new JLabel("12:30"),new JLabel("12:45"),new JLabel("13:00"),new JLabel("13:15"),new JLabel("13:30"),new JLabel("13:45"),new JLabel("14:00"),new JLabel("14:15")
 								        		  ,new JLabel("14:30"),new JLabel("14:45"),new JLabel("15:00"),new JLabel("15:15"),new JLabel("15:30"),new JLabel("15:45"),new JLabel("16:00"),new JLabel("16:15"),new JLabel("16:30"),new JLabel("16:45"),new JLabel("17:00"),new JLabel("17:15"),new JLabel("17:30"),new JLabel("17:45"),new JLabel("18:00")
 								        		  ,new JLabel("18:15"),new JLabel("18:30"),new JLabel("18:45"),new JLabel("19:00"),new JLabel("19:15"),new JLabel("19:30"),new JLabel("19:45"),new JLabel("20:00"),new JLabel("20:15"),new JLabel("20:30"),new JLabel("21:00"),new JLabel("21:15"),new JLabel("21:30"),new JLabel("21:45"),new JLabel("22:00")
@@ -255,83 +238,83 @@ public class Agenda<Spanned> extends JPanel  {
 								          }
 								          
 								         
-								          Object[][] data = {
-								            {"07:00", "", ""},
-								            {"07:15","",""},
-								            {"07:30","",""},
-								            {"07:45","",""},
-								            {"08:00","",""},
-								            {"08:15","",""},
-								            {"08:30","",""},
-								            {"08:45","",""},
-								            {"09:00","",""},
-								            {"09:15","",""},
-								            {"09:30","",""},
-								            {"09:45","",""},
-								            {"10:00","",""},
-								            {"10:15","",""},
-								            {"10:30","",""},
-								            {"10:45","",""},
-								            {"11:00","",""},
-								            {"11:15","",""},
-								            {"11:30","",""},
-								            {"11:45","",""},
-								            {"12:00","",""},
-								            {"12:00","",""},
-								            {"12:15","",""},
-								            {"12:30","",""},
-								            {"12:45","",""},
-								            {"13:00","",""},
-								            {"13:15","",""},
-								            {"13:30","",""},
-								            {"13:45","",""},
-								            {"14:00","",""},
-								            {"14:15","",""},
-								            {"14:30","",""},
-								            {"14:45","",""},
-								            {"15:00","",""},
-								            {"15:15","",""},
-								            {"15:30","",""},
-								            {"15:45","",""},
-								            {"16:00","",""},
-								            {"16:15","",""},
-								            {"16:30","",""},
-								            {"16:45","",""},
-								            {"17:00","",""},
-								            {"17:15","",""},
-								            {"17:30","",""},
-								            {"17:45","",""},
-								            {"18:00","",""},
-								            {"18:15","",""},
-								            {"18:30","",""},
-								            {"18:45","",""},
-								            {"19:00","",""},
-								            {"19:15","",""},
-								            {"19:30","",""},
-								            {"19:45","",""},
-								            {"20:00","",""},
-								            {"20:15","",""},
-								            {"20:30","",""},
-								            {"20:45","",""},
-								            {"21:00","",""},
-								            {"21:15","",""},
-								            {"21:30","",""},
-								            {"21:45","",""},
-								            {"22:00","",""},
-								            {"22:15","",""},
-								            {"22:30","",""},
-								            {"22:45","",""},
-								            {"23:00","",""},
-								            {"23:15","",""},
-								            {"23:30","",""},
-								            {"23:45","",""},
+								          Object[][] data = {  
+								        	{"07:00", "", "",""},
+								            {"07:15","","",""},
+								            {"07:30","","",""},
+								            {"07:45","","",""},
+								            {"08:00","","",""},
+								            {"08:15","","",""},
+								            {"08:30","","",""},
+								            {"08:45","","",""},
+								            {"09:00","","",""},
+								            {"09:15","","",""},
+								            {"09:30","","",""},
+								            {"09:45","","",""},
+								            {"10:00","","",""},
+								            {"10:15","","",""},
+								            {"10:30","","",""},
+								            {"10:45","","",""},
+								            {"11:00","","",""},
+								            {"11:15","","",""},
+								            {"11:30","","",""},
+								            {"11:45","","",""},
+								            {"12:00","","",""},
+								            {"12:00","","",""},
+								            {"12:15","","",""},
+								            {"12:30","","",""},
+								            {"12:45","","",""},
+								            {"13:00","","",""},
+								            {"13:15","","",""},
+								            {"13:30","","",""},
+								            {"13:45","","",""},
+								            {"14:00","","",""},
+								            {"14:15","","",""},
+								            {"14:30","","",""},
+								            {"14:45","","",""},
+								            {"15:00","","",""},
+								            {"15:15","","",""},
+								            {"15:30","","",""},
+								            {"15:45","","",""},
+								            {"16:00","","",""},
+								            {"16:15","","",""},
+								            {"16:30","","",""},
+								            {"16:45","","",""},
+								            {"17:00","","",""},
+								            {"17:15","","",""},
+								            {"17:30","","",""},
+								            {"17:45","","",""},
+								            {"18:00","","",""},
+								            {"18:15","","",""},
+								            {"18:30","","",""},
+								            {"18:45","","",""},
+								            {"19:00","","",""},
+								            {"19:15","","",""},
+								            {"19:30","","",""},
+								            {"19:45","","",""},
+								            {"20:00","","",""},
+								            {"20:15","","",""},
+								            {"20:30","","",""},
+								            {"20:45","","",""},
+								            {"21:00","","",""},
+								            {"21:15","","",""},
+								            {"21:30","","",""},
+								            {"21:45","","",""},
+								            {"22:00","","",""},
+								            {"22:15","","",""},
+								            {"22:30","","",""},
+								            {"22:45","","",""},
+								            {"23:00","","",""},
+								            {"23:15","","",""},
+								            {"23:30","","",""},
+								            {"23:45","","",""},
 
 								          };
 								          
 								         
 
 								          //Les titres des colonnes
-								          String  title[] = {"Heure de début", "Evenement", "Heure de fin"};
+								          String  title[] = {"Heure de début", "Evenement", "Heure de fin", "Voir l'évenement"};
 								          JTable tableau = new JTable(data, title);
 								          //Nous ajoutons notre tableau à notre contentPane dans un scroll
 								          //Sinon les titres des colonnes ne s'afficheront pas !
@@ -344,39 +327,40 @@ public class Agenda<Spanned> extends JPanel  {
 								          Object cellule = tableau.getValueAt(4,0);
 								          Object statusValue = tableau.getModel().getValueAt(1, 0);
 								          
+								         // JButton voir = new JButton("Voir");
+
 							        	  int ligne = 0;
 								          while(ligne < 69) {
 
 								        	  Object col = tableau.getValueAt(ligne,0);
 								        	  ligne ++;
 								        	  String colString = String.valueOf(col);
+								        	  
+									          if(colString.equals(heureDebut)) {
+									        	  for (int e=0; e<List_CE.size();e++) {
+										        	  System.out.println("event :"+event);
 
-									          
-									          if(colString.equals(heureDebutU)) {
-									        	  tableau.removeAll(); 
-												  tableau.updateUI();
-												  System.out.println("iam in"+heureDebutU);
-											
+									        		  tableau.setValueAt(event, ligne-1,1 );
+									        	  }
+									        	  
+									        	  tableau.setDefaultRenderer(JButton.class, new ButtonRenderer());
+									        	  tableau.getColumn("Voir l'évenement").setCellEditor(new ButtonEditor());
 
+
+									        	 // tableau.setValueAt(voir, ligne-1, 3);
+										
 									          }
 									          else {
 									          }
 
-								        	  
-								          }
-							        	  tableau.setValueAt(eventAfterU, ligne-1,1 );
-
+								        	 
+							        	  }
 								      
 								          fewEvent.getContentPane().add(new JScrollPane(tableau));
 
 													}
 												}
-											
-											}
-											
-										  }catch(Exception e) {}
-
-								          
+										   
 								      }
 
 								 
