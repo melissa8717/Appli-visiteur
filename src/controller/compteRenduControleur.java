@@ -55,7 +55,7 @@ public class compteRenduControleur {
 			Connection conn = (Connection) Connecteur.connecteurUL;
 
 			/* Requête de récupération des ids des médecins */
-			String requete = "SELECT idPraticien,nom FROM praticien;";
+			String requete = "SELECT idPraticien,nom, prenom, adresse, ville, codePostal, telephone FROM praticien;";
 			Statement statement =  conn.createStatement();
 			ResultSet resultat = statement.executeQuery(requete);
 
@@ -64,8 +64,20 @@ public class compteRenduControleur {
 				List<String> unMedecin = new ArrayList<String>();
 				int idMed= resultat.getInt( "idPraticien" );
 				String nomMed= resultat.getString( "nom" );
+				String prenomMed = resultat.getString("prenom");
+				String adresseMed = resultat.getString("adresse");
+				String villeMed = resultat.getString("ville");
+				String cpMed = resultat.getString("codePostal");
+				String telMed = resultat.getString("telephone");
+
+
 				unMedecin.add(Integer.toString(idMed));
 				unMedecin.add(nomMed);
+				unMedecin.add(prenomMed);
+				unMedecin.add(adresseMed);
+				unMedecin.add(villeMed);
+				unMedecin.add(cpMed);
+				unMedecin.add(telMed);
 				List_Medecins.add(unMedecin);
 			}
 			
@@ -76,7 +88,7 @@ public class compteRenduControleur {
 		
 		catch (Exception e){
 			System.out.println(e);
-			System.out.println("marche pas chef  select cr ");
+			System.out.println("marche pas chef  select medecin ");
 			return null;
 		}
 		
