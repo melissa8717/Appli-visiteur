@@ -14,6 +14,7 @@ public class Main {
         	
         	Object connecteur = Connecteur.connecteurUL;
         	new Fenetre();
+        	System.out.println(" et la fentre apparait !!!");
         	
         }
 

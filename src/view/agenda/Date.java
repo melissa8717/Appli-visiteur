@@ -36,7 +36,7 @@ public class Date {
 	public int getMonth(){
 		return month;
 	}
-	int getDay(){
+	public int getDay(){
 		return day;
 	}
 	public void setYear(int year){

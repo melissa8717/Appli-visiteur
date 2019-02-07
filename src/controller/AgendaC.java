@@ -5,11 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.sql.Date;
 
-import view.Configuration;
-import view.Personnes;
-import view.Popup;
-import view.Session;
-import view.SessionFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +22,7 @@ import org.apache.poi.util.SystemOutLogger;
 import com.mysql.jdbc.Connection;
 
 import model.Connecteur;
+import view.Popup;
 
 public class AgendaC {
 	public static boolean ajoutEvenement (String rapport, String dateDebutEvent, String dateFinEvent, String heureDebut, String heureFinC) {

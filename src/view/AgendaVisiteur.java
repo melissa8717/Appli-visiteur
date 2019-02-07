@@ -2,11 +2,15 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -25,18 +29,23 @@ import org.apache.xmlbeans.impl.soap.Node;
 import com.mysql.fabric.xmlrpc.base.Array;
 
 import controller.AgendaC;
+import view.agenda.Date;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import view.agenda.*;
 
-import java.util.*;
-import java.util.Calendar;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.*;
 
-public class AgendaVisiteur extends JPanel {
+import java.util.Arrays;
+
+public class AgendaVisiteur extends JPanel implements ItemListener{
+	
+	JPanel p1, p2;
+    JComboBox month;
+    JComboBox year;
+    int days[]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    String weekdays[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    String months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 	public AgendaVisiteur() {
 		TitrePrincipale titre = new TitrePrincipale("Agenda des visiteurs");
@@ -67,113 +76,119 @@ public class AgendaVisiteur extends JPanel {
 		JPanel top = new JPanel();
 	    top.setPreferredSize(new Dimension(1800, 100));
 
-		JPanel global = new JPanel();
-		global.setBackground(new Color(102, 163, 211));
-		global.setForeground(Color.blue);
 		
-		JPanel tableau = new JPanel();
-		JPanel tableauII = new JPanel();
-		JPanel tableauIII = new JPanel();
-		JPanel tableauIV = new JPanel();
-		JPanel tableauV = new JPanel();
+		
+
 
 
 	
-		global.add(tableau);
-		global.add(tableauII);
-		global.add(tableauIII);
-		global.add(tableauIV);
-		global.add(tableauV);
-
-	    tableau.setPreferredSize(new Dimension(300, 650));
-	    tableauII.setPreferredSize(new Dimension(300, 650));
-	    tableauIII.setPreferredSize(new Dimension(300, 650));
-	    tableauIV.setPreferredSize(new Dimension(300, 650));
-	    tableauV.setPreferredSize(new Dimension(300, 650));
-	    
-		tableau.setBackground(Color.white);
-		tableauII.setBackground(Color.white);
-		tableauIII.setBackground(Color.white);
-		tableauIV.setBackground(Color.white);
-		tableauV.setBackground(Color.white);
 		
-		
-
-	    this.setSize(300,200);
-	    this.setLayout(new BorderLayout());
-	    this.setVisible(true);
-	    DefaultTableModel model;
-		GregorianCalendar cal = new GregorianCalendar();
-		JLabel label;
-	 
-	    label = new JLabel();
-	    label.setHorizontalAlignment(SwingConstants.CENTER);
-	 
-	    JButton b1 = new JButton("<-");
-	    b1.addActionListener(new ActionListener() {
-	      public void actionPerformed(ActionEvent ae) {
-	        cal.add(Calendar.MONTH, -1);
-	        updateMonth();
-	      }
-	    });
-	 
-	    JButton b2 = new JButton("->");
-	    b2.addActionListener(new ActionListener() {
-	      public void actionPerformed(ActionEvent ae) {
-	        cal.add(Calendar.MONTH, +1);
-	        updateMonth();
-	      }
-	    });
-	 
-	    JPanel panel = new JPanel();
-	    panel.setLayout(new BorderLayout());
-	    panel.add(b1,BorderLayout.WEST);
-	    panel.add(label,BorderLayout.CENTER);
-	    panel.add(b2,BorderLayout.EAST);
-	 
-	 
-	    String [] columns = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
-	    model = new DefaultTableModel(null,columns);
-	    JTable table = new JTable(model);
-	    JScrollPane pane = new JScrollPane(table);
-	 
-	    this.add(panel,BorderLayout.NORTH);
-	    this.add(pane,BorderLayout.CENTER);
-	 
-	    this.updateMonth();
-	 
-	  }
-	 
-	  void updateMonth() {
-		DefaultTableModel model;
-		GregorianCalendar cal = new GregorianCalendar();
-		JLabel label;
-	    cal.set(Calendar.DAY_OF_MONTH, 1);
-	 
-	    String month = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
-	    int year = cal.get(Calendar.YEAR);
-	    label.setText(month + " " + year);
-	 
-	    int startDay = cal.get(Calendar.DAY_OF_WEEK);
-	    int numberOfDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-	    int weeks = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
-	 
-	    model.setRowCount(0);
-	    model.setRowCount(weeks);
-	 
-	    int i = startDay-1;
-	    for(int day=1;day<=numberOfDays;day++){
-	      model.setValueAt(day, i/7 , i%7 );    
-	      i = i + 1;
-	    }
-	 
-	  }
 
 
 		this.add(titre);
 		this.add(top);
 		top.add(visiteurs);
-		this.add(global);
+		
+	
+        p1 = new JPanel(); // select mois + an
+        //p1.setSize(350, 30);
+        //p1.setLayout(new FlowLayout());
+        month = new JComboBox();
+        for(int i=0;i< months.length;i++)
+        {
+            month.addItem(months[i]);
+        }
+        month.addItemListener(this);
+        year = new JComboBox();
+        for(int i=1980;i<=2099;i++)
+        {
+            year.addItem(i);
+        }
+        year.addItemListener(this);
+        p1.add(month);
+        p1.add(year);
+        p2 = new JPanel();
+        p2.setLayout(new GridLayout(0,7,5,5));
+        Date date = new Date();
+        drawCalendar(months[date.getMonth()], (1900+date.getYear()));
+        year.setSelectedItem((1900+date.getYear()));
+        month.setSelectedItem(months[date.getMonth()]);
+    
+        setVisible(true);
+        //setBounds(200, 200, 350, 300);
+        setSize(230,220);
+    }
+  
+
+    @Override
+    public void itemStateChanged(ItemEvent e)
+    {
+        if(e.getStateChange() == ItemEvent.SELECTED)
+        {
+            drawCalendar((String)month.getSelectedItem(), (Integer)year.getSelectedItem());
+        }
+    }
+    
+    public void drawCalendar(String inputMonth, int inputYear)
+    {
+        p2.removeAll();
+        for(int i=0;i< weekdays.length;i++)
+        {
+            JLabel label = new JLabel(weekdays[i]);
+            label.setHorizontalAlignment(SwingConstants.RIGHT);
+            p2.setBackground(Color.yellow);
+            p2.add(label);
+    
+        }
+		JPanel tableau = new JPanel();
+	    tableau.setPreferredSize(new Dimension(300, 650));
+ 	    JPanel global = new JPanel();
+    		global.setBackground(new Color(102, 163, 211));
+    		global.setForeground(Color.blue);
+    		this.add(global);
+    		global.add(tableau);
+    		tableau.setBackground(Color.white);
+            tableau.add(p2);
+        Date date = new Date();
+        int noOfDaysInMonth = days[date.getMonth()];
+        if(date.getYear()%4==0 && date.getMonth()==1)
+        {
+            noOfDaysInMonth = 29;
+        }
+
+        for(int i=1, day=1;day<=noOfDaysInMonth;i++)
+        {
+            for(int j=0;j<7;j++)
+            {
+                if(day==1)
+                {
+                    if(j==date.getDay())
+                    {
+                        JLabel label = new JLabel(String.valueOf(day));
+                        label.setHorizontalAlignment(SwingConstants.RIGHT);
+                        p2.add(label);
+                        day++;
+                    }
+                    else
+                    {
+                        JLabel label = new JLabel("");
+                        p2.add(label);
+                    }
+                }
+                else
+                {
+                    JLabel label = new JLabel(String.valueOf(day));
+                    label.setHorizontalAlignment(SwingConstants.RIGHT);
+                    p2.add(label);
+                    day++;
+                }
+                if(day>noOfDaysInMonth)
+                {
+                    break;
+                }
+            }
+        }
+        p2.validate();
 		
 	}
 
