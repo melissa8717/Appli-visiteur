@@ -140,6 +140,7 @@ public class Agenda<Spanned> extends JPanel  {
 				String moisAnSelect = anneeSelect+"-"+month_number;
 
 				List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
+				System.out.println("event :"+List_CE);
 
 				
 
@@ -1078,7 +1079,7 @@ public class Agenda<Spanned> extends JPanel  {
 										}
 
 
-										controller.AgendaC.ajoutEvenement(evenement,dateDebut, User.id_utilisateur, dateFin, heureDebut, heureFinC, (Integer) null,User.role );
+										controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFinC );
 										ajoutEvenement.dispose();
 										
 								    	  Object connecteur = Connecteur.connecteurUL;

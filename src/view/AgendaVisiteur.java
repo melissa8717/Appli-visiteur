@@ -190,11 +190,7 @@ public class AgendaVisiteur extends JPanel {
 							}
 							try{
 
-								System.out.println("i am in");
-							
-								System.out.println("evenement :"+medecin+ "2019-10-02"+ idVisiteurInt +null+ heureDebutEventTotal+ null+ 2+ User.role);
-
-							controller.AgendaC.ajoutEvenementVisiteur("Dumar", "2019-02-12",null, 1, "09:15", null, 2, 2);
+								controller.AgendaC.ajoutEvenementVisiteur(medecin, "2019-10-02", null ,idVisiteurInt, heureDebutEventTotal, null, 2, User.role);
 							}catch(Exception e2) {}
 						}
 				  });
