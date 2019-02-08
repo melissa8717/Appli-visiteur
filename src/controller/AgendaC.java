@@ -152,10 +152,8 @@ public class AgendaC {
 			statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda from agenda where idUtilisateur="+IdUser+";";
+		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien, idRole from agenda where idUtilisateur="+IdUser+";";
 			resultat = statement.executeQuery(requete);
-
-		    /* Exécution d'une requête de lecture */
 			
 		
 		    /* Récupération des données du résultat de la requête de lecture */
@@ -169,6 +167,9 @@ public class AgendaC {
 	            String heureDebut = resultat.getString("heureDebut");
 	            String heureFin = resultat.getString("heureFin");
 	            int idAgenda = resultat.getInt("idAgenda");
+	            int idMedecin= resultat.getInt("idPraticien");
+	            int idRole = resultat.getInt("idRole");
+
 
 	            //convertir une date en string
 	            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -184,12 +185,15 @@ public class AgendaC {
 	            event.add(heureDebut);
 	            event.add(heureFin);
 	            event.add(Integer.toString(idAgenda));
+	            event.add(Integer.toString(idMedecin));
+	            event.add(Integer.toString(idRole));
+
 				List_CE.add(event);
-	            
+				   System.out.println("event bdd:"+List_CE);
+
 	           
 				
 			}
-		   
 
 			return List_CE;
 
@@ -217,8 +221,6 @@ public class AgendaC {
 		
 	
 	}
-	
-
 	
 	public static  List<List> consultationLastEvenement(int IdUser) {
 		Statement statement = null;
@@ -449,6 +451,65 @@ public class AgendaC {
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT CONCAT( nom,'_', prenom) as nomVisiteur, idUtilisateur, role from utilisateur where role = 1";
+			resultat = statement.executeQuery(requete);
+		    /* Exécution d'une requête de lecture */
+			
+		
+		    /* Récupération des données du résultat de la requête de lecture */
+		    while(resultat.next()) {
+		    	ArrayList<String> visiteurs = (ArrayList<String>) new ArrayList<String>();
+
+	            String nomVisiteur = resultat.getString("nomVisiteur");
+	            int role = resultat.getInt("role");
+	            
+	            visiteurs.add(nomVisiteur);
+	            visiteurs.add(Integer.toString(role));
+	            
+	            ((ArrayList<List>) List_SV).add((List) visiteurs);
+	            
+
+			}
+		    if(((ArrayList<List>) List_SV).isEmpty()) {
+			}
+		    
+
+			return List_SV;
+
+		   
+		}
+		
+		    
+		catch (Exception e){
+			return null;
+		}
+		
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
+	
+	}
+	
+	public static  List selectDelegue( ) {
+		Statement statement = null;
+		ResultSet resultat = null;
+		try {
+			List List_SV = (List) new ArrayList<List>();
+			Connection conn =(Connection) Connecteur.connecteurUL;
+
+		    /* Création de l'objet gérant les requêtes */
+			statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
+		    String requete = "SELECT CONCAT( nom,'_', prenom) as nomVisiteur, idUtilisateur, role from utilisateur where role = 2";
 			resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			

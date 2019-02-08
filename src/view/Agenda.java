@@ -138,9 +138,10 @@ public class Agenda<Spanned> extends JPanel  {
 				String jourF = jourFormat.format(cal.getTime());
 				String debut = anneeSelect+"-"+month_number+"-"+jourF;
 				String moisAnSelect = anneeSelect+"-"+month_number;
-
-				List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
-				System.out.println("event :"+List_CE);
+		    	
+				Object connecteur = Connecteur.connecteurUL;
+				List<List> List_CE= controller.AgendaC.consultationEvenement(User.id_utilisateur);
+				System.out.println("event :"+List_CE+User.id_utilisateur+ connecteur);
 
 				
 
