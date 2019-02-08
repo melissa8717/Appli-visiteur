@@ -13,7 +13,7 @@ public class User {
 	public String prenom;
 	public String adresse;
 	public String ville;
-	public int role;
+	public static int role;
 	public String login;
 	public String password;
 	public boolean connected;

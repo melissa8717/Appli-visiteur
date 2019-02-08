@@ -9,10 +9,16 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Date;
+
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
@@ -26,6 +32,7 @@ import javax.swing.JTextArea;
 import controller.AgendaC;
 import controller.compteRenduControleur;
 import model.Connecteur;
+import model.User;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -51,6 +58,8 @@ public class AgendaVisiteur extends JPanel {
 
         
 		JComboBox<?> visiteurs = new JComboBox<Object>(nomVisiteur);
+		Object nomVisiteurSelected = visiteurs.getSelectedItem();
+		String nomVisiteurStr = String.valueOf(nomVisiteurSelected);
 		visiteurs.addActionListener(new ActionListener() {
 
 
@@ -58,6 +67,16 @@ public class AgendaVisiteur extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				Popup choixVisiteur = new Popup("", 800,800);
 				TitreSecondaire titre = new TitreSecondaire("Ajouter un rendez vous");
+				  Object connecteur = Connecteur.connecteurUL;
+			      List<List> ListMed= compteRenduControleur.selectMedecin();
+			      List<String> ListNomMed=new ArrayList<String>();
+			   
+			    	  for(int m =0; m<ListMed.size(); m++) {
+			  			  ListNomMed.add((String) ListMed.get(m).get(1));
+
+			    	  }
+			    	  
+				 
 				
 				  UtilDateModel model = new UtilDateModel();
 				  JDatePanelImpl datePanel = new JDatePanelImpl(model);
@@ -81,44 +100,50 @@ public class AgendaVisiteur extends JPanel {
 			      JLabel heureDebutLabel = new JLabel("* A :"); 
 			      String[]  heureItems = {"07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 			      JComboBox<?> heureDebutSelect = new JComboBox<Object>(heureItems);
+				  String heureDeb = (String)heureDebutSelect.getSelectedItem();
+
 
 			      String[]  minItems = {"00", "15", "30", "45"};
 			      JComboBox<?> minDebutSelect = new JComboBox<Object>(minItems);
+				  String minDeb = (String)minDebutSelect.getSelectedItem();
+			      System.out.println("min"+minDeb);
 
 			      JLabel evenementLabel = new JLabel("* Avec : "); 
-			      
-		    	  Object connecteur = Connecteur.connecteurUL;
-			      List<List> ListMed= compteRenduControleur.selectMedecin();
-			      List<String> ListNomMed=new ArrayList<String>();
-			   
-			    	  for(int m =0; m<ListMed.size(); m++) {
-			  			  ListNomMed.add((String) ListMed.get(m).get(1));
-
-			    		  String nomMed = (String) ListMed.get(m).get(1);
-			    		  String prenomMed = (String) ListMed.get(m).get(2);
-			    		  String adresseMed = (String) ListMed.get(m).get(3);
-			    		  String cpMed = (String) ListMed.get(m).get(5);
-			    		  String villeMed = (String) ListMed.get(m).get(4);
-			    		  String telMed = (String) ListMed.get(m).get(6);
-			    		  
- 
-			    	  }
-			      
 			      String[] nomMed=ListNomMed.toArray(new String[0]);
 
 
 			      JComboBox<?> BoxMedChoice = new JComboBox<Object>(nomMed);
+				  Object medecinSelected = BoxMedChoice.getSelectedItem();
+				  String medecin = String.valueOf(medecinSelected);
+				  
+				     List<List> unMed= AgendaC.choixMedecin(medecinSelected);
+				     String adresseMed =  new String();
+				     String telMed =  new String();
+				     String idMedecin = null;
+				     int idMedecinInt;
 
-			      JTextArea inputArea = new JTextArea(1,15);
-			      JPanel adresse = new JPanel();
-			      adresse.setPreferredSize(new Dimension(600, 100));
-			      JLabel adresseLabel = new JLabel("* Au  :");     
-			      JTextArea inputAdresse = new JTextArea(3,50);
-			      JPanel tel = new JPanel();
-			      tel.setPreferredSize(new Dimension(600, 100));
-			      JLabel telLabel = new JLabel("* Numéro à contacter : ");     
-			      JTextArea inputTel = new JTextArea(1,15);
-			      
+
+					   
+			    	  for(int u =0; u<unMed.size(); u++) {
+
+			    		  idMedecin = (String) ListMed.get(u).get(0);
+						  idMedecinInt = Integer.parseInt(idMedecin);
+
+			    		  String nomMedecin = (String) ListMed.get(u).get(1);
+			    		  String prenomMed = (String) ListMed.get(u).get(2);
+			    		
+
+			    		  
+			    	  }
+				    	  JPanel adresse = new JPanel();
+					      JLabel adresseLabel = new JLabel("* Au  :");     
+				    	  JLabel inputAdresse = new JLabel(adresseMed);
+					      JPanel tel = new JPanel();
+					      tel.setPreferredSize(new Dimension(600, 100));
+					      JLabel telLabel = new JLabel("* Numéro à contacter : ");     
+					      JLabel inputTel = new JLabel(telMed);
+			    	  
+
 			      JButton validerButton = new JButton("Valider");
 			      JPanel obligatoirePanel = new JPanel();
 			      JLabel obligatoire = new JLabel(" * Tous les champs sont obligatoires");
@@ -127,7 +152,7 @@ public class AgendaVisiteur extends JPanel {
 				  obligatoire.setFont(font);
 			      valider.setPreferredSize(new Dimension(1000, 100));
 
-			     
+			
 				  dateFin.add(dateFinLabel);
 				  dateFin.add(datePickerFin);
 			      heureDebut.add(heureDebutLabel);
@@ -135,18 +160,42 @@ public class AgendaVisiteur extends JPanel {
 				  heureDebut.add(minDebutSelect);
 				  evenement.add(evenementLabel);
 				  evenement.add(BoxMedChoice);
-				  adresse.add(adresseLabel);
-				  adresse.add(inputAdresse);
-				  tel.add(telLabel);
-				  tel.add(inputTel);
+		
 				  obligatoirePanel.add(obligatoire);
 				  valider.add(obligatoirePanel);
 				  valider.add(validerButton);
+
+			    	  
 				  
 				  validerButton.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
+							String dateDebutEvent;
+							/*DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+							java.util.Date selectedDateDeb = (java.util.Date) datePickerDeb.getModel().getValue();
+							dateDebutEvent = formatDate.format(selectedDateDeb);
+							System.out.println("heure" +heureDebutEventTotal);*/
+							String heureDebutEventTotal = heureDeb+":"+minDeb;
+
+					        String[] parts = nomVisiteurStr.split("_");
+							String nomV = parts[0];
+							String prenomV = parts[1];
+
+							List<List> ListidVisiteur = AgendaC.idVisiteur(nomV, prenomV);
+							String idVisiteur =null;
+							int idVisiteurInt =0;
+							for (int v=0; v<ListidVisiteur.size(); v++) {
+								idVisiteur = (String) ListidVisiteur.get(v).get(0);
+								idVisiteurInt = Integer.parseInt(idVisiteur);
+							}
+							try{
+
+								System.out.println("i am in");
 							
+								System.out.println("evenement :"+medecin+ "2019-10-02"+ idVisiteurInt +null+ heureDebutEventTotal+ null+ 2+ User.role);
+
+							controller.AgendaC.ajoutEvenementVisiteur("Dumar", "2019-02-12",null, 1, "09:15", null, 2, 2);
+							}catch(Exception e2) {}
 						}
 				  });
 				
@@ -158,7 +207,9 @@ public class AgendaVisiteur extends JPanel {
 				  choixVisiteur.add(adresse);
 				  choixVisiteur.add(tel);
 				  choixVisiteur.add(valider);
-			}
+			   
+			  }
+			
         });   
 
 		

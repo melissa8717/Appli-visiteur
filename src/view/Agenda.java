@@ -1078,7 +1078,7 @@ public class Agenda<Spanned> extends JPanel  {
 										}
 
 
-										controller.AgendaC.ajoutEvenement(evenement,dateDebut, dateFin, heureDebut, heureFinC );
+										controller.AgendaC.ajoutEvenement(evenement,dateDebut, User.id_utilisateur, dateFin, heureDebut, heureFinC, (Integer) null,User.role );
 										ajoutEvenement.dispose();
 										
 								    	  Object connecteur = Connecteur.connecteurUL;

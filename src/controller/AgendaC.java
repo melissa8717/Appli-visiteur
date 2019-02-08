@@ -22,6 +22,7 @@ import org.apache.poi.util.SystemOutLogger;
 import com.mysql.jdbc.Connection;
 
 import model.Connecteur;
+import model.User;
 import view.Popup;
 
 public class AgendaC {
@@ -40,8 +41,6 @@ public class AgendaC {
 					"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"','"+connectionControleur.id_utilisateur+"', '"+heureDebut+"' ,'"+heureFinC+"')";
 			statement =  conn.createStatement();	
 
-			/* Exécution de la reqête */
-			int rep = statement.executeUpdate(requete);
 			Popup Succes = new Popup("Ajout", 800,200);
 			
 			JPanel panelSucces = new JPanel(); 
@@ -88,6 +87,58 @@ public class AgendaC {
 		}
 	}
 
+
+	public static boolean ajoutEvenementVisiteur (String rapport, String dateDebutEvent, String dateFinEvent, int idVisiteur, String heureDebut, String heureFinC, int idMedecin, int idRole) {
+		Statement statement = null;
+		ResultSet resultat = null;
+		try { 
+			Connection conn = (Connection) Connecteur.connecteurUL;
+			
+			
+			
+			/* Requête d'insertion en base du compte rendu */
+			String requete = 
+					"INSERT INTO" + 
+					"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`, `heureDebut`, `heureFin`,`idPraticien`,`idRole`)" + 
+					"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"',"+idVisiteur+", '"+heureDebut+"' ,'"+heureFinC+"', "+idMedecin+", "+User.role+")";
+			statement =  conn.createStatement();	
+
+			/* Exécution de la reqête */
+			statement =  conn.createStatement();	
+			Popup Succes = new Popup("Ajout", 800,200);
+			
+			JPanel panelSucces = new JPanel(); 
+			JLabel labelSucces = new JLabel("L'évenement a été ajouté correctement !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
+			return true;
+			
+			
+			
+		}
+		
+		catch (Exception e){
+			Popup NotSucces = new Popup("Ajout : erreur", 800,100);
+			
+			JPanel panelNotSucces = new JPanel(); 
+			JLabel labelNotSucces = new JLabel("L'évenement n'a pas été ajouté correctement !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
+			return false;
+		}
+		
+	}
 
 	
 	public static  List<List> consultationEvenement(int IdUser) {
@@ -395,7 +446,7 @@ public class AgendaC {
 			statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-		    String requete = "SELECT CONCAT( nom,\" \", prenom) as nomVisiteur, idUtilisateur, role from utilisateur where role = 1";
+		    String requete = "SELECT CONCAT( nom,'_', prenom) as nomVisiteur, idUtilisateur, role from utilisateur where role = 1";
 			resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			
@@ -441,6 +492,113 @@ public class AgendaC {
 			}
 		}
 	
+	}
+	
+	
+	public static  List idVisiteur(String nom, String prenom ) {
+		Statement statement = null;
+		ResultSet resultat = null;
+		try {
+			List List_SV = (List) new ArrayList<List>();
+			Connection conn =(Connection) Connecteur.connecteurUL;
+
+		    /* Création de l'objet gérant les requêtes */
+			statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
+		    String requete = "SELECT idUtilisateur FROM `utilisateur` WHERE nom ='"+nom+"' and prenom= '"+prenom+"'";
+			resultat = statement.executeQuery(requete);
+		    /* Exécution d'une requête de lecture */
+			
+		
+		    /* Récupération des données du résultat de la requête de lecture */
+		    while(resultat.next()) {
+		    	ArrayList<String> visiteurs = (ArrayList<String>) new ArrayList<String>();
+
+	            int idVisiteur = resultat.getInt("idUtilisateur");
+	            
+	            visiteurs.add(Integer.toString(idVisiteur));
+	            
+	            ((ArrayList<List>) List_SV).add((List) visiteurs);
+	            
+
+			}
+		    if(((ArrayList<List>) List_SV).isEmpty()) {
+			}
+		    
+
+			return List_SV;
+
+		   
+		}
+		
+		    
+		catch (Exception e){
+			return null;
+		}
+		
+		finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) { /* ignored */}
+			}
+		}
+	
+	}
+	
+	
+	/* Fonction de sélection du médecin */
+	public static List<List> choixMedecin(Object medecinSelected) {
+		try {
+			List<List> List_Medecins = new ArrayList<List>();
+
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+			/* Requête de récupération des ids des médecins */
+			String requete = "SELECT idPraticien,nom, prenom, adresse, ville, codePostal, telephone FROM praticien where idPraticien = '"+medecinSelected+"';";
+			Statement statement =  conn.createStatement();
+			ResultSet resultat = statement.executeQuery(requete);
+
+			/* Récupère tous les id des médecins */
+			while(resultat.next()) {
+				List<String> unMedecin = new ArrayList<String>();
+				int idMed= resultat.getInt( "idPraticien" );
+				String nomMed= resultat.getString( "nom" );
+				String prenomMed = resultat.getString("prenom");
+				String adresseMed = resultat.getString("adresse");
+				String villeMed = resultat.getString("ville");
+				String cpMed = resultat.getString("codePostal");
+				String telMed = resultat.getString("telephone");
+
+
+				unMedecin.add(Integer.toString(idMed));
+				unMedecin.add(nomMed);
+				unMedecin.add(prenomMed);
+				unMedecin.add(adresseMed);
+				unMedecin.add(villeMed);
+				unMedecin.add(cpMed);
+				unMedecin.add(telMed);
+				List_Medecins.add(unMedecin);
+			}
+			
+			return List_Medecins;
+			
+			
+		}
+		
+		catch (Exception e){
+			System.out.println(e);
+			System.out.println("marche pas chef un medecin ");
+			return null;
+		}
+		
+		
 	}
 }
 
