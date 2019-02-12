@@ -42,6 +42,7 @@ public class AgendaVisiteur extends JPanel {
 		TitrePrincipale titre = new TitrePrincipale("Agenda des visiteurs");
 		List<List> ListVisiteur = (List<List>) AgendaC.selectVisiteur();
         List<String> ListNomVisiteur=new ArrayList<String>();
+        Calendar date = Calendar.getInstance();
 
 		
 		for(int i=0; i<ListVisiteur.size(); i++) {
@@ -84,6 +85,7 @@ public class AgendaVisiteur extends JPanel {
 				  JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
 				  JDatePickerImpl datePickerDeb = new JDatePickerImpl(datePanel);
 				  JDatePickerImpl datePickerFin = new JDatePickerImpl(datePanel2);
+				  
 				
 
 				  JPanel dateFin = new JPanel();
@@ -106,7 +108,6 @@ public class AgendaVisiteur extends JPanel {
 			      String[]  minItems = {"00", "15", "30", "45"};
 			      JComboBox<?> minDebutSelect = new JComboBox<Object>(minItems);
 				  String minDeb = (String)minDebutSelect.getSelectedItem();
-			      System.out.println("min"+minDeb);
 
 			      JLabel evenementLabel = new JLabel("* Avec : "); 
 			      String[] nomMed=ListNomMed.toArray(new String[0]);

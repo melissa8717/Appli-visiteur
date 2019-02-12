@@ -48,13 +48,15 @@ public class Agenda<Spanned> extends JPanel  {
          * 
          */
 	private static final long serialVersionUID = 1L;
+	public static String IDCal;
+	public static String List_Event;
 
 
 	public Agenda() {
 		TitrePrincipale bienvenue = new TitrePrincipale("Agenda");
 		
 		this.add(bienvenue);
-		 
+
 		    buildGUI();
 		    recompute();
 	}
@@ -107,6 +109,9 @@ public class Agenda<Spanned> extends JPanel  {
 				labs[0][i].setBackground(new Color(229,236,246));
 			  
 		    }
+		    
+		    Object connecteur = Connecteur.connecteurUL;
+			List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
 			 
 
 		 // Case des dates jour du mois.
@@ -139,9 +144,6 @@ public class Agenda<Spanned> extends JPanel  {
 				String debut = anneeSelect+"-"+month_number+"-"+jourF;
 				String moisAnSelect = anneeSelect+"-"+month_number;
 		    	
-				Object connecteur = Connecteur.connecteurUL;
-				List<List> List_CE= controller.AgendaC.consultationEvenement(User.id_utilisateur);
-				System.out.println("event :"+List_CE+User.id_utilisateur+ connecteur);
 
 				
 
@@ -241,82 +243,82 @@ public class Agenda<Spanned> extends JPanel  {
 								          
 								         
 								          Object[][] data = {  
-								        	{"07:00", "", "",""},
-								            {"07:15","","",""},
-								            {"07:30","","",""},
-								            {"07:45","","",""},
-								            {"08:00","","",""},
-								            {"08:15","","",""},
-								            {"08:30","","",""},
-								            {"08:45","","",""},
-								            {"09:00","","",""},
-								            {"09:15","","",""},
-								            {"09:30","","",""},
-								            {"09:45","","",""},
-								            {"10:00","","",""},
-								            {"10:15","","",""},
-								            {"10:30","","",""},
-								            {"10:45","","",""},
-								            {"11:00","","",""},
-								            {"11:15","","",""},
-								            {"11:30","","",""},
-								            {"11:45","","",""},
-								            {"12:00","","",""},
-								            {"12:00","","",""},
-								            {"12:15","","",""},
-								            {"12:30","","",""},
-								            {"12:45","","",""},
-								            {"13:00","","",""},
-								            {"13:15","","",""},
-								            {"13:30","","",""},
-								            {"13:45","","",""},
-								            {"14:00","","",""},
-								            {"14:15","","",""},
-								            {"14:30","","",""},
-								            {"14:45","","",""},
-								            {"15:00","","",""},
-								            {"15:15","","",""},
-								            {"15:30","","",""},
-								            {"15:45","","",""},
-								            {"16:00","","",""},
-								            {"16:15","","",""},
-								            {"16:30","","",""},
-								            {"16:45","","",""},
-								            {"17:00","","",""},
-								            {"17:15","","",""},
-								            {"17:30","","",""},
-								            {"17:45","","",""},
-								            {"18:00","","",""},
-								            {"18:15","","",""},
-								            {"18:30","","",""},
-								            {"18:45","","",""},
-								            {"19:00","","",""},
-								            {"19:15","","",""},
-								            {"19:30","","",""},
-								            {"19:45","","",""},
-								            {"20:00","","",""},
-								            {"20:15","","",""},
-								            {"20:30","","",""},
-								            {"20:45","","",""},
-								            {"21:00","","",""},
-								            {"21:15","","",""},
-								            {"21:30","","",""},
-								            {"21:45","","",""},
-								            {"22:00","","",""},
-								            {"22:15","","",""},
-								            {"22:30","","",""},
-								            {"22:45","","",""},
-								            {"23:00","","",""},
-								            {"23:15","","",""},
-								            {"23:30","","",""},
-								            {"23:45","","",""},
+								        	{"","07:00", "", "",""},
+								            {"","07:15","","",""},
+								            {"","07:30","","",""},
+								            {"","07:45","","",""},
+								            {"","08:00","","",""},
+								            {"","08:15","","",""},
+								            {"","08:30","","",""},
+								            {"","08:45","","",""},
+								            {"","09:00","","",""},
+								            {"","09:15","","",""},
+								            {"","09:30","","",""},
+								            {"","09:45","","",""},
+								            {"","10:00","","",""},
+								            {"","10:15","","",""},
+								            {"","10:30","","",""},
+								            {"","10:45","","",""},
+								            {"","11:00","","",""},
+								            {"","11:15","","",""},
+								            {"","11:30","","",""},
+								            {"","11:45","","",""},
+								            {"","12:00","","",""},
+								            {"","12:00","","",""},
+								            {"","12:15","","",""},
+								            {"","12:30","","",""},
+								            {"","12:45","","",""},
+								            {"","13:00","","",""},
+								            {"","13:15","","",""},
+								            {"","13:30","","",""},
+								            {"","13:45","","",""},
+								            {"","14:00","","",""},
+								            {"","14:15","","",""},
+								            {"","14:30","","",""},
+								            {"","14:45","","",""},
+								            {"","15:00","","",""},
+								            {"","15:15","","",""},
+								            {"","15:30","","",""},
+								            {"","15:45","","",""},
+								            {"","16:00","","",""},
+								            {"","16:15","","",""},
+								            {"","16:30","","",""},
+								            {"","16:45","","",""},
+								            {"","17:00","","",""},
+								            {"","17:15","","",""},
+								            {"","17:30","","",""},
+								            {"","17:45","","",""},
+								            {"","18:00","","",""},
+								            {"","18:15","","",""},
+								            {"","18:30","","",""},
+								            {"","18:45","","",""},
+								            {"","19:00","","",""},
+								            {"","19:15","","",""},
+								            {"","19:30","","",""},
+								            {"","19:45","","",""},
+								            {"","20:00","","",""},
+								            {"","20:15","","",""},
+								            {"","20:30","","",""},
+								            {"","20:45","","",""},
+								            {"","21:00","","",""},
+								            {"","21:15","","",""},
+								            {"","21:30","","",""},
+								            {"","21:45","","",""},
+								            {"","22:00","","",""},
+								            {"","22:15","","",""},
+								            {"","22:30","","",""},
+								            {"","22:45","","",""},
+								            {"","23:00","","",""},
+								            {"","23:15","","",""},
+								            {"","23:30","","",""},
+								            {"","23:45","","",""},
 
 								          };
 								          
 								         
 
 								          //Les titres des colonnes
-								          String  title[] = {"Heure de début", "Evenement", "Heure de fin", "Voir l'évenement"};
+								          String  title[] = {"ID","Heure de début", "Evenement", "Heure de fin", "Voir l'évenement"};
 								          JTable tableau = new JTable(data, title);
 								          //Nous ajoutons notre tableau à notre contentPane dans un scroll
 								          //Sinon les titres des colonnes ne s'afficheront pas !
@@ -328,29 +330,27 @@ public class Agenda<Spanned> extends JPanel  {
 								          int colonneS = tableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
 								          Object cellule = tableau.getValueAt(4,0);
 								          Object statusValue = tableau.getModel().getValueAt(1, 0);
-								          
-								         // JButton voir = new JButton("Voir");
+								     
+							        	  
 
 							        	  int ligne = 0;
+
 								          while(ligne < 69) {
 
-								        	  Object col = tableau.getValueAt(ligne,0);
+								        	  Object col = tableau.getValueAt(ligne,1);
 								        	  ligne ++;
 								        	  String colString = String.valueOf(col);
-								        	  
 									          if(colString.equals(heureDebut)) {
-									        	  for (int e=0; e<List_CE.size();e++) {
-										        	  System.out.println("event :"+event);
 
-									        		  tableau.setValueAt(event, ligne-1,1 );
-									        	  }
-									        	  
+									        	  for (int e=0; e<69;e++) {
+									        		  tableau.setValueAt(idAgenda, ligne-1,0 );
+									        		  tableau.setValueAt(event, ligne-1,3 );
+									        		  IDCal = (String) tableau.getValueAt(ligne-1,0 );
+										        		
 									        	  tableau.setDefaultRenderer(JButton.class, new ButtonRenderer());
 									        	  tableau.getColumn("Voir l'évenement").setCellEditor(new ButtonEditor());
-
-
-									        	 // tableau.setValueAt(voir, ligne-1, 3);
 										
+									        	  }
 									          }
 									          else {
 									          }
@@ -478,6 +478,7 @@ public class Agenda<Spanned> extends JPanel  {
 												    	
 												    	  Object connecteur = Connecteur.connecteurUL;
 														  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
+														 
 														  try {
 															for(int j=0; j<eventA.size();j++) {
 																 String eventAfterU= (String) eventA.get(j).get(0);

@@ -142,18 +142,19 @@ public class AgendaC {
 
 	
 	public static  List<List> consultationEvenement(int IdUser) {
-		Statement statement = null;
-		ResultSet resultat = null;
+		
 		try {
 			List<List> List_CE = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurUL;
 
+
 		    /* Création de l'objet gérant les requêtes */
-			statement = conn.createStatement();
+			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien, idRole from agenda where idUtilisateur="+IdUser+";";
-			resultat = statement.executeQuery(requete);
+			ResultSet resultat = statement.executeQuery(requete);
+			
 			
 		
 		    /* Récupération des données du résultat de la requête de lecture */
@@ -189,10 +190,8 @@ public class AgendaC {
 	            event.add(Integer.toString(idRole));
 
 				List_CE.add(event);
-				   System.out.println("event bdd:"+List_CE);
 
 	           
-				
 			}
 
 			return List_CE;
@@ -206,18 +205,76 @@ public class AgendaC {
 			
 			return null;
 		}
-		finally {
-			if (resultat != null) {
-				try {
-					resultat.close();
-				} catch (SQLException e) { /* ignored */}
+
+		
+	
+	}
+	
+public static  List<List> consultationThisEvenement(String iDCal) {
+		
+		try {
+			List<List> List_CE = new ArrayList<List>();
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
+		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien, idRole from agenda where idAgenda='"+iDCal+"';";
+			ResultSet resultat = statement.executeQuery(requete);
+			
+			
+		
+		    /* Récupération des données du résultat de la requête de lecture */
+		    while(resultat.next()) {
+				List<String> event = new ArrayList<String>();
+
+	            String evenement = resultat.getString("evenement");
+	            Date dateD = resultat.getDate("dateDebut");
+	            Date dateFin = resultat.getDate("dateFin");
+	            int idUtilisateur = resultat.getInt("idUtilisateur");
+	            String heureDebut = resultat.getString("heureDebut");
+	            String heureFin = resultat.getString("heureFin");
+	            int idAgenda = resultat.getInt("idAgenda");
+	            int idMedecin= resultat.getInt("idPraticien");
+	            int idRole = resultat.getInt("idRole");
+
+
+	            //convertir une date en string
+	            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            
+	            String strDateD = dateFormat.format(dateD);
+	            String strDateF = dateFormat.format(dateFin);
+	            
+	            
+	            event.add(evenement);
+	            event.add(strDateD);
+	            event.add(strDateF);
+	            event.add(Integer.toString(idUtilisateur));
+	            event.add(heureDebut);
+	            event.add(heureFin);
+	            event.add(Integer.toString(idAgenda));
+	            event.add(Integer.toString(idMedecin));
+	            event.add(Integer.toString(idRole));
+
+				List_CE.add(event);
+
+	           
 			}
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) { /* ignored */}
-			}
+
+			return List_CE;
+
+		   
 		}
+		
+		    
+		catch (Exception e){
+			
+			
+			return null;
+		}
+
 		
 	
 	}
@@ -229,7 +286,6 @@ public class AgendaC {
 			List<List> List_CLE = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurUL;
 
-			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 			statement = conn.createStatement();
 			
@@ -662,6 +718,64 @@ public class AgendaC {
 		}
 		
 		
+	}
+	
+public static  List<List> consultationThisMedecin(String idPraticien) {
+		
+		try {
+			List<List> List_CTM = new ArrayList<List>();
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
+		    String requete = "SELECT * FROM praticien left join agenda on praticien.idPraticien=agenda.idPraticien where agenda.idPraticien = '"+idPraticien+"';";
+			ResultSet resultat = statement.executeQuery(requete);
+			
+			
+		
+		    /* Récupération des données du résultat de la requête de lecture */
+		    while(resultat.next()) {
+				List<String> event = new ArrayList<String>();
+
+	            String nom = resultat.getString("nom");
+	            String prenom = resultat.getString("prenom");
+	            String adresse = resultat.getString("adresse");
+	            String ville = resultat.getString("ville");
+	            String cp = resultat.getString("codePostal");
+	            String tel = resultat.getString("telephone");
+	            int idMedecin= resultat.getInt("idPraticien");
+          
+	            event.add(nom);
+	            event.add(prenom);
+	            event.add(adresse);
+	            event.add(ville);
+	            event.add(cp);
+	            event.add(tel);
+	            event.add(Integer.toString(idMedecin));
+
+				List_CTM.add(event);
+				System.out.println("doc bdd"+List_CTM);
+
+	           
+			}
+
+			return List_CTM;
+
+		   
+		}
+		
+		    
+		catch (Exception e){
+			
+			
+			return null;
+		}
+
+		
+	
 	}
 }
 

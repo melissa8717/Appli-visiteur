@@ -31,7 +31,6 @@ public class compteRenduControleur {
 					"INSERT INTO" + 
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
 					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"')";
-			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
@@ -51,7 +50,6 @@ public class compteRenduControleur {
 	public static List<List> selectMedecin() {
 		try {
 			List<List> List_Medecins = new ArrayList<List>();
-
 			Connection conn = (Connection) Connecteur.connecteurUL;
 
 			/* Requête de récupération des ids des médecins */
@@ -99,7 +97,6 @@ public class compteRenduControleur {
 		try {
 		Connection conn = (Connection) Connecteur.connecteurML;
 		
-		System.out.println("connection"+conn);
 	    /* Création de l'objet gérant les requêtes */
 		Statement statement = conn.createStatement();
 		
@@ -135,7 +132,6 @@ public class compteRenduControleur {
 			List<List> List_CR = new ArrayList<List>();
 			Connection conn =(Connection) Connecteur.connecteurUL;
 
-			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
 			
@@ -184,7 +180,7 @@ public class compteRenduControleur {
 	            // Pour faire ca, faut que les attributs de user soit en static, me demander par pourquoi
 			}
 		    if(List_CR.isEmpty()) {
-				System.out.println("empty");
+				//System.out.println("empty");
 			}
 		    
 
