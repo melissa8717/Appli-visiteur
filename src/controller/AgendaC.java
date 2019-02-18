@@ -210,6 +210,75 @@ public class AgendaC {
 	
 	}
 	
+public static  List<List> consultationEvenementMois(int IdUser, int mois) {
+		
+		try {
+			List<List> List_CE = new ArrayList<List>();
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
+		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien, idRole from agenda where idUtilisateur="+IdUser+" and dateDebut ="+mois+";";
+			ResultSet resultat = statement.executeQuery(requete);
+			
+			
+		
+		    /* Récupération des données du résultat de la requête de lecture */
+		    while(resultat.next()) {
+				List<String> event = new ArrayList<String>();
+
+	            String evenement = resultat.getString("evenement");
+	            Date dateD = resultat.getDate("dateDebut");
+	            Date dateFin = resultat.getDate("dateFin");
+	            int idUtilisateur = resultat.getInt("idUtilisateur");
+	            String heureDebut = resultat.getString("heureDebut");
+	            String heureFin = resultat.getString("heureFin");
+	            int idAgenda = resultat.getInt("idAgenda");
+	            int idMedecin= resultat.getInt("idPraticien");
+	            int idRole = resultat.getInt("idRole");
+
+
+	            //convertir une date en string
+	            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            
+	            String strDateD = dateFormat.format(dateD);
+	            String strDateF = dateFormat.format(dateFin);
+	            
+	            
+	            event.add(evenement);
+	            event.add(strDateD);
+	            event.add(strDateF);
+	            event.add(Integer.toString(idUtilisateur));
+	            event.add(heureDebut);
+	            event.add(heureFin);
+	            event.add(Integer.toString(idAgenda));
+	            event.add(Integer.toString(idMedecin));
+	            event.add(Integer.toString(idRole));
+
+				List_CE.add(event);
+
+	           
+			}
+
+			return List_CE;
+
+		   
+		}
+		
+		    
+		catch (Exception e){
+			
+			
+			return null;
+		}
+
+		
+	
+	}
+	
 public static  List<List> consultationThisEvenement(String iDCal) {
 		
 		try {
