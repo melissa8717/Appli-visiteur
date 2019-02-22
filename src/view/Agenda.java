@@ -79,21 +79,21 @@ public class Agenda<Spanned> extends JPanel  {
 	  /** The month choice */
 	  public JComboBox<String> monthChoice;
 
-	  
 
 
 	  /** The year choice */
 	  public JComboBox<String> yearChoice;
+	  JPanel tp = new JPanel();
 	  
-	
+
 
 
 	protected int recompute() {
 		// TODO Auto-generated method stub
 		// Blank out all
-		JButton avant = new JButton();
-		JButton après = new JButton();
-
+		
+	
+		  
 		for (int i = 0; i < 6; i++)
 		      for (int j = 0; j < 7; j++) 
 		         labs[i][j].setText("");
@@ -136,15 +136,28 @@ public class Agenda<Spanned> extends JPanel  {
 				String moisAnSelect = moisSelect+"-"+anneeSelect;
 				Font p = new Font("open-sans", Font.PLAIN, 18);
 				//System.out.println("mois select"+moisAnSelect);
-		        int moisSelectPrev = moisInt - 01;
+		        int moisSelectPrev = moisInt - 1;
 		        int moisSelectPrevZero =0+moisSelectPrev;
 		        String moisPrevStr = Integer.toString(moisSelectPrevZero);
 		        // si egal a douze mettre a 1
 		        String moisAnPrev = anneeSelect+"-"+0+moisPrevStr;
 
-		        labs[0][0].setBackground(Color.yellow);
+		        labs[0][0].setBackground(Color.cyan);
 		        labs[0][0].setText("Mois précédent");
 		        labs[0][0].addActionListener(e ->{
+		        	
+		        	Object moisSelectedObj = monthChoice.getSelectedItem();
+		    		String moisSrt = String.valueOf(moisSelectedObj);
+		    		JPanel moisCal = new JPanel();
+		    		String moisLettre = GetMoisLettreToDate(moisPrevStr);
+
+		    		Font h3 = new Font("open-sans", Font.BOLD, 22);
+		    		moisCal.setFont(h3);
+		    		moisCal.setBackground(Color.yellow);
+		    		this.add(moisCal);
+	        		JButton mois = new JButton(moisLettre);
+	        	
+	        		moisCal.add(mois);
 
 						b.removeAll(); 
 						b.updateUI();
@@ -182,7 +195,6 @@ public class Agenda<Spanned> extends JPanel  {
 								int countEvent = controller.AgendaC.countEvenement(User.id_utilisateur, dateDebut);
 								
 								 if(moisAnPrev.equals(moisAn)) {
-									 System.out.println("i am in mois");
 									 if(dateJourInt == iNew){
 
 										List<Integer> elements=new ArrayList<>();
@@ -865,7 +877,36 @@ public class Agenda<Spanned> extends JPanel  {
 	    }
 	  
 	
-	  
+	  public static String GetMoisLettreToDate(String str){
+		    switch (str) {
+		      case "1":
+		        return "Janvier";
+		      case "2":
+		        return "Février";
+		      case "3":
+		        return "Mars";
+		      case "4":
+		        return "Avril";
+		      case "5":
+		        return "Mai";
+		      case "6":
+		        return "Juin";
+		      case "7":
+		        return "Juillet";
+		      case "8":
+		        return "Aout";
+		      case "9":
+		        return "Septembre";
+		      case "10":
+		        return "Octobre";
+		      case "11":
+		        return "Novembre";
+		      case "12":
+		        return "Décembre";
+		      default: 
+		        return str;
+		    }
+		  }
 
 	private boolean isLeap(int year) {
 		// TODO Auto-generated method stub
@@ -882,11 +923,6 @@ public class Agenda<Spanned> extends JPanel  {
 		    setBorder(BorderFactory.createEtchedBorder());
 
 		    setLayout(new BorderLayout());
-
-		    JPanel tp = new JPanel();
-		 
-
-
 
 		  //barre ou il ya les deux listes d�roulantes
 			BoxLayout box= new BoxLayout(tp, BoxLayout.Y_AXIS);
@@ -925,7 +961,7 @@ public class Agenda<Spanned> extends JPanel  {
 		        Object connecteur = Connecteur.connecteurUL;
 				List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
 				
-		     /*   b.removeAll(); 
+		     /*b.removeAll(); 
 				b.updateUI();*/
 		        
 
@@ -1069,4 +1105,3 @@ public class Agenda<Spanned> extends JPanel  {
 	
 	
 }
-	
