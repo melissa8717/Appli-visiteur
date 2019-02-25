@@ -153,8 +153,7 @@ public class SaisiCompteRendu extends JPanel {
     	panel[0].add(espacement[9]);
     	panel[0].add(Medicament);
     	panel[0].add(BoxMedocChoice);
-    	System.out.println(BoxMedocChoice);
-    	//nomMedoc[0].setColumns(15);
+       	//nomMedoc[0].setColumns(15);
         panel[1].add(Titre);
         
  
