@@ -21,15 +21,15 @@ public class CnxBDD {
 			
 			
 		    
-		   /* Config c = new Config();
+		   Config c = new Config();
 
 		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+"?useSSL=false";
 		    String user = c.getProp("DB_USER");
-		    String passwd = c.getProp("DB_PASSWORD");*/
+		    String passwd = c.getProp("DB_PASSWORD");
 		    
-		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		    /*String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 		    String user = "root";
-		    String passwd = "";
+		    String passwd = "";*/
 		    
 		    //utilisez ce connecteur partout ! sinon je vous frappe !!!!
 
@@ -64,16 +64,11 @@ public class CnxBDD {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-		    /*String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
-		    String user = "rootuser";
+			Config c = new Config();
 
-		    String passwd = "Aristee.2018..//";*/
-
-		    String url ="jdbc:mysql://localhost/medoc?useSSL=false";
-
-		    String user = "root";
-		    String passwd = "";
-
+		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE_MEDOC")+"?useSSL=false";
+		    String user = c.getProp("DB_USER");
+		    String passwd = c.getProp("DB_PASSWORD");
 
 		    Connecteur.connecteurML = DriverManager.getConnection(url, user, passwd);
 		    return Connecteur.connecteurML; 
@@ -104,9 +99,10 @@ public class CnxBDD {
 		ResultSet resultat = null;
 		try {
 			Connection conn = connecteurUserLab();
-		    
+			Connection connMedoc=connecteurMedocLab();
 		    /* Cr�ation de l'objet g�rant les requ�tes */
 		    statement = conn.createStatement();
+		    //statement = connMedoc.createStatement();
 		    
 		    /* Ex�cution d'une requ�te de lecture */
 		    

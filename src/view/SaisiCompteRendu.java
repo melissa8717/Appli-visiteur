@@ -62,8 +62,8 @@ public class SaisiCompteRendu extends JPanel{
         
         //selectMedicament
         List<List> ListMed= compteRenduControleur.selectMedecin();
-       // List<List> ListMedoc= compteRenduControleur.selectMedicament();
-       /* List<String> ListNomMed=new ArrayList<String>();
+        List<List> ListMedoc= compteRenduControleur.selectMedicament();
+        List<String> ListNomMed=new ArrayList<String>();
         List<Integer> ListIdMed=new ArrayList<Integer>();
         List<String> ListNomMedoc=new ArrayList<String>();
         List<Integer> ListIdMedoc=new ArrayList<Integer>();
@@ -76,7 +76,7 @@ public class SaisiCompteRendu extends JPanel{
 			
 		}
         
-      /*  for (int i = 0; i < ListMedoc.size(); i++) {
+      for (int i = 0; i < ListMedoc.size(); i++) {
         	
         	int idTemp=Integer.valueOf((String) ListMedoc.get(i).get(0));
         	ListIdMedoc.add(idTemp);
@@ -90,8 +90,8 @@ public class SaisiCompteRendu extends JPanel{
         Integer[] idMedoc=ListIdMedoc.toArray(new Integer[0]);
         JComboBox<?> BoxMedocChoice = new JComboBox<Object>(nomMedoc);
         String[] MotifItems = {"Visite annuelle", "Visite pour nouveau produit", "Motif personnalisé"};
-        JComboBox<?> BoxMedChoice = new JComboBox<Object>(nomMed);*/
-        //JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
+        JComboBox<?> BoxMedChoice = new JComboBox<Object>(nomMed);
+        JComboBox<?> BoxMotifChoice = new JComboBox<Object>(MotifItems);
        
 
         
@@ -152,7 +152,7 @@ public class SaisiCompteRendu extends JPanel{
     	
     	panel[0].add(espacement[9]);
     	panel[0].add(Medicament);
-    	//panel[0].add(BoxMedocChoice);
+    	panel[0].add(BoxMedocChoice);
     	//nomMedoc.setColumns(15);
         panel[1].add(Titre);
         
@@ -169,17 +169,17 @@ public class SaisiCompteRendu extends JPanel{
         
        // panel[2].add(BoxMedChoice);
         
-     /*   panel[4].add(BoxMotifChoice);
+        panel[4].add(BoxMotifChoice);
         panel[4].add(MotifPersonnalise);
         MotifPersonnalise.setEditable(false);
-        //panel[4].add(MotifPersonnalise);
+        panel[4].add(MotifPersonnalise);
         BoxMotifChoice.addActionListener(e -> {	
 			if(BoxMotifChoice.getSelectedIndex()==2) {
 				MotifPersonnalise.setEditable(true);
 			} else {
 				MotifPersonnalise.setEditable(false);
 			}
-		    });*/
+		    });
         
         for (int i = 0; i < 9; i++) {
         	panel[i].setPreferredSize(new Dimension(widhtPanel,heightPanel/11));
@@ -210,15 +210,15 @@ public class SaisiCompteRendu extends JPanel{
 				String AreaText;
 				String DateChoisie;
 				//String Medicament;
-				/*int Medoc= idMedoc[(int) BoxMedocChoice.getSelectedIndex()];
-				int Medecin= idMed[(int) BoxMedChoice.getSelectedIndex()];*/
-				/*int MotifIndex= (int) BoxMotifChoice.getSelectedIndex();
+				int Medoc= idMedoc[(int) BoxMedocChoice.getSelectedIndex()];
+				int Medecin= idMed[(int) BoxMedChoice.getSelectedIndex()];
+				int MotifIndex= (int) BoxMotifChoice.getSelectedIndex();
 				String Motif;
 				if(MotifIndex==2) {
 				Motif=MotifPersonnalise.getText();
 				}else {
 					Motif=(String) BoxMotifChoice.getSelectedItem();
-				}*/
+				}
 			
 				try {
 					Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
