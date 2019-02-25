@@ -65,15 +65,13 @@ public class CnxBDD {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-		    /*String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
-		    String user = "rootuser";
 
-		    String passwd = "Aristee.2018..//";*/
+			Config c = new Config();
 
-			String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
+		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE_MEDOC")+"?useSSL=false";
+		    String user = c.getProp("DB_USER");
+		    String passwd = c.getProp("DB_PASSWORD");
 
-			String user = "root";
-			String passwd = "root";
 
 		    Connecteur.connecteurML = DriverManager.getConnection(url, user, passwd);
 		    return Connecteur.connecteurML; 
@@ -105,9 +103,10 @@ public class CnxBDD {
 		ResultSet resultat = null;
 		try {
 			Connection conn = connecteurUserLab();
-		    
+			Connection connMedoc=connecteurMedocLab();
 		    /* Cr�ation de l'objet g�rant les requ�tes */
 		    statement = conn.createStatement();
+		    //statement = connMedoc.createStatement();
 		    
 		    /* Ex�cution d'une requ�te de lecture */
 		    
