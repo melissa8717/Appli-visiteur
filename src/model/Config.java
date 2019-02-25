@@ -14,6 +14,7 @@ public class Config {
 		config = new Properties();
 		try {
 			config.load(new FileInputStream(new File("config.properties")));
+			//System.out.println("toto");
 		}
 		catch (IOException e) {
 			e.printStackTrace();
