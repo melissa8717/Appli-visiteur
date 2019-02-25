@@ -87,7 +87,7 @@ public class SaisiCompteRendu extends JPanel {
 
 		}
 		String nomMed[] = ListNomMed.toArray(new String[0]);
-		String nomMedoc[] = ListNomMed.toArray(new String[0]);
+		String[] nomMedoc = ListNomMedoc.toArray(new String[0]);
 
 		Integer[] idMed = ListIdMed.toArray(new Integer[0]);
 		Integer[] idMedoc = ListIdMedoc.toArray(new Integer[0]);
@@ -153,7 +153,8 @@ public class SaisiCompteRendu extends JPanel {
     	panel[0].add(espacement[9]);
     	panel[0].add(Medicament);
     	panel[0].add(BoxMedocChoice);
-    	//nomMedoc.setColumns(15);
+    	System.out.println(BoxMedocChoice);
+    	//nomMedoc[0].setColumns(15);
         panel[1].add(Titre);
         
  
@@ -167,7 +168,7 @@ public class SaisiCompteRendu extends JPanel {
         panel[5].add(nbrEchantillonsField);
         nbrEchantillonsField.setColumns(3);
         
-       // panel[2].add(BoxMedChoice);
+       panel[2].add(BoxMedChoice);
         
         panel[4].add(BoxMotifChoice);
         panel[4].add(MotifPersonnalise);
@@ -242,7 +243,7 @@ public class SaisiCompteRendu extends JPanel {
 				int nbrEchantillons;
 				String AreaText;
 				String DateChoisie;
-				// String Medicament;
+				
 				int Medoc = idMedoc[(int) BoxMedocChoice.getSelectedIndex()];
 				int Medecin = idMed[(int) BoxMedChoice.getSelectedIndex()];
 				int MotifIndex = (int) BoxMotifChoice.getSelectedIndex();
@@ -264,14 +265,14 @@ public class SaisiCompteRendu extends JPanel {
 					compteRenduFalse.setVisible(true);
 					DateChoisie = null;
 				}
-				/*
-				 * try {
-				 * 
-				 * Medicament = nomMedoc.getText(); if(Medicament=="" || Medicament.length()<=2)
-				 * { Medicament=null; compteRenduFalse.setVisible(true); } }catch (Exception
-				 * erreurMedoc) { compteRenduFalse.setVisible(true); Medicament =null;
-				 * 
-				 * }
+				
+				 /*try {
+				  
+				 Medicament = nomMedoc.getText(); if(Medicament=="" || Medicament.length()<=2)
+				 { Medicament=null; compteRenduFalse.setVisible(true); } }catch (Exception
+				 erreurMedoc) { compteRenduFalse.setVisible(true); Medicament =null;
+				  
+				 }
 				 */
 				try {
 					nbrEchantillons = Integer.parseInt(nbrEchantillonsField.getText());
@@ -313,7 +314,7 @@ public class SaisiCompteRendu extends JPanel {
 						compteRenduFalse.setVisible(false);
 						inputArea.setText("");
 						;
-						// nomMedoc.setValue("");
+						//nomMedoc.setValue("");
 						nbrEchantillonsField.setValue("");
 
 					} else {
