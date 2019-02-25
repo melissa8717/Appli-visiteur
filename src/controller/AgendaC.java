@@ -825,8 +825,7 @@ public static  List<List> consultationThisMedecin(String idPraticien) {
 
 		
 	
-	}
-}
+	
 
 	}
 }

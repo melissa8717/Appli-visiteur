@@ -204,16 +204,12 @@ public class compteRenduControleur {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
-			System.out.println(conn);
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
-			System.out.println(statement);
 			ResultSet resultat = statement.executeQuery(requete);
-			System.out.println("test 2");
 			/* Récupère tous les id des medicament */
 			while(resultat.next()) {
-				System.out.println("test boucle");
 				List<String> unMedoc = new ArrayList<String>();
 				int idMed= resultat.getInt( "idMedicament" );
 				String nomMed= resultat.getString( "nom" );
@@ -221,7 +217,6 @@ public class compteRenduControleur {
 				unMedoc.add(nomMed);
 				List_Medoc.add(unMedoc);
 			}
-			System.out.println("test final");
 			return List_Medoc;
 			
 			
