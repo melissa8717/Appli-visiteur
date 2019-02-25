@@ -81,7 +81,6 @@ public class ConsultationCompteRendu extends JPanel {
     		   new JButton("Voir"),new JButton("Voir"),new JButton("Voir")};
        
        CRChangeLabel(Integer.parseInt(dateFormat.format(new Date())),0,date,medoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
-       System.out.println(carte.length);
        for (int i = 0; i < carte.length; i++) {
     	   carte[i].setBackground(Color.white);
     	   carte[i].setPreferredSize(new Dimension(1820,50));

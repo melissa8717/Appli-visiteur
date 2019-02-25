@@ -18,25 +18,27 @@ public class CnxBDD {
 		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			
+			
+		    
+		   /* Config c = new Config();
 
-			Config c = new Config();
+		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+"?useSSL=false";
+		    String user = c.getProp("DB_USER");
+		    String passwd = c.getProp("DB_PASSWORD");*/
+		    
+		    String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
+		    String user = "root";
+		    String passwd = "";
+		    
+		    //utilisez ce connecteur partout ! sinon je vous frappe !!!!
 
-			/*
-			 * String url =
-			 * "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+
-			 * "?useSSL=false"; String user = c.getProp("DB_USER"); String passwd =
-			 * c.getProp("DB_PASSWORD");
-			 */
+		    Connecteur.connecteurUL = DriverManager.getConnection(url, user, passwd);
 
-			String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
-			String user = "root";
-			String passwd = "root";
+		    return Connecteur.connecteurUL; 
 
-			Connecteur.connecteurUL = DriverManager.getConnection(url, user, passwd);
-			System.out.println("connecteur" + Connecteur.connecteurUL);
-
-			return Connecteur.connecteurUL;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("La connexion a eu un probl�me");
 			return null;
@@ -63,22 +65,23 @@ public class CnxBDD {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-			/*
-			 * String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false"; String
-			 * user = "rootuser";
-			 * 
-			 * String passwd = "Aristee.2018..//";
-			 */
+		    /*String url = "jdbc:mysql://192.168.1.118/bdmedocLab?useSSL=false";
+		    String user = "rootuser";
+
+		    String passwd = "Aristee.2018..//";*/
+
+		    String url ="jdbc:mysql://localhost/medoc?useSSL=false";
 
 			String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
 
 			String user = "root";
 			String passwd = "root";
 
-			Connection conn = DriverManager.getConnection(url, user, passwd);
-			System.out.println("Connexion effective � la base BDUserLab!");
-			return conn;
-		} catch (Exception e) {
+		    Connecteur.connecteurML = DriverManager.getConnection(url, user, passwd);
+		    return Connecteur.connecteurML; 
+
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("La connexion a eu un probl�me");
 			return null;
@@ -100,22 +103,18 @@ public class CnxBDD {
 
 	/* Connexion et r�cup�ration des informations du user connect� */
 	public static Boolean connect(String login, String mdp, User User) {
-		Connection conn = null;
 		Statement statement = null;
 		ResultSet resultat = null;
 		try {
-			conn = connecteurUserLab();
-
-			/* Cr�ation de l'objet g�rant les requ�tes */
-			statement = conn.createStatement();
-
-			/* Ex�cution d'une requ�te de lecture */
-
-			// N'oubliez pas de mettre des ' ' sur vos variables comme ici pr�sent, j'ai mit
-			// 5min avant de comprendre xD
-			resultat = statement.executeQuery(
-					"SELECT idUtilisateur, login, password, nom, prenom,role  FROM utilisateur WHERE login='" + login
-							+ "' AND password='" + mdp + "';");
+			Connection conn = connecteurUserLab();
+		    
+		    /* Cr�ation de l'objet g�rant les requ�tes */
+		    statement = conn.createStatement();
+		    
+		    /* Ex�cution d'une requ�te de lecture */
+		    
+		    //N'oubliez pas de mettre des ' ' sur vos variables comme ici pr�sent, j'ai mit 5min avant de comprendre xD
+			resultat = statement.executeQuery("SELECT idUtilisateur, login, password, nom, prenom,role  FROM utilisateur WHERE login='" + login + "' AND password='" + mdp + "';");
 			statement.setFetchSize(100);
 
 			/* R�cup�ration des donn�es du r�sultat de la requ�te de lecture */
@@ -141,14 +140,11 @@ public class CnxBDD {
 			if (resultat != null) {
 				try {
 					resultat.close();
-					conn.close();
-				} catch (SQLException e) {
-					/* ignored */}
+				} catch (SQLException e) { /* ignored */}
 			}
 			if (statement != null) {
 				try {
 					statement.close();
-					conn.close();
 
 				} catch (SQLException e) {
 					/* ignored */}

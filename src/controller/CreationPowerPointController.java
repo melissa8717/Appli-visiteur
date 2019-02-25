@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.CnxBDD;
+import model.Connecteur;
 
 public class CreationPowerPointController {
 	
@@ -18,7 +19,7 @@ public class CreationPowerPointController {
 	
 	
 	try {
-		Connection conn = CnxBDD.connecteurMedocLab();
+		Connection conn = (Connection) Connecteur.connecteurML;
 	    
 	    /* Création de l'objet gérant les requêtes */
 	    Statement statement = conn.createStatement();
@@ -44,7 +45,7 @@ public class CreationPowerPointController {
 	public static String EffetMedoc(String nomMedicament){
 		String effet = null;
 		try {
-			Connection conn = CnxBDD.connecteurMedocLab();
+			Connection conn = (Connection) Connecteur.connecteurML;
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();
@@ -74,7 +75,7 @@ public class CreationPowerPointController {
 	public static String contreIndication(String nomMedicament){
 		String contreIndication = null;
 		try {
-			Connection conn = CnxBDD.connecteurMedocLab();
+			Connection conn = (Connection) Connecteur.connecteurML;
 		    
 		    /* Création de l'objet gérant les requêtes */
 		    Statement statement = conn.createStatement();

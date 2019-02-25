@@ -2,6 +2,7 @@ package view;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.awt.*;
 
 import javax.swing.*;
@@ -27,8 +28,16 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import view.agenda.Date;
 import model.Connecteur;
 
@@ -39,13 +48,15 @@ public class Agenda<Spanned> extends JPanel  {
          * 
          */
 	private static final long serialVersionUID = 1L;
+	public static String IDCal;
+	public static String List_Event;
 
 
 	public Agenda() {
 		TitrePrincipale bienvenue = new TitrePrincipale("Agenda");
 		
 		this.add(bienvenue);
-		 
+
 		    buildGUI();
 		    recompute();
 	}
@@ -68,18 +79,21 @@ public class Agenda<Spanned> extends JPanel  {
 	  /** The month choice */
 	  public JComboBox<String> monthChoice;
 
-	  
 
 
 	  /** The year choice */
 	  public JComboBox<String> yearChoice;
+	  JPanel tp = new JPanel();
 	  
-	
+
 
 
 	protected int recompute() {
 		// TODO Auto-generated method stub
 		// Blank out all
+		
+	
+		  
 		for (int i = 0; i < 6; i++)
 		      for (int j = 0; j < 7; j++) 
 		         labs[i][j].setText("");
@@ -88,7 +102,7 @@ public class Agenda<Spanned> extends JPanel  {
 		 if (isLeap(date.getYear()) && date.getMonth() == 1)
 		      daysInMonth++;
 		//case vide avant le premier jour
-		    for (int i = 0; i < date.firstDayOfTheMonth(); i++) {
+		    for (int i = 0; i < date.firstDayOfTheMonth(); i++) { 
 		    	labs[0][i].setText("");
 				labs[0][i].setSize(getMaximumSize());
 				this.setVisible(true);
@@ -96,30 +110,20 @@ public class Agenda<Spanned> extends JPanel  {
 				Font p = new Font("open-sans", Font.PLAIN, 18);
 				labs[0][i].setFont(p);
 				labs[0][i].setBackground(new Color(229,236,246));
-			  
+		
 		    }
+		    
+		    Object connecteur = Connecteur.connecteurUL;
+			List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
 			 
 
 		 // Case des dates jour du mois.
 		
 		    for ( int  i = 1; i <= daysInMonth; i++) {
 		    	final int  iNew = i;
-
 		  
-		      JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
-
-		      b.setText(Integer.toString(i));
-		      b.getText();
-			  Font p = new Font("open-sans", Font.PLAIN, 18);
-			  b.setFont(p);
-			  b.setBackground(Color.white);
-			  b.setForeground(new Color (0,63,128));
-
-
-			  b.setSize(getMaximumSize());
-			  
-
-			    String moisSelect = (String) monthChoice.getSelectedItem();
+		        JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
+		        String moisSelect = (String) monthChoice.getSelectedItem();
 				String anneeSelect = (String) yearChoice.getSelectedItem();
 			    java.util.Date cal=Calendar.getInstance().getTime();
 				SimpleDateFormat moisSelected = new SimpleDateFormat("MM");
@@ -128,30 +132,293 @@ public class Agenda<Spanned> extends JPanel  {
 				SimpleDateFormat jourFormat = new SimpleDateFormat("dd");
 				String jourF = jourFormat.format(cal.getTime());
 				String debut = anneeSelect+"-"+month_number+"-"+jourF;
-				String moisAnSelect = anneeSelect+"-"+month_number;
+				int moisInt = Integer.parseInt(month_number);
+				String moisAnSelect = moisSelect+"-"+anneeSelect;
+				Font p = new Font("open-sans", Font.PLAIN, 18);
+				//System.out.println("mois select"+moisAnSelect);
+		        int moisSelectPrev = moisInt - 1;
+		        int moisSelectPrevZero =0+moisSelectPrev;
+		        String moisPrevStr = Integer.toString(moisSelectPrevZero);
+		        // si egal a douze mettre a 1
+		        String moisAnPrev = anneeSelect+"-"+0+moisPrevStr;
 
-				List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
-				
+		        labs[0][0].setBackground(Color.cyan);
+		        labs[0][0].setText("Mois précédent");
+		        labs[0][0].addActionListener(e ->{
+		        	
+		        	Object moisSelectedObj = monthChoice.getSelectedItem();
+		    		String moisSrt = String.valueOf(moisSelectedObj);
+		    		JPanel moisCal = new JPanel();
+		    		String moisLettre = GetMoisLettreToDate(moisPrevStr);
 
-				try {
+		    		Font h3 = new Font("open-sans", Font.BOLD, 22);
+		    		moisCal.setFont(h3);
+		    		moisCal.setBackground(Color.yellow);
+		    		this.add(moisCal);
+	        		JButton mois = new JButton(moisLettre);
+	        	
+	        		moisCal.add(mois);
 
+						b.removeAll(); 
+						b.updateUI();
+						Object connecteur1 = Connecteur.connecteurUL;
+
+						for(int y=0; y<List_CE.size();y++) {
+								 String event= (String) List_CE.get(y).get(0);	
+
+
+								 String dateDebut= (String) List_CE.get(y).get(1);
+								 String dateFin= (String) List_CE.get(y).get(2);
+								 String heureDebut = (String) List_CE.get(y).get(4);
+								 String heureFin = (String) List_CE.get(y).get(5);
+								 String moisAn = GetDateSansJour(dateDebut);
+								 String dateJour = GetDateJour(dateDebut);
+								 int dateJourInt = Integer.parseInt(dateJour);
+								 String idAgenda = (String) List_CE.get(y).get(6);
+								 int idAgendaInt = Integer.parseInt(idAgenda);
+					
+								 JPanel jourPanel = new JPanel();
+								 jourPanel.setPreferredSize(new Dimension(250,50));
+								 JPanel eventPanel = new JPanel();
+								 eventPanel.setBackground(Color.white);
+								 JLabel eventLabel = new JLabel(Integer.toString(iNew)+event); 
+								 eventPanel.setFont(p);
+								 eventPanel.add(jourPanel);
+								 JButton buttonEvent = new JButton();
+								 buttonEvent.setBackground(Color.blue);
+								 buttonEvent.setForeground(Color.white);
+								 buttonEvent.setPreferredSize(new Dimension(200,50));
+								 buttonEvent.setFont(p);
+								 JButton countevent = new JButton();
+
+
+								int countEvent = controller.AgendaC.countEvenement(User.id_utilisateur, dateDebut);
+								
+								 if(moisAnPrev.equals(moisAn)) {
+									 if(dateJourInt == iNew){
+
+										List<Integer> elements=new ArrayList<>();
+										elements.add(dateJourInt);
+										JLabel jourText = new JLabel(jour);
+										eventPanel.add(jourPanel);
+										countevent.setBackground(Color.blue);
+										countevent.setForeground(Color.white);
+										countevent.setPreferredSize(new Dimension(200,50));
+										countevent.setFont(p);
+										b.removeAll(); 
+										b.updateUI();
+										b.add(eventPanel);
+										countevent.setText(" Voir détail");
+										jourPanel.add(countevent);
+										//bouton du few event
+										countevent.addActionListener(new ActionListener() {
+										public void actionPerformed1(ActionEvent ae) {
+											
+											if(moisAnSelect.equals(moisAn)) {
+
+													if(dateJourInt == iNew){
+																		 
+
+											    	  Popup fewEvent = new Popup("Evenements multiples", 1000,1000);
+
+											    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement(s) du "+ jour + " "+ moisSelect+" " + anneeSelect);
+											    	  fewEvent.add(titreOpened );
+											          JPanel eventPanel[]= {new JPanel()};
+											          
+											          String heureListe[]= {"07:00","07:15","07:30","07:45","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00"};
+											          JLabel heureLanelNext[] = {new JLabel("12:00") ,new JLabel("12:15"),new JLabel("12:30"),new JLabel("12:45"),new JLabel("13:00"),new JLabel("13:15"),new JLabel("13:30"),new JLabel("13:45"),new JLabel("14:00"),new JLabel("14:15")
+											        		  ,new JLabel("14:30"),new JLabel("14:45"),new JLabel("15:00"),new JLabel("15:15"),new JLabel("15:30"),new JLabel("15:45"),new JLabel("16:00"),new JLabel("16:15"),new JLabel("16:30"),new JLabel("16:45"),new JLabel("17:00"),new JLabel("17:15"),new JLabel("17:30"),new JLabel("17:45"),new JLabel("18:00")
+											        		  ,new JLabel("18:15"),new JLabel("18:30"),new JLabel("18:45"),new JLabel("19:00"),new JLabel("19:15"),new JLabel("19:30"),new JLabel("19:45"),new JLabel("20:00"),new JLabel("20:15"),new JLabel("20:30"),new JLabel("21:00"),new JLabel("21:15"),new JLabel("21:30"),new JLabel("21:45"),new JLabel("22:00")
+											        		  ,new JLabel("22:15"),new JLabel("22:30"),new JLabel("22:45"),new JLabel("23:00")};
+											          
+											          JLabel eventLabel[] = {new JLabel()};
+											    	  JPanel evenement[]= {new JPanel()};
+											    	  JLabel evenementLabel[]= {new JLabel(event)};
+											    	  JButton textEvent[] = {new JButton()};
+
+
+											          for(int p = 0;p<65;p++) {
+											        	  evenement = ajoutemoi(evenement, new JPanel());
+											          }
+											          
+											         
+											          Object[][] data = {  
+											        	{"","07:00", "", "",""},
+											            {"","07:15","","",""},
+											            {"","07:30","","",""},
+											            {"","07:45","","",""},
+											            {"","08:00","","",""},
+											            {"","08:15","","",""},
+											            {"","08:30","","",""},
+											            {"","08:45","","",""},
+											            {"","09:00","","",""},
+											            {"","09:15","","",""},
+											            {"","09:30","","",""},
+											            {"","09:45","","",""},
+											            {"","10:00","","",""},
+											            {"","10:15","","",""},
+											            {"","10:30","","",""},
+											            {"","10:45","","",""},
+											            {"","11:00","","",""},
+											            {"","11:15","","",""},
+											            {"","11:30","","",""},
+											            {"","11:45","","",""},
+											            {"","12:00","","",""},
+											            {"","12:00","","",""},
+											            {"","12:15","","",""},
+											            {"","12:30","","",""},
+											            {"","12:45","","",""},
+											            {"","13:00","","",""},
+											            {"","13:15","","",""},
+											            {"","13:30","","",""},
+											            {"","13:45","","",""},
+											            {"","14:00","","",""},
+											            {"","14:15","","",""},
+											            {"","14:30","","",""},
+											            {"","14:45","","",""},
+											            {"","15:00","","",""},
+											            {"","15:15","","",""},
+											            {"","15:30","","",""},
+											            {"","15:45","","",""},
+											            {"","16:00","","",""},
+											            {"","16:15","","",""},
+											            {"","16:30","","",""},
+											            {"","16:45","","",""},
+											            {"","17:00","","",""},
+											            {"","17:15","","",""},
+											            {"","17:30","","",""},
+											            {"","17:45","","",""},
+											            {"","18:00","","",""},
+											            {"","18:15","","",""},
+											            {"","18:30","","",""},
+											            {"","18:45","","",""},
+											            {"","19:00","","",""},
+											            {"","19:15","","",""},
+											            {"","19:30","","",""},
+											            {"","19:45","","",""},
+											            {"","20:00","","",""},
+											            {"","20:15","","",""},
+											            {"","20:30","","",""},
+											            {"","20:45","","",""},
+											            {"","21:00","","",""},
+											            {"","21:15","","",""},
+											            {"","21:30","","",""},
+											            {"","21:45","","",""},
+											            {"","22:00","","",""},
+											            {"","22:15","","",""},
+											            {"","22:30","","",""},
+											            {"","22:45","","",""},
+											            {"","23:00","","",""},
+											            {"","23:15","","",""},
+											            {"","23:30","","",""},
+											            {"","23:45","","",""},
+
+											          };
+											          
+											         
+
+											          //Les titres des colonnes
+											          String  title[] = {"ID","Heure de début", "Evenement", "Heure de fin", "Voir l'évenement"};
+											          JTable tableau = new JTable(data, title);
+											          //Nous ajoutons notre tableau à notre contentPane dans un scroll
+											          //Sinon les titres des colonnes ne s'afficheront pas !
+											          
+											          tableau.setRowHeight(20);
+											          tableau.getTableHeader().setBackground(new Color (0,63,128));
+											          tableau.getTableHeader().setForeground(Color.white);
+											          int ligneS = tableau.getSelectedRow();//Si tu veut la cellule selectionnée, sinon une autre valeur
+											          int colonneS = tableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
+											          Object cellule = tableau.getValueAt(4,0);
+											          Object statusValue = tableau.getModel().getValueAt(1, 0);
+											     
+										        	  
+
+										        	  int ligne = 0;
+
+											          while(ligne < 69) {
+
+											        	  Object col = tableau.getValueAt(ligne,1);
+											        	  ligne ++;
+											        	  String colString = String.valueOf(col);
+												          if(colString.equals(heureDebut)) {
+
+												        	  for (int e=0; e<69;e++) {
+												        		  tableau.setValueAt(idAgenda, ligne-1,0 );
+												        		  tableau.setValueAt(event, ligne-1,3 );
+												        		  IDCal = (String) tableau.getValueAt(ligne-1,0 );
+													        		
+												        	  tableau.setDefaultRenderer(JButton.class, new ButtonRenderer());
+												        	  tableau.getColumn("Voir l'évenement").setCellEditor(new ButtonEditor());
+													
+												        	  }//fin du for
+												          }//fin du if
+												       
+										        	  }//fin du while
+											      
+											          fewEvent.getContentPane().add(new JScrollPane(tableau));
+
+												}//fin du if jour dans action listener
+											}//fin if du mois dans action listener
+													  
+
+					/*@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}*/
+										}
+
+										@Override
+										public void actionPerformed(ActionEvent e) {
+											// TODO Auto-generated method stub
+											
+										}
+
+									});// fin count event
+
+								}// fin du if jour
+						
+							} // fin du 1e if
+						}// fin for event*/
+				//	}//fin action labs
+
+					/*@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					} */ 
+			});// fin event labs
+		   
+					
+
+		      b.setText(Integer.toString(i));
+		      b.getText();
+			  b.setFont(p);
+			  b.setBackground(Color.white);
+			  b.setForeground(new Color (0,63,128));
+
+
+			
 				for(int y=0; y<List_CE.size();y++) {
-					 String event= (String) List_CE.get(y).get(0);
+					 String event= (String) List_CE.get(y).get(0);	
+
+
 					 String dateDebut= (String) List_CE.get(y).get(1);
 					 String dateFin= (String) List_CE.get(y).get(2);
 					 String heureDebut = (String) List_CE.get(y).get(4);
-
 					 String heureFin = (String) List_CE.get(y).get(5);
 					 String moisAn = GetDateSansJour(dateDebut);
 					 String dateJour = GetDateJour(dateDebut);
 					 int dateJourInt = Integer.parseInt(dateJour);
 					 String idAgenda = (String) List_CE.get(y).get(6);
 					 int idAgendaInt = Integer.parseInt(idAgenda);
-					 ((java.sql.Connection) List_CE).close();
-					  ((Statement) List_CE).close();
-
-					 
-					 
+					
+		
 					 JPanel jourPanel = new JPanel();
 					 jourPanel.setPreferredSize(new Dimension(250,50));
 					 JPanel eventPanel = new JPanel();
@@ -166,667 +433,194 @@ public class Agenda<Spanned> extends JPanel  {
 					 buttonEvent.setFont(p);
 					 JButton countevent = new JButton();
 
-					// controller.AgendaC.countEvenement(User.id_utilisateur, debut);
-					 
+				 	 int countEvent = controller.AgendaC.countEvenement(User.id_utilisateur, dateDebut);
+					
+					
 
+					
 					 if(moisAnSelect.equals(moisAn)) {
-						
 						 if(dateJourInt == i){
-							 
-							 JLabel jourText = new JLabel(jour);
-							 eventPanel.add(jourPanel);
-							
-							 if(y==0)  {
-								 b.removeAll(); 
-								 b.updateUI();
-								 b.add(eventPanel);
-								 jourPanel.add(buttonEvent);
-								 buttonEvent.setText(event);
-							 }
-							 else if (y > 0) {
-								 for(int m = 0; m < y; m++) {
-										 countevent.setBackground(Color.orange);
-										 countevent.setForeground(Color.black);
-										 countevent.setPreferredSize(new Dimension(200,50));
-										 countevent.setFont(p);
-										
-										 int newY = y+1;
-										
 
-										 b.removeAll(); 
-										 b.updateUI();
-										 b.add(eventPanel);
-										 countevent.setText(newY+" évenements");
-										 jourPanel.add(countevent);
+							List<Integer> elements=new ArrayList<>();
+							elements.add(dateJourInt);
+							JLabel jourText = new JLabel(jour);
+							eventPanel.add(jourPanel);
+							countevent.setBackground(Color.blue);
+							countevent.setForeground(Color.white);
+							countevent.setPreferredSize(new Dimension(200,50));
+							countevent.setFont(p);
+							b.removeAll(); 
+							b.updateUI();
+							b.add(eventPanel);
+							countevent.setText(" Voir détail");
+							jourPanel.add(countevent);
 
-									 }
+
+									 
 								 //bouton du few event
 								 countevent.addActionListener(new ActionListener() {
 
+
 								      public void actionPerformed(ActionEvent ae) {
-								    	  Popup fewEvent = new Popup("Evenements multiples", 700,500);		
-								    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènements multiples "+ jour + " "+ moisSelect+" " + anneeSelect);
+								
+												  if(moisAnSelect.equals(moisAn)) {
+
+														 if(dateJourInt == iNew){
+															 
+
+								    	  Popup fewEvent = new Popup("Evenements multiples", 1000,1000);
+
+								    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement(s) du "+ jour + " "+ moisSelect+" " + anneeSelect);
 								    	  fewEvent.add(titreOpened );
-								    	  JPanel event = new JPanel();
-								    	  JLabel eventLAbel = new JLabel("Evenements :");
-								    	  
+								          JPanel eventPanel[]= {new JPanel()};
+								          
+								          String heureListe[]= {"07:00","07:15","07:30","07:45","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00"};
+								          JLabel heureLanelNext[] = {new JLabel("12:00") ,new JLabel("12:15"),new JLabel("12:30"),new JLabel("12:45"),new JLabel("13:00"),new JLabel("13:15"),new JLabel("13:30"),new JLabel("13:45"),new JLabel("14:00"),new JLabel("14:15")
+								        		  ,new JLabel("14:30"),new JLabel("14:45"),new JLabel("15:00"),new JLabel("15:15"),new JLabel("15:30"),new JLabel("15:45"),new JLabel("16:00"),new JLabel("16:15"),new JLabel("16:30"),new JLabel("16:45"),new JLabel("17:00"),new JLabel("17:15"),new JLabel("17:30"),new JLabel("17:45"),new JLabel("18:00")
+								        		  ,new JLabel("18:15"),new JLabel("18:30"),new JLabel("18:45"),new JLabel("19:00"),new JLabel("19:15"),new JLabel("19:30"),new JLabel("19:45"),new JLabel("20:00"),new JLabel("20:15"),new JLabel("20:30"),new JLabel("21:00"),new JLabel("21:15"),new JLabel("21:30"),new JLabel("21:45"),new JLabel("22:00")
+								        		  ,new JLabel("22:15"),new JLabel("22:30"),new JLabel("22:45"),new JLabel("23:00")};
+								          
+								          JLabel eventLabel[] = {new JLabel()};
+								    	  JPanel evenement[]= {new JPanel()};
+								    	  JLabel evenementLabel[]= {new JLabel(event)};
+								    	  JButton textEvent[] = {new JButton()};
+
+
+								          for(int p = 0;p<65;p++) {
+								        	  evenement = ajoutemoi(evenement, new JPanel());
+								          }
+								          
+								         
+								          Object[][] data = {  
+								        	{"","07:00", "", "",""},
+								            {"","07:15","","",""},
+								            {"","07:30","","",""},
+								            {"","07:45","","",""},
+								            {"","08:00","","",""},
+								            {"","08:15","","",""},
+								            {"","08:30","","",""},
+								            {"","08:45","","",""},
+								            {"","09:00","","",""},
+								            {"","09:15","","",""},
+								            {"","09:30","","",""},
+								            {"","09:45","","",""},
+								            {"","10:00","","",""},
+								            {"","10:15","","",""},
+								            {"","10:30","","",""},
+								            {"","10:45","","",""},
+								            {"","11:00","","",""},
+								            {"","11:15","","",""},
+								            {"","11:30","","",""},
+								            {"","11:45","","",""},
+								            {"","12:00","","",""},
+								            {"","12:00","","",""},
+								            {"","12:15","","",""},
+								            {"","12:30","","",""},
+								            {"","12:45","","",""},
+								            {"","13:00","","",""},
+								            {"","13:15","","",""},
+								            {"","13:30","","",""},
+								            {"","13:45","","",""},
+								            {"","14:00","","",""},
+								            {"","14:15","","",""},
+								            {"","14:30","","",""},
+								            {"","14:45","","",""},
+								            {"","15:00","","",""},
+								            {"","15:15","","",""},
+								            {"","15:30","","",""},
+								            {"","15:45","","",""},
+								            {"","16:00","","",""},
+								            {"","16:15","","",""},
+								            {"","16:30","","",""},
+								            {"","16:45","","",""},
+								            {"","17:00","","",""},
+								            {"","17:15","","",""},
+								            {"","17:30","","",""},
+								            {"","17:45","","",""},
+								            {"","18:00","","",""},
+								            {"","18:15","","",""},
+								            {"","18:30","","",""},
+								            {"","18:45","","",""},
+								            {"","19:00","","",""},
+								            {"","19:15","","",""},
+								            {"","19:30","","",""},
+								            {"","19:45","","",""},
+								            {"","20:00","","",""},
+								            {"","20:15","","",""},
+								            {"","20:30","","",""},
+								            {"","20:45","","",""},
+								            {"","21:00","","",""},
+								            {"","21:15","","",""},
+								            {"","21:30","","",""},
+								            {"","21:45","","",""},
+								            {"","22:00","","",""},
+								            {"","22:15","","",""},
+								            {"","22:30","","",""},
+								            {"","22:45","","",""},
+								            {"","23:00","","",""},
+								            {"","23:15","","",""},
+								            {"","23:30","","",""},
+								            {"","23:45","","",""},
+
+								          };
+								          
+								         
+
+								          //Les titres des colonnes
+								          String  title[] = {"ID","Heure de début", "Evenement", "Heure de fin", "Voir l'évenement"};
+								          JTable tableau = new JTable(data, title);
+								          //Nous ajoutons notre tableau à notre contentPane dans un scroll
+								          //Sinon les titres des colonnes ne s'afficheront pas !
+								          
+								          tableau.setRowHeight(20);
+								          tableau.getTableHeader().setBackground(new Color (0,63,128));
+								          tableau.getTableHeader().setForeground(Color.white);
+								          int ligneS = tableau.getSelectedRow();//Si tu veut la cellule selectionnée, sinon une autre valeur
+								          int colonneS = tableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
+								          Object cellule = tableau.getValueAt(4,0);
+								          Object statusValue = tableau.getModel().getValueAt(1, 0);
+								     
+							        	  
+
+							        	  int ligne = 0;
+
+								          while(ligne < 69) {
+
+								        	  Object col = tableau.getValueAt(ligne,1);
+								        	  ligne ++;
+								        	  String colString = String.valueOf(col);
+									          if(colString.equals(heureDebut)) {
+
+									        	  for (int e=0; e<69;e++) {
+									        		  tableau.setValueAt(idAgenda, ligne-1,0 );
+									        		  tableau.setValueAt(event, ligne-1,3 );
+									        		  IDCal = (String) tableau.getValueAt(ligne-1,0 );
+										        		
+									        	  tableau.setDefaultRenderer(JButton.class, new ButtonRenderer());
+									        	  tableau.getColumn("Voir l'évenement").setCellEditor(new ButtonEditor());
+										
+									        	  }
+									          }
+									          else {
+									          }
+
+								        	 
+							        	  }
+								      
+								          fewEvent.getContentPane().add(new JScrollPane(tableau));
+
+													}
+												}
+										   
 								      }
+
 								 
 								 });
 
-							 //ouverture de l evenement choisi
-							 buttonEvent.addActionListener(new ActionListener() {
-
-							      public void actionPerformed(ActionEvent ae) {
-							    	  
-							    	  Popup voirEvenement = new Popup("Evènement", 600, 500);
-									  voirEvenement.setAlwaysOnTop(true);
-									  
-
-							    	  String moisSelect = (String) monthChoice.getSelectedItem();
-									  String anneeSelect = (String) yearChoice.getSelectedItem();
-							    	  String jour =  b.getText();
-							    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement du "+ jour + " "+ moisSelect+" " + anneeSelect);
-							    	  JPanel eventOpen= new JPanel();
-							    	  eventOpen.setPreferredSize(new Dimension(500,70));
-							    	  JLabel eventOpenLabel = new JLabel(event);
-									  Font font = new Font("open-sans", Font.BOLD, 22);
-							    	  eventOpenLabel.setFont(font);
-							    	  JPanel heureEvent = new JPanel();
-							    	  if(heureDebut == null) {
-							    		  JLabel heureVide = new JLabel("Pas d'heure pour cet évènement");
-							    		  heureEvent.add(heureVide);
-							    		  heureVide.setFont(p);
-
-
-							    	  }
-							    	  else {
-							    		  JLabel heureDebutEvent = new JLabel("De :" + heureDebut);
-								    	  JLabel heureFinEvent = new JLabel("A :" + heureFin);
-								    	  heureDebutEvent.setFont(p);
-								    	  heureFinEvent.setFont(p);
-								    	  heureEvent.add(heureDebutEvent);
-								    	  heureEvent.add(heureFinEvent);
-
-							    	  }
-							    	  JPanel fin = new JPanel();
-									  Font fontP = new Font("open-sans", Font.PLAIN, 18);
-
-							    	  if(dateFin.equals(dateDebut)) {
-							    		  JLabel finVide = new JLabel("Evènement de ce jour");
-
-							    		  finVide.setFont(fontP);
-							    		  fin.add(finVide);
-							    		  finVide.setPreferredSize(new Dimension(500,70));
-							    	  }
-							    	  else {
-								    	  JLabel finLabel = new JLabel("Fin le : "+dateFin);
-								    	  fin.add(finLabel);
-							    		  finLabel.setFont(fontP);
-								    	  finLabel.setPreferredSize(new Dimension(500,70));
-
-							    	  }
-							    	  JButton modifier = new JButton ("Modifier l'évenement");
-							    	  //modification de l'evenement
-							    	  modifier.addActionListener(new ActionListener() {
-
-									      public void actionPerformed(ActionEvent ae) {
-
-									    	  //fermeture de la premiere fenetre de vue de levenement
-									    	  voirEvenement.dispose();				
-									    	  
-									    		  Popup modifPopup = new Popup("Modifier l'évenement", 800, 500);
-									    	   	  String moisSelect = (String) monthChoice.getSelectedItem();
-												  String anneeSelect = (String) yearChoice.getSelectedItem();
-										    	  String jour =  b.getText();
-										    	  
-										    	  TitreSecondaire titreModif = new TitreSecondaire("Evènement du "+ jour + " "+ moisSelect+" " + anneeSelect);
-										    	 
-										    	  JPanel eventOpenModif = new JPanel();
-										    	  eventOpenModif.setPreferredSize(new Dimension(500,100));
-										    	  JLabel eventOpenLabelModif = new JLabel("Evenement :");
-										          JTextArea inputEvent = new JTextArea(event,5,25);
-										          String TextEvent = inputEvent.getText();
-										          
-										      
-										         
-										          JPanel dateModif = new JPanel();
-										          dateModif.setPreferredSize(new Dimension(500,100));
-										          JLabel heureDModif = new JLabel("De :");
-										          JTextArea inputHeureDeb = new JTextArea(heureDebut,1,10);
-										          JTextArea inputHeureFin = new JTextArea(heureFin,1,10);
-										          JLabel heureFinModif = new JLabel("A :");
-										          
-										          JPanel tempsModif = new JPanel();
-										          tempsModif.setPreferredSize(new Dimension(500,100));
-										          JLabel tempsLabel = new JLabel("Heure de début :");
-										          JTextArea inputDateDeb = new JTextArea(dateDebut, 1, 10);
-										          JLabel tempsFinLabel = new JLabel("Heure de fin :");
-										          JTextArea inputFinDeb = new JTextArea(dateFin, 1, 10);
-										          
-										          JPanel buttonModif = new JPanel();
-										          buttonModif.setPreferredSize(new Dimension(500,100));
-										          JButton buttonValiderModif = new JButton("Valider");
-										          
-										          buttonValiderModif.addActionListener(new ActionListener() {
-
-												      public void actionPerformed(ActionEvent ae) {
-												    	  String TextEvent = inputEvent.getText();
-												    	  String TextDateDebut = inputDateDeb.getText();
-												    	  String TextDateFin = inputFinDeb.getText();
-												    	  String TextHeureDeb = inputHeureDeb.getText();
-												    	  String TextHeureFin = inputHeureFin.getText();
-
-
-												    	  controller.AgendaC.updateEvent(idAgendaInt, TextEvent, TextDateDebut, TextDateFin, User.id_utilisateur, TextHeureDeb, TextHeureFin);
-												    	  modifPopup .dispose();
-												    	  try {
-												    	  ((java.sql.Connection) List_CE).close();
-														  ((Statement) List_CE).close();}
-												    	  catch(Exception e) {
-												    		  
-												    	  }
-												    	  Object connecteur = Connecteur.connecteurUL;
-														  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-														  try {
-															for(int j=0; j<eventA.size();j++) {
-																 String eventAfterU= (String) eventA.get(j).get(0);
-																 String dateDebutU= (String) eventA.get(j).get(1);
-																 String dateFinU= (String) eventA.get(j).get(2);
-																 String heureDebutU = (String) eventA.get(j).get(4);
-																 String heureFinU = (String) eventA.get(j).get(5);
-																 String moisAnU = GetDateSansJour(dateDebut);
-																 String dateJourU = GetDateJour(dateDebut);
-																 int dateJourIntU = Integer.parseInt(dateJour);
-																 String idAgendaU = (String) eventA.get(j).get(6);
-																 int idAgendaIntU = Integer.parseInt(idAgendaU);
-																 
-																 ((java.sql.Connection) eventA).close();
-																  ((Statement) eventA).close();
-																 
-																 if(idAgendaIntU == idAgendaInt) {																		
-																		
-																		 String h = b.getText();
-																		 final  String i = h;
-																		 JLabel eventLabel = new JLabel(i); 
-																		 int iNew = Integer.parseInt(i);
-																		 JPanel jourPanel = new JPanel();
-																		 jourPanel.setPreferredSize(new Dimension(300,50));
-																		 JPanel eventPanel = new JPanel();
-																		 eventPanel.setBackground(Color.white);
-																		 eventPanel.setFont(p);
-																		 eventPanel.add(jourPanel);
-																		 JButton buttonEvent = new JButton();
-																		 buttonEvent.setBackground(Color.blue);
-																		 buttonEvent.setForeground(Color.white);
-																		 buttonEvent.setPreferredSize(new Dimension(300,50));
-																		 buttonEvent.setFont(p);
-																		 
-																		 if(moisAnSelect.equals(moisAn)) {
-
-																			 if(dateJourInt == iNew){
-																				 //pour recharger le jpanel et changer les elements
-																				 b.removeAll(); 
-																				 b.updateUI();
-																				 b.add(eventPanel);
-																				 eventPanel.add(eventLabel);
-																				 JLabel jourText = new JLabel(h);
-																				 b.add(jourText);
-																				 eventPanel.add(jourPanel);
-																				 jourPanel.add(buttonEvent);
-																				 buttonEvent.setText(eventAfterU);
-																				 
-																				//ouverture de l evenement choisi
-																				 buttonEvent.addActionListener(new ActionListener() {
-
-																				      public void actionPerformed(ActionEvent ae) {
-																				    	  
-																				    	  Popup voirEvenement = new Popup("Evènement", 600, 500);
-																						  voirEvenement.setAlwaysOnTop(true);
-																						  
-
-																				    	  String moisSelect = (String) monthChoice.getSelectedItem();
-																						  String anneeSelect = (String) yearChoice.getSelectedItem();
-																				    	  String jour =  b.getText();
-																				    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement du "+ jour + " "+ moisSelect+" " + anneeSelect);
-																				    	  JPanel eventOpen= new JPanel();
-																				    	  eventOpen.setPreferredSize(new Dimension(500,70));
-																				    	  JLabel eventOpenLabel = new JLabel(eventAfterU);
-																						  Font font = new Font("open-sans", Font.BOLD, 22);
-																				    	  eventOpenLabel.setFont(font);
-																				    	  JPanel heureEvent = new JPanel();
-																				    	  if(heureDebut == null) {
-																				    		  JLabel heureVide = new JLabel("Pas d'heure pour cet évènement");
-																				    		  heureEvent.add(heureVide);
-																				    		  heureVide.setFont(p);
-
-																				    	  }
-																				    	  else {
-																				    		  JLabel heureDebutEvent = new JLabel("De :" + heureDebutU);
-																					    	  JLabel heureFinEvent = new JLabel("A :" + heureFinU);
-																					    	  heureDebutEvent.setFont(p);
-																					    	  heureFinEvent.setFont(p);
-																					    	  heureEvent.add(heureDebutEvent);
-																					    	  heureEvent.add(heureFinEvent);
-
-																				    	  }
-																				    	  JPanel fin = new JPanel();
-																						  Font fontP = new Font("open-sans", Font.PLAIN, 18);
-
-																				    	  if(dateFinU.equals(dateDebutU)) {
-																				    		  JLabel finVide = new JLabel("Evènement de ce jour");
-
-																				    		  finVide.setFont(fontP);
-																				    		  fin.add(finVide);
-																				    		  finVide.setPreferredSize(new Dimension(500,70));
-																				    	  }
-																				    	  else {
-																					    	  JLabel finLabel = new JLabel("Fin le : "+dateFinU);
-																					    	  fin.add(finLabel);
-																				    		  finLabel.setFont(fontP);
-																					    	  finLabel.setPreferredSize(new Dimension(500,70));
-
-																				    	  }
-																				    	  JButton modifier = new JButton ("Modifier l'évenement");
-																				    	  //modification de l'evenement
-																				    	  modifier.addActionListener(new ActionListener() {
-
-																						      public void actionPerformed(ActionEvent ae) {
-
-																						    	  //fermeture de la premiere fenetre de vue de levenement
-																						    	  voirEvenement.dispose();				
-																						    	  
-																						    		  Popup modifPopup = new Popup("Modifier l'évenement", 800, 500);
-																						    	   	  String moisSelect = (String) monthChoice.getSelectedItem();
-																									  String anneeSelect = (String) yearChoice.getSelectedItem();
-																							    	  String jour =  b.getText();
-																							    	  
-																							    	  TitreSecondaire titreModif = new TitreSecondaire("Evènement du "+ jour + " "+ moisSelect+" " + anneeSelect);
-																							    	 
-																							    	  JPanel eventOpenModif = new JPanel();
-																							    	  eventOpenModif.setPreferredSize(new Dimension(500,100));
-																							    	  JLabel eventOpenLabelModif = new JLabel("Evenement :");
-																							          JTextArea inputEvent = new JTextArea(eventAfterU,5,25);
-																							          String TextEvent = inputEvent.getText();
-																							          
-																							      
-																							         
-																							          JPanel dateModif = new JPanel();
-																							          dateModif.setPreferredSize(new Dimension(500,100));
-																							          JLabel heureDModif = new JLabel("De :");
-																							          JTextArea inputHeureDeb = new JTextArea(heureDebut,1,10);
-																							          JTextArea inputHeureFin = new JTextArea(heureFin,1,10);
-																							          JLabel heureFinModif = new JLabel("A :");
-																							          
-																							          JPanel tempsModif = new JPanel();
-																							          tempsModif.setPreferredSize(new Dimension(500,100));
-																							          JLabel tempsLabel = new JLabel("Heure de début :");
-																							          JTextArea inputDateDeb = new JTextArea(dateDebut, 1, 10);
-																							          JLabel tempsFinLabel = new JLabel("Heure de fin :");
-																							          JTextArea inputFinDeb = new JTextArea(dateFin, 1, 10);
-																							          
-																							          JPanel buttonModif = new JPanel();
-																							          buttonModif.setPreferredSize(new Dimension(500,100));
-																							          JButton buttonValiderModif = new JButton("Valider");
-																							          
-																							          buttonValiderModif.addActionListener(new ActionListener() {
-
-																									      public void actionPerformed(ActionEvent ae) {
-																									    	  String TextEvent = inputEvent.getText();
-																									    	  String TextDateDebut = inputDateDeb.getText();
-																									    	  String TextDateFin = inputFinDeb.getText();
-																									    	  String TextHeureDeb = inputHeureDeb.getText();
-																									    	  String TextHeureFin = inputHeureFin.getText();
-
-
-																									    	  controller.AgendaC.updateEvent(idAgendaInt, TextEvent, TextDateDebut, TextDateFin, User.id_utilisateur, TextHeureDeb, TextHeureFin);
-																									    	  modifPopup .dispose();
-																									    	  Object connecteur = Connecteur.connecteurUL;
-																											  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-																											  try {
-																												for(int j=0; j<eventA.size();j++) {
-																													 String eventAfterU= (String) eventA.get(j).get(0);
-																													 String dateDebutU= (String) eventA.get(j).get(1);
-																													 String dateFinU= (String) eventA.get(j).get(2);
-																													 String heureDebutU = (String) eventA.get(j).get(4);
-																													 String heureFinU = (String) eventA.get(j).get(5);
-																													 String moisAnU = GetDateSansJour(dateDebut);
-																													 String dateJourU = GetDateJour(dateDebut);
-																													 int dateJourIntU = Integer.parseInt(dateJour);
-																													 String idAgendaU = (String) eventA.get(j).get(6);
-																													 int idAgendaIntU = Integer.parseInt(idAgendaU);
-																													 
-																													 ((java.sql.Connection) List_CE).close();
-																													  ((Statement) List_CE).close();
-																													 
-																													 if(idAgendaIntU == idAgendaInt) {
-																															
-																															
-																															 String h = b.getText();
-																															 final  String i = h;
-																															 JLabel eventLabel = new JLabel(i); 
-																															 int iNew = Integer.parseInt(i);
-																															 JPanel jourPanel = new JPanel();
-																															 jourPanel.setPreferredSize(new Dimension(300,50));
-																															 JPanel eventPanel = new JPanel();
-																															 eventPanel.setBackground(Color.white);
-																															 eventPanel.setFont(p);
-																															 eventPanel.add(jourPanel);
-																															 JButton buttonEvent = new JButton();
-																															 buttonEvent.setBackground(Color.blue);
-																															 buttonEvent.setForeground(Color.white);
-																															 buttonEvent.setPreferredSize(new Dimension(300,50));
-																															 buttonEvent.setFont(p);
-																															 
-																															 if(moisAnSelect.equals(moisAn)) {
-
-																																 if(dateJourInt == iNew){
-																																	 //pour recharger le jpanel et changer les elements
-																																	 b.removeAll(); 
-																																	 b.updateUI();
-																																	 b.add(eventPanel);
-																																	 eventPanel.add(eventLabel);
-																																	 JLabel jourText = new JLabel(h);
-																																	 b.add(jourText);
-																																	 eventPanel.add(jourPanel);
-																																	 jourPanel.add(buttonEvent);
-																																	 buttonEvent.setText(eventAfterU);
-																																 }
-																																
-																															 }
-																														}
-																															
-																														 
-																														 else {
-
-																														 }
-																												}
-																											  }catch(Exception e) {
-																												  
-																											  }
-
-
-																									    	  
-																									      }
-																							          });
-
-																							          
-																						    		  modifPopup.add(titreModif);
-																							          modifPopup.add(eventOpenModif);
-																						    		  eventOpenModif.add(eventOpenLabelModif);
-																						    		  eventOpenModif.add(inputEvent);
-																						    		  modifPopup.add(dateModif);
-																						    		  dateModif.add(heureDModif);
-																						    		  dateModif.add(inputHeureDeb);
-																						    		  dateModif.add(heureFinModif);
-																						    		  dateModif.add(tempsLabel);
-																						    		  dateModif.add(inputHeureFin);
-																						    		  modifPopup.add(tempsModif);
-																						    		  tempsModif.add(tempsLabel);
-																						    		  tempsModif.add(inputDateDeb);
-																						    		  tempsModif.add(tempsFinLabel);
-																						    		  tempsModif.add(inputFinDeb);
-																						    		  modifPopup.add(buttonModif);
-																						    		  buttonModif.add(buttonValiderModif);
-
-
-																						    	  
-																						      }
-																				    		  
-																				    	  });
-																				    	  
-																				    	  JButton suppression = new JButton("Supprimer l'évenement");
-
-																				    	  //suppression de l'evenement
-																				    	  suppression.addActionListener(new ActionListener() {
-
-																						      public void actionPerformed(ActionEvent ae) {
-																						    	  try {
-																						    		  controller.AgendaC.suppressionEvent(idAgendaInt);
-																						    		  voirEvenement.dispose();
-
-																							    	  Object connecteur = Connecteur.connecteurUL;
-																									  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-																									  try {
-																										for(int j=0; j<eventA.size();j++) {
-																											 String eventAfter= (String) eventA.get(j).get(0);
-																											 String dateDebutA= (String) eventA.get(j).get(1);
-																											 String dateFinA= (String) eventA.get(j).get(2);
-																											 String heureDebutA = (String) eventA.get(j).get(4);
-																											 String heureFin = (String) eventA.get(j).get(5);
-																											 String moisAn = GetDateSansJour(dateDebut);
-																											 String dateJour = GetDateJour(dateDebut);
-																											 int dateJourInt = Integer.parseInt(dateJour);
-																											 String idAgenda = (String) eventA.get(j).get(6);
-																											 int idAgendaInt = Integer.parseInt(idAgenda);
-																											 ((java.sql.Connection) List_CE).close();
-																											  ((Statement) List_CE).close();
-
-																											 JPanel jourPanel = new JPanel();
-																											 jourPanel.setPreferredSize(new Dimension(300,50));
-																											 JPanel eventPanel = new JPanel();
-																											 eventPanel.setBackground(Color.red);
-																											 String h = b.getText();
-																											 final  String i = h;
-																											 JLabel eventLabel = new JLabel(i); 
-																											 int iNew = Integer.parseInt(i);
-																											 eventPanel.setFont(p);
-																											 eventPanel.add(jourPanel);
-																										
-
-																											 if(moisAnSelect.equals(moisAn)) {
-
-																												 if(dateJourInt == iNew){
-
-																													 b.removeAll(); 
-																													 b.updateUI();
-																													 b.add(eventPanel);
-																													 b.add(eventLabel);
-																													 JLabel jourText = new JLabel(h);
-																													 b.add(jourText);
-																													 eventPanel.setVisible(false);
-																												 }
-																												 
-																											 }
-																										}
-																									  }catch(Exception e) {
-																										  
-																									  }
-																										
-																									} catch (Exception e2) {
-																										
-
-																									}
-																								
-																						    	  
-																						      }
-																				    		  
-																				    	  });
-																				    	  
-																				    	  
-																				    	  voirEvenement.add(titreOpened);
-																				    	  voirEvenement.add(eventOpen);
-																				    	  eventOpen.add(eventOpenLabel);
-																				    	  voirEvenement.add(heureEvent);
-																				    	  voirEvenement.add(fin);
-																				    	  voirEvenement.add(modifier);
-																				    	  voirEvenement.add(suppression);
-																				    	  
-																				      	}
-																				    	  
-																				 });
-																				 
-																			
-																			 }
-																			 else {
-
-																			 }
-																		 }
-																		 else {
-																			
-																		 }
-																		
-																		
-																	}
-																			 
-																	 
-																	 else {
-
-																	 }
-															}
-														  }catch(Exception e) {
-															  
-														  }
-														 
-
-
-												    	  
-												      }
-										          });
-
-										          
-									    		  modifPopup.add(titreModif);
-										          modifPopup.add(eventOpenModif);
-									    		  eventOpenModif.add(eventOpenLabelModif);
-									    		  eventOpenModif.add(inputEvent);
-									    		  modifPopup.add(dateModif);
-									    		  dateModif.add(heureDModif);
-									    		  dateModif.add(inputHeureDeb);
-									    		  dateModif.add(heureFinModif);
-									    		  dateModif.add(tempsLabel);
-									    		  dateModif.add(inputHeureFin);
-									    		  modifPopup.add(tempsModif);
-									    		  tempsModif.add(tempsLabel);
-									    		  tempsModif.add(inputDateDeb);
-									    		  tempsModif.add(tempsFinLabel);
-									    		  tempsModif.add(inputFinDeb);
-									    		  modifPopup.add(buttonModif);
-									    		  buttonModif.add(buttonValiderModif);
-
-
-									    	  
-									      }
-							    		  
-							    	  });
-							    	  
-							    	  JButton suppression = new JButton("Supprimer l'évenement");
-
-							    	  //suppression de l'evenement
-							    	  suppression.addActionListener(new ActionListener() {
-
-									      public void actionPerformed(ActionEvent ae) {
-									    	  try {
-									    		  controller.AgendaC.suppressionEvent(idAgendaInt);
-									    		  ((java.sql.Connection) List_CE).close();
-												  ((Statement) List_CE).close();
-									    		  voirEvenement.dispose();
-
-										    	  Object connecteur = Connecteur.connecteurUL;
-												  List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
-												  ((java.sql.Connection) eventA).close();
-												  ((Statement) eventA).close();
-
-													for(int j=0; j<eventA.size();j++) {
-														 String eventAfter= (String) eventA.get(j).get(0);
-														 String dateDebutA= (String) eventA.get(j).get(1);
-														 String dateFinA= (String) eventA.get(j).get(2);
-														 String heureDebutA = (String) eventA.get(j).get(4);
-														 String heureFin = (String) eventA.get(j).get(5);
-														 String moisAn = GetDateSansJour(dateDebut);
-														 String dateJour = GetDateJour(dateDebut);
-														 int dateJourInt = Integer.parseInt(dateJour);
-														 String idAgenda = (String) eventA.get(j).get(6);
-														 int idAgendaInt = Integer.parseInt(idAgenda);
-
-														 JPanel jourPanel = new JPanel();
-														 jourPanel.setPreferredSize(new Dimension(300,50));
-														 JPanel eventPanel = new JPanel();
-														 eventPanel.setBackground(Color.white);
-														 String h = b.getText();
-														 final  String i = h;
-														 JLabel eventLabel = new JLabel(i); 
-														 int iNew = Integer.parseInt(i);
-														 eventPanel.setFont(p);
-														 eventPanel.add(jourPanel);
-														 JButton buttonEvent = new JButton();
-														 buttonEvent.setBackground(Color.red);
-														 buttonEvent.setForeground(Color.yellow);
-														 buttonEvent.setPreferredSize(new Dimension(100,1));
-														 jourPanel.setPreferredSize(new Dimension(100,1));
-														 eventPanel.setPreferredSize(new Dimension(1,1));
-
-
-														 buttonEvent.setFont(p);
-														 
-
-														 if(moisAnSelect.equals(moisAn)) {
-
-															 if(dateJourInt == iNew){
-
-																 b.add(eventPanel);
-																 JLabel jourText = new JLabel(jour);
-																 b.add(jourText);
-																 eventPanel.add(jourPanel);
-																
-																 b.removeAll(); 
-																 b.updateUI();
-																 buttonEvent.setVisible(false);
-															 }
-															 else {
-
-																
-															 }
-														 }
-													}
-															 
-														 
-													
-												
-													
-												} catch (Exception e2) {
-													
-
-												}
-											
-									    	  
-									      }
-							    		  
-							    	  });
-							    	  
-							    	  
-							    	  
-							    	  
-							    	  voirEvenement.add(titreOpened);
-							    	  voirEvenement.add(eventOpen);
-							    	  eventOpen.add(eventOpenLabel);
-							    	  voirEvenement.add(heureEvent);
-							    	  voirEvenement.add(fin);
-							    	  voirEvenement.add(modifier);
-							    	  voirEvenement.add(suppression);
-							    	  
-							      	}
-							    	  
-							 });
-							 
-						
-						 }
-						 else {
-
-						 }
-					 }
-					 else {
-						
-					 }
-					
-					
 					 }
 				}
 				
-				((ResultSet) List_CE).close();
-			}
-				catch(Exception e) {
-					
-				}
+			
 
 			  //ajout evenement pour le jour selectionné
 
@@ -957,8 +751,7 @@ public class Agenda<Spanned> extends JPanel  {
 											 String idAgenda = (String) eventA.get(j).get(6);
 											 int idAgendaInt = Integer.parseInt(idAgenda);
 											 
-											 ((java.sql.Connection) eventA).close();
-											  ((Statement) eventA).close();
+											
 
 											 JPanel jourPanel = new JPanel();
 											 jourPanel.setPreferredSize(new Dimension(300,50));
@@ -1024,13 +817,34 @@ public class Agenda<Spanned> extends JPanel  {
 			    
 		    
 		    }
-		    
-
-
+		   
+				}// fin for cases jour	
 		    repaint();
 			return daysInMonth;
-		    
+				
+			  }
+	
+	
+	
+	private JPanel[] ajoutemoi(JPanel[] MonArray, JPanel NouveauPanel) {
+		/*
+		 * 
+		 * Fonction qui sert � rajouter des �l�ments dans un tableau. (ici nous ajoutons des JPanels) 
+		 * 
+		 */
+		int newSize = MonArray.length + 1;
+		JPanel[] tempArray = new JPanel[ newSize ];
+		//Nous cr��ons un array temporaire avec la taille de l'array actuelle
+		
+		for (int i=0; i < MonArray.length; i++)
+		{
+			tempArray[i] = MonArray[i];
+			//Pour chaque �l�ment dans mon array, on ajoute l'�l�ment dans la nouvelle array temporaire
+		}
+		tempArray[newSize- 1] = NouveauPanel; //Ici on ajoute le nouveau Jpanel dans l'array
+		return tempArray;   // on retourne notre nouvelle array
 	}
+	
 
 	  public static String GetDateSansJour(String date){
 		    // String to be scanned to find the pattern.
@@ -1061,6 +875,38 @@ public class Agenda<Spanned> extends JPanel  {
 	            return("NO MATCH");
 	        }
 	    }
+	  
+	
+	  public static String GetMoisLettreToDate(String str){
+		    switch (str) {
+		      case "1":
+		        return "Janvier";
+		      case "2":
+		        return "Février";
+		      case "3":
+		        return "Mars";
+		      case "4":
+		        return "Avril";
+		      case "5":
+		        return "Mai";
+		      case "6":
+		        return "Juin";
+		      case "7":
+		        return "Juillet";
+		      case "8":
+		        return "Aout";
+		      case "9":
+		        return "Septembre";
+		      case "10":
+		        return "Octobre";
+		      case "11":
+		        return "Novembre";
+		      case "12":
+		        return "Décembre";
+		      default: 
+		        return str;
+		    }
+		  }
 
 	private boolean isLeap(int year) {
 		// TODO Auto-generated method stub
@@ -1078,13 +924,8 @@ public class Agenda<Spanned> extends JPanel  {
 
 		    setLayout(new BorderLayout());
 
-		    JPanel tp = new JPanel();
-		 
-
-
-
 		  //barre ou il ya les deux listes d�roulantes
-			BoxLayout b= new BoxLayout(tp, BoxLayout.Y_AXIS);
+			BoxLayout box= new BoxLayout(tp, BoxLayout.Y_AXIS);
 			tp.setBounds(500,50,500,500/16*9);
 			
 			tp.setBackground(new Color (229,236,246));
@@ -1105,6 +946,9 @@ public class Agenda<Spanned> extends JPanel  {
 
 		     monthChoice.setSelectedItem(months[date.getMonth()]);
 		     Object moisSelect = monthChoice.getSelectedItem();
+		     String moisSrt = String.valueOf(moisSelect);
+			 JLabel mois = new JLabel(moisSrt);
+			 tp.add(mois);
 
 
 		     monthChoice.addActionListener(new ActionListener() {
@@ -1113,11 +957,17 @@ public class Agenda<Spanned> extends JPanel  {
 
 
 		        int m = monthChoice.getSelectedIndex();
+		        
+		        Object connecteur = Connecteur.connecteurUL;
+				List<List> eventA= AgendaC.consultationEvenement(User.id_utilisateur);
+				
+		     /*b.removeAll(); 
+				b.updateUI();*/
+		        
 
 		        if (m >= 0) {
 		          date.setMonth(m);
 		          //ajout de reload par mois des evenement
-		          
 		          
 		          recompute();
 		          
@@ -1216,7 +1066,7 @@ public class Agenda<Spanned> extends JPanel  {
 		    ActionListener dateSetter = new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
 		        String num = e.getActionCommand();
-		        if (!num.equals("")) {
+		        if (!num.equals("") || !num.equals("Mois précédent") ) {
 		          // set the current day highlighted
 		          setDayActive(Integer.parseInt(num));
 
@@ -1239,6 +1089,7 @@ public class Agenda<Spanned> extends JPanel  {
 		        labs[i][j].addActionListener(dateSetter);
 		        labs[i][j].setBackground(new Color(229,236,246));
 		      }
+		
 
 		    add(BorderLayout.SOUTH, bp);
 

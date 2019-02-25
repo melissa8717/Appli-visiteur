@@ -1,13 +1,17 @@
 package controller;
 
 import java.sql.*;
+import model.Connecteur;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 
 import controller.*;
-import model.*;
+import model.User;
+import model.Connecteur;
+
 
 import com.mysql.jdbc.Connection;
 
@@ -17,9 +21,8 @@ public class compteRenduControleur {
 	/* Fonction d'ajout du compte rendu saisi */
 	public static boolean ajoutCompteRendu (int medecin, String Motif, String commentaire, String date, int echantillon, int Medicament) {
 		try { 
-			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			Connection conn = (Connection) Connecteur.connecteurUL;
 			
-			System.out.println("connection ok");
 			commentaire = commentaire.replaceAll("(\')", "\\\\'");
 			//Medicament = Medicament.replaceAll("(\')", "\\\\'");
 			
@@ -28,7 +31,6 @@ public class compteRenduControleur {
 					"INSERT INTO" + 
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
 					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"')";
-			System.out.println(requete);
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
@@ -39,7 +41,7 @@ public class compteRenduControleur {
 		
 		catch (Exception e){
 			System.out.println(e);
-			System.out.println("marche pas chef");
+			System.out.println("marche pas chef ajout cr");
 			return false;
 		}
 	}
@@ -48,11 +50,10 @@ public class compteRenduControleur {
 	public static List<List> selectMedecin() {
 		try {
 			List<List> List_Medecins = new ArrayList<List>();
-
-			Connection conn = (Connection) CnxBDD.connecteurUserLab();
+			Connection conn = (Connection) Connecteur.connecteurUL;
 
 			/* Requête de récupération des ids des médecins */
-			String requete = "SELECT idPraticien,nom FROM praticien;";
+			String requete = "SELECT idPraticien,nom, prenom, adresse, ville, codePostal, telephone FROM praticien;";
 			Statement statement =  conn.createStatement();
 			ResultSet resultat = statement.executeQuery(requete);
 
@@ -61,8 +62,20 @@ public class compteRenduControleur {
 				List<String> unMedecin = new ArrayList<String>();
 				int idMed= resultat.getInt( "idPraticien" );
 				String nomMed= resultat.getString( "nom" );
+				String prenomMed = resultat.getString("prenom");
+				String adresseMed = resultat.getString("adresse");
+				String villeMed = resultat.getString("ville");
+				String cpMed = resultat.getString("codePostal");
+				String telMed = resultat.getString("telephone");
+
+
 				unMedecin.add(Integer.toString(idMed));
 				unMedecin.add(nomMed);
+				unMedecin.add(prenomMed);
+				unMedecin.add(adresseMed);
+				unMedecin.add(villeMed);
+				unMedecin.add(cpMed);
+				unMedecin.add(telMed);
 				List_Medecins.add(unMedecin);
 			}
 			
@@ -73,7 +86,7 @@ public class compteRenduControleur {
 		
 		catch (Exception e){
 			System.out.println(e);
-			System.out.println("marche pas chef");
+			System.out.println("marche pas chef  select medecin ");
 			return null;
 		}
 		
@@ -82,9 +95,8 @@ public class compteRenduControleur {
 	public static String selectNomMedoc(int IdMedoc) {
 		String nomMedoc;
 		try {
-		Connection conn =(Connection) CnxBDD.connecteurMedocLab();
+		Connection conn = (Connection) Connecteur.connecteurML;
 		
-		System.out.println("connection"+conn);
 	    /* Création de l'objet gérant les requêtes */
 		Statement statement = conn.createStatement();
 		
@@ -118,9 +130,8 @@ public class compteRenduControleur {
 	
 		try {
 			List<List> List_CR = new ArrayList<List>();
-			Connection conn =(Connection) CnxBDD.connecteurUserLab();
+			Connection conn =(Connection) Connecteur.connecteurUL;
 
-			System.out.println("connection"+conn);
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
 			
@@ -169,7 +180,7 @@ public class compteRenduControleur {
 	            // Pour faire ca, faut que les attributs de user soit en static, me demander par pourquoi
 			}
 		    if(List_CR.isEmpty()) {
-				System.out.println("empty");
+				//System.out.println("empty");
 			}
 		    
 
@@ -181,27 +192,27 @@ public class compteRenduControleur {
 		    
 		catch (Exception e){
 			System.out.println(e);
-			System.out.println("marche pas chef");
+			System.out.println("marche pas chef consult cr ");
 			return null;
 		}
 		
 		
 	
-	}	
+	}/*	
 	
 	public static List<List> selectMedicament() {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			
-			Connection conn = (Connection) CnxBDD.connecteurMedocLab();
+			Connection conn = (Connection) Connecteur.connecteurML;
 
 			/* Requête de récupération des ids des medicament */
-			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
+			/*String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
 			ResultSet resultat = statement.executeQuery(requete);
 
 			/* Récupère tous les id des medicament */
-			while(resultat.next()) {
+			/*while(resultat.next()) {
 				List<String> unMedoc = new ArrayList<String>();
 				int idMed= resultat.getInt( "idMedicament" );
 				String nomMed= resultat.getString( "nom" );
@@ -217,11 +228,11 @@ public class compteRenduControleur {
 		
 		catch (Exception e){
 			System.out.println(e);
-			System.out.println("marche pas chef");
+			System.out.println("marche pas chef medoc cr");
 			return null;
 		}
 		
 		
-	}
+	}*/
 	
 }
