@@ -299,11 +299,12 @@ public class SaisiCompteRendu extends JPanel {
 					compteRenduFalse.setVisible(true);
 					AreaText = null;
 				}
+				
 
-				if (DateChoisie != null && nbrEchantillons != 0 && AreaText != null && Medicament != null) {
+				if (DateChoisie != null && nbrEchantillons != 0 && AreaText != null) {
 					System.out.println("C'est tout bon chef !");
 					System.out.println("Vous choisie le médecin: " + Medecin + ", le motif: " + Motif + "\n"
-							+ "Le Médicament inscrit est: " + Medicament + " la date de la visite été le: "
+							+ "Le Médicament inscrit est: " + Medoc + " la date de la visite été le: "
 							+ DateChoisie + ", vous avez laissé au pratitien: " + nbrEchantillons
 							+ " échantillon(s) et votre commentaire sur la visite est:\n'" + AreaText + "'.");
 					if (controller.compteRenduControleur.ajoutCompteRendu(Medecin, Motif, AreaText, DateChoisie,

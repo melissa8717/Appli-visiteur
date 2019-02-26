@@ -38,7 +38,7 @@ public class ConsultationCompteRendu extends JPanel {
 		jcombo.setSelectedIndex(Integer.parseInt(dateFormat.format(new Date()))-1);
 		
 		TitrePrincipale mesSaisiesCompteRendu = new TitrePrincipale("Consultation des comptes rendus");
-        System.out.println(User.id_utilisateur);
+       
        int debut=0;
        JPanel espacement= new JPanel();
        JPanel cache = new JPanel(); 
@@ -46,7 +46,7 @@ public class ConsultationCompteRendu extends JPanel {
        droite.setPreferredSize(new Dimension(300, 100));
 
        jcombo.setLocation(10,200);
-       espacement.add(jcombo, BorderLayout.CENTER);
+       
        JPanel panelOffset=new JPanel();
   
 
@@ -59,7 +59,8 @@ public class ConsultationCompteRendu extends JPanel {
        panelOffset.setBackground(Color.white);
        this.add(mesSaisiesCompteRendu);
        this.add(cache);
-       this.add(espacement);
+       this.add(jcombo, BorderLayout.CENTER);
+     //  this.add(espacement);
        this.add(droite);
 
        this.add(panelOffset, BorderLayout.CENTER);
@@ -73,6 +74,7 @@ public class ConsultationCompteRendu extends JPanel {
        }
        JLabel date[]= {new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel()};
        JLabel medoc[]= {new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel()};
+       JLabel labelIdMedoc[]= {new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel()};
        JLabel Medecin[]= {new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel()};
        JLabel bilan[]= {new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel(),new JLabel()};
        JLabel motif[] = {new JLabel()};
@@ -80,7 +82,7 @@ public class ConsultationCompteRendu extends JPanel {
        JButton boutonVoir[]= {new JButton("Voir"),new JButton("Voir"),new JButton("Voir"),
     		   new JButton("Voir"),new JButton("Voir"),new JButton("Voir")};
        
-       CRChangeLabel(Integer.parseInt(dateFormat.format(new Date())),0,date,medoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+       CRChangeLabel(Integer.parseInt(dateFormat.format(new Date())),0,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
        for (int i = 0; i < carte.length; i++) {
     	   carte[i].setBackground(Color.white);
     	   carte[i].setPreferredSize(new Dimension(1820,50));
@@ -94,6 +96,8 @@ public class ConsultationCompteRendu extends JPanel {
     	   
     	   
     	   //Panel medoc
+    	   CardsPanel[i+7].add(labelIdMedoc[i]);
+    	   labelIdMedoc[i].setVisible(false);
     	   CardsPanel[i+7].add(medoc[i]);
     	   CardsPanel[i+7].setPreferredSize(new Dimension(1200/3,50));
     	   CardsPanel[i+7].setBackground(Color.white);
@@ -131,11 +135,11 @@ public class ConsultationCompteRendu extends JPanel {
 						JLabel labelBilan=new JLabel("Bilan: "+bilan[iTmp].getText());
 						JLabel labelDate=new JLabel(date[iTmp].getText());
 						JLabel labelPraticien=new JLabel("Praticien: "+Medecin[iTmp].getText());
-						int idMedoc=Integer.parseInt(medoc[iTmp].getText());
+						int idMedoc=Integer.parseInt(labelIdMedoc[iTmp].getText());
 						String nomMedoc=compteRenduControleur.selectNomMedoc(idMedoc);
 						JLabel labelMedicament=new JLabel("Medicament: "+nomMedoc);
 						JLabel labelMotif =new JLabel("Motif: "+motif[iTmp].getText());
-						System.out.println(labelMotif);
+						
 						panelCompteRendu.setPreferredSize(new Dimension(700,400));
 						panelCompteRendu.setBackground(Color.white);
 	
@@ -163,7 +167,7 @@ public class ConsultationCompteRendu extends JPanel {
 // select des dates
        		
 		 jcombo.addActionListener(e -> {	
-			 CRChangeLabel((int) jcombo.getSelectedIndex()+1,0,date,medoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+			 CRChangeLabel((int) jcombo.getSelectedIndex()+1,0,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
 			 JlabelOffset.setText("0-6");
 		    });
 		 JButton Suivant=new JButton("Suivant");
@@ -175,7 +179,7 @@ public class ConsultationCompteRendu extends JPanel {
 			    	int offset=Integer.parseInt(JlabelOffset.getText().substring(0,indexOffset));
 			    	offset+=6;
 			    	int finOffset=offset+6;
-			        CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+			        CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
 			        JlabelOffset.setText(Integer.toString(offset)+"-"+finOffset);
 			       
 			    }
@@ -189,7 +193,7 @@ public class ConsultationCompteRendu extends JPanel {
 			    	if(offset!=0) {
 			    	offset-=6;
 				    int finOffset=offset+6;
-			        CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+			        CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
 			        JlabelOffset.setText(Integer.toString(offset)+"-"+finOffset);
 			        
 			    	}
@@ -199,18 +203,18 @@ public class ConsultationCompteRendu extends JPanel {
 		 this.add(Suivant);
      
     }
-	public void CRChangeLabel(int Mois,int debut,JLabel[] labelDate,JLabel[] labelMedoc,JLabel[] labelMedecin,JLabel[] labelBilan,JButton[] bouton,int idUser){
-		
+	public void CRChangeLabel(int Mois,int debut,JLabel[] labelDate,JLabel[] labelMedoc,JLabel[] labelIdMedoc,JLabel[] labelMedecin,JLabel[] labelBilan,JButton[] bouton,int idUser){
 		List<List> List_CR= compteRenduControleur.consultationCompteRendu(Mois,debut,idUser);
-		System.out.println(List_CR.size());
 		if(List_CR.size()<6) {
 			for (int i = 0; i < 6; i++) {
+				
 				
 				if(i>List_CR.size()-1) {
 					labelDate[i].setText("");
 					labelMedoc[i].setText("");
 					labelMedecin[i].setText("");
 					labelBilan[i].setText("");
+					labelIdMedoc[i].setText("");
 					bouton[i].setVisible(false);
 					
 				}else {
@@ -222,6 +226,7 @@ public class ConsultationCompteRendu extends JPanel {
 		        	String Medecin=(String) List_CR.get(i).get(5);
 		        	String Bilan=(String) List_CR.get(i).get(2);
 					labelDate[i].setText("Date: "+DdMmAaaa);
+					labelIdMedoc[i].setText(Integer.toString(idMedoc));
 					labelMedoc[i].setText(nomMedoc);
 					labelMedecin[i].setText(Medecin);
 					labelBilan[i].setText(Bilan);
@@ -233,13 +238,15 @@ public class ConsultationCompteRendu extends JPanel {
 			
 		} else {
 			for (int i = 0; i < List_CR.size(); i++) {
+				int idMedoc=Integer.parseInt((String) List_CR.get(i).get(6));
 				String dateBrute= (String) List_CR.get(i).get(1);
 	        	String DdMmAaaa=dateBrute.substring(8,10)+"/"+dateBrute.substring(5,7)+"/"+dateBrute.substring(0, 4);
-	        	String Medoc=(String) List_CR.get(i).get(6);
+	        	String nomMedoc=compteRenduControleur.selectNomMedoc(idMedoc);
 	        	String Medecin=(String) List_CR.get(i).get(5);
 	        	String Bilan=(String) List_CR.get(i).get(2);
 				labelDate[i].setText("Date: "+DdMmAaaa);
-				labelMedoc[i].setText(Medoc);
+				labelIdMedoc[i].setText(Integer.toString(idMedoc));
+				labelMedoc[i].setText(nomMedoc);
 				labelMedecin[i].setText(Medecin);
 				labelBilan[i].setText(Bilan);
 				bouton[i].setVisible(true);
