@@ -62,7 +62,6 @@ public class Agenda<Spanned> extends JPanel  {
 	}
 	
 	
-	
 	 /** The buttons to be displayed */
 	  protected JButton labs[][];
 
@@ -121,6 +120,7 @@ public class Agenda<Spanned> extends JPanel  {
 		
 		    for ( int  i = 1; i <= daysInMonth; i++) {
 		    	final int  iNew = i;
+		    	int[] iArray  = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
 		  
 		        JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
 		        String moisSelect = (String) monthChoice.getSelectedItem();
@@ -133,31 +133,48 @@ public class Agenda<Spanned> extends JPanel  {
 				String jourF = jourFormat.format(cal.getTime());
 				String debut = anneeSelect+"-"+month_number+"-"+jourF;
 				int moisInt = Integer.parseInt(month_number);
-				String moisAnSelect = moisSelect+"-"+anneeSelect;
+				
+				// tout ceci pour avoir les event du mois précédent
+				String moisAnSelect = anneeSelect+"-"+month_number;
 				Font p = new Font("open-sans", Font.PLAIN, 18);
-				//System.out.println("mois select"+moisAnSelect);
 		        int moisSelectPrev = moisInt - 1;
 		        int moisSelectPrevZero =0+moisSelectPrev;
-		        String moisPrevStr = Integer.toString(moisSelectPrevZero);
-		        // si egal a douze mettre a 1
-		        String moisAnPrev = anneeSelect+"-"+0+moisPrevStr;
+	            String  datePrev = anneeSelect+"-"+0+moisSelectPrevZero;
 
-		        labs[0][0].setBackground(Color.cyan);
-		        labs[0][0].setText("Mois précédent");
-		        labs[0][0].addActionListener(e ->{
+
+		        int size = labs.length-1;
+		        int sizeTotal = labs.length;
+		        
+ 	            labs[5][size].setBackground(new Color(62,101,146));
+ 	            labs[5][sizeTotal].setBackground(Color.cyan);
+		        labs[5][size].setText("0");
+ 	            labs[5][size].addActionListener(e ->{
+		        	JPanel moisCal = new JPanel();
+		        	String moisAnPrev = null;
+		            if(moisSelectPrev == 12) {
+			        	String moisPrevStr = Integer.toString(moisSelectPrevZero);
+					    moisAnPrev = anneeSelect+"-"+01;
+			    		String moisLettre = GetMoisLettreToDate(moisPrevStr);
+		        		JButton mois = new JButton(moisLettre);
+		        		moisCal.add(mois);
+
+
+			        }
+			        else {
+				        String moisPrevStr = Integer.toString(moisSelectPrevZero);
+				        moisAnPrev = anneeSelect+"-"+0+moisPrevStr;
+			    		String moisLettre = GetMoisLettreToDate(moisPrevStr);
+		        		JButton mois = new JButton(moisLettre);
+		        		moisCal.add(mois);
+		        }
 		        	
 		        	Object moisSelectedObj = monthChoice.getSelectedItem();
 		    		String moisSrt = String.valueOf(moisSelectedObj);
-		    		JPanel moisCal = new JPanel();
-		    		String moisLettre = GetMoisLettreToDate(moisPrevStr);
-
 		    		Font h3 = new Font("open-sans", Font.BOLD, 22);
 		    		moisCal.setFont(h3);
-		    		moisCal.setBackground(Color.yellow);
+		    		moisCal.setBackground(new Color(62,101,146));
 		    		this.add(moisCal);
-	        		JButton mois = new JButton(moisLettre);
 	        	
-	        		moisCal.add(mois);
 
 						b.removeAll(); 
 						b.updateUI();
@@ -190,13 +207,11 @@ public class Agenda<Spanned> extends JPanel  {
 								 buttonEvent.setPreferredSize(new Dimension(200,50));
 								 buttonEvent.setFont(p);
 								 JButton countevent = new JButton();
+								 System.out.println("mois"+" "+moisAn+" "+datePrev+" "+dateJourInt+" "+ iNew);
 
-
-								int countEvent = controller.AgendaC.countEvenement(User.id_utilisateur, dateDebut);
-								
-								 if(moisAnPrev.equals(moisAn)) {
-									 if(dateJourInt == iNew){
-
+								 if(datePrev.equals(moisAn)) {
+									 for( int n=0; n<32; n++) {
+									 if(dateJourInt == iArray[n]){
 										List<Integer> elements=new ArrayList<>();
 										elements.add(dateJourInt);
 										JLabel jourText = new JLabel(jour);
@@ -379,6 +394,7 @@ public class Agenda<Spanned> extends JPanel  {
 								}// fin du if jour
 						
 							} // fin du 1e if
+						  }
 						}// fin for event*/
 				//	}//fin action labs
 
@@ -406,8 +422,6 @@ public class Agenda<Spanned> extends JPanel  {
 			
 				for(int y=0; y<List_CE.size();y++) {
 					 String event= (String) List_CE.get(y).get(0);	
-
-
 					 String dateDebut= (String) List_CE.get(y).get(1);
 					 String dateFin= (String) List_CE.get(y).get(2);
 					 String heureDebut = (String) List_CE.get(y).get(4);
@@ -434,12 +448,10 @@ public class Agenda<Spanned> extends JPanel  {
 					 JButton countevent = new JButton();
 
 				 	 int countEvent = controller.AgendaC.countEvenement(User.id_utilisateur, dateDebut);
-					
-					
 
-					
 					 if(moisAnSelect.equals(moisAn)) {
 						 if(dateJourInt == i){
+
 
 							List<Integer> elements=new ArrayList<>();
 							elements.add(dateJourInt);
@@ -1031,7 +1043,7 @@ public class Agenda<Spanned> extends JPanel  {
 		    bp.add(vendredi);
 		    bp.add(samedi);
 		    bp.add(dimanche);
-		    
+		   
 		    lundi.setBackground(new Color (0,63,128));
 		    mardi.setBackground(new Color (0,63,128));
 		    mercredi.setBackground(new Color (0,63,128));
@@ -1066,7 +1078,7 @@ public class Agenda<Spanned> extends JPanel  {
 		    ActionListener dateSetter = new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
 		        String num = e.getActionCommand();
-		        if (!num.equals("") || !num.equals("Mois précédent") ) {
+		        if (!num.equals("") ) {
 		          // set the current day highlighted
 		          setDayActive(Integer.parseInt(num));
 
