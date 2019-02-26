@@ -227,14 +227,16 @@ public class compteRenduControleur {
 			return null;
 		}
 		
-		
 	
-	}	
+	}
+
 	
 	public static List<List> selectMedicament() {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
+			System.out.println("connecter medoc"+conn);
+
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
