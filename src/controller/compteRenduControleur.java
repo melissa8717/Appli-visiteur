@@ -92,6 +92,30 @@ public class compteRenduControleur {
 		
 		
 	}
+	public static List<List> selectVisiteur(){
+		List<List> List_visiteur = new ArrayList<List>();
+		String req="SELECT idUtilisateur,nom from utilisateur where role='1'";
+		try {
+			Connection conn = (Connection) Connecteur.connecteurUL;
+			Statement statement =  conn.createStatement();
+			ResultSet resultat = statement.executeQuery(req);
+			while(resultat.next()) {
+				List<String> User=new ArrayList<String>();
+				int idUser=resultat.getInt("idUtilisateur");
+				String nom=resultat.getString( "nom" );
+				User.add(Integer.toString(idUser));
+				User.add(nom);
+				List_visiteur.add(User);
+				
+			}
+			System.out.println(List_visiteur);
+			return List_visiteur;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public static String selectNomMedoc(int IdMedoc) {
 		String nomMedoc;
 		try {

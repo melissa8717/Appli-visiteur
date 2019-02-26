@@ -33,7 +33,22 @@ public class ConsultationCompteRendu extends JPanel {
     	
     	DateFormat dateFormat = new SimpleDateFormat("MM");
     	List<List> List_CR= compteRenduControleur.consultationCompteRendu(Integer.parseInt(dateFormat.format(new Date())),0,User.id_utilisateur);
-    	
+    	List<List> List_Visiteur= compteRenduControleur.selectVisiteur();
+		List<String> ListNomVisiteur = new ArrayList<String>();
+		List<Integer> ListIdVisiteur = new ArrayList<Integer>();
+
+		for (int i = 0; i < List_Visiteur.size(); i++) {
+
+			int idTemp = Integer.valueOf((String) List_Visiteur.get(i).get(0));
+			ListIdVisiteur.add(idTemp);
+
+			ListNomVisiteur.add((String) List_Visiteur.get(i).get(1));
+
+		}
+    	String[] nomVisiteur = ListNomVisiteur.toArray(new String[0]);
+    	Integer[] idVisiteurList=ListIdVisiteur.toArray(new Integer[0]);
+    	//String[] idVisiteurList= ListIdVisiteur.toArray(new String[0]);
+    	JComboBox<?> BoxVisiteurChoice = new JComboBox<Object>(nomVisiteur);
 		JComboBox<String> jcombo = new JComboBox<>(months);
 		jcombo.setSelectedIndex(Integer.parseInt(dateFormat.format(new Date()))-1);
 		
@@ -59,8 +74,10 @@ public class ConsultationCompteRendu extends JPanel {
        panelOffset.setBackground(Color.white);
        this.add(mesSaisiesCompteRendu);
        this.add(cache);
+       if(User.role==2) {
+    	   this.add(BoxVisiteurChoice, BorderLayout.CENTER);
+       }
        this.add(jcombo, BorderLayout.CENTER);
-     //  this.add(espacement);
        this.add(droite);
 
        this.add(panelOffset, BorderLayout.CENTER);
@@ -166,8 +183,14 @@ public class ConsultationCompteRendu extends JPanel {
 
 // select des dates
        		
-		 jcombo.addActionListener(e -> {	
-			 CRChangeLabel((int) jcombo.getSelectedIndex()+1,0,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+		 jcombo.addActionListener(e -> {
+			 
+			 if(User.role==2) {
+				 
+				 CRChangeLabel((int) jcombo.getSelectedIndex()+1,0,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,idVisiteurList[(int) BoxVisiteurChoice.getSelectedIndex()]);
+			 }else {
+				 CRChangeLabel((int) jcombo.getSelectedIndex()+1,0,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+			 }
 			 JlabelOffset.setText("0-6");
 		    });
 		 JButton Suivant=new JButton("Suivant");
@@ -179,11 +202,21 @@ public class ConsultationCompteRendu extends JPanel {
 			    	int offset=Integer.parseInt(JlabelOffset.getText().substring(0,indexOffset));
 			    	offset+=6;
 			    	int finOffset=offset+6;
-			        CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+			    	
+			    	if(User.role==2) {
+			    		CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,idVisiteurList[(int) BoxVisiteurChoice.getSelectedIndex()]);
+					 }else {
+						 CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+					 }
 			        JlabelOffset.setText(Integer.toString(offset)+"-"+finOffset);
 			       
 			    }
 			});
+		 BoxVisiteurChoice.addActionListener(e -> {
+			 //System.out.println(idVisiteurList[(int) BoxVisiteurChoice.getSelectedIndex()]);
+			 CRChangeLabel((int) jcombo.getSelectedIndex()+1,0,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,idVisiteurList[(int) BoxVisiteurChoice.getSelectedIndex()]);
+			 JlabelOffset.setText("0-6");
+		    });
 		 
 		 Precedent.addActionListener(new ActionListener() {
 			 
@@ -193,7 +226,11 @@ public class ConsultationCompteRendu extends JPanel {
 			    	if(offset!=0) {
 			    	offset-=6;
 				    int finOffset=offset+6;
-			        CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+				    if(User.role==2) {
+						 CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,idVisiteurList[(int) BoxVisiteurChoice.getSelectedIndex()]);
+					 }else {
+						 CRChangeLabel((int) jcombo.getSelectedIndex()+1,offset,date,medoc,labelIdMedoc,Medecin,bilan,boutonVoir,User.id_utilisateur);
+					 }
 			        JlabelOffset.setText(Integer.toString(offset)+"-"+finOffset);
 			        
 			    	}
