@@ -203,23 +203,16 @@ public class compteRenduControleur {
 			return null;
 		}
 		
-		
 	
-<<<<<<< HEAD
 	}
-=======
-	}	
->>>>>>> 9cc67300db0e870adfabb98bc1f80853af50120c
+
 	
 	public static List<List> selectMedicament() {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
-<<<<<<< HEAD
 			System.out.println("connecter medoc"+conn);
 
-=======
->>>>>>> 9cc67300db0e870adfabb98bc1f80853af50120c
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
