@@ -100,6 +100,7 @@ public class Agenda<Spanned> extends JPanel  {
 		 int daysInMonth = dom[date.getMonth()];
 		 if (isLeap(date.getYear()) && date.getMonth() == 1)
 		      daysInMonth++;
+		      final int jourTaille = daysInMonth;
 		//case vide avant le premier jour
 		    for (int i = 0; i < date.firstDayOfTheMonth(); i++) { 
 		    	labs[0][i].setText("");
@@ -119,6 +120,7 @@ public class Agenda<Spanned> extends JPanel  {
 		 // Case des dates jour du mois.
 		
 		    for ( int  i = 1; i <= daysInMonth; i++) {
+
 		    	final int  iNew = i;
 		    	int[] iArray  = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
 		  
@@ -207,11 +209,10 @@ public class Agenda<Spanned> extends JPanel  {
 								 buttonEvent.setPreferredSize(new Dimension(200,50));
 								 buttonEvent.setFont(p);
 								 JButton countevent = new JButton();
-								 System.out.println("mois"+" "+moisAn+" "+datePrev+" "+dateJourInt+" "+ iNew);
-
 								 if(datePrev.equals(moisAn)) {
-									 for( int n=0; n<32; n++) {
+								   for( int n=0; n<=jourTaille; n++) {
 									 if(dateJourInt == iArray[n]){
+										 final int nNew = n;
 										List<Integer> elements=new ArrayList<>();
 										elements.add(dateJourInt);
 										JLabel jourText = new JLabel(jour);
@@ -227,12 +228,15 @@ public class Agenda<Spanned> extends JPanel  {
 										jourPanel.add(countevent);
 										//bouton du few event
 										countevent.addActionListener(new ActionListener() {
-										public void actionPerformed1(ActionEvent ae) {
-											
-											if(moisAnSelect.equals(moisAn)) {
+										
 
-													if(dateJourInt == iNew){
-																		 
+
+										public void actionPerformed1(ActionEvent ae) {
+											System.out.println("mois"+datePrev+moisAn);
+											 System.out.println("jour"+dateJourInt+iArray[nNew]);
+											if(datePrev.equals(moisAn)) {
+
+													if(dateJourInt == iArray[nNew]){
 
 											    	  Popup fewEvent = new Popup("Evenements multiples", 1000,1000);
 
