@@ -13,6 +13,8 @@ public class Main {
 	public static void main(String[] args) {
 
 		Object connecteur = Connecteur.connecteurUL;
+		Object connecteur1 = Connecteur.connecteurML;
+
 		new Fenetre();
 
 	}

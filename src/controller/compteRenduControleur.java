@@ -29,8 +29,13 @@ public class compteRenduControleur {
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
 					"INSERT INTO" + 
+<<<<<<< HEAD
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `idMedicament`, `echantillon`,`dateCreation`)" + 
 					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"',NOW())";
+=======
+					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
+					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"')";
+>>>>>>> c9b4757f1d8827654d75358f58ca7087c82aeb77
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
@@ -92,30 +97,7 @@ public class compteRenduControleur {
 		
 		
 	}
-	public static List<List> selectVisiteur(){
-		List<List> List_visiteur = new ArrayList<List>();
-		String req="SELECT idUtilisateur,nom from utilisateur where role='1'";
-		try {
-			Connection conn = (Connection) Connecteur.connecteurUL;
-			Statement statement =  conn.createStatement();
-			ResultSet resultat = statement.executeQuery(req);
-			while(resultat.next()) {
-				List<String> User=new ArrayList<String>();
-				int idUser=resultat.getInt("idUtilisateur");
-				String nom=resultat.getString( "nom" );
-				User.add(Integer.toString(idUser));
-				User.add(nom);
-				List_visiteur.add(User);
-				
-			}
-			//System.out.println(List_visiteur);
-			return List_visiteur;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+
 	public static String selectNomMedoc(int IdMedoc) {
 		String nomMedoc;
 		try {
@@ -130,6 +112,7 @@ public class compteRenduControleur {
 		ResultSet resultat = statement.executeQuery(requete);
 		if(resultat.next()) {
 			nomMedoc=resultat.getString("nom");
+			System.out.println(nomMedoc);
 			return nomMedoc;
 		}else {
 			nomMedoc=null;
@@ -145,6 +128,30 @@ public class compteRenduControleur {
 		
 		
 	}
+	public static List<List> selectVisiteur(){
+        List<List> List_visiteur = new ArrayList<List>();
+        String req="SELECT idUtilisateur,nom from utilisateur where role='1'";
+        try {
+            Connection conn = (Connection) Connecteur.connecteurUL;
+            Statement statement =  conn.createStatement();
+            ResultSet resultat = statement.executeQuery(req);
+            while(resultat.next()) {
+                List<String> User=new ArrayList<String>();
+                int idUser=resultat.getInt("idUtilisateur");
+                String nom=resultat.getString( "nom" );
+                User.add(Integer.toString(idUser));
+                User.add(nom);
+                List_visiteur.add(User);
+                
+            }
+            System.out.println(List_visiteur);
+            return List_visiteur;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 	
 	/* Fonction de récupération des comptes rendus du user connecté */
 	public static List<List> consultationCompteRendu(int unMois,int debut,int IdUser)  {
@@ -159,19 +166,11 @@ public class compteRenduControleur {
 			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-			String requete;
-			if(Integer.toString(unMois).length()<2) {
-				requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
-			    		+ " rapport.echantillon, praticien.nom, rapport.idMedicament from rapport,praticien"
-			    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
-			    				+ " AND rapport.date LIKE '%-0"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
-			} else {
-				requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
-			    		+ " rapport.echantillon, praticien.nom, rapport.idMedicament from rapport,praticien"
-			    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
-			    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
-			}
-		    
+		    String requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
+		    		+ " rapport.echantillon, praticien.nom, rapport.idMedicament from rapport,praticien"
+		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
+		    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
+		    //LIMIT 6 OFFSET "+debut+"
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
 			
@@ -223,24 +222,30 @@ public class compteRenduControleur {
 		    
 		catch (Exception e){
 			System.out.println(e);
-			System.out.println("problème controller CompteRendu ligne ~200+ ");
+			System.out.println("marche pas chef consult cr ");
 			return null;
 		}
 		
+		
 	
-	}
-
+	}	
 	
 	public static List<List> selectMedicament() {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
+<<<<<<< HEAD
 			System.out.println("connecter medoc "+conn);
 
+=======
+			System.out.println(conn);
+>>>>>>> c9b4757f1d8827654d75358f58ca7087c82aeb77
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
+			System.out.println(statement);
 			ResultSet resultat = statement.executeQuery(requete);
+			System.out.println("test 2");
 			/* Récupère tous les id des medicament */
 			while(resultat.next()) {
 				List<String> unMedoc = new ArrayList<String>();
@@ -250,6 +255,7 @@ public class compteRenduControleur {
 				unMedoc.add(nomMed);
 				List_Medoc.add(unMedoc);
 			}
+			System.out.println("test final");
 			return List_Medoc;
 			
 			
@@ -257,7 +263,7 @@ public class compteRenduControleur {
 		
 		catch (Exception e){
 			System.out.println(e);
-			System.out.println("problème medoc compteRenduController ligne ~235");
+			System.out.println("marche pas chef medoc cr");
 			return null;
 		}
 		
