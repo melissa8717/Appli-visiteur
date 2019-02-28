@@ -34,8 +34,8 @@ public class Connexion extends JPanel {
 		espacement[0].setPreferredSize(new Dimension(largeurConteneur, 150));*/
 		
 		// Création des differents éléments de la vue
-		TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
-		titrePrincipale.setPreferredSize(new Dimension(1500, 100));
+		/*TitrePrincipale titrePrincipale = new TitrePrincipale("Connexion");
+		titrePrincipale.setPreferredSize(new Dimension(1500, 100));*/
 		Paragraphe paragrapheId = new Paragraphe("Identifiant : ");
 		JTextFieldModif textFieldId = new JTextFieldModif(12, 12);
 		Paragraphe paragrapheMdp = new Paragraphe("Mot de passe : ");
@@ -94,7 +94,7 @@ public class Connexion extends JPanel {
 		ligneUne.setOpaque(false);
 		ligneUne.setPreferredSize(new Dimension(largeurConteneur, 150));
 		
-		ligneUne.add(titrePrincipale);
+		//ligneUne.add(titrePrincipale);
 		
 		
 		JPanel ligneDeux = new JPanel();

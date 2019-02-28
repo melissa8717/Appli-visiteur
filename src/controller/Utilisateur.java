@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import com.mysql.jdbc.Connection;
 
 import model.Connecteur;
+import model.User;
 import view.Popup;
 
 public class Utilisateur {
@@ -117,4 +118,83 @@ public class Utilisateur {
 		
 	
 	}
+	
+	
+	
+	
+	
+	
+	
+	/* Get / Create Utilisateur */
+	
+	public static List<List> getUtilisateur() {
+		Statement statement = null;
+		ResultSet resultat = null;
+		try {
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+			String requete = "SELECT * from `utilisateur`";
+			statement = conn.createStatement();
+			
+			resultat = statement.executeQuery(requete);
+			
+			List<List> Utilisateur = new ArrayList<List>();
+			
+			List<String> Utilisateur_list = new ArrayList<String>();
+			
+			while(resultat.next()) {
+
+	            int idUtilisateur = resultat.getInt("idUtilisateur");
+	            String nom = resultat.getString("nom");
+	            String prenom = resultat.getString("prenom");
+	            String adresse = resultat.getString("adresse");
+	            String ville = resultat.getString("ville");
+	            String codePostal = resultat.getString("codePostal");
+	            String role = resultat.getString("role");
+	            String login = resultat.getString("login");
+	           
+	            Utilisateur_list.add(Integer.toString(idUtilisateur));
+	            Utilisateur_list.add(nom);
+	            Utilisateur_list.add(prenom);
+	            Utilisateur_list.add(adresse);
+	            Utilisateur_list.add(ville);
+	            Utilisateur_list.add(codePostal);
+	            Utilisateur_list.add(role);
+	            Utilisateur_list.add(login);
+	            
+			}
+			Utilisateur.add(Utilisateur_list);
+			return Utilisateur;
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			return null;
+			
+		} finally {
+			if (resultat != null) {
+				try {
+					resultat.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+		}
+	}
+	/*public User Create(String Name, String Email, String Password, String RememberToken, int UserProfile, int SupplierId) {
+		Statement statement = null;
+		ResultSet resultat = null;
+		try {
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+			String requete = "SELECT * from `utilisateur`";
+			statement = conn.createStatement();
+			
+		}
+		
+	}*/
 }
