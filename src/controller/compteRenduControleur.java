@@ -29,8 +29,8 @@ public class compteRenduControleur {
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
 					"INSERT INTO" + 
-					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `idMedicament`, `echantillon`)" + 
-					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"')";
+					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `idMedicament`, `echantillon`,`dateCreation`)" + 
+					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"',NOW())";
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
@@ -108,7 +108,7 @@ public class compteRenduControleur {
 				List_visiteur.add(User);
 				
 			}
-			System.out.println(List_visiteur);
+			//System.out.println(List_visiteur);
 			return List_visiteur;
 		}
 		catch (SQLException e) {
@@ -235,7 +235,7 @@ public class compteRenduControleur {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
-			System.out.println("connecter medoc"+conn);
+			System.out.println("connecter medoc "+conn);
 
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
