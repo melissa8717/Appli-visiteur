@@ -20,13 +20,12 @@ public class CnxBDD {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			
 
-			/*String url = "jdbc:mysql://localhost/test-appli-visiteur?useSSL=false";
 
-			String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
-
+			
+			/*String url = "jdbc:mysql://localhost/appli_visiteur?useSSL=false";
 		    String user = "root";
 		    String passwd = "root";
-		    /*String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
+		    String url = "jdbc:mysql://192.168.1.118/bduserlab?useSSL=false";
 		    String user = "rootuser";
 		    String passwd = "Aristee.2018..//";*/
 
@@ -76,10 +75,10 @@ public class CnxBDD {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-			/*String url = "jdbc:mysql://localhost/medoc?useSSL=false";
-			String url = "jdbc:mysql://localhost/appli_visiteur_medoc?useSSL=false";
+
+			/*String url = "jdbc:mysql://localhost/appli_visiteur_medoc?useSSL=false";
 		    String user = "root";
-		    String passwd = "root";
+		    String passwd = "root";*/
 		    
 		    /*String url = "jdbc:mysql://192.168.1.118/bdmedoclab?useSSL=false";
 		    String user = "rootuser";

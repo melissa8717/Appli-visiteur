@@ -29,8 +29,9 @@ public class compteRenduControleur {
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
 					"INSERT INTO" + 
-					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
-					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"')";
+					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `idMedicament`, `echantillon`,`dateCreation`)" + 
+					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"',NOW())";
+
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
@@ -92,6 +93,7 @@ public class compteRenduControleur {
 		
 		
 	}
+
 	public static String selectNomMedoc(int IdMedoc) {
 		String nomMedoc;
 		try {
@@ -229,7 +231,8 @@ public class compteRenduControleur {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
-			System.out.println(conn);
+			System.out.println("connecter medoc "+conn);
+
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
