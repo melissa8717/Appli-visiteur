@@ -108,7 +108,7 @@ public class compteRenduControleur {
 		ResultSet resultat = statement.executeQuery(requete);
 		if(resultat.next()) {
 			nomMedoc=resultat.getString("nom");
-			System.out.println(nomMedoc);
+			
 			return nomMedoc;
 		}else {
 			nomMedoc=null;
@@ -141,7 +141,6 @@ public class compteRenduControleur {
                 List_visiteur.add(User);
                 
             }
-            System.out.println(List_visiteur);
             return List_visiteur;
         }
         catch (SQLException e) {
@@ -158,6 +157,10 @@ public class compteRenduControleur {
 		try {
 			List<List> List_CR = new ArrayList<List>();
 			Connection conn =(Connection) Connecteur.connecteurUL;
+			String Mois=Integer.toString(unMois);
+			if(Integer.toString(unMois).length()<2) {
+				Mois="0"+Integer.toString(unMois);
+			}
 
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
@@ -166,7 +169,7 @@ public class compteRenduControleur {
 		    String requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
 		    		+ " rapport.echantillon, praticien.nom, rapport.idMedicament from rapport,praticien"
 		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
-		    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
+		    				+ " AND rapport.date LIKE '%-"+Mois+"-%' LIMIT 6 OFFSET "+debut+";";
 		    //LIMIT 6 OFFSET "+debut+"
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
@@ -238,7 +241,6 @@ public class compteRenduControleur {
 			Statement statement =  conn.createStatement();
 			System.out.println(statement);
 			ResultSet resultat = statement.executeQuery(requete);
-			System.out.println("test 2");
 			/* Récupère tous les id des medicament */
 			while(resultat.next()) {
 				List<String> unMedoc = new ArrayList<String>();
@@ -248,7 +250,7 @@ public class compteRenduControleur {
 				unMedoc.add(nomMed);
 				List_Medoc.add(unMedoc);
 			}
-			System.out.println("test final");
+			
 			return List_Medoc;
 			
 			
