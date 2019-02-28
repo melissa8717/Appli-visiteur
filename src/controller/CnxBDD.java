@@ -25,7 +25,7 @@ public class CnxBDD {
 
 		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+"?useSSL=false";
 		    String user = c.getProp("DB_USER");
-		    String passwd = c.getProp("DB_PASSWORD");*/
+		    String passwd = c.getProp("DB_PASSWORD");
 		    
 		    
 		    //utilisez ce connecteur partout ! sinon je vous frappe !!!!
@@ -65,9 +65,9 @@ public class CnxBDD {
 
 			Config c = new Config();
 
-		    /*String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE_MEDOC")+"?useSSL=false";
+		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE_MEDOC")+"?useSSL=false";
 		    String user = c.getProp("DB_USER");
-		    String passwd = c.getProp("DB_PASSWORD");*/
+		    String passwd = c.getProp("DB_PASSWORD");
 
 
 		    Connecteur.connecteurML = DriverManager.getConnection(url, user, passwd);
