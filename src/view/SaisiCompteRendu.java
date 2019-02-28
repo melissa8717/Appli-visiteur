@@ -265,14 +265,6 @@ public class SaisiCompteRendu extends JPanel {
 					DateChoisie = null;
 				}
 				
-				 /*try {
-				  
-				 Medicament = nomMedoc.getText(); if(Medicament=="" || Medicament.length()<=2)
-				 { Medicament=null; compteRenduFalse.setVisible(true); } }catch (Exception
-				 erreurMedoc) { compteRenduFalse.setVisible(true); Medicament =null;
-				  
-				 }
-				 */
 				try {
 					nbrEchantillons = Integer.parseInt(nbrEchantillonsField.getText());
 

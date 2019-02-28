@@ -24,7 +24,6 @@ public class compteRenduControleur {
 			Connection conn = (Connection) Connecteur.connecteurUL;
 			
 			commentaire = commentaire.replaceAll("(\')", "\\\\'");
-			//Medicament = Medicament.replaceAll("(\')", "\\\\'");
 			
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
