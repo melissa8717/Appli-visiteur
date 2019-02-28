@@ -50,6 +50,8 @@ public class Agenda<Spanned> extends JPanel  {
 	private static final long serialVersionUID = 1L;
 	public static String IDCal;
 	public static String List_Event;
+	public static String IdRole;
+
 
 
 	public Agenda() {
@@ -112,7 +114,7 @@ public class Agenda<Spanned> extends JPanel  {
 				labs[0][i].setBackground(new Color(229,236,246));
 		
 		    }
-		    
+
 		    Object connecteur = Connecteur.connecteurUL;
 			List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
 			 
@@ -230,9 +232,7 @@ public class Agenda<Spanned> extends JPanel  {
 										countevent.addActionListener(new ActionListener() {
 								
 										public void actionPerformed(ActionEvent ae) {
-											System.out.println("i am fucking in");
-											System.out.println("mois evn"+datePrev+moisAn);
-											 System.out.println("jour event"+dateJourInt+iNew);
+											
 											if(datePrev.equals(moisAn)) {
 
 													if(dateJourInt == iNew){
@@ -241,6 +241,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 											    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement(s) du "+ jour + " "+ moisSelect+" " + anneeSelect);
 											    	  fewEvent.add(titreOpened );
+											    	  titreOpened.setPreferredSize(new Dimension(1000,100));
 											          JPanel eventPanel[]= {new JPanel()};
 											          
 											          String heureListe[]= {"07:00","07:15","07:30","07:45","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00"};
@@ -420,8 +421,6 @@ public class Agenda<Spanned> extends JPanel  {
 			  b.setBackground(Color.white);
 			  b.setForeground(new Color (0,63,128));
 
-
-			
 				for(int y=0; y<List_CE.size();y++) {
 					 String event= (String) List_CE.get(y).get(0);	
 					 String dateDebut= (String) List_CE.get(y).get(1);
@@ -433,8 +432,8 @@ public class Agenda<Spanned> extends JPanel  {
 					 int dateJourInt = Integer.parseInt(dateJour);
 					 String idAgenda = (String) List_CE.get(y).get(6);
 					 int idAgendaInt = Integer.parseInt(idAgenda);
+					 IdRole = (String) List_CE.get(y).get(8);
 					
-		
 					 JPanel jourPanel = new JPanel();
 					 jourPanel.setPreferredSize(new Dimension(250,50));
 					 JPanel eventPanel = new JPanel();
@@ -486,6 +485,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 								    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement(s) du "+ jour + " "+ moisSelect+" " + anneeSelect);
 								    	  fewEvent.add(titreOpened );
+								    	  titreOpened.setPreferredSize(new Dimension(1000,100));
 								          JPanel eventPanel[]= {new JPanel()};
 								          
 								          String heureListe[]= {"07:00","07:15","07:30","07:45","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00"};
@@ -1071,11 +1071,12 @@ public class Agenda<Spanned> extends JPanel  {
 			samedi.setFont(fontM);
 			dimanche.setFont(fontM);
 
-		    
-		    
-		    //taille du calendrier
-		    bp.setPreferredSize(new Dimension(1700, 900));
-
+			 //taille du calendrier
+            bp.setPreferredSize(new Dimension(1700, 900));
+            Dimension sizeEcran= Toolkit.getDefaultToolkit().getScreenSize();
+            if(sizeEcran.height<900) {
+                bp.setPreferredSize(new Dimension(1700, 600));
+            }
 
 		    ActionListener dateSetter = new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {

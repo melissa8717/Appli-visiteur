@@ -29,8 +29,9 @@ public class compteRenduControleur {
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
 					"INSERT INTO" + 
-					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
-					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"')";
+					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `idMedicament`, `echantillon`,`dateCreation`)" + 
+					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"',NOW())";
+
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
@@ -92,6 +93,7 @@ public class compteRenduControleur {
 		
 		
 	}
+
 	public static String selectNomMedoc(int IdMedoc) {
 		String nomMedoc;
 		try {
@@ -106,7 +108,7 @@ public class compteRenduControleur {
 		ResultSet resultat = statement.executeQuery(requete);
 		if(resultat.next()) {
 			nomMedoc=resultat.getString("nom");
-			System.out.println(nomMedoc);
+			
 			return nomMedoc;
 		}else {
 			nomMedoc=null;
@@ -138,7 +140,9 @@ public class compteRenduControleur {
                 List_visiteur.add(User);
                 
             }
+
             System.out.println(List_visiteur);
+
             return List_visiteur;
         }
         catch (SQLException e) {
@@ -155,6 +159,10 @@ public class compteRenduControleur {
 		try {
 			List<List> List_CR = new ArrayList<List>();
 			Connection conn =(Connection) Connecteur.connecteurUL;
+			String Mois=Integer.toString(unMois);
+			if(Integer.toString(unMois).length()<2) {
+				Mois="0"+Integer.toString(unMois);
+			}
 
 		    /* Création de l'objet gérant les requêtes */
 			Statement statement = conn.createStatement();
@@ -163,7 +171,7 @@ public class compteRenduControleur {
 		    String requete = "SELECT rapport.idRapport, rapport.date, rapport.bilan, rapport.motif, rapport.idUtilisateur,"
 		    		+ " rapport.echantillon, praticien.nom, rapport.idMedicament from rapport,praticien"
 		    		+ " where rapport.idPraticien=praticien.idPraticien AND rapport.idUtilisateur="+IdUser+""
-		    				+ " AND rapport.date LIKE '%-"+unMois+"-%' LIMIT 6 OFFSET "+debut+";";
+		    				+ " AND rapport.date LIKE '%-"+Mois+"-%' LIMIT 6 OFFSET "+debut+";";
 		    //LIMIT 6 OFFSET "+debut+"
 			ResultSet resultat = statement.executeQuery(requete);
 		    /* Exécution d'une requête de lecture */
@@ -228,7 +236,8 @@ public class compteRenduControleur {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
-			System.out.println(conn);
+			System.out.println("connecter medoc "+conn);
+
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
@@ -243,6 +252,7 @@ public class compteRenduControleur {
 				unMedoc.add(nomMed);
 				List_Medoc.add(unMedoc);
 			}
+
 			return List_Medoc;
 			
 			

@@ -12,12 +12,15 @@ public class Config {
 
 	public Config() {
 		config = new Properties();
-	/*	try {
-			//config.load(new FileInputStream(new File("config.cfg")));
-		}
-		catch (IOException e) {
+		try {
+			config.load(new FileInputStream(new File("config.properties")));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public String getProp(String prop) {
