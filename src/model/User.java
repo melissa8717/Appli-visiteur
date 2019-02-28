@@ -30,23 +30,7 @@ public class User {
 	}
 	
 	/*
-	public User Create(String Name, String Email, String Password, String RememberToken, int UserProfile, int SupplierId) {
-		
-		DB_Connection obj_DB_Connection = new DB_Connection();
-		Connection connection = obj_DB_Connection.get_connection();
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		try {
-			String query=String.format("INSERT INTO users VALUES('%i', '%s', '%s',  '%s',  '%s', %i, %i, %d, %d)", 2, Name, Email, Password, RememberToken, null, null, Date.from(null), Date.from(null));
-			ps=connection.prepareStatement(query);
-			//ps.setString(1, sl_no);
-			System.out.println(ps);
-			rs=ps.executeQuery();
-		} catch (Exception e) {
-			System.out.println("Erreur insert : " + e);
-		}
-		return this;
-	}*/
+	*/
 	
 	/*public User Read(String inputLogin, String inputMdp){
 		DB_Connection obj_DB_Connection = (DB_Connection) model.DB_Connection.connectionbduser;

@@ -44,7 +44,7 @@ public class CnxBDD {
 				try {
 					resultat.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					/* ignored */ }
 			}
 			if (statement != null) {
 				try {
