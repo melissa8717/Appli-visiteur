@@ -117,7 +117,7 @@ public class CnxBDD {
 			Connection connMedoc=connecteurMedocLab();
 		    /* Cr�ation de l'objet g�rant les requ�tes */
 		    statement = conn.createStatement();
-		    //statement = connMedoc.createStatement();
+		    
 		    
 		    /* Ex�cution d'une requ�te de lecture */
 		    
