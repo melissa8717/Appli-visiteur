@@ -29,13 +29,9 @@ public class compteRenduControleur {
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
 					"INSERT INTO" + 
-<<<<<<< HEAD
 					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `idMedicament`, `echantillon`,`dateCreation`)" + 
 					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"',NOW())";
-=======
-					"`rapport`( `date`, `bilan`, `motif`, `idUtilisateur`, `idPraticien`, `nomMedicament`, `echantillon`)" + 
-					"VALUES ('"+date+"','"+commentaire+"','"+Motif+"','"+connectionControleur.id_utilisateur+"','"+medecin+"',"+Medicament+",'"+echantillon+"')";
->>>>>>> c9b4757f1d8827654d75358f58ca7087c82aeb77
+
 			Statement statement =  conn.createStatement();	
 
 			/* Exécution de la reqête */
@@ -234,12 +230,8 @@ public class compteRenduControleur {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
-<<<<<<< HEAD
 			System.out.println("connecter medoc "+conn);
 
-=======
-			System.out.println(conn);
->>>>>>> c9b4757f1d8827654d75358f58ca7087c82aeb77
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
