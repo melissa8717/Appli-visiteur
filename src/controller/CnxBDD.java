@@ -86,7 +86,7 @@ public class CnxBDD {
 
 			Config c = new Config();
 
-		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE_MEDOC")+"?useSSL=false";
+		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+"?useSSL=false";
 		    String user = c.getProp("DB_USER");
 		    String passwd = c.getProp("DB_PASSWORD");
 
