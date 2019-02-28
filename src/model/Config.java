@@ -10,14 +10,14 @@ import java.util.Properties;
 public class Config {
 	Properties config;
 
-	public Config() {
+	public Config() throws FileNotFoundException, IOException {
 		config = new Properties();
-	/*	try {
-			//config.load(new FileInputStream(new File("config.cfg")));
+		config.load(new FileInputStream(new File("config.properties")));
+		/*try {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-		}*/	
+		}*/
 	}
 	
 	public String getProp(String prop) {
