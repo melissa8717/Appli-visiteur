@@ -209,10 +209,12 @@ public class Agenda<Spanned> extends JPanel  {
 								 buttonEvent.setPreferredSize(new Dimension(200,50));
 								 buttonEvent.setFont(p);
 								 JButton countevent = new JButton();
-								 if(datePrev.equals(moisAn)) {
-								   for( int n=0; n<=jourTaille; n++) {
-									 if(dateJourInt == iArray[n]){
-										 final int nNew = n;
+								// for( int n=0; n<=jourTaille; n++) {
+									 
+									
+								    if(datePrev.equals(moisAn)) {
+									   if(dateJourInt == iNew){
+										System.out.println("jour"+dateJourInt);
 										List<Integer> elements=new ArrayList<>();
 										elements.add(dateJourInt);
 										JLabel jourText = new JLabel(jour);
@@ -232,11 +234,11 @@ public class Agenda<Spanned> extends JPanel  {
 
 
 										public void actionPerformed1(ActionEvent ae) {
-											System.out.println("mois"+datePrev+moisAn);
-											 System.out.println("jour"+dateJourInt+iArray[nNew]);
+											System.out.println("mois evn"+datePrev+moisAn);
+											 System.out.println("jour event"+dateJourInt+nNew);
 											if(datePrev.equals(moisAn)) {
 
-													if(dateJourInt == iArray[nNew]){
+													if(dateJourInt == nNew){
 
 											    	  Popup fewEvent = new Popup("Evenements multiples", 1000,1000);
 
@@ -397,8 +399,8 @@ public class Agenda<Spanned> extends JPanel  {
 
 								}// fin du if jour
 						
-							} // fin du 1e if
-						  }
+							} // fin if mois
+						// }//fin for event prev
 						}// fin for event*/
 				//	}//fin action labs
 
