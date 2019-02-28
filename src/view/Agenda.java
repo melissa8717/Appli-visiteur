@@ -214,7 +214,6 @@ public class Agenda<Spanned> extends JPanel  {
 									
 								    if(datePrev.equals(moisAn)) {
 									   if(dateJourInt == iNew){
-										System.out.println("jour"+dateJourInt);
 										List<Integer> elements=new ArrayList<>();
 										elements.add(dateJourInt);
 										JLabel jourText = new JLabel(jour);
@@ -226,19 +225,17 @@ public class Agenda<Spanned> extends JPanel  {
 										b.removeAll(); 
 										b.updateUI();
 										b.add(eventPanel);
-										countevent.setText(" Voir détail");
+										countevent.setText("Voir détail");
 										jourPanel.add(countevent);
-										//bouton du few event
 										countevent.addActionListener(new ActionListener() {
-										
-
-
-										public void actionPerformed1(ActionEvent ae) {
+								
+										public void actionPerformed(ActionEvent ae) {
+											System.out.println("i am fucking in");
 											System.out.println("mois evn"+datePrev+moisAn);
-											 System.out.println("jour event"+dateJourInt+nNew);
+											 System.out.println("jour event"+dateJourInt+iNew);
 											if(datePrev.equals(moisAn)) {
 
-													if(dateJourInt == nNew){
+													if(dateJourInt == iNew){
 
 											    	  Popup fewEvent = new Popup("Evenements multiples", 1000,1000);
 
@@ -389,8 +386,7 @@ public class Agenda<Spanned> extends JPanel  {
 					}*/
 										}
 
-										@Override
-										public void actionPerformed(ActionEvent e) {
+										public void actionPerformed1(ActionEvent e) {
 											// TODO Auto-generated method stub
 											
 										}
