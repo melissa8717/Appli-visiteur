@@ -5,6 +5,9 @@ import model.Connecteur;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import org.omg.CORBA.Current;
+
 import java.sql.SQLException;
 import view.Fenetre;
 import model.Config;
@@ -124,7 +127,7 @@ public class CnxBDD {
 				User.prenom = resultat.getString("prenom");
 				User.role = resultat.getInt("role");
 				User.connected = true;
-
+				
 				return true;
 				// Pour faire ca, faut que les attributs de user soit en static, me demander par
 				// pourquoi
@@ -151,5 +154,6 @@ public class CnxBDD {
 			}
 		}
 	}
-
+	
+	
 }

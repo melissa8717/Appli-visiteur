@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -21,6 +22,8 @@ import javax.swing.UIManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import controller.CnxBDD;
+import model.Connecteur;
 import model.User;
 import view.Accueil;
 import view.ConsultationPowerPoint;
@@ -217,9 +220,19 @@ public class Fenetre extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             // Mel fonction de déconnexion
-                        	
-                            System.out.println("Déconnexion");
-                            System.exit(0);
+                        	u = null;
+                        	u = new User();
+                            System.out.println(u);
+                            menuBar.removeAll();
+                            popup_deconnexion.dispose();
+                            refreshConnexion(false);
+                            try {
+								Connecteur.connecteurML.close();
+	                            Connecteur.connecteurUL.close();
+							} catch (SQLException e1) {
+								System.out.println("la destruction des connecteur a eux u pb");
+								e1.printStackTrace();
+							}
                         }
                     });
 
@@ -251,7 +264,7 @@ public class Fenetre extends JFrame {
             panelActif = panel_accueil;
             setJMenuBar(menuBar);
             add(panelActif, BorderLayout.CENTER);
-            
+            menuBar.setOpaque(true);
             revalidate();
             repaint();
         }
