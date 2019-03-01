@@ -23,8 +23,6 @@ public class CnxBDD {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			
 
-
-		    
 		    Config c = new Config();
 
 
@@ -52,7 +50,7 @@ public class CnxBDD {
 				try {
 					resultat.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					/* ignored */ }
 			}
 			if (statement != null) {
 				try {
@@ -69,7 +67,6 @@ public class CnxBDD {
 		ResultSet resultat = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-
 
 
 			Config c = new Config();
@@ -112,7 +109,7 @@ public class CnxBDD {
 			Connection connMedoc=connecteurMedocLab();
 		    /* Cr�ation de l'objet g�rant les requ�tes */
 		    statement = conn.createStatement();
-		    //statement = connMedoc.createStatement();
+		    
 		    
 		    /* Ex�cution d'une requ�te de lecture */
 		    

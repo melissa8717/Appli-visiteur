@@ -50,6 +50,8 @@ public class Agenda<Spanned> extends JPanel  {
 	private static final long serialVersionUID = 1L;
 	public static String IDCal;
 	public static String List_Event;
+	public static String IdRole;
+
 
 
 	public Agenda() {
@@ -112,7 +114,7 @@ public class Agenda<Spanned> extends JPanel  {
 				labs[0][i].setBackground(new Color(229,236,246));
 		
 		    }
-		    
+
 		    Object connecteur = Connecteur.connecteurUL;
 			List<List> List_CE= AgendaC.consultationEvenement(User.id_utilisateur);
 			 
@@ -209,10 +211,11 @@ public class Agenda<Spanned> extends JPanel  {
 								 buttonEvent.setPreferredSize(new Dimension(200,50));
 								 buttonEvent.setFont(p);
 								 JButton countevent = new JButton();
-								 if(datePrev.equals(moisAn)) {
-								   for( int n=0; n<=jourTaille; n++) {
-									 if(dateJourInt == iArray[n]){
-										 final int nNew = n;
+								// for( int n=0; n<=jourTaille; n++) {
+									 
+									
+								    if(datePrev.equals(moisAn)) {
+									   if(dateJourInt == iNew){
 										List<Integer> elements=new ArrayList<>();
 										elements.add(dateJourInt);
 										JLabel jourText = new JLabel(jour);
@@ -224,24 +227,21 @@ public class Agenda<Spanned> extends JPanel  {
 										b.removeAll(); 
 										b.updateUI();
 										b.add(eventPanel);
-										countevent.setText(" Voir détail");
+										countevent.setText("Voir détail");
 										jourPanel.add(countevent);
-										//bouton du few event
 										countevent.addActionListener(new ActionListener() {
-										
-
-
-										public void actionPerformed1(ActionEvent ae) {
-											System.out.println("mois"+datePrev+moisAn);
-											 System.out.println("jour"+dateJourInt+iArray[nNew]);
+								
+										public void actionPerformed(ActionEvent ae) {
+											
 											if(datePrev.equals(moisAn)) {
 
-													if(dateJourInt == iArray[nNew]){
+													if(dateJourInt == iNew){
 
 											    	  Popup fewEvent = new Popup("Evenements multiples", 1000,1000);
 
 											    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement(s) du "+ jour + " "+ moisSelect+" " + anneeSelect);
 											    	  fewEvent.add(titreOpened );
+											    	  titreOpened.setPreferredSize(new Dimension(1000,100));
 											          JPanel eventPanel[]= {new JPanel()};
 											          
 											          String heureListe[]= {"07:00","07:15","07:30","07:45","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00"};
@@ -387,8 +387,7 @@ public class Agenda<Spanned> extends JPanel  {
 					}*/
 										}
 
-										@Override
-										public void actionPerformed(ActionEvent e) {
+										public void actionPerformed1(ActionEvent e) {
 											// TODO Auto-generated method stub
 											
 										}
@@ -397,8 +396,8 @@ public class Agenda<Spanned> extends JPanel  {
 
 								}// fin du if jour
 						
-							} // fin du 1e if
-						  }
+							} // fin if mois
+						// }//fin for event prev
 						}// fin for event*/
 				//	}//fin action labs
 
@@ -422,8 +421,6 @@ public class Agenda<Spanned> extends JPanel  {
 			  b.setBackground(Color.white);
 			  b.setForeground(new Color (0,63,128));
 
-
-			
 				for(int y=0; y<List_CE.size();y++) {
 					 String event= (String) List_CE.get(y).get(0);	
 					 String dateDebut= (String) List_CE.get(y).get(1);
@@ -435,8 +432,8 @@ public class Agenda<Spanned> extends JPanel  {
 					 int dateJourInt = Integer.parseInt(dateJour);
 					 String idAgenda = (String) List_CE.get(y).get(6);
 					 int idAgendaInt = Integer.parseInt(idAgenda);
+					 IdRole = (String) List_CE.get(y).get(8);
 					
-		
 					 JPanel jourPanel = new JPanel();
 					 jourPanel.setPreferredSize(new Dimension(250,50));
 					 JPanel eventPanel = new JPanel();
@@ -488,6 +485,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 								    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement(s) du "+ jour + " "+ moisSelect+" " + anneeSelect);
 								    	  fewEvent.add(titreOpened );
+								    	  titreOpened.setPreferredSize(new Dimension(1000,100));
 								          JPanel eventPanel[]= {new JPanel()};
 								          
 								          String heureListe[]= {"07:00","07:15","07:30","07:45","08:00","08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00"};
@@ -1073,11 +1071,12 @@ public class Agenda<Spanned> extends JPanel  {
 			samedi.setFont(fontM);
 			dimanche.setFont(fontM);
 
-		    
-		    
-		    //taille du calendrier
-		    bp.setPreferredSize(new Dimension(1700, 900));
-
+			 //taille du calendrier
+            bp.setPreferredSize(new Dimension(1700, 900));
+            Dimension sizeEcran= Toolkit.getDefaultToolkit().getScreenSize();
+            if(sizeEcran.height<900) {
+                bp.setPreferredSize(new Dimension(1700, 600));
+            }
 
 		    ActionListener dateSetter = new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {

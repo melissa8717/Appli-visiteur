@@ -29,6 +29,7 @@ import view.Accueil;
 import view.ConsultationPowerPoint;
 import view.CreationMessagerie;
 import view.agenda.*;
+import view.CreerLireUtilisateur;
 
 
 
@@ -120,7 +121,7 @@ public class Fenetre extends JFrame {
 	        final JPanel panel_medecin2 = new ConsultationMedecin();
 	        	// Menu Utilisateur
 	        //final JPanel panel_utilisateur = new JPanel();
-	        final JPanel panel_utilisateur1 = new CreationUtilisateur();
+	        final JPanel panel_utilisateur1 = new CreerLireUtilisateur();
 	        final JPanel panel_utilisateur2 = new ConsultationUtilisateur();
 	        	// Menu Deconnexion
 	        final JPanel panel_deconnexion = new Deconnexion();
@@ -140,8 +141,10 @@ public class Fenetre extends JFrame {
             JMenu menu6 = new JMenu("Informations Médecins");
             JMenu menu7 = new JMenu("Utilisateurs");
             JMenu menu8 = new JMenu("Deconnexion");
+            JMenu menu9 = new JMenu("Guillaume");
             AddMenuAction(menu1, panel_accueil);
             AddMenuAction(menu5, panel_agenda1 );
+            AddMenuAction(menu9, panel_utilisateur1 );
 
             //AddMenuAction(menu8, panel_deconnexion);
 
@@ -206,6 +209,7 @@ public class Fenetre extends JFrame {
             	menuBar.add(menu7);            	
             }
             menuBar.add(menu8);
+            menuBar.add(menu9);
 
             menu8.addMenuListener(new MenuListener(){
                 public void menuSelected(MenuEvent e) {

@@ -76,7 +76,7 @@ public  class ButtonRenderer extends JButton implements TableCellRenderer
 		        int row, int column) {     
 
 		    cwwObjTblMainTable=table;
-		    button.setText("Voir");     
+		    button.setText("Voir"); 
 		    button.setEnabled(enabled);     
 		    return button;     
 		}     
@@ -107,7 +107,6 @@ public  class ButtonRenderer extends JButton implements TableCellRenderer
 		    
 		     List List_Event = (List) AgendaC.consultationThisEvenement(Agenda.IDCal);
 
-
    			for(int y=0; y<List_Event.size();y++) {
    				 String event= (String)((List) List_Event.get(y)).get(0);	
    				 String dateDebut= (String)((List) List_Event.get(y)).get(1);
@@ -124,7 +123,6 @@ public  class ButtonRenderer extends JButton implements TableCellRenderer
 
 	   			 Object connecteurDue = Connecteur.connecteurUL;
    			     List List_Med = (List) AgendaC.consultationThisMedecin(idMedecin);
-   			     System.out.println("list "+List_Med);
 
    			     for(int i=0; i<1; i++) {
 
@@ -137,8 +135,8 @@ public  class ButtonRenderer extends JButton implements TableCellRenderer
    	   				 String	tel= (String)((List) List_Med.get(i)).get(5);	
    			     
 				
-		    Popup opened = new Popup("Voir evenement", 800,800);
-		    //ouverture de l evenement choisi
+   	   				 Popup opened = new Popup("Voir evenement", 800,800);
+		             //ouverture de l evenement choisi
 	
 					  opened.setAlwaysOnTop(true);
 					  Font font_low = new Font("open-sans", Font.PLAIN, 18);
@@ -213,7 +211,7 @@ public  class ButtonRenderer extends JButton implements TableCellRenderer
 				    	  finLabel.setPreferredSize(new Dimension(500,70));
 
 			    	  }
-
+			    	
 		    		 
 			    	  JPanel modifierPanel = new JPanel();
 		    		  JButton modifier = new JButton ("Modifier l'évenement");
@@ -234,19 +232,20 @@ public  class ButtonRenderer extends JButton implements TableCellRenderer
 			    	  adresseMed.setPreferredSize(new Dimension (800, 75));
 			    	  telMed.setPreferredSize(new Dimension (800, 75));
 
-				    medecin.add(medecinSelected);
-				     opened.add(adresseMed);
-				     adresseMed.add(adresseMedLabel);
-				     adresseMed.add(adresseMedSelected);
-				     adresseMed.add(cpMed);
-				    adresseMed.add(cpMedSelected);
-				     adresseMed.add(villeMed);
-				    adresseMed.add(villeMedSelected);
-				     opened.add(telMed);
-				     telMed.add(telLabel);
-				    telMed.add(telMedSelected);
+				      medecin.add(medecinSelected);
+				      opened.add(adresseMed);
+				      adresseMed.add(adresseMedLabel);
+				      adresseMed.add(adresseMedSelected);
+				      adresseMed.add(cpMed);
+				      adresseMed.add(cpMedSelected);
+				      adresseMed.add(villeMed);
+				      adresseMed.add(villeMedSelected);
+				      opened.add(telMed);
+				      telMed.add(telLabel);
+				      telMed.add(telMedSelected);
 
 				     if(idRoleInt == 0 || idRoleInt == 1) {
+				    	 System.out.println("role"+idRoleInt );
 			    	  opened.add(modifierPanel);
 			    	  modifierPanel.setPreferredSize(new Dimension(800, 75));
 			    	  modifierPanel.add(modifier);

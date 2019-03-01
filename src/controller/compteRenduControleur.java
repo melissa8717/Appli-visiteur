@@ -24,7 +24,6 @@ public class compteRenduControleur {
 			Connection conn = (Connection) Connecteur.connecteurUL;
 			
 			commentaire = commentaire.replaceAll("(\')", "\\\\'");
-			//Medicament = Medicament.replaceAll("(\')", "\\\\'");
 			
 			/* Requête d'insertion en base du compte rendu */
 			String requete = 
@@ -141,6 +140,9 @@ public class compteRenduControleur {
                 List_visiteur.add(User);
                 
             }
+
+            System.out.println(List_visiteur);
+
             return List_visiteur;
         }
         catch (SQLException e) {
@@ -250,7 +252,7 @@ public class compteRenduControleur {
 				unMedoc.add(nomMed);
 				List_Medoc.add(unMedoc);
 			}
-			
+
 			return List_Medoc;
 			
 			
