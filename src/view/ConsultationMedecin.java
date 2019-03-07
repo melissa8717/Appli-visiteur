@@ -41,7 +41,7 @@ public class ConsultationMedecin extends JPanel {
 		
 		for (int i =0; i<List_Med.size(); i++) {
 			idMed = (String) List_Med.get(i).get(0);
-			final String idMedU = idMed;
+			final int idMedU = Integer.parseInt(idMed);
 			idSpe = (String) List_Med.get(i).get(1);
 			nomMed = (String) List_Med.get(i).get(2);
 			prenom = (String) List_Med.get(i).get(3);
@@ -113,7 +113,7 @@ public class ConsultationMedecin extends JPanel {
 				String nomMedecinU = nomMedecinArea.getText();
 				String telU = telMedecinArea.getText();
 				String villeU = villeMedecinArea.getText();
-
+				
 				
 				controller.Medecin.updateMedecin(idMedU, nomMedecinU, prenomU, adresseU, villeU, cpU, telU);
 

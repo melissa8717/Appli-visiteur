@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 import model.Connecteur;
 import view.Popup;
@@ -103,18 +102,19 @@ public class Medecin {
 		}
 	}
 	
-	public static boolean updateMedecin(String idMed, String nomMedecin, String prenomMedecin, String adresse, String ville, String cp, String tel) {
-		java.sql.PreparedStatement statement = null;
+	public static boolean updateMedecin(int idMedU, String nomMedecin, String prenomMedecin, String adresse, String ville, String cp, String tel) {
 		int resultat = 0;
 		try {
 			Connection conn = (Connection) Connecteur.connecteurUL;
 
 			/* Création de l'objet gérant les requêtes */
-			String requete = "UPDATE praticien SET idPraticien='" + idMed + "', '" +nomMedecin + "', '" + prenomMedecin+ "', '" + adresse +"', '" + ville+"', '" + cp+ "', '" + tel + "' where idPraticien = '" + idMed + "';";
-			statement = conn.prepareStatement(requete);
+			String requete = "UPDATE praticien SET idPraticien='" + idMedU + "', nom ='" + nomMedecin + "', prenom = '" + prenomMedecin+ "', adresse= '" + adresse +"', ville ='" + ville+"', codePostal ='" + cp+ "', telephone ='" + tel + "' where idPraticien = " + idMedU + ";";
+			Statement statement =  conn.createStatement();	
 
-			resultat = statement.executeUpdate(requete);
-			System.out.println("result"+ resultat);
+			int rep = statement.executeUpdate(requete);
+			System.out.println(" ia m here !!!!"  );
+
+			System.out.println("result"+ rep);
 			Popup Succes = new Popup("Médecin mis à jour", 800, 200);
 
 			JPanel panelSucces = new JPanel();
@@ -128,9 +128,9 @@ public class Medecin {
 			panelSucces.setBackground(new Color(85, 239, 196));
 			panelSucces.setForeground(new Color(96, 191, 96));
 
-			return true;
+			return (rep > 0);
 		} catch (Exception e) {
-
+			System.out.println("nop :"+e);
 			Popup NotSucces = new Popup("Le medecin n'a pas été correctement mise à jour !", 800, 100);
 
 			JPanel panelNotSucces = new JPanel();
@@ -145,15 +145,7 @@ public class Medecin {
 			panelNotSucces.setForeground(new Color(191, 48, 48));
 			return false;
 
-		} finally {
-
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-					/* ignored */}
-			}
-		}
+		} 
 	}
 
 
