@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class ConsultationMedecin extends JPanel {
 		
 		for (int i =0; i<List_Med.size(); i++) {
 			idMed = (String) List_Med.get(i).get(0);
+			final String idMedU = idMed;
 			idSpe = (String) List_Med.get(i).get(1);
 			nomMed = (String) List_Med.get(i).get(2);
 			prenom = (String) List_Med.get(i).get(3);
@@ -49,7 +52,7 @@ public class ConsultationMedecin extends JPanel {
 		
 		JPanel contenu = new JPanel();
 		contenu.setBackground(Color.white);
-		contenu.setPreferredSize(new Dimension(2000,200));
+		contenu.setPreferredSize(new Dimension(2000,215));
 
 		JPanel nomMedecin = new JPanel();
 		JLabel nomMedecinLabel = new JLabel("Nom du medecin :");
@@ -60,6 +63,7 @@ public class ConsultationMedecin extends JPanel {
 		JLabel prenomMedecinLabel = new JLabel("Prénom du medecin :");
 		JTextArea prenomMedecinArea = new JTextArea(1,15);
 		prenomMedecinArea.setText(prenom);
+
 		
 		List<List> List_Spe = controller.Medecin.listTypeMedecin(idSpe);
 		for(int y =0; y<List_Spe.size(); y++) {
@@ -69,8 +73,8 @@ public class ConsultationMedecin extends JPanel {
 		}
 		
 		JLabel speMedecinLabel = new JLabel("Spécialité du medecin :");
-		JTextArea speMedecinArea = new JTextArea(1,15);
-		speMedecinArea.setText(nomSpe);
+		JLabel speMedecinArea = new JLabel(nomSpe);
+
 		
 		JPanel adresseMedecin = new JPanel();
 		JLabel adresseMedecinLabel = new JLabel("Adresse du medecin :");
@@ -82,17 +86,40 @@ public class ConsultationMedecin extends JPanel {
 		JTextArea villeMedecinArea = new JTextArea(1,15);
 		villeMedecinArea.setText(ville);
 
+
 		JLabel cpMedecinLabel = new JLabel("Code postal du medecin :");
 		JTextArea cpMedecinArea = new JTextArea(1,15);
 		cpMedecinArea.setText(cp);
+
 
 		
 		JPanel telMedecin = new JPanel();
 		JLabel telMedecinLabel = new JLabel("Téléphone du medecin :");
 		JTextArea telMedecinArea = new JTextArea(1,15);
 		telMedecinArea.setText(tel);
+
 		telMedecin.setPreferredSize(new Dimension(2000,50));
 		telMedecin.setFont(font);
+		
+		JPanel modifier = new JPanel();
+		JButton modifierButton = new JButton("Modifier");
+		
+		modifierButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent ae) {
+				String adresseU = adresseMedecinArea.getText();
+				String cpU = cpMedecinArea.getText();
+				String prenomU = prenomMedecinArea.getText();
+				String nomMedecinU = nomMedecinArea.getText();
+				String telU = telMedecinArea.getText();
+				String villeU = villeMedecinArea.getText();
+
+				
+				controller.Medecin.updateMedecin(idMedU, nomMedecinU, prenomU, adresseU, villeU, cpU, telU);
+
+				
+			}
+		});
 		
 		this.add(contenu);
 		contenu.add(nomMedecin);
@@ -112,6 +139,8 @@ public class ConsultationMedecin extends JPanel {
 		contenu.add(telMedecin);
 		telMedecin.add(telMedecinLabel);
 		telMedecin.add(telMedecinArea);
+		contenu.add(modifier);
+		modifier.add(modifierButton);
 		}
 		
 

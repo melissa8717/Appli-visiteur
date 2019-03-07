@@ -1,12 +1,20 @@
 package controller;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
 import model.Connecteur;
+import view.Popup;
 
 public class Medecin {
 	public static  List<List> listSpeMedecin(){
@@ -94,5 +102,59 @@ public class Medecin {
 			return null;
 		}
 	}
+	
+	public static boolean updateMedecin(String idMed, String nomMedecin, String prenomMedecin, String adresse, String ville, String cp, String tel) {
+		java.sql.PreparedStatement statement = null;
+		int resultat = 0;
+		try {
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+			/* Création de l'objet gérant les requêtes */
+			String requete = "UPDATE praticien SET idPraticien='" + idMed + "', '" +nomMedecin + "', '" + prenomMedecin+ "', '" + adresse +"', '" + ville+"', '" + cp+ "', '" + tel + "' where idPraticien = '" + idMed + "';";
+			statement = conn.prepareStatement(requete);
+
+			resultat = statement.executeUpdate(requete);
+			System.out.println("result"+ resultat);
+			Popup Succes = new Popup("Médecin mis à jour", 800, 200);
+
+			JPanel panelSucces = new JPanel();
+			JLabel labelSucces = new JLabel("Le médecin a été correctement mise à jour !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
+
+			return true;
+		} catch (Exception e) {
+
+			Popup NotSucces = new Popup("Le medecin n'a pas été correctement mise à jour !", 800, 100);
+
+			JPanel panelNotSucces = new JPanel();
+			JLabel labelNotSucces = new JLabel("Le médecin n'a pas été correctement mise à jour !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
+			return false;
+
+		} finally {
+
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+		}
+	}
+
 
 }
