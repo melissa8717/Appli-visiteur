@@ -32,6 +32,8 @@ public class ConsultationMedecin extends JPanel {
 		String ville = null;
 		String cp = null;
 		String tel = null;
+		String idType = null;
+		String nomSpe = null;
 		this.add(bienvenue);
 
 		
@@ -59,10 +61,17 @@ public class ConsultationMedecin extends JPanel {
 		JTextArea prenomMedecinArea = new JTextArea(1,15);
 		prenomMedecinArea.setText(prenom);
 		
-		List<List> List_Spe = controller.Medecin.listSpeMedecin();
+		List<List> List_Spe = controller.Medecin.listTypeMedecin(idSpe);
+		for(int y =0; y<List_Spe.size(); y++) {
+			idType = (String) List_Spe.get(y).get(0);
+			nomSpe = (String) List_Spe.get(y).get(1);
+
+		}
+		
 		JLabel speMedecinLabel = new JLabel("Spécialité du medecin :");
-		List<String> ListSpe = new ArrayList<String>();
-	
+		JTextArea speMedecinArea = new JTextArea(1,15);
+		speMedecinArea.setText(nomSpe);
+		
 		JPanel adresseMedecin = new JPanel();
 		JLabel adresseMedecinLabel = new JLabel("Adresse du medecin :");
 		JTextArea adresseMedecinArea = new JTextArea(2,15);	
@@ -92,6 +101,7 @@ public class ConsultationMedecin extends JPanel {
 		nomMedecin.add(prenomMedecinLabel);
 		nomMedecin.add(prenomMedecinArea);
 		nomMedecin.add(speMedecinLabel);
+		nomMedecin.add(speMedecinArea);
 		contenu.add(adresseMedecin);
 		adresseMedecin.add(adresseMedecinLabel);
 		adresseMedecin.add(adresseMedecinArea);
