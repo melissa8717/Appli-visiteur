@@ -141,7 +141,6 @@ public class compteRenduControleur {
                 
             }
 
-            System.out.println(List_visiteur);
 
             return List_visiteur;
         }
@@ -236,12 +235,10 @@ public class compteRenduControleur {
 		try {
 			List<List> List_Medoc = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurML;
-			System.out.println("connecter medoc "+conn);
 
 			/* Requête de récupération des ids des medicament */
 			String requete = "SELECT `idMedicament`,`nom` FROM `medicament` WHERE 1;";
 			Statement statement =  conn.createStatement();
-			System.out.println(statement);
 			ResultSet resultat = statement.executeQuery(requete);
 			/* Récupère tous les id des medicament */
 			while(resultat.next()) {

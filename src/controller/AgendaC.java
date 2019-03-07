@@ -782,7 +782,6 @@ public static  List<List> consultationThisMedecin(String idPraticien) {
 			/* Requête récupérat les comptes rendus du user connecté */
 		    String requete = "SELECT * FROM praticien left join agenda on praticien.idPraticien=agenda.idPraticien where agenda.idPraticien = '"+idPraticien+"';";
 			ResultSet resultat = statement.executeQuery(requete);
-			System.out.println("resultat med"+ requete);
 			
 			
 		
@@ -797,7 +796,6 @@ public static  List<List> consultationThisMedecin(String idPraticien) {
 	            String cp = resultat.getString("codePostal");
 	            String tel = resultat.getString("telephone");
 	            int idMedecin= resultat.getInt("idPraticien");
-	            System.out.println("nom"+nom);
           
 	            event.add(nom);
 	            event.add(prenom);
@@ -808,7 +806,6 @@ public static  List<List> consultationThisMedecin(String idPraticien) {
 	            event.add(Integer.toString(idMedecin));
 
 				List_CTM.add(event);
-				System.out.println("doc bdd"+List_CTM);
 
 	           
 			}

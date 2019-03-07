@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.metal.MetalComboBoxButton;
@@ -77,6 +78,10 @@ public class Agenda<Spanned> extends JPanel  {
 			  31, 30, 31, 31, /* may jun jul aug */
 			  30, 31, 30, 31 /* sep oct nov dec */
 			  };
+	  
+	  int daysInMonth = dom[date.getMonth()];
+	  
+
 	  /** The month choice */
 	  public JComboBox<String> monthChoice;
 
@@ -99,7 +104,6 @@ public class Agenda<Spanned> extends JPanel  {
 		      for (int j = 0; j < 7; j++) 
 		         labs[i][j].setText("");
 
-		 int daysInMonth = dom[date.getMonth()];
 		 if (isLeap(date.getYear()) && date.getMonth() == 1)
 		      daysInMonth++;
 		      final int jourTaille = daysInMonth;
@@ -129,6 +133,7 @@ public class Agenda<Spanned> extends JPanel  {
 		        JButton b = labs[(date.firstDayOfTheMonth() + i - 2) / 7][(date.firstDayOfTheMonth() + i - 2) % 7];
 		        String moisSelect = (String) monthChoice.getSelectedItem();
 				String anneeSelect = (String) yearChoice.getSelectedItem();
+				int anneeSelectInt = Integer.parseInt(anneeSelect);
 			    java.util.Date cal=Calendar.getInstance().getTime();
 				SimpleDateFormat moisSelected = new SimpleDateFormat("MM");
 				String month_number = moisSelected.format(cal.getTime());
@@ -158,7 +163,8 @@ public class Agenda<Spanned> extends JPanel  {
  	            labs[5][size].setBackground(new Color(62,101,146));
  	            labs[5][sizeTotal].setBackground(Color.cyan);
 		        labs[5][sizeTotal].addActionListener(e ->{
-
+		     
+		     
 					JPanel moisCal = new JPanel();
 		        	String moisAnSuiv = null;
 		            if(moisSelectPrev == 12) {
@@ -188,6 +194,7 @@ public class Agenda<Spanned> extends JPanel  {
 
 						b.removeAll(); 
 						b.updateUI();
+						
 						Object connecteur2 = Connecteur.connecteurUL;
 
 						for(int y=0; y<List_CE.size();y++) {
@@ -217,9 +224,6 @@ public class Agenda<Spanned> extends JPanel  {
 								 buttonEvent.setPreferredSize(new Dimension(200,50));
 								 buttonEvent.setFont(p);
 								 JButton countevent = new JButton();
-								// for( int n=0; n<=jourTaille; n++) {
-							    	System.out.println("mois"+dateSuiv+""+moisAn);
-
 									
 								    if(dateSuiv.equals(moisAn)) {
 									   if(dateJourInt == iNew){
@@ -240,13 +244,13 @@ public class Agenda<Spanned> extends JPanel  {
 								
 										public void actionPerformed(ActionEvent ae) {
 											
-											if(datePrev.equals(moisAn)) {
+											if(dateSuiv.equals(moisAn)) {
 
 													if(dateJourInt == iNew){
 
 											    	  Popup fewEvent = new Popup("Evenements multiples", 1000,1000);
 
-											    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement(s) du "+ jour + " "+ moisSelect+" " + anneeSelect);
+											    	  TitreSecondaire titreOpened = new TitreSecondaire("Evènement(s) du "+ dateJourInt + " "+ dateSuiv );
 											    	  fewEvent.add(titreOpened );
 											    	  titreOpened.setPreferredSize(new Dimension(1000,100));
 											          JPanel eventPanel[]= {new JPanel()};

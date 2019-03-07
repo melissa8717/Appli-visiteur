@@ -136,8 +136,47 @@ public class ConsultationUtilisateur extends JPanel {
 		      }
 		});
 		
+		JButton consultationEquipe = new JButton("Voir équipe(s) formée(s)");
+		consultationEquipe.addActionListener(new ActionListener() {
+
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Popup equipePopup = new Popup("Voir équipe",800,500);
+				Object connecteur = Connecteur.connecteurUL;
+				String nomVisiteurEquipe= null;
+				List<List> ListEquipe = controller.Utilisateur.consultationEquipe(nomVisiteurEquipe);
+				for(int i=0; i<ListEquipe.size();i++) {
+					String nomVisiteurEquipeStr =  (String) ListEquipe.get(i).get(1);
+					String prenomVisiteurEquipe =  (String) ListEquipe.get(i).get(2);
+					String nomEquipe =  (String) ListEquipe.get(i).get(4);
+					
+					JPanel equipePanel = new JPanel();
+					JLabel nomEquipeLabel = new JLabel(nomEquipe);
+					JLabel equipeVide = new JLabel("Pas d'équipe");
+					equipePanel.setBackground(Color.red);
+					equipePanel.setPreferredSize(new Dimension(650,200));
+					equipePopup.add(equipePanel);
+
+					if(nomEquipe == nomEquipe) {
+						equipePopup.add(nomEquipeLabel);
+					}
+					else {
+						equipePopup.add(equipeVide);
+
+					}
+					equipePopup.add(equipePanel);
+					consultationEquipe.add(equipePopup);
+
+				}
+				
+			}
+		});
+
+		
 		
 		this.add(bienvenue);
 		this.add(equipe);
+		this.add(consultationEquipe);
 	}
 }

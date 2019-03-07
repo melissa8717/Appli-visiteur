@@ -22,17 +22,17 @@ import view.Popup;
 
 public class Utilisateur {
 	public static boolean ajoutVisiteurEquipe (int idVisiteurInt, String equipe) {
+		Statement statement = null;
+		int resultat = 0;
 		
 		try {
 			Connection conn =(Connection) Connecteur.connecteurUL;
-		
-			Statement statement = conn.createStatement();
+			statement = conn.createStatement();
 			String requete = "UPDATE utilisateur SET equipe='"+equipe+"',WHERE idUtilisateur="+idVisiteurInt+";";
-			ResultSet resultat = statement.executeQuery(requete);
-			System.out.println(" ia m here !!!");
 
+			resultat = statement.executeUpdate(requete);
 			System.out.println("requete"+resultat);
-			
+
 			Popup Succes = new Popup("Mis à jour", 800,200);
 			
 			JPanel panelSucces = new JPanel(); 
@@ -65,6 +65,14 @@ public class Utilisateur {
 			panelNotSucces.setForeground(new Color(191, 48, 48));
 			return false;
 
+		}finally {
+
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
 		}
 	}
 	
