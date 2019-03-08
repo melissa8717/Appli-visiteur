@@ -45,7 +45,7 @@ public class Medecin {
 			List<List> List_Med = new ArrayList<List>();
 			Connection conn = (Connection) Connecteur.connecteurUL;
 			Statement statement = conn.createStatement();
-		    String requete = "SELECT * FROM praticien;";
+		    String requete = "SELECT * FROM praticien order by nom;";
 			ResultSet resultat = statement.executeQuery(requete);
 			
 			while(resultat.next()) {
@@ -112,9 +112,7 @@ public class Medecin {
 			Statement statement =  conn.createStatement();	
 
 			int rep = statement.executeUpdate(requete);
-			System.out.println(" ia m here !!!!"  );
-
-			System.out.println("result"+ rep);
+			
 			Popup Succes = new Popup("Médecin mis à jour", 800, 200);
 
 			JPanel panelSucces = new JPanel();
@@ -130,7 +128,6 @@ public class Medecin {
 
 			return (rep > 0);
 		} catch (Exception e) {
-			System.out.println("nop :"+e);
 			Popup NotSucces = new Popup("Le medecin n'a pas été correctement mise à jour !", 800, 100);
 
 			JPanel panelNotSucces = new JPanel();
@@ -149,4 +146,77 @@ public class Medecin {
 	}
 
 
+	public static  List<List> listThisMedecin(String nomMedStr){
+		try {
+			List<List> List_TMed = new ArrayList<List>();
+			Connection conn = (Connection) Connecteur.connecteurUL;
+			Statement statement = conn.createStatement();
+		    String requete = "SELECT * FROM praticien where nom = '" + nomMedStr + "';";
+			ResultSet resultat = statement.executeQuery(requete);
+			
+			while(resultat.next()) {
+				List<String> TMed = new ArrayList<String>();
+				
+				int idMed = resultat.getInt("idPraticien");
+				int idSpeMed = resultat.getInt("idTypePraticien");
+				String nomMed = resultat.getString("nom");
+				String prenomMed = resultat.getString("prenom");
+				String adresseMed = resultat.getString("adresse");
+				String villeMed = resultat.getString("ville");
+				String cpMed = resultat.getString("codePostal");
+				String telMed = resultat.getString("telephone");
+
+				TMed.add(Integer.toString(idMed));
+				TMed.add(Integer.toString(idSpeMed));
+				TMed.add(nomMed);
+				TMed.add(prenomMed);
+				TMed.add(adresseMed);
+				TMed.add(villeMed);
+				TMed.add(cpMed);
+				TMed.add(telMed);
+
+				List_TMed.add(TMed);
+			}
+			return List_TMed;
+		}catch(Exception e){
+			return null;
+		}
+	}
+	
+	public static  List<List> listLastMedecin(){
+		try {
+			List<List> List_LMed = new ArrayList<List>();
+			Connection conn = (Connection) Connecteur.connecteurUL;
+			Statement statement = conn.createStatement();
+		    String requete = "SELECT * FROM praticien order by idPraticien desc limit 1 ;";
+			ResultSet resultat = statement.executeQuery(requete);
+			
+			while(resultat.next()) {
+				List<String> LMed = new ArrayList<String>();
+				
+				int idMed = resultat.getInt("idPraticien");
+				int idSpeMed = resultat.getInt("idTypePraticien");
+				String nomMed = resultat.getString("nom");
+				String prenomMed = resultat.getString("prenom");
+				String adresseMed = resultat.getString("adresse");
+				String villeMed = resultat.getString("ville");
+				String cpMed = resultat.getString("codePostal");
+				String telMed = resultat.getString("telephone");
+
+				LMed.add(Integer.toString(idMed));
+				LMed.add(Integer.toString(idSpeMed));
+				LMed.add(nomMed);
+				LMed.add(prenomMed);
+				LMed.add(adresseMed);
+				LMed.add(villeMed);
+				LMed.add(cpMed);
+				LMed.add(telMed);
+
+				List_LMed.add(LMed);
+			}
+			return List_LMed;
+		}catch(Exception e){
+			return null;
+		}
+	}
 }
