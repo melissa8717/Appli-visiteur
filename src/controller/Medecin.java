@@ -219,4 +219,57 @@ public class Medecin {
 			return null;
 		}
 	}
+	
+	public static boolean suppressionMedecin(int idMedecin) {
+		Statement statement = null;
+		try {
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+			/* Création de l'objet gérant les requêtes */
+			statement = conn.createStatement();
+			String requete = "DELETE FROM praticien WHERE idPraticien = " + idMedecin + ";";
+
+			int resultat = statement.executeUpdate(requete);
+			Popup Succes = new Popup("Suppression :", 800, 200);
+
+			JPanel panelSucces = new JPanel();
+			JLabel labelSucces = new JLabel("Le médecin a été correctement supprimé !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelSucces.setFont(font);
+			Succes.add(panelSucces);
+			panelSucces.add(labelSucces);
+
+			panelSucces.setBackground(new Color(85, 239, 196));
+			panelSucces.setForeground(new Color(96, 191, 96));
+			return true;
+		} catch (Exception e) {
+
+			Popup NotSucces = new Popup("Suppression : erreur ", 800, 100);
+
+			JPanel panelNotSucces = new JPanel();
+			JLabel labelNotSucces = new JLabel("Le médecin n'a pas été correctement supprimé !");
+			Font font = new Font("Open Sans", Font.PLAIN, 30);
+			// Définition du style
+			labelNotSucces.setFont(font);
+			NotSucces.add(panelNotSucces);
+			panelNotSucces.add(labelNotSucces);
+
+			panelNotSucces.setBackground(new Color(235, 77, 75));
+			panelNotSucces.setForeground(new Color(191, 48, 48));
+
+			return false;
+
+		} finally {
+
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					/* ignored */}
+			}
+		}
+	}
 }
+
+

@@ -81,6 +81,7 @@ public class ConsultationMedecin extends JPanel {
 			
 				for (int i =0; i<List_This.size(); i++) {
 					idMed = (String) List_This.get(i).get(0);
+					int idMedecinInt = Integer.parseInt(idMed);
 					final int idMedU = Integer.parseInt(idMed);
 					idSpe = (String) List_This.get(i).get(1);
 					nomMed = (String) List_This.get(i).get(2);
@@ -142,6 +143,17 @@ public class ConsultationMedecin extends JPanel {
 				
 				JPanel modifier = new JPanel();
 				JButton modifierButton = new JButton("Modifier");
+				JButton supButton = new JButton("Supprimer");
+				supButton.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent ae) {
+						controller.Medecin.suppressionMedecin(idMedecinInt);
+						popup.dispose();
+
+
+					}
+				});
+					
 				
 				modifierButton.addActionListener(new ActionListener() {
 					
@@ -155,6 +167,7 @@ public class ConsultationMedecin extends JPanel {
 						
 						
 						controller.Medecin.updateMedecin(idMedU, nomMedecinU, prenomU, adresseU, villeU, cpU, telU);
+						popup.dispose();
 
 						
 					}
@@ -179,6 +192,8 @@ public class ConsultationMedecin extends JPanel {
 				telMedecin.add(telMedecinArea);
 				contenu.add(modifier);
 				modifier.add(modifierButton);
+				modifier.add(supButton);
+
 				
 				}
 
@@ -199,6 +214,7 @@ public class ConsultationMedecin extends JPanel {
 	
 		for (int i =0; i<List_Last.size(); i++) {
 			idMed = (String) List_Last.get(i).get(0);
+			int idMedecinInt = Integer.parseInt(idMed);
 			final int idMedU = Integer.parseInt(idMed);
 			idSpe = (String) List_Last.get(i).get(1);
 			nomMed = (String) List_Last.get(i).get(2);
@@ -260,6 +276,16 @@ public class ConsultationMedecin extends JPanel {
 		
 		JPanel modifier = new JPanel();
 		JButton modifierButton = new JButton("Modifier");
+		JButton supButton = new JButton("Supprimer");
+		supButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent ae) {
+				controller.Medecin.suppressionMedecin(idMedecinInt);
+
+
+			}
+		});
+			
 		
 		modifierButton.addActionListener(new ActionListener() {
 			
@@ -297,6 +323,7 @@ public class ConsultationMedecin extends JPanel {
 		telMedecin.add(telMedecinArea);
 		contenu.add(modifier);
 		modifier.add(modifierButton);
+		modifier.add(supButton);
 		
 		}
 	}
