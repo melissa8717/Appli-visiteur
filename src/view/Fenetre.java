@@ -211,6 +211,11 @@ public class Fenetre extends JFrame {
             	menu5.add(item_agenda2);
             	
             }
+            
+            if(u.role == 3) {
+            	menuBar.add(menu8);
+            	
+            }
 
             menuBar.add(menu4);
             menuBar.add(menu5);
@@ -218,10 +223,9 @@ public class Fenetre extends JFrame {
             	menuBar.add(menu6);
             	menuBar.add(menu7);            	
             }
-            menuBar.add(menu8);
             menuBar.add(menu9);
 
-            menu8.addMenuListener(new MenuListener(){
+            menu9.addMenuListener(new MenuListener(){
                 public void menuSelected(MenuEvent e) {
                     Popup popup_deconnexion = new Popup("Déconnexion", 500, 250);
                     popup_deconnexion.setAlwaysOnTop(true);
