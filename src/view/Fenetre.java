@@ -121,7 +121,7 @@ public class Fenetre extends JFrame {
 	        final JPanel panel_medecin2 = new ConsultationMedecin();
 	        
 	        //Menu medoc
-	        final JPanel panel_medoc = new CreationMedicament();
+	        //final JPanel panel_medoc = new CreationMedicament();
 
 	        	// Menu Utilisateur
 	        //final JPanel panel_utilisateur = new JPanel();
@@ -149,7 +149,7 @@ public class Fenetre extends JFrame {
             JMenu menu10 = new JMenu("Guillaume");
             AddMenuAction(menu1, panel_accueil);
             AddMenuAction(menu5, panel_agenda1 );
-            AddMenuAction(menu8, panel_medoc );
+            //AddMenuAction(menu8, panel_medoc );
             AddMenuAction(menu9, panel_utilisateur1 );
 
             //AddMenuAction(menu8, panel_deconnexion);
@@ -180,7 +180,7 @@ public class Fenetre extends JFrame {
             AddMenuItemAction(item_agenda2, panel_agenda2);
             AddMenuItemAction(item_medecin1, panel_medecin1);
             AddMenuItemAction(item_medecin2, panel_medecin2);
-            AddMenuItemAction(item_medoc, panel_medoc);
+            //AddMenuItemAction(item_medoc, panel_medoc);
             AddMenuItemAction(item_utilisateur1, panel_utilisateur1);
             AddMenuItemAction(item_utilisateur2, panel_utilisateur2);
             
