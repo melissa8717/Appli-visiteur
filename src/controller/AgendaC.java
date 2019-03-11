@@ -88,23 +88,34 @@ public class AgendaC {
 	}
 
 
-	public static boolean ajoutEvenementVisiteur (String rapport, String dateDebutEvent, String dateFinEvent, int idVisiteur, String heureDebut, String heureFinC, int idMedecin, int idRole) {
+	public static boolean ajoutEvenementVisiteur (String rapport, String dateDebutEvent, String dateFinEvent, int idVisiteur, String heureDebut, String heureFinC, int idMedecin) {
 		Statement statement = null;
 		ResultSet resultat = null;
 		try { 
 			Connection conn = (Connection) Connecteur.connecteurUL;
 			
-			
+			int idmed;
+			String requete;
+			if(idMedecin==-1) {
+				requete = 
+						"INSERT INTO" + 
+						"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`, `heureDebut`, `heureFin`,`idPraticien`)" + 
+						"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"',"+idVisiteur+", '"+heureDebut+"' ,'"+heureFinC+"', NULL)";
+			}else {
+				
+				requete = 
+						"INSERT INTO" + 
+								"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`, `heureDebut`, `heureFin`,`idPraticien`)" + 
+								"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"',"+idVisiteur+", '"+heureDebut+"' ,'"+heureFinC+"', "+idMedecin+")";
+			}
+			statement =  conn.createStatement();	
 			
 			/* Requête d'insertion en base du compte rendu */
-			String requete = 
-					"INSERT INTO" + 
-					"`agenda`( `evenement`, `dateDebut`, `dateFin`, `idUtilisateur`, `heureDebut`, `heureFin`,`idPraticien`,`idRole`)" + 
-					"VALUES ('"+rapport+"','"+dateDebutEvent+"','"+dateFinEvent+"',"+idVisiteur+", '"+heureDebut+"' ,'"+heureFinC+"', "+idMedecin+", "+User.role+")";
-			statement =  conn.createStatement();	
+			
+			int rep = statement.executeUpdate(requete);
 
 			/* Exécution de la reqête */
-			statement =  conn.createStatement();	
+			
 			Popup Succes = new Popup("Ajout", 800,200);
 			
 			JPanel panelSucces = new JPanel(); 
@@ -135,6 +146,7 @@ public class AgendaC {
 
 			panelNotSucces.setBackground(new Color(235, 77, 75));
 			panelNotSucces.setForeground(new Color(191, 48, 48));
+			System.out.println(e);
 			return false;
 		}
 		
@@ -152,7 +164,7 @@ public class AgendaC {
 			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien, idRole from agenda where idUtilisateur="+IdUser+";";
+		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien from agenda where idUtilisateur="+IdUser+";";
 			ResultSet resultat = statement.executeQuery(requete);
 			
 			
@@ -169,7 +181,7 @@ public class AgendaC {
 	            String heureFin = resultat.getString("heureFin");
 	            int idAgenda = resultat.getInt("idAgenda");
 	            int idMedecin= resultat.getInt("idPraticien");
-	            int idRole = resultat.getInt("idRole");
+	            
 
 
 	            //convertir une date en string
@@ -187,7 +199,7 @@ public class AgendaC {
 	            event.add(heureFin);
 	            event.add(Integer.toString(idAgenda));
 	            event.add(Integer.toString(idMedecin));
-	            event.add(Integer.toString(idRole));
+	          
 
 				List_CE.add(event);
 
@@ -207,7 +219,79 @@ public class AgendaC {
 	
 	}
 	
-public static  List<List> consultationEvenementMois(int IdUser, int mois) {
+	public static List<List> consultationEvenementJour(int IdUser,String day,int month,int year){
+
+		try {
+			List<List> List_CE = new ArrayList<List>();
+			Connection conn = (Connection) Connecteur.connecteurUL;
+
+
+		    /* Création de l'objet gérant les requêtes */
+			Statement statement = conn.createStatement();
+			
+			/* Requête récupérat les comptes rendus du user connecté */
+			String MonMois=Integer.toString(month);
+			if(Integer.toString(month).length()<2) {
+				MonMois="0"+Integer.toString(month);
+			}
+			String MaDate=year+"-"+MonMois+"-"+day;
+
+		    String requete = "SELECT evenement, dateDebut, dateFin, heureDebut, heureFin, idAgenda, idPraticien from agenda where idUtilisateur="+IdUser+" and dateDebut='"+MaDate+"';";
+			ResultSet resultat = statement.executeQuery(requete);
+			
+			
+		
+		    /* Récupération des données du résultat de la requête de lecture */
+		    while(resultat.next()) {
+				List<String> event = new ArrayList<String>();
+
+	            String evenement = resultat.getString("evenement");
+	            Date dateD = resultat.getDate("dateDebut");
+	            Date dateFin = resultat.getDate("dateFin");
+	            
+	            String heureDebut = resultat.getString("heureDebut");
+	            String heureFin = resultat.getString("heureFin");
+	            int idAgenda = resultat.getInt("idAgenda");
+	            int idMedecin= resultat.getInt("idPraticien");
+	           
+
+
+	            //convertir une date en string
+	            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            
+	            String strDateD = dateFormat.format(dateD);
+	            String strDateF = dateFormat.format(dateFin);
+	            
+	            
+	            event.add(evenement);
+	            event.add(strDateD);
+	            event.add(strDateF);
+	            
+	            event.add(heureDebut);
+	            event.add(heureFin);
+	            event.add(Integer.toString(idAgenda));
+	            event.add(Integer.toString(idMedecin));
+	           
+
+				List_CE.add(event);
+
+	           
+			}
+
+			return List_CE;
+
+		   
+		}
+		
+		    
+		catch (Exception e){
+			
+			
+			return null;
+		}
+
+	}
+public static  List<List> consultationEvenementMois(int IdUser, int mois,int year) {
 		
 		try {
 			List<List> List_CE = new ArrayList<List>();
@@ -218,7 +302,11 @@ public static  List<List> consultationEvenementMois(int IdUser, int mois) {
 			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien, idRole from agenda where idUtilisateur="+IdUser+" and dateDebut ="+mois+";";
+			String MonMois=Integer.toString(mois);
+			if(Integer.toString(mois).length()<2) {
+				MonMois="0"+Integer.toString(mois);
+			}
+		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien from agenda where idUtilisateur="+IdUser+" and dateDebut LIKE '"+year+"-"+MonMois+"-%' ;";
 			ResultSet resultat = statement.executeQuery(requete);
 			
 			
@@ -235,7 +323,7 @@ public static  List<List> consultationEvenementMois(int IdUser, int mois) {
 	            String heureFin = resultat.getString("heureFin");
 	            int idAgenda = resultat.getInt("idAgenda");
 	            int idMedecin= resultat.getInt("idPraticien");
-	            int idRole = resultat.getInt("idRole");
+	            
 
 
 	            //convertir une date en string
@@ -253,7 +341,7 @@ public static  List<List> consultationEvenementMois(int IdUser, int mois) {
 	            event.add(heureFin);
 	            event.add(Integer.toString(idAgenda));
 	            event.add(Integer.toString(idMedecin));
-	            event.add(Integer.toString(idRole));
+	            
 
 				List_CE.add(event);
 
@@ -287,7 +375,7 @@ public static  List<List> consultationThisEvenement(String iDCal) {
 			Statement statement = conn.createStatement();
 			
 			/* Requête récupérat les comptes rendus du user connecté */
-		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien, idRole from agenda where idAgenda='"+iDCal+"';";
+		    String requete = "SELECT evenement, dateDebut, dateFin, idUtilisateur, heureDebut, heureFin, idAgenda, idPraticien from agenda where idAgenda='"+iDCal+"';";
 			ResultSet resultat = statement.executeQuery(requete);
 			
 			
@@ -304,7 +392,7 @@ public static  List<List> consultationThisEvenement(String iDCal) {
 	            String heureFin = resultat.getString("heureFin");
 	            int idAgenda = resultat.getInt("idAgenda");
 	            int idMedecin= resultat.getInt("idPraticien");
-	            int idRole = resultat.getInt("idRole");
+	            
 
 
 	            //convertir une date en string
@@ -322,7 +410,6 @@ public static  List<List> consultationThisEvenement(String iDCal) {
 	            event.add(heureFin);
 	            event.add(Integer.toString(idAgenda));
 	            event.add(Integer.toString(idMedecin));
-	            event.add(Integer.toString(idRole));
 
 				List_CE.add(event);
 
