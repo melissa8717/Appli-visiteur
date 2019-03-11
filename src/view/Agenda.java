@@ -58,6 +58,8 @@ public class Agenda<Spanned> extends JPanel  {
 	private static final long serialVersionUID = 1L;
 	public static String IDCal;
 	public static String List_Event;
+	public static String IdRole;
+
 
 
 	public Agenda() {
@@ -228,7 +230,9 @@ public class Agenda<Spanned> extends JPanel  {
 		List<List> EventDuMois=AgendaC.consultationEvenementMois(User.id_utilisateur,month+1,year);
 		
 
+
 		
+
 		YearMonth yearMonthObject = YearMonth.of(year, month+1);
         int NumberDaysInMonth = yearMonthObject.lengthOfMonth();
         int numJour=getFirstDateOfCurrentMonth(year,month).getDay();
@@ -380,6 +384,7 @@ public class Agenda<Spanned> extends JPanel  {
 					ListIdMed.add(idTemp);
 					ListNomMed.add((String) ListMedTemp.get(i).get(1));
 
+
 				}
 				String [] ArrayMedecin = new String[ListNomMed.size()];
 				ArrayMedecin = ListNomMed.toArray(ArrayMedecin);
@@ -416,7 +421,6 @@ public class Agenda<Spanned> extends JPanel  {
 						java.util.Date selectedDateDebut = (java.util.Date) datePickerDebut.getModel().getValue();
 						DateFormat formatDateDebut = new SimpleDateFormat("yyyy/MM/dd");
 						DateDebutChoisie = formatDateDebut.format(selectedDateDebut);
-						
 
 						java.util.Date selectedDateFin = (java.util.Date) datePickerFin.getModel().getValue();
 						DateFormat formatDateFin = new SimpleDateFormat("yyyy/MM/dd");
@@ -456,7 +460,6 @@ public class Agenda<Spanned> extends JPanel  {
 							}else {
 								idMedSelect=ListIdMed.get(SelectMedecin.getSelectedIndex()-1);
 								nomMedecin=ListNomMed.get(idMedSelect);
-								
 							}
 							System.out.println("id du medecin : "+idMedSelect);
 							System.out.println(nomMedecin);
@@ -474,6 +477,7 @@ public class Agenda<Spanned> extends JPanel  {
 				
 				popup.add(panelPopup);
 				
+
 				
 			}
 			
@@ -593,6 +597,7 @@ public class Agenda<Spanned> extends JPanel  {
 		return tempArray;   // on retourne notre nouvelle array
 	}
 	
+
 	private JLabel[] ajoutemoiLabel(JLabel[] MonArray, JLabel NouveauPanel) {
 		/*
 		 * 
@@ -602,6 +607,7 @@ public class Agenda<Spanned> extends JPanel  {
 		int newSize = MonArray.length + 1;
 		JLabel[] tempArray = new JLabel[ newSize ];
 		//Nous cr��ons un array temporaire avec la taille de l'array actuelle
+
 		
 		for (int i=0; i < MonArray.length; i++)
 		{

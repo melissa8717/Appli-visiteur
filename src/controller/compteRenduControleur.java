@@ -123,6 +123,7 @@ public class compteRenduControleur {
 		
 		
 	}
+
 	public static List<List> selectVisiteur(){
         List<List> List_visiteur = new ArrayList<List>();
         String req="SELECT idUtilisateur,nom from utilisateur where role='1'";
@@ -139,6 +140,8 @@ public class compteRenduControleur {
                 List_visiteur.add(User);
                 
             }
+
+
             return List_visiteur;
         }
         catch (SQLException e) {
@@ -247,7 +250,7 @@ public class compteRenduControleur {
 				unMedoc.add(nomMed);
 				List_Medoc.add(unMedoc);
 			}
-			
+
 			return List_Medoc;
 			
 			

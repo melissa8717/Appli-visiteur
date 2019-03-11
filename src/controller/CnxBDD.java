@@ -5,6 +5,9 @@ import model.Connecteur;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import org.omg.CORBA.Current;
+
 import java.sql.SQLException;
 import view.Fenetre;
 import model.Config;
@@ -20,10 +23,13 @@ public class CnxBDD {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			
 
-		    
 		    Config c = new Config();
 
+
+		   // String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+"?useSSL=false";
+
 		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+"?useSSL=false";
+
 		    String user = c.getProp("DB_USER");
 		    String passwd = c.getProp("DB_PASSWORD");
 		    
@@ -65,7 +71,7 @@ public class CnxBDD {
 
 			Config c = new Config();
 
-		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE_MEDOC")+"?useSSL=false";
+		    String url = "jdbc:mysql://"+c.getProp("DB_HOST")+"/"+c.getProp("DB_DATABASE")+"?useSSL=false";
 		    String user = c.getProp("DB_USER");
 		    String passwd = c.getProp("DB_PASSWORD");
 
@@ -118,7 +124,7 @@ public class CnxBDD {
 				User.prenom = resultat.getString("prenom");
 				User.role = resultat.getInt("role");
 				User.connected = true;
-
+				
 				return true;
 				// Pour faire ca, faut que les attributs de user soit en static, me demander par
 				// pourquoi
@@ -145,5 +151,6 @@ public class CnxBDD {
 			}
 		}
 	}
-
+	
+	
 }

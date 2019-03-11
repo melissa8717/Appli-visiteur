@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -21,6 +22,8 @@ import javax.swing.UIManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import controller.CnxBDD;
+import model.Connecteur;
 import model.User;
 import view.Accueil;
 import view.ConsultationPowerPoint;
@@ -116,6 +119,10 @@ public class Fenetre extends JFrame {
 	        //final JPanel panel_medecin = new JPanel();
 	        final JPanel panel_medecin1 = new CreationMedecin();
 	        final JPanel panel_medecin2 = new ConsultationMedecin();
+	        
+	        //Menu medoc
+	        final JPanel panel_medoc = new CreationMedicament();
+
 	        	// Menu Utilisateur
 	        //final JPanel panel_utilisateur = new JPanel();
 	        final JPanel panel_utilisateur1 = new CreerLireUtilisateur();
@@ -137,10 +144,12 @@ public class Fenetre extends JFrame {
             JMenu menu5 = new JMenu("Agenda");
             JMenu menu6 = new JMenu("Informations Médecins");
             JMenu menu7 = new JMenu("Utilisateurs");
-            JMenu menu8 = new JMenu("Deconnexion");
-            JMenu menu9 = new JMenu("Guillaume");
+            JMenu menu8 = new JMenu("Médicaments");
+            JMenu menu9 = new JMenu("Deconnexion");
+            JMenu menu10 = new JMenu("Guillaume");
             AddMenuAction(menu1, panel_accueil);
             AddMenuAction(menu5, panel_agenda1 );
+            AddMenuAction(menu8, panel_medoc );
             AddMenuAction(menu9, panel_utilisateur1 );
 
             //AddMenuAction(menu8, panel_deconnexion);
@@ -158,6 +167,7 @@ public class Fenetre extends JFrame {
             JMenuItem item_messagerie2 = new JMenuItem("Consultation");
             JMenuItem item_medecin1 = new JMenuItem("Ajouter un medecin");
             JMenuItem item_medecin2 = new JMenuItem("Consulter la liste des medecins");
+            JMenuItem item_medoc = new JMenuItem("Ajouter un medicament");
             JMenuItem item_utilisateur1 = new JMenuItem("Ajouter un utilisateur");
             JMenuItem item_utilisateur2 = new JMenuItem("Consultation de la liste des utilisateurs");
             AddMenuItemAction(item_compte_rendu1, panel_compte_rendu1);
@@ -170,6 +180,7 @@ public class Fenetre extends JFrame {
             AddMenuItemAction(item_agenda2, panel_agenda2);
             AddMenuItemAction(item_medecin1, panel_medecin1);
             AddMenuItemAction(item_medecin2, panel_medecin2);
+            AddMenuItemAction(item_medoc, panel_medoc);
             AddMenuItemAction(item_utilisateur1, panel_utilisateur1);
             AddMenuItemAction(item_utilisateur2, panel_utilisateur2);
             
@@ -186,6 +197,8 @@ public class Fenetre extends JFrame {
             menu6.add(item_medecin2);
             menu7.add(item_utilisateur1);
             menu7.add(item_utilisateur2);
+            menu8.add(item_medoc);
+
       
             // Ajout des menus dans la barre de menu en fonction du role de l'utilisateur
             menuBar.add(menu1);
@@ -221,9 +234,19 @@ public class Fenetre extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             // Mel fonction de déconnexion
-                        	
-                            System.out.println("Déconnexion");
-                            System.exit(0);
+                        	u = null;
+                        	u = new User();
+                            System.out.println(u);
+                            menuBar.removeAll();
+                            popup_deconnexion.dispose();
+                            refreshConnexion(false);
+                            try {
+								Connecteur.connecteurML.close();
+	                            Connecteur.connecteurUL.close();
+							} catch (SQLException e1) {
+								System.out.println("la destruction des connecteur a eux u pb");
+								e1.printStackTrace();
+							}
                         }
                     });
 
@@ -255,7 +278,7 @@ public class Fenetre extends JFrame {
             panelActif = panel_accueil;
             setJMenuBar(menuBar);
             add(panelActif, BorderLayout.CENTER);
-            
+            menuBar.setOpaque(true);
             revalidate();
             repaint();
         }

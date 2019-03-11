@@ -10,8 +10,9 @@ import java.util.Properties;
 public class Config {
 	Properties config;
 
-	public Config() {
+	public Config() throws FileNotFoundException, IOException {
 		config = new Properties();
+
 		try {
 			config.load(new FileInputStream(new File("config.properties")));
 		} catch (FileNotFoundException e) {

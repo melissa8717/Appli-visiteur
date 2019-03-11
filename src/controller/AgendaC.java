@@ -893,7 +893,6 @@ public static  List<List> consultationThisMedecin(String idPraticien) {
 	            event.add(Integer.toString(idMedecin));
 
 				List_CTM.add(event);
-				System.out.println("doc bdd"+List_CTM);
 
 	           
 			}
