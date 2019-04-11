@@ -121,7 +121,9 @@ public class Fenetre extends JFrame {
 	        final JPanel panel_medecin2 = new ConsultationMedecin();
 	        
 	        //Menu medoc
-	        //final JPanel panel_medoc = new CreationMedicament();
+	        final JPanel panel_medoc = new CreationMedicament();
+	        final JPanel panel_medoc_2 = new ConsultationMedicament();
+
 
 	        	// Menu Utilisateur
 	        //final JPanel panel_utilisateur = new JPanel();
@@ -149,7 +151,8 @@ public class Fenetre extends JFrame {
             JMenu menu10 = new JMenu("Guillaume");
             AddMenuAction(menu1, panel_accueil);
             AddMenuAction(menu5, panel_agenda1 );
-            //AddMenuAction(menu8, panel_medoc );
+            AddMenuAction(menu8, panel_medoc );
+            AddMenuAction(menu8, panel_medoc_2 );
             AddMenuAction(menu9, panel_utilisateur1 );
 
             //AddMenuAction(menu8, panel_deconnexion);
@@ -168,6 +171,7 @@ public class Fenetre extends JFrame {
             JMenuItem item_medecin1 = new JMenuItem("Ajouter un medecin");
             JMenuItem item_medecin2 = new JMenuItem("Consulter la liste des medecins");
             JMenuItem item_medoc = new JMenuItem("Ajouter un medicament");
+            JMenuItem item_medoc_2 = new JMenuItem("Consulter les medicaments");
             JMenuItem item_utilisateur1 = new JMenuItem("Ajouter un utilisateur");
             JMenuItem item_utilisateur2 = new JMenuItem("Consultation de la liste des utilisateurs");
             AddMenuItemAction(item_compte_rendu1, panel_compte_rendu1);
@@ -180,7 +184,8 @@ public class Fenetre extends JFrame {
             AddMenuItemAction(item_agenda2, panel_agenda2);
             AddMenuItemAction(item_medecin1, panel_medecin1);
             AddMenuItemAction(item_medecin2, panel_medecin2);
-            //AddMenuItemAction(item_medoc, panel_medoc);
+            AddMenuItemAction(item_medoc, panel_medoc);
+            AddMenuItemAction(item_medoc_2, panel_medoc_2);
             AddMenuItemAction(item_utilisateur1, panel_utilisateur1);
             AddMenuItemAction(item_utilisateur2, panel_utilisateur2);
             
@@ -198,6 +203,8 @@ public class Fenetre extends JFrame {
             menu7.add(item_utilisateur1);
             menu7.add(item_utilisateur2);
             menu8.add(item_medoc);
+            menu8.add(item_medoc_2);
+
 
       
             // Ajout des menus dans la barre de menu en fonction du role de l'utilisateur

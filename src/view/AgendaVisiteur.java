@@ -261,7 +261,7 @@ public class AgendaVisiteur extends JPanel {
 
 		this.add(titre);
 		this.add(visiteurs);
-		this.add(top);
+		/*this.add(top);
 		top.add(tableau);
 		top.add(tableauII);
 		top.add(tableauIII);
@@ -277,7 +277,7 @@ public class AgendaVisiteur extends JPanel {
 	    tableau.add(mercredi);
 	    tableau.add(jeudi);
 	    tableau.add(vendredi);
-	    tableau.add(samedi);
+	    tableau.add(samedi);*/
 
 	}
 

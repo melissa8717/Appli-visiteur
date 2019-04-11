@@ -32,7 +32,7 @@ public class ConsultationMedecin extends JPanel {
 		Font font = new Font("Open Sans", Font.PLAIN, 18);
 	
 		this.add(bienvenue);
-
+//liste de tous les medecins dans le select
 		List<List> List_Med = controller.Medecin.listMedecin();
 
 		List<String> ListIDMed = new ArrayList<String>();
@@ -55,11 +55,17 @@ public class ConsultationMedecin extends JPanel {
 		JLabel listMed = new JLabel("Choisir un médecin");
 		choisir.add(nomMedecinCombo);
 		choisir.add(listMed);
+		JPanel all = new JPanel();
+		all.setBackground(new Color(255, 255, 255));
+		all.setPreferredSize(new Dimension(1500,215));
 		this.add(choisir);
+		this.add(all);
+		all.setFont(font);
+
 		
 		TitreSecondaire titreSec = new TitreSecondaire("Dernier médecin ajouté :");
-		this.add(titreSec);
-
+		all.add(titreSec);
+//ouvrir le medecin choisit 
 		nomMedecinCombo.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent ae) {
@@ -93,7 +99,7 @@ public class ConsultationMedecin extends JPanel {
 				
 				JPanel contenu = new JPanel();
 				contenu.setBackground(Color.white);
-				contenu.setPreferredSize(new Dimension(2000,215));
+				contenu.setPreferredSize(new Dimension(1500,115));
 
 				JPanel nomMedecin = new JPanel();
 				JLabel nomMedecinLabel = new JLabel("Nom du medecin :");
@@ -199,6 +205,7 @@ public class ConsultationMedecin extends JPanel {
 
 			}
 		});		
+		// voir le dernier medecin ajouter
 		
 		List<List> List_Last = controller.Medecin.listLastMedecin();
 		String idMed = null;
@@ -226,7 +233,7 @@ public class ConsultationMedecin extends JPanel {
 		
 		JPanel contenu = new JPanel();
 		contenu.setBackground(Color.white);
-		contenu.setPreferredSize(new Dimension(2000,215));
+		contenu.setPreferredSize(new Dimension(1500,115));
 
 		JPanel nomMedecin = new JPanel();
 		JLabel nomMedecinLabel = new JLabel("Nom du medecin :");
@@ -304,24 +311,29 @@ public class ConsultationMedecin extends JPanel {
 			}
 		});
 		this.add(contenu);
-		contenu.add(nomMedecin);
+		all.setBackground(new Color(255, 255, 255));
+		all.add(nomMedecin);
+		nomMedecin.setBackground(new Color(255, 255, 255));
 		nomMedecin.add(nomMedecinLabel);
 		nomMedecin.add(nomMedecinArea);
 		nomMedecin.add(prenomMedecinLabel);
 		nomMedecin.add(prenomMedecinArea);
 		nomMedecin.add(speMedecinLabel);
 		nomMedecin.add(speMedecinArea);
-		contenu.add(adresseMedecin);
+		all.add(adresseMedecin);
+		adresseMedecin.setBackground(new Color(255, 255, 255));
 		adresseMedecin.add(adresseMedecinLabel);
 		adresseMedecin.add(adresseMedecinArea);
 		adresseMedecin.add(villeMedecinLabel);
 		adresseMedecin.add(villeMedecinArea);
 		adresseMedecin.add(cpMedecinLabel);
 		adresseMedecin.add(cpMedecinArea);
-		contenu.add(telMedecin);
+		all.add(telMedecin);
+		telMedecin.setBackground(new Color(255, 255, 255));
 		telMedecin.add(telMedecinLabel);
 		telMedecin.add(telMedecinArea);
 		contenu.add(modifier);
+		modifier.setBackground(new Color(255, 255, 255));
 		modifier.add(modifierButton);
 		modifier.add(supButton);
 		
